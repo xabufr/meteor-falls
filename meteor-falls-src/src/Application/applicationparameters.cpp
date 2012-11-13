@@ -1,11 +1,20 @@
 #include "applicationparameters.h"
 #include "Application/parameterparserexception.h"
+#include "Utils/Exception/BasicException.h"
 #include <iostream>
 
 ApplicationParameters::ApplicationParameters(int argc, char** argv)
 {
     m_setDefault();
-    m_parse(argc, argv);
+    std::vector<std::string> args;
+    for(int i=1;i<argc;++i)
+        args.push_back(std::string(argv[i]));
+    m_parse(args);
+}
+ApplicationParameters::ApplicationParameters(std::vector<std::string> args)
+{
+    m_setDefault();
+    m_parse(args);
 }
 
 ApplicationParameters::~ApplicationParameters()
@@ -16,13 +25,13 @@ ApplicationParametersKeys & ApplicationParameters::getKeys()
     return m_keys;
 }
 
-void ApplicationParameters::m_parse(int argc, char** argv)
+void ApplicationParameters::m_parse(std::vector<std::string> args)
 {
     bool settingargument = false;
     std::string argument;
-    for(int i=1;i<argc;++i)
+    for(size_t i=0;i<args.size();++i)
     {
-        std::string arg = argv[i];
+        std::string arg = args[i];
         if(!settingargument)
         {
             if(arg.size()>2)
@@ -41,8 +50,12 @@ void ApplicationParameters::m_parse(int argc, char** argv)
                 }
                 else
                 {
-                    throw std::exception();
+                    throw ParameterParserException(arg);
                 }
+            }
+            else
+            {
+                THROW_BASIC_EXCEPTION(arg);
             }
         }
         else

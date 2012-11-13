@@ -1,13 +1,16 @@
+#ifdef UNIT_TEST
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MAIN
+#include "UnitTest/UnitTest.h"
+
+#else
 #include <iostream>
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
-#include "UnitTest/UnitTest.h"
 
 int main(int argc, char **argv)
 {
-#ifdef UNIT_TEST
-        launchUnitTestForSound();
-#else
+
     try
     {
         Application app(argc, argv);
@@ -18,6 +21,6 @@ int main(int argc, char **argv)
     catch(std::exception &e){
         std::cout << e.what() << std::endl;
     }
-#endif
     return 0;
 }
+#endif
