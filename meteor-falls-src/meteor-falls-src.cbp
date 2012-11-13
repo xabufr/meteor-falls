@@ -8,24 +8,40 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="../build/Debug/meteor-falls-src" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../build/" />
 				<Option object_output="../obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="`pkg-config --cflags OGRE`" />
+					<Add option="-DDEBUG" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
 				<Option output="../build/Release/meteor-falls-src" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../build/" />
 				<Option object_output="../obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DRELEASE" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
+			</Target>
+			<Target title="UnitTest">
+				<Option output="../build/UnitTest/meteor-falls-src" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../build/" />
+				<Option object_output="../obj/UnitTest/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DUNIT_TEST" />
+				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
@@ -40,13 +56,14 @@
 			<Add option="-lsfml-audio" />
 			<Add option="-lsfml-system" />
 			<Add option="-lCEGUIBase" />
+			<Add option="-lozcollide" />
 		</Linker>
-<<<<<<< HEAD
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />
 		<Unit filename="src/Application/applicationparameters.h" />
-=======
+		<Unit filename="src/Application/parameterparserexception.cpp" />
+		<Unit filename="src/Application/parameterparserexception.h" />
 		<Unit filename="src/Engine/Engine.cpp" />
 		<Unit filename="src/Engine/Engine.h" />
 		<Unit filename="src/Engine/EngineMessage/EngineMessage.cpp" />
@@ -55,6 +72,12 @@
 		<Unit filename="src/Engine/EngineMessage/EngineMessageType.h" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
@@ -62,14 +85,25 @@
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
 		<Unit filename="src/UnitTest/UnitTest.cpp" />
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Exception/BasicException.cpp" />
+		<Unit filename="src/Utils/Exception/BasicException.h" />
 		<Unit filename="src/Utils/Vector3D.cpp" />
 		<Unit filename="src/Utils/Vector3D.h" />
->>>>>>> e387cd5e9b8960b3496d316f4c7d59e103615ed7
+		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

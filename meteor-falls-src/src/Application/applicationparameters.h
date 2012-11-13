@@ -10,7 +10,7 @@ class ApplicationParameters
     public:
         ApplicationParameters(int argc, char **argv);
         virtual ~ApplicationParameters();
-        const ApplicationParametersKeys & getKeys() const;
+        ApplicationParametersKeys & getKeys();
 
     private:
         ApplicationParametersKeys m_keys;

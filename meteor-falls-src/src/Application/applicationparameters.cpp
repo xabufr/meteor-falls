@@ -11,7 +11,7 @@ ApplicationParameters::ApplicationParameters(int argc, char** argv)
 ApplicationParameters::~ApplicationParameters()
 {
 }
-const ApplicationParametersKeys & ApplicationParameters::getKeys() const
+ApplicationParametersKeys & ApplicationParameters::getKeys()
 {
     return m_keys;
 }

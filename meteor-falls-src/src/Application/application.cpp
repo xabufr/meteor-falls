@@ -1,13 +1,20 @@
 #include "application.h"
 #include <iostream>
+#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 
 Application::Application(int argc, char **argv): m_params(argc, argv)
 {
-    const ApplicationParametersKeys &parameters = m_params.getKeys();
+    ApplicationParametersKeys &parameters = m_params.getKeys();
     if(parameters.find("help")->second=="y")
     {
         showHelp();
         return;
+    }
+    if(parameters["gui"]=="y"){
+        OgreContextManager::get();
+    }
+    else{
+
     }
 }
 
