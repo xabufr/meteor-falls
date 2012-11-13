@@ -1,0 +1,4 @@
+# depslib dependency file v1.0
+1352800072 source:/home/thomas/meteor-falls/meteor-falls-src/src/main.cpp
+	<iostream>
+
