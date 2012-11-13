@@ -14,3 +14,4 @@
 build/Debug/*
 build/Release/*
 obj/*
+meteor-falls-src/meteor-falls-src.layout

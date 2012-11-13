@@ -41,10 +41,30 @@
 			<Add option="-lsfml-system" />
 			<Add option="-lCEGUIBase" />
 		</Linker>
+<<<<<<< HEAD
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />
 		<Unit filename="src/Application/applicationparameters.h" />
+=======
+		<Unit filename="src/Engine/Engine.cpp" />
+		<Unit filename="src/Engine/Engine.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessage.cpp" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessage.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessageKey.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessageType.h" />
+		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
+		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
+		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
+		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="src/UnitTest/UnitTest.cpp" />
+		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Vector3D.cpp" />
+		<Unit filename="src/Utils/Vector3D.h" />
+>>>>>>> e387cd5e9b8960b3496d316f4c7d59e103615ed7
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
