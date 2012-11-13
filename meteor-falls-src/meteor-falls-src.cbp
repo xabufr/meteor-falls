@@ -29,8 +29,10 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="src" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -39,6 +41,10 @@
 			<Add option="-lsfml-system" />
 			<Add option="-lCEGUIBase" />
 		</Linker>
+		<Unit filename="src/Application/application.cpp" />
+		<Unit filename="src/Application/application.h" />
+		<Unit filename="src/Application/applicationparameters.cpp" />
+		<Unit filename="src/Application/applicationparameters.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />

@@ -1,4 +1,29 @@
 # depslib dependency file v1.0
-1352800072 source:/home/thomas/meteor-falls/meteor-falls-src/src/main.cpp
+1352818749 source:/home/thomas/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
+	"Application/application.h"
+	"Application/parameterparserexception.h"
+
+1352818711 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/application.cpp
+	"application.h"
+	<iostream>
+
+1352818978 /home/thomas/meteor-falls/meteor-falls-src/src/Application/application.h
+	"Application/applicationparameters.h"
+
+1352818933 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
+	"applicationparameters.h"
+	"Application/parameterparserexception.h"
+	<iostream>
+
+1352815279 /home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.h
+	<unordered_map>
+	<string>
+
+1352818425 /home/thomas/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.h
+	<exception>
+	<string>
+
+1352818432 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.cpp
+	"parameterparserexception.h"
 
