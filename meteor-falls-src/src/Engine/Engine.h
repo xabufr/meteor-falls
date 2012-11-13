@@ -1,3 +1,6 @@
+#ifndef ENGINE_H
+#define ENGINE_H
+
 class EngineMessage;
 
 enum EngineType
@@ -21,3 +24,5 @@ class Engine
      virtual EngineType getType() = 0;
 
 };
+
+#endif // ENGINE_H
