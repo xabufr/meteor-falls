@@ -42,12 +42,16 @@
 					<Add option="-g" />
 					<Add option="-DUNIT_TEST" />
 				</Compiler>
+				<Linker>
+					<Add option="-lboost_unit_test_framework" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="`pkg-config --cflags OGRE`" />
 			<Add directory="src" />
 		</Compiler>
 		<Linker>
@@ -83,7 +87,12 @@
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
-		<Unit filename="src/UnitTest/UnitTest.cpp" />
+		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp">
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="src/UnitTest/UnitTest.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
