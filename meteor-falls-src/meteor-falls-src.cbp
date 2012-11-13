@@ -32,6 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add option="-lOgreMain" />
+			<Add option="-lOIS" />
+			<Add option="-lsfml-audio" />
+			<Add option="-lsfml-system" />
+			<Add option="-lCEGUIBase" />
+		</Linker>
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
