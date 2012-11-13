@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="src/Engine/MessageEngine/MessageEngine.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="26" topLine="0" />
-	</File>
-	<File name="src/Engine/MessageEngine/MessageEngine.h" open="1" top="1" tabpos="1">
-		<Cursor position="50" topLine="0" />
+	<File name="src/Engine/Engine.h" open="0" top="0" tabpos="0">
+		<Cursor position="127" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

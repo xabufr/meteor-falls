@@ -40,18 +40,22 @@
 			<Add option="-lCEGUIBase" />
 		</Linker>
 		<Unit filename="src/Engine/Engine.cpp" />
+		<Unit filename="src/Engine/Engine.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessage.cpp" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessage.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessageKey.h" />
+		<Unit filename="src/Engine/EngineMessage/EngineMessageType.h" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
-		<Unit filename="src/Engine/MessageEngine/EngineMessageKey.h" />
-		<Unit filename="src/Engine/MessageEngine/EngineMessageType.h" />
-		<Unit filename="src/Engine/MessageEngine/MessageEngine.cpp" />
-		<Unit filename="src/Engine/MessageEngine/MessageEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
-		<Unit filename="src/EngineMessageKey.cpp" />
-		<Unit filename="src/EngineMessageType.cpp" />
+		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="src/UnitTest/UnitTest.cpp" />
+		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Vector3D.cpp" />
+		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
