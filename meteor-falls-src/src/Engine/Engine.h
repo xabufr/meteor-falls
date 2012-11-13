@@ -13,7 +13,7 @@ class Engine
 
 };
 
-enum engineType
+enum EngineType
 
 {
     NetworkEngine = 0,
