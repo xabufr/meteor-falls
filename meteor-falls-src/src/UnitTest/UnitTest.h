@@ -1,4 +1,2 @@
-#include "../Engine/SoundEngine/SoundEngine.h"
-
-void launchUnitTestForSound();
+#include <boost/test/unit_test.hpp>
 

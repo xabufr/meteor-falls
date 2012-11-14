@@ -16,8 +16,7 @@ void EngineMessage::setFromType(EngineType p_from_type){
 }
 
 void EngineMessage::addTo(Engine* p_to){
-    int i;
-    for(i=0;i<=m_to.size();i++){
+    for(unsigned int i=0;i<=m_to.size();i++){
         if(p_to == m_to[i]){
             return ;
         }
