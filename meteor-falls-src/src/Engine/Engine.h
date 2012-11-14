@@ -1,17 +1,7 @@
-
-#include <iostream>
+#ifndef ENGINE_H
+#define ENGINE_H
 
 class EngineMessage;
-
-class Engine
-{
-    public:
-
-     virtual void handleMessage(const EngineMessage&) = 0;
-     virtual void work() = 0;
-     virtual void getType() = 0;
-
-};
 
 enum EngineType
 
@@ -24,3 +14,15 @@ enum EngineType
     ScriptEngine = 5,
 
 };
+
+class Engine
+{
+    public:
+
+     virtual void handleMessage(const EngineMessage&) = 0;
+     virtual void work() = 0;
+     virtual EngineType getType() = 0;
+
+};
+
+#endif // ENGINE_H

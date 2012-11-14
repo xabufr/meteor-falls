@@ -1,5 +1,6 @@
-#include "UnitTest.h"
-#include <string.h>
+#include "../UnitTest.h"
+#include "Engine/SoundEngine/SoundEngine.h"
+#include <string>
 #include <iostream>
 #include <stdio.h>
 #include <map>
@@ -10,9 +11,10 @@ void launchUnitTests()
     launchUnitTestForSound();
 }
 
-void launchUnitTestForSound()
-{
 
+
+BOOST_AUTO_TEST_CASE(SoundEngineTest)
+{
     SoundEngine MyAudio;
 
     MyAudio.addMusic("../sound/music/test/02.ogg");
@@ -49,6 +51,8 @@ void launchUnitTestForSound()
 
     }
     std::cout << "Sound ok" << std::endl;
-    while(1);
 
 }
+
+
+
