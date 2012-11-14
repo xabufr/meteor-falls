@@ -2,6 +2,24 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="src/Engine/Engine.h" open="0" top="0" tabpos="0">
-		<Cursor position="127" topLine="0" />
+		<Cursor position="14" topLine="0" />
+	</File>
+	<File name="src/Engine/EngineManager/EngineManager.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="214" topLine="0" />
+	</File>
+	<File name="src/Engine/EngineManager/EngineManager.h" open="0" top="0" tabpos="0">
+		<Cursor position="255" topLine="0" />
+	</File>
+	<File name="src/Engine/EngineMessage/EngineMessage.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="54" topLine="0" />
+	</File>
+	<File name="src/Engine/EngineMessage/EngineMessage.h" open="0" top="0" tabpos="0">
+		<Cursor position="240" topLine="2" />
+	</File>
+	<File name="src/Utils/DataChecksum.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="596" topLine="10" />
+	</File>
+	<File name="src/Utils/DataChecksum.h" open="1" top="0" tabpos="1">
+		<Cursor position="122" topLine="3" />
 	</File>
 </CodeBlocks_layout_file>
