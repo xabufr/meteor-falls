@@ -70,6 +70,8 @@
 		<Unit filename="src/Application/parameterparserexception.h" />
 		<Unit filename="src/Engine/Engine.cpp" />
 		<Unit filename="src/Engine/Engine.h" />
+		<Unit filename="src/Engine/EngineManager/EngineManager.cpp" />
+		<Unit filename="src/Engine/EngineManager/EngineManager.h" />
 		<Unit filename="src/Engine/EngineMessage/EngineMessage.cpp" />
 		<Unit filename="src/Engine/EngineMessage/EngineMessage.h" />
 		<Unit filename="src/Engine/EngineMessage/EngineMessageKey.h" />
@@ -94,6 +96,7 @@
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
 		<Unit filename="src/Utils/Vector3D.cpp" />
