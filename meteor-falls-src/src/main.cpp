@@ -1,3 +1,5 @@
+
+#include <iostream>
 #ifdef UNIT_TEST
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MAIN
@@ -8,8 +10,13 @@
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
 
+    #include "UnitTest/Tests/SoundEngineTest.cpp"
+
 int main(int argc, char **argv)
 {
+
+    launchUnitTestForSound();
+
     try
     {
         Application app(argc, argv);
