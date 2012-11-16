@@ -3,51 +3,40 @@
 
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
-#include <boost/array.hpp>
-#include <boost/thread.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/thread.hpp>
-#include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
-#include <queue>
+#include "Connection.h"
 
-class TcpConnection : public boost::enable_shared_from_this<TcpConnection>
+class TcpConnection : public Connection, public boost::enable_shared_from_this<TcpConnection>
 {
-    public:
-        typedef boost::shared_ptr<TcpConnection> pointer;
-        static pointer create(boost::asio::io_service& service, boost::asio::ip::tcp::endpoint& endpoint);
+    typedef boost::shared_ptr<TcpConnection> pointer;
 
-        bool hasData();
-        std::string getData();
+public:
+    static pointer create(boost::shared_ptr<boost::asio::io_service>);
+    void send(std::string data);
+    void startListen();
+    void connect(boost::asio::ip::tcp::endpoint &e);
 
-        bool hasError();
-        boost::system::error_code getError();
+    bool hasData();
+    std::string getData();
 
-        void send(std::string data);
+    boost::asio::ip::tcp::socket& socket();
 
-        virtual ~TcpConnection();
-        void readHeader(const boost::system::error_code& error);
-        void readData(const boost::system::error_code& error);
-        void handleConnect(const boost::system::error_code& error);
-        void handleWrite(const boost::system::error_code& error);
-    protected:
-    private:
+protected:
+    void handleReadHeader(const boost::system::error_code&);
+    void handleReadData(const boost::system::error_code&);
+    void handleSendData(std::string);
 
+    void handleConnect(const boost::system::error_code&);
 
+private:
+    TcpConnection(boost::shared_ptr<boost::asio::io_service>);
 
-        TcpConnection(boost::asio::io_service& service, boost::asio::ip::tcp::endpoint& endpoint);
+    boost::asio::ip::tcp::socket *m_socket;
+    boost::mutex m_mutex_buffer;
+    std::queue<std::string> m_buffer_queue;
 
-
-        boost::asio::ip::tcp::socket *m_socket;
-        std::vector<char> m_input_buffer;
-
-        std::queue<std::string> m_queue_buffer;
-        std::queue<boost::system::error_code> m_queue_error;
-
-        boost::mutex m_mutex_buffer;
-        boost::mutex m_mutex_error;
-        enum{ m_header_size = 8 };
-        char m_input_header_buffer[m_header_size];
+    enum { header_size = 8 };
+    char m_header_data[header_size];
 };
 
 #endif // TCPCONNECTION_H

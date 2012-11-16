@@ -1603,21 +1603,16 @@
 1352897249 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
 	"Engine/Engine.h"
 
-1353009290 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
+1353062025 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
 	"TcpConnection.h"
 	<boost/bind.hpp>
-	<iostream>
+	<iomanip>
 
-1353009305 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
+1353061716 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
 	<boost/asio.hpp>
 	<boost/enable_shared_from_this.hpp>
-	<boost/array.hpp>
-	<boost/thread.hpp>
-	<boost/thread/mutex.hpp>
-	<boost/thread/thread.hpp>
-	<boost/bind.hpp>
 	<boost/shared_ptr.hpp>
-	<queue>
+	"Connection.h"
 
 1352904767 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
 	"ClientNetworkEngineLan.h"
@@ -1625,10 +1620,15 @@
 1352910306 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
 	"Engine/NetworkEngine/clientnetworkengine.h"
 
-1352905542 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.cpp
+1353016488 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.cpp
 	"UdpConnection.h"
 
-1352905542 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h
+1353016354 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h
+	<boost/thread.hpp>
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/asio.hpp>
+	<queue>
 
 1353009397 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
 	"EngineManager.h"
@@ -1636,4 +1636,12 @@
 1353009397 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.h
 	<vector>
 	"../Engine.h"
+
+1353059666 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
+	"Connection.h"
+
+1353061588 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	<boost/thread/mutex.hpp>
+	<boost/asio.hpp>
+	<queue>
 
