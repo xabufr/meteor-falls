@@ -21,6 +21,8 @@ public:
 
     boost::asio::ip::tcp::socket& socket();
 
+    ~TcpConnection();
+
 protected:
     void handleReadHeader(const boost::system::error_code&);
     void handleReadData(const boost::system::error_code&);

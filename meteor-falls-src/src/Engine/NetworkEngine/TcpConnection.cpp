@@ -130,3 +130,7 @@ boost::asio::ip::tcp::socket& TcpConnection::socket()
 {
     return *m_socket;
 }
+TcpConnection::~TcpConnection()
+{
+    delete m_socket;
+}

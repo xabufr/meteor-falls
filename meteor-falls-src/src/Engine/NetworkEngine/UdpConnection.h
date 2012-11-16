@@ -1,46 +1,52 @@
 #ifndef UDPCONNECTION_H
 #define UDPCONNECTION_H
 
-#include <boost/thread.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
+#include "Connection.h"
 #include <boost/asio.hpp>
-#include <queue>
 
-class UdpConnection : public boost::enable_shared_from_this<UdpConnection>
+class UdpConnection : public Connection, public boost::enable_shared_from_this<UdpConnection>
 {
     typedef boost::shared_ptr<UdpConnection> pointer;
-    public:
-        static pointer create(boost::asio::io_service &s);
+    typedef std::pair<boost::asio::ip::udp::endpoint, std::string> Data;
+public:
+    static pointer create(boost::shared_ptr<boost::asio::io_service> s);
 
-        void setEndpoint(boost::asio::ip::udp::endpoint &e);
+    void connect(boost::asio::ip::udp::endpoint &e);
+    boost::asio::ip::udp::endpoint getConnectionEndpoint();
 
-        void send(std::string data);
-        void send(std::string data, boost::asio::ip::udp::endpoint &e);
+    virtual void startListen();
 
-        void read_header(const boost::system::error_code& error);
-        void read_data(const boost::system::error_code& error);
+    virtual bool hasData();
+    Data getData();
 
-        void handleSend(const boost::system::error_code& error);
+    virtual void send(std::string data);
+    void send(std::string data, boost::asio::ip::udp::endpoint e);
 
-        void bind(boost::asio::ip::udp::endpoint &e);
+    void bind(boost::asio::ip::udp::endpoint e);
 
-        virtual ~UdpConnection();
-    protected:
-    private:
-        UdpConnection(boost::asio::io_service &service);
+    virtual ~UdpConnection();
+protected:
+    virtual void handleReadHeader(const boost::system::error_code&);
+    virtual void handleReadData(const boost::system::error_code&);
+    void handleSendData(std::string, boost::asio::ip::udp::endpoint);
+    void handleSendData(std::string){}
+    void handleStartReceive();
 
-        boost::asio::ip::udp::endpoint m_endpoint;
-        boost::asio::ip::udp::socket m_socket;
+private:
+    UdpConnection(boost::shared_ptr<boost::asio::io_service> service);
 
-        std::queue<std::string> m_queue_buffers;
-        std::queue<boost::system::error_code> m_queue_errors;
+    boost::asio::ip::udp::endpoint m_endpointConnection, m_endpointSender;
+    boost::asio::ip::udp::socket *m_socket;
 
-        boost::mutex m_mutex_error, m_mutex_buffers;
+    std::queue<std::pair<boost::asio::ip::udp::endpoint, std::string>> m_queue_buffers;
 
-        std::vector<char> m_buffer_receive;
-        enum{ header_size = 8 };
-        char m_header_data[header_size];
+    boost::mutex m_mutex_buffers, m_mutex_connexion_endpoint;
+
+    std::vector<char> m_buffer_receive;
+    enum { header_size = 8 };
+    char m_header_data[header_size];
 };
 
 #endif // UDPCONNECTION_H
