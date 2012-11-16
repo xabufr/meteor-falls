@@ -61,6 +61,7 @@
 			<Add option="-lsfml-system" />
 			<Add option="-lCEGUIBase" />
 			<Add option="-lozcollide" />
+			<Add option="-lboost_system" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -84,7 +85,16 @@
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
+		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.h" />
+		<Unit filename="src/Engine/NetworkEngine/TcpConnection.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/TcpConnection.h" />
+		<Unit filename="src/Engine/NetworkEngine/UdpConnection.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/UdpConnection.h" />
+		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
