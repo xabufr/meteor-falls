@@ -20,12 +20,13 @@
 
 1352821093 D
 
-1352897107 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/main.cpp
+1352914640 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
 	"UnitTest/UnitTest.h"
 	<iostream>
 	"Application/application.h"
 	"Application/parameterparserexception.h"
+	"UnitTest/Tests/SoundEngineTest.cpp"
 
 1352845664 /home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.h
 	<unordered_map>
@@ -58,10 +59,10 @@
 
 1352811690 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
 
-1352845511 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
+1352968104 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
 	"SoundEngine.h"
 
-1352845154 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
+1352968076 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
 	<string.h>
 	<iostream>
 	<stdio.h>
@@ -3141,4 +3142,14 @@
 
 1352896706 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Utils/Vector3D.cpp
 	"Vector3D.h"
+
+1352974237 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
+	"../UnitTest.h"
+	"Engine/SoundEngine/SoundEngine.h"
+	<string>
+	<iostream>
+	<stdio.h>
+	<map>
+	<assert.h>
+	<SFML/Audio.hpp>
 
