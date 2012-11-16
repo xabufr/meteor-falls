@@ -89,6 +89,8 @@
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="src/State/SateManager.cpp" />
+		<Unit filename="src/State/SateManager.h" />
 		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
