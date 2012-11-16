@@ -23,10 +23,24 @@ void launchUnitTestForSound()
     MyAudio.addMusic("../sound/music/test/01.ogg");
 
     MyAudio.readAudio();
+
     assert(MyAudio.get_HowManyMusic() == 3);
     assert(MyAudio.get_MusicPlayed() == 1);
 
-//    MyAudio.setPos_3D(100,100,5); //x,y,z
+    MyAudio.setPos_Depth(1,100);
+    assert(MyAudio.get_attenuation() == 100);
+
+    MyAudio.setPos_Depth(1,12);
+    assert(MyAudio.get_attenuation() == 12);
+
+
+    sf::Vector3f MyVector3F;
+    MyVector3F.x = 10;
+    MyVector3F.y = 10;
+    MyVector3F.z = 10;
+
+    MyAudio.setPos_3D(1,MyVector3F);
+    assert(MyAudio.getPos_3D() == MyVector3F);
 
 
     for (;;)

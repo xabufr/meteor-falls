@@ -6,6 +6,7 @@ SoundEngine::SoundEngine()
         m_pause = false;
         m_volume = 100;
         m_music_playing = 0;
+        m_music = new sf::Music;
 }
 
 void SoundEngine::readAudio()
@@ -16,19 +17,19 @@ void SoundEngine::readAudio()
 
     if (get_Audio_State() != 1)
     {
-        if (!m_music.openFromFile(m_vector_paths_musiques[(m_music_playing)]))// musique en cours (tableau commence a zero)
+        if (!m_music->openFromFile(m_vector_paths_musiques[(m_music_playing)]))// musique en cours (tableau commence a zero)
         {
 
         }
         m_music_playing++;
         std::cout << " musique jouee :  " << m_music_playing<< std::endl;
-        m_music.play();
-        m_temps_ecoule.restart();
+        m_music->play();
+        m_temps_ecoule->restart();
 
         if (m_music_playing > 1)
         {
             m_fading_in = true;
-            m_music.setVolume(1);
+            m_music->setVolume(1);
             m_volume = 1;
             std::cout << " Volume set 1  " << std::endl;
         }
@@ -36,7 +37,7 @@ void SoundEngine::readAudio()
         else
             m_fading_in = false;
 
-        if (m_music.getDuration().asSeconds() < 20)
+        if (m_music->getDuration().asSeconds() < 20)
             m_fading_out = true;
         else
             m_fading_out = false;
@@ -56,7 +57,7 @@ void SoundEngine::m_set_Volume(int type_son, int new_volume)
     if (m_volume > 100)
         m_volume = 100;
 
-    m_music.setVolume(m_volume);
+    m_music->setVolume(m_volume);
 }
 
 void SoundEngine::up_Volume(int type_son)
@@ -66,7 +67,7 @@ void SoundEngine::up_Volume(int type_son)
     if (m_volume > 100)
         m_volume = 100;
 
-    m_music.setVolume(m_volume);
+    m_music->setVolume(m_volume);
 
 }
 
@@ -77,7 +78,7 @@ void SoundEngine::down_Volume(int type_son)
     if (m_volume < 0)
         m_volume = 0;
 
-    m_music.setVolume(m_volume);
+    m_music->setVolume(m_volume);
 }
 
 int SoundEngine::get_Volume()
@@ -107,13 +108,13 @@ int SoundEngine::get_Audio_State()
 
 int SoundEngine::get_Temps_Chanson()
 {
-    int sec_totale_chanson = m_music.getDuration().asSeconds();
+    int sec_totale_chanson = m_music->getDuration().asSeconds();
     return sec_totale_chanson;
 }
 
 int SoundEngine::get_Time_Elapsed()
 {
-    int sec_ecoulees_horloge = m_temps_ecoule.getElapsedTime().asSeconds();
+    int sec_ecoulees_horloge = m_temps_ecoule->getElapsedTime().asSeconds();
     return sec_ecoulees_horloge;
 }
 
@@ -158,7 +159,7 @@ void SoundEngine::make_Fadein()
     int Pourcentage_Stack = 0;
     int new_volume = 0;
 
-    new_volume = 5 * (m_temps_ecoule.getElapsedTime().asSeconds()); // calcul du volume croissant
+    new_volume = 5 * (m_temps_ecoule->getElapsedTime().asSeconds()); // calcul du volume croissant
 
     if (new_volume < 1)
         new_volume = 1;
@@ -170,7 +171,7 @@ void SoundEngine::make_Fadein()
 bool SoundEngine::isFading_In()
 {
 
-    if (m_temps_ecoule.getElapsedTime().asSeconds() > 20)
+    if (m_temps_ecoule->getElapsedTime().asSeconds() > 20)
         m_fading_in = false;
 
             std::cout << "volume" << m_volume<<std::endl;
@@ -193,15 +194,15 @@ void SoundEngine::setPos_Depth(int SoundPlayed, int distance)
 {
 
     m_depth = distance;
-    m_music.setAttenuation(m_depth);
+    m_music->setAttenuation(m_depth);
 
 }
 
 void SoundEngine::setPos_3D(int SoundPlayed, sf::Vector3f p_vector3f)
 {
 
-    m_vector3f = p_vector3f;
-    m_music.setPosition(p_vector3f);
+ //   m_vector3f = p_vector3f;
+    m_music->setPosition(p_vector3f);
 
 }
 
@@ -209,7 +210,7 @@ void SoundEngine::setPos_3D(int SoundPlayed, int x, int y, int z)
 {
 
 
-    m_music.setPosition(x,y,z);
+    m_music->setPosition(x,y,z);
 
 }
 

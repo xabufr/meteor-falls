@@ -33,7 +33,8 @@ class SoundEngine
         void setPos_3D(int SoundPlayed, sf::Vector3f p_vector3f); // situer le son dans l'espace (droite / gauche)
         void setPos_3D(int SoundPlayed, int x, int y, int z); // situer le son dans l'espace (droite / gauche)
         int getPos_Depth() {return m_depth;};
-        sf::Vector3f getPos_3D() {return m_vector3f;};
+        sf::Vector3f getPos_3D() {return m_music->getPosition();};
+        int get_attenuation() { return m_music->getAttenuation();};
 
         // getters
         int get_Audio_State(); // stop / pause / read
@@ -56,9 +57,8 @@ class SoundEngine
         int m_music_playing; // indice de la musique jouée dans le tableau
         bool m_loop; // activer ou non la redondance de la playlist
 
-        sf::Vector3f m_vector3f;
-        sf::Music m_music;
-        sf::Clock m_temps_ecoule;
+        sf::Music *m_music;
+        sf::Clock *m_temps_ecoule;
         std::map <int, std::string> m_audio_state;
         std::vector <std::string> m_vector_paths_musiques; // vecteur de chemins de musiques
 
