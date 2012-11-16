@@ -14,6 +14,7 @@
 
 int main(int argc, char **argv)
 {
+
     launchUnitTestForSound();
 
     try
