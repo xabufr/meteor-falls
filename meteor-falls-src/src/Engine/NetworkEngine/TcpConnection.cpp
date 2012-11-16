@@ -25,6 +25,7 @@ void TcpConnection::handleReadHeader(const boost::system::error_code& e)
         if(!(is>>std::hex>>hs)){
             m_addError(boost::asio::error::basic_errors::invalid_argument);
             setListening(false);
+            startListen();
             return;
         }
         m_data_buffer.resize(hs);
@@ -68,11 +69,8 @@ void TcpConnection::handleSendData(std::string data)
             m_addError(boost::asio::error::basic_errors::invalid_argument);
             return;
         }
-        std::vector<boost::asio::const_buffer> datas({
-                                               boost::asio::buffer(os.str()),
-                                               boost::asio::buffer(data)});
         boost::asio::async_write(*m_socket,
-                                 datas,
+                                 boost::asio::buffer(os.str() + data),
                                  boost::bind(&TcpConnection::handleDataSent,
                                              shared_from_this(),
                                              boost::asio::placeholders::error));
@@ -91,7 +89,7 @@ void TcpConnection::startListen()
     }
 }
 
-void TcpConnection::connect(boost::asio::ip::tcp::endpoint& e)
+void TcpConnection::connect(boost::asio::ip::tcp::endpoint e)
 {
     if(!isConnected()){
         m_socket->async_connect(e,boost::bind(&TcpConnection::handleConnect, shared_from_this(),

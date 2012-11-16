@@ -10,7 +10,7 @@ UdpConnection::pointer UdpConnection::create(boost::shared_ptr<boost::asio::io_s
     return pointer(new UdpConnection(s));
 }
 
-void UdpConnection::connect(boost::asio::ip::udp::endpoint& e)
+void UdpConnection::connect(boost::asio::ip::udp::endpoint e)
 {
     setConnected(true);
     boost::mutex::scoped_lock l(m_mutex_connexion_endpoint);

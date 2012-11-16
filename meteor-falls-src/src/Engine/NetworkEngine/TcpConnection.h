@@ -8,13 +8,13 @@
 
 class TcpConnection : public Connection, public boost::enable_shared_from_this<TcpConnection>
 {
+public:
     typedef boost::shared_ptr<TcpConnection> pointer;
 
-public:
     static pointer create(boost::shared_ptr<boost::asio::io_service>);
     void send(std::string data);
     void startListen();
-    void connect(boost::asio::ip::tcp::endpoint &e);
+    void connect(boost::asio::ip::tcp::endpoint e);
 
     bool hasData();
     std::string getData();

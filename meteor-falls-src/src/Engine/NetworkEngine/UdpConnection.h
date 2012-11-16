@@ -8,12 +8,13 @@
 
 class UdpConnection : public Connection, public boost::enable_shared_from_this<UdpConnection>
 {
+public:
     typedef boost::shared_ptr<UdpConnection> pointer;
     typedef std::pair<boost::asio::ip::udp::endpoint, std::string> Data;
-public:
+
     static pointer create(boost::shared_ptr<boost::asio::io_service> s);
 
-    void connect(boost::asio::ip::udp::endpoint &e);
+    void connect(boost::asio::ip::udp::endpoint e);
     boost::asio::ip::udp::endpoint getConnectionEndpoint();
 
     virtual void startListen();
