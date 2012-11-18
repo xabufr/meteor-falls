@@ -79,6 +79,8 @@
 			<Add option="-fexceptions" />
 			<Add option="`pkg-config --cflags OGRE`" />
 			<Add directory="src" />
+			<Add directory="libs/ozcollidelib_1-1-1/include/" />
+			<Add directory="libs/rapidxml/" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -135,6 +137,9 @@
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.h" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
 		<Unit filename="src/State/State.cpp" />

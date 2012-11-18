@@ -1,64 +1,219 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-<<<<<<< HEAD
-	<ActiveTarget name="UnitTest" />
-	<File name="src/Engine/Engine.h" open="0" top="0" tabpos="0">
-		<Cursor position="14" topLine="0" />
-	</File>
-	<File name="src/Engine/EngineManager/EngineManager.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="214" topLine="0" />
-	</File>
-	<File name="src/Engine/EngineManager/EngineManager.h" open="0" top="0" tabpos="0">
-		<Cursor position="255" topLine="0" />
-	</File>
-	<File name="src/Engine/EngineMessage/EngineMessage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="916" topLine="21" />
-	</File>
-	<File name="src/Engine/EngineMessage/EngineMessage.h" open="0" top="0" tabpos="0">
-		<Cursor position="240" topLine="19" />
-	</File>
-	<File name="src/State/State.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="140" topLine="0" />
-	</File>
-	<File name="src/State/State.h" open="1" top="1" tabpos="1">
-		<Cursor position="97" topLine="0" />
-	</File>
-	<File name="src/State/StateManager.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="223" topLine="0" />
-	</File>
-	<File name="src/State/StateManager.h" open="1" top="0" tabpos="3">
-		<Cursor position="34" topLine="0" />
-	</File>
-	<File name="src/UnitTest/Tests/ApplicationParametersTest.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="819" topLine="0" />
-	</File>
-	<File name="src/UnitTest/Tests/SoundEngineTest.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="133" topLine="0" />
-	</File>
-	<File name="src/Utils/DataChecksum.h" open="0" top="0" tabpos="1">
-		<Cursor position="98" topLine="0" />
-=======
 	<ActiveTarget name="Debug" />
-	<File name="src/Engine/Engine.h" open="0" top="0" tabpos="0">
-		<Cursor position="57" topLine="0" />
+	<File name="src/Engine/NetworkEngine/NetworkMainTest.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="542" topLine="11" />
+		</Cursor>
 	</File>
-	<File name="src/Engine/SoundEngine/SoundEngine.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="3566" topLine="170" />
+	<File name="src/Engine/EngineMessage/EngineMessageKey.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="100" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/Engine/SoundEngine/SoundEngine.h" open="1" top="0" tabpos="1">
-		<Cursor position="1015" topLine="25" />
+	<File name="src/Engine/EngineMessage/EngineMessage.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="391" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/UnitTest/Tests/ApplicationParametersTest.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="216" topLine="6" />
+	<File name="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="235" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/UnitTest/Tests/SoundEngineTest.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="1219" topLine="33" />
+	<File name="src/Engine/SoundEngine/SoundEngine.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="225" topLine="193" />
+		</Cursor>
 	</File>
-	<File name="src/UnitTest/UnitTest.h" open="0" top="0" tabpos="4">
-		<Cursor position="145" topLine="0" />
+	<File name="src/Engine/NetworkEngine/ServerClient.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="504" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/main.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="285" topLine="2" />
->>>>>>> 4c68fb9d98ac609f63fb5c99be365d1e601a159d
+	<File name="src/UnitTest/Tests/SoundEngineTest.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="294" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/UnitTest/Tests/ApplicationParametersTest.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="945" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/Connection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="838" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/NetworkEngine.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1220" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="src/Application/applicationparameters.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="126" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Utils/singleton.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="74" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/ScriptEngine/ScriptEngine.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/TcpConnection.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3686" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/clientnetworkengine.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/ScriptEngine/ScriptEngine.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="51" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/Engine.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="296" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="src/Application/application.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="217" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/ServerNetworkEngine.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="947" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/TcpConnection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="420" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/clientnetworkengine.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1074" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="src/Application/applicationparameters.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1592" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="238" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="102" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="788" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/GraphicEngine/Ogre/OgreApplication.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="53" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/EngineManager/EngineManager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="253" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/EngineMessage/EngineMessage.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="712" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="src/main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="214" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="386" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/ServerClient.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="315" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/NetworkEngine.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="391" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/SoundEngine/SoundEngine.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="475" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Application/application.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="98" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/UdpConnection.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="305" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/UnitTest/UnitTest.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/NetworkIpAdressFinder.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="162" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="421" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/ServerNetworkEngine.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="167" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="src/Utils/Vector3D.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2710" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/GraphicEngine/Ogre/OgreApplication.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="365" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Engine/NetworkEngine/UdpConnection.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="531" topLine="12" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
