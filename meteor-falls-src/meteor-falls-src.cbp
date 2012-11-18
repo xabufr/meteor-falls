@@ -159,6 +159,8 @@
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
+		<Unit filename="src/Utils/Exception/FileNotFound.cpp" />
+		<Unit filename="src/Utils/Exception/FileNotFound.h" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp">
