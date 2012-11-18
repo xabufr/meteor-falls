@@ -88,6 +88,7 @@
 			<Add option="-lCEGUIBase" />
 			<Add option="-lozcollide" />
 			<Add option="-lboost_system" />
+			<Add option="-lboost_serialization" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -149,7 +150,6 @@
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
-		<Unit filename="src/Utils/Vector3D.cpp" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp">

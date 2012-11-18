@@ -8,17 +8,17 @@
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
-        ClientNetworkEngine();
+        ClientNetworkEngine(EngineManager*);
         virtual ~ClientNetworkEngine();
 
         virtual void work();
         virtual void handleMessage(const EngineMessage &e);
 
         virtual void sendToAllTcp(const EngineMessage &e);
-        void send(std::string data);
         virtual void sendToAllUdp(const EngineMessage &e){};
 
         void connect(std::string, unsigned short);
+        int getState() const;
     protected:
     private:
         TcpConnection::pointer m_tcp;
@@ -26,6 +26,13 @@ class ClientNetworkEngine : public NetworkEngine
 
         boost::asio::ip::address m_serverAddress;
         unsigned short m_port;
+
+        enum ClientNetworkEngineState{
+            CONNECTING,
+            CONNECTED,
+            AUTHENTIFICATING,
+            NONE
+        } m_state;
 };
 
 #endif // CLIENTNETWORKENGINE_H

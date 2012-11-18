@@ -9,11 +9,18 @@
 class ServerNetworkEngine : public NetworkEngine
 {
     public:
-        ServerNetworkEngine(unsigned short port);
+        ServerNetworkEngine(EngineManager*, unsigned short port);
         virtual ~ServerNetworkEngine();
 
         void handleMessage(const EngineMessage&);
         void work();
+        void removeClient(ServerClient& c);
+        void sendToAllTcp(EngineMessage*);
+        void sendToAllExcluding(unsigned int id, EngineMessage*);
+
+        static void sendToTcp(ServerClient&, EngineMessage*);
+        static void sendToTcp(ServerClient&, std::string);
+
     protected:
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);

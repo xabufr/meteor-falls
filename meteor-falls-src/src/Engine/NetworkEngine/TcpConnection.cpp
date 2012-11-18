@@ -15,6 +15,9 @@ void TcpConnection::send(std::string data)
 void TcpConnection::handleReadHeader(const boost::system::error_code& e)
 {
     if(e){
+        if(e==boost::asio::error::misc_errors::eof){
+            setConnected(false);
+        }
         m_addError(e);
         setListening(false);
         return;
@@ -41,6 +44,9 @@ void TcpConnection::handleReadData(const boost::system::error_code& e)
 {
     if(e)
     {
+        if(e==boost::asio::error::misc_errors::eof){
+            setConnected(false);
+        }
         m_addError(e);
         setListening(false);
         return;

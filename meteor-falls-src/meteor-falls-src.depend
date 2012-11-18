@@ -171,21 +171,25 @@
 
 1352821093 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 
-1353099146 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
+1353253880 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
 	"Engine/NetworkEngine/NetworkEngine.h"
+	<boost/archive/text_iarchive.hpp>
+	<boost/archive/text_oarchive.hpp>
+	"Engine/EngineMessage/EngineMessage.h"
+	<iostream>
 
 1352821093 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/Engine.cpp
 	"Engine.h"
 
-1353009397 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/Engine.h
+1353253446 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/Engine.h
 
 1352821093 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
 
-1353009397 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
+1353246189 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
 	"EngineMessage.h"
 	"../EngineManager/EngineManager.h"
 
-1353009397 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+1353248547 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
 	<vector>
 	<map>
 	<string>
@@ -193,6 +197,10 @@
 	"EngineMessageKey.h"
 	"EngineMessageType.h"
 	"../Engine.h"
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
 
 1352846493 1a233270c0318b41255ef37a64e90e6950305
 	<vector>
@@ -216,7 +224,11 @@
 
 1352822410 .h"
 
-1352821093 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+1353274865 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+	<boost/serialization/serialization.hpp>
+	<SFML/System/Vector3.hpp>
+	<OgreVector3.h>
+	<cmath>
 
 1352821093 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
 
@@ -1594,22 +1606,26 @@
 	"Utils/Exception/BasicException.h"
 	"Application/parameterparserexception.h"
 
-1353101991 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+1353253595 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 	"Engine/NetworkEngine/NetworkIpAdressFinder.h"
+	"Utils/Exception/BasicException.h"
+	"Engine/EngineMessage/EngineMessage.h"
+	<boost/archive/text_oarchive.hpp>
+	<boost/archive/text_iarchive.hpp>
 
-1353101234 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+1353247891 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
 	"Engine/NetworkEngine/NetworkEngine.h"
 	"Engine/NetworkEngine/TcpConnection.h"
 	"Engine/NetworkEngine/UdpConnection.h"
 
-1353099219 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+1353253892 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
 	"Engine/Engine.h"
 	<boost/asio.hpp>
 	<boost/shared_ptr.hpp>
 	<boost/thread.hpp>
 
-1353103104 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
+1353245003 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
 	"TcpConnection.h"
 	<boost/bind.hpp>
 	<iomanip>
@@ -1620,10 +1636,10 @@
 	<boost/shared_ptr.hpp>
 	"Connection.h"
 
-1352904767 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
+1353247947 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
 	"ClientNetworkEngineLan.h"
 
-1352910306 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
+1353247931 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
 	"Engine/NetworkEngine/clientnetworkengine.h"
 
 1353098731 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.cpp
@@ -1637,7 +1653,7 @@
 	"Connection.h"
 	<boost/asio.hpp>
 
-1353009397 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
+1353247825 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
 	"EngineManager.h"
 
 1353009397 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.h
@@ -1662,23 +1678,25 @@
 1353099557 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 	"ServerClient.h"
 
-1353099446 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
+1353245167 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
 	"Engine/NetworkEngine/TcpConnection.h"
 	"Engine/NetworkEngine/UdpConnection.h"
 
-1353103155 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+1353253118 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 	"ServerNetworkEngine.h"
 	<iostream>
+	"Engine/EngineMessage/EngineMessage.h"
 
-1353100407 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
+1353252601 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
 	"NetworkEngine.h"
 	"ServerClient.h"
 	<vector>
 	<boost/thread/mutex.hpp>
 
-1353102274 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkMainTest.cpp
+1353248629 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkMainTest.cpp
 	"ServerNetworkEngine.h"
 	"clientnetworkengine.h"
+	"Engine/EngineMessage/EngineMessage.h"
 	<iostream>
 	<string>
 
