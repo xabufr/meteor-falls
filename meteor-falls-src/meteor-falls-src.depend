@@ -1547,8 +1547,9 @@
 1353275041 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
 	"StateManager.h"
 
-1353278133 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
+1353279167 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
 	"XmlDocumentManager.h"
+	"Utils/Exception/FileNotFound.h"
 	<fstream>
 
 1353277219 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
@@ -1562,4 +1563,11 @@
 	<cassert>
 	<new>
 	<exception>
+
+1353279109 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.h
+	<exception>
+	<string>
+
+1353279134 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.cpp
+	"FileNotFound.h"
 
