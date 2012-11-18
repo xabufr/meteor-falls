@@ -1,0 +1,7 @@
+A Faire :
+
+Liste de lecture aléatoire
+Récupérer le nom de la chanson actuellement jouée
+cannaux
+le son dans l'espace (par rapport à la caméra) => cotés : setPosition(x,y,z)
+le son dans l'espace : utiliser un setAttenuation(int) pour les sons lointains (fonction)
