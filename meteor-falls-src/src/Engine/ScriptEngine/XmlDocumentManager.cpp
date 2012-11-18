@@ -1,4 +1,5 @@
 #include "XmlDocumentManager.h"
+#include "Utils/Exception/FileNotFound.h"
 #include <fstream>
 
 XmlDocumentManager::XmlDocumentManager()
@@ -25,6 +26,8 @@ XmlDocumentManager::Document XmlDocumentManager::m_loadDocument(const std::strin
 {
     std::ifstream file;
     file.open(path);
+    if(!file)
+        throw FileNotFound(path);
     file.seekg(0, std::ios_base::end);
     const int length = file.tellg();
     char *buffer = new char[length+1];
