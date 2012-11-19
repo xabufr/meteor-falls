@@ -5,7 +5,7 @@ OgreApplication::OgreApplication()
 {
     #ifdef RELEASE
     m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
-    #elifdef DEBUG
+        #elifdef DEBUG
     m_root = new Ogre::Root("plugins_debug.cfg", "ogre_debug.cfg", "Ogre_debug.log");
     #else
     m_root = new Ogre::Root();
@@ -15,19 +15,21 @@ OgreApplication::OgreApplication()
     {
         THROW_BASIC_EXCEPTION("Aucune configuration de rendu");
     }
+
     m_window = m_root->initialise(true, "Meteor-Falls");
+    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 }
 
 OgreApplication::~OgreApplication()
 {
     //dtor
 }
-void OgreApplication::LoadRessources(std::string &fileName)
+void OgreApplication::LoadRessources(std::string fileName)
 {
     m_ParcourirRessource(fileName, true);
 }
 
-void OgreApplication::UnloadRessources(std::string &fileName)
+void OgreApplication::UnloadRessources(std::string fileName)
 {
     m_ParcourirRessource(fileName, false);
 }
@@ -53,6 +55,8 @@ void OgreApplication::m_ParcourirRessource(std::string &fileName, bool add)
                 Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(archive, sec_name);
         }
     }
+    if (add)
+        Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 bool OgreApplication::RenderOneFrame()
 {

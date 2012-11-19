@@ -8,6 +8,7 @@ OgreContextManager::OgreContextManager()
     m_inputManager = new OgreWindowInputManager(m_application->getWindow());
     m_inputManager->windowResized(m_application->getWindow());
     Ogre::WindowEventUtilities::addWindowEventListener(m_application->getWindow(), m_inputManager);
+    m_application->getRoot()->addFrameListener(m_inputManager);
 }
 
 OgreContextManager::~OgreContextManager()

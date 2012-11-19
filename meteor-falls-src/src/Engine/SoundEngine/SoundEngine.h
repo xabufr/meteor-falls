@@ -31,8 +31,8 @@ typedef unsigned int SoundId;
 class SoundEngine : public Engine
 {
     public:
-        SoundEngine();
-        virtual ~SoundEngine();
+        SoundEngine(EngineManager * manager);
+            virtual ~SoundEngine();
 
         SoundId playSound(const std::string&);
         SoundId playLocalizedSound(const std::string&);

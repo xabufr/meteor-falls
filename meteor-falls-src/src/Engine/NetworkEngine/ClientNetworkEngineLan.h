@@ -5,7 +5,7 @@
 class ClientNetworkEngineLan : public ClientNetworkEngine
 {
     public:
-        ClientNetworkEngineLan();
+        ClientNetworkEngineLan(EngineManager*);
         virtual ~ClientNetworkEngineLan();
 
         virtual void sendToAllUdp(const EngineMessage &e);

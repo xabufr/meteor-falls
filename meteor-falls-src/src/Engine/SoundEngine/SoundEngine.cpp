@@ -1,6 +1,7 @@
 #include "SoundEngine.h"
 
-SoundEngine::SoundEngine()
+SoundEngine::SoundEngine(EngineManager * manager)
+    : Engine(manager)
 {
     m_last = 0;
 }

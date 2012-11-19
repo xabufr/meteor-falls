@@ -20,9 +20,9 @@ void launchUnitTestForSound()
 
     Playlist MyPlaylist;
 
-    MyPlaylist.addMusic("../sound/music/test/01.ogg", "MaPlaylist");
-    MyPlaylist.addMusic("../sound/music/test/02.ogg", "MaPlaylist");
-    MyPlaylist.addMusic("../sound/music/test/k.ogg", "MaPlaylist");
+    MyPlaylist.addMusic("data/sound/music/test/01.ogg", "MaPlaylist");
+    MyPlaylist.addMusic("data/sound/music/test/02.ogg", "MaPlaylist");
+    MyPlaylist.addMusic("data/sound/music/test/k.ogg", "MaPlaylist");
 
     MyPlaylist.select_group("MaPlaylist");
 
