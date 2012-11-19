@@ -8,7 +8,8 @@ class StateManager;
 enum ret_code{
     FINISHED = 0,
     HIDE = 1,
-    EXIT_PROGRAM = 2
+    EXIT_PROGRAM = 2,
+    CONTINUE
 };
 
 class State

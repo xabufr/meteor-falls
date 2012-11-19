@@ -104,7 +104,7 @@ void SoundEngine::handleEngineEvent(EngineEvent* event)
 
 EngineType SoundEngine::getType() const
 {
-    return EngineType::SoundEngine;// enginetype
+   // return EngineType::SoundEngine;// enginetype
 }
 
 

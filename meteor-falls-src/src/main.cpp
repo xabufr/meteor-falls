@@ -9,12 +9,17 @@
 #include <iostream>
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
+#include "Engine/GameEngine/Map.h"
+
 #include "UnitTest/Tests/SoundEngineTest.cpp"
 
 int main(int argc, char **argv)
 {
 
     //launchUnitTestForSound();
+    Map *map = new Map();
+    map->load("test");
+
 
     try
     {
