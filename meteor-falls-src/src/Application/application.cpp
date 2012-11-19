@@ -1,6 +1,7 @@
 #include "application.h"
 #include <iostream>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "MenuState.h"
 
 Application::Application(int argc, char **argv): m_params(argc, argv)
 {
@@ -12,6 +13,8 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
     }
     if(parameters["gui"]=="y"){
         OgreContextManager::get();
+        MenuState menu;
+        menu.show();
     }
     else{
 
