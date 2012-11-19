@@ -1,67 +1,81 @@
-#include <string.h>
+#ifndef SOUNDENGINE_H
+#define SOUNDENGINE_H
 #include <iostream>
 #include <stdio.h>
 #include <map>
+#include <string>
+#include <unordered_map>
 #include <SFML/Audio.hpp>
+#include "Utils/singleton.h"
+#include "../Engine.h"
+#include "soundbuffermanager.h"
+#include "Engine/SoundEngine/FadeIn.h"
 
-class SoundEngine
+struct SoundParams
+{
+    sf::Sound *sound;
+    bool removeWhenFinished;
+    Fade fade_in, fade_out;
+    int dureeFadeIn, dureeFadeOut;
+    bool spacialized, isFadeIn, isFadeOut;
+    sf::Clock timerIn, timerOut;
+    float timeIn, timeOut, attenuation;
+    SoundParams()
+    {
+        removeWhenFinished=true;
+        spacialized=false;
+    }
+};
+
+typedef unsigned int SoundId;
+class SoundEngine : public Engine
 {
     public:
-        SoundEngine();
+        SoundEngine(EngineManager * manager);
+            virtual ~SoundEngine();
 
-        // classic
-        void addMusic(std::string path); // ajouter une musique au vector
-        void readAudio();
+        SoundId playSound(const std::string&);
+        SoundId playLocalizedSound(const std::string&);
 
-        // control
-        void up_Volume(int type_son);
-        void down_Volume(int type_son);
+        void setListenerPosition(SoundId,sf::Vector3f position);
+        void setListenerDirection(SoundId,sf::Vector3f direction);
+        void setListenerAttenuation(SoundId id, float attenuation);
+        void setGlobalVolume(float);
 
-        // state
-        void set_Stop(bool stop){m_stop = true;} ;
-        void set_Pause(bool pause) {m_pause = true;};
-        void set_Loop(bool loop) {m_loop = loop;};
+        void stop(SoundId);
+        void play(SoundId);
 
-        // fade
-        void make_Fadeout(int sec_restantes);
-        void make_Fadein();
-        bool isFading_In();
-        bool isFading_Out(int sec_restantes);
+        void set_loop(SoundId){ m_loop = true;};
+        void unset_loop(SoundId){ m_loop = false;};
+        bool get_loop(SoundId) { return m_loop;};
 
-        // situation
-        void setPos_Depth(int SoundPlayed, int distance); // étouffage du son par rapport à la distance
-        void setPos_3D(int SoundPlayed, sf::Vector3f p_vector3f); // situer le son dans l'espace (droite / gauche)
-        void setPos_3D(int SoundPlayed, int x, int y, int z); // situer le son dans l'espace (droite / gauche)
-        int getPos_Depth() {return m_depth;};
-        sf::Vector3f getPos_3D() {return m_music->getPosition();};
-        int get_attenuation() { return m_music->getAttenuation();};
+        sf::Sound* getSound(SoundId);
 
-        // getters
-        int get_Audio_State(); // stop / pause / read
-        int get_Volume();
-        int get_Temps_Chanson();
-        int get_Time_Elapsed();
-        int get_HowManyMusic();
-        int get_MusicPlayed();
-        bool get_Loop();
+        void removeWhenFinished(SoundId id, bool=true);
+
+        virtual void work();
 
 
+        // parametres
+        void set_fadeIn_time(int time);
+        void set_fadeOut_time(int time);
+        void set_type_transition(Fade::fadeFunction string);
+
+        // rajouter le stop / loop pour le son
+
+        //virtual void handleEngineEvent(EngineEvent*);// Type engineEvent ??
+        virtual EngineType getType() const;
+
+    protected:
     private:
-
-        int m_depth;
-        bool m_stop;
-        bool m_pause;
-        bool m_fading_in;
-        bool m_fading_out;
+        std::unordered_map<unsigned int, SoundParams*> m_sounds;
+        unsigned int m_last;
+        bool m_loop;
+        int m_fadeIn_time;
         int m_volume;
-        int m_music_playing; // indice de la musique jouée dans le tableau
-        bool m_loop; // activer ou non la redondance de la playlist
-
-        sf::Music *m_music;
-        sf::Clock *m_temps_ecoule;
-        std::map <int, std::string> m_audio_state;
-        std::vector <std::string> m_vector_paths_musiques; // vecteur de chemins de musiques
-
-        void m_set_Volume(int type_son, int new_volume);
-
+        int m_fadeOut_time;
+        sf::Clock m_temps_ecoule;
+        Fade MonFade;
 };
+
+#endif
