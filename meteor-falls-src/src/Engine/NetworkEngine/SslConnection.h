@@ -17,10 +17,14 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         typedef boost::shared_ptr<SslConnection> pointer;
 
         static pointer create(boost::shared_ptr<boost::asio::io_service>, Type);
+        void connect(boost::asio::ip::tcp::endpoint);
+
+        void connectionAccepted(const boost::system::error_code& ); //Méthode appelée par le serveur
 
         virtual void send(std::string data);
         virtual void startListen();
         virtual bool hasData();
+        std::string getData();
 
         virtual ~SslConnection();
 
@@ -30,6 +34,7 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         virtual void handleReadData(const boost::system::error_code&);
         virtual void handleSendData(std::string);
 
+        void handleConnect(const boost::system::error_code&);
         void handleHandshake(const boost::system::error_code&);
 
     private:
@@ -38,6 +43,10 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket> m_socket;
         std::queue<std::string> m_dataQueue;
         boost::mutex m_mutex_data;
+
+        enum {header_size=8};
+        char m_header_data[header_size];
+
 };
 
 #endif // SSLCONNECTION_H

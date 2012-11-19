@@ -7,12 +7,12 @@
 #include <map>
 #include <assert.h>
 #include <SFML/Audio.hpp>
-
+/*
 void launchUnitTestForSound();
 void launchUnitTests()
 {
     launchUnitTestForSound();
-}
+}*/
 
 //BOOST_AUTO_TEST_CASE(SoundEngineTest)
 void launchUnitTestForSound()
