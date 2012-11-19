@@ -1,1 +1,5 @@
-# dummy
+libCEGUISampleHelper_la-CEGuiRendererSelector.lo: \
+ CEGuiRendererSelector.cpp \
+ ../../../Samples/common/include/CEGuiRendererSelector.h
+
+../../../Samples/common/include/CEGuiRendererSelector.h:

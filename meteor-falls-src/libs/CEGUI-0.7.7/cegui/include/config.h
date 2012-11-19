@@ -10,7 +10,7 @@
 /* Set this to the default ImageCodec to be used (CoronaImageCodec,
    DevILImageCodec FreeImageImageCode, SILLYImageCodec, TGAImageCodec,
    STBImageCodec). */
-#define CEGUI_DEFAULT_IMAGE_CODEC DevILImageCodec
+#define CEGUI_DEFAULT_IMAGE_CODEC FreeImageImageCodec
 
 /* Set this to the default XMLParser to be used (XercesParser, ExpatParser,
    LibxmlParser or TinyXMLParser). */

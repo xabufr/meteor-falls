@@ -7,9 +7,6 @@
 	<File name="src/Engine/NetworkEngine/TcpConnection.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="2931" topLine="86" />
 	</File>
-	<File name="src/Engine/SoundEngine/FadeIn.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="972" topLine="0" />
-	</File>
 	<File name="src/Engine/SoundEngine/FadeIn.h" open="1" top="0" tabpos="4">
 		<Cursor position="273" topLine="14" />
 	</File>
@@ -22,16 +19,16 @@
 	<File name="src/Engine/SoundEngine/Playlist.h" open="1" top="0" tabpos="2">
 		<Cursor position="742" topLine="24" />
 	</File>
-	<File name="src/Engine/SoundEngine/SoundEngine.cpp" open="1" top="0" tabpos="7">
+	<File name="src/Engine/SoundEngine/SoundEngine.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="2393" topLine="0" />
 	</File>
-	<File name="src/Engine/SoundEngine/SoundEngine.h" open="1" top="0" tabpos="6">
+	<File name="src/Engine/SoundEngine/SoundEngine.h" open="1" top="0" tabpos="5">
 		<Cursor position="2030" topLine="0" />
 	</File>
-	<File name="src/Engine/SoundEngine/soundbuffermanager.cpp" open="1" top="0" tabpos="9">
+	<File name="src/Engine/SoundEngine/soundbuffermanager.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="308" topLine="0" />
 	</File>
-	<File name="src/Engine/SoundEngine/soundbuffermanager.h" open="1" top="0" tabpos="8">
+	<File name="src/Engine/SoundEngine/soundbuffermanager.h" open="1" top="0" tabpos="7">
 		<Cursor position="329" topLine="0" />
 	</File>
 	<File name="src/UnitTest/Tests/ApplicationParametersTest.cpp" open="0" top="0" tabpos="1">
@@ -43,7 +40,7 @@
 	<File name="src/UnitTest/UnitTest.h" open="0" top="0" tabpos="4">
 		<Cursor position="145" topLine="0" />
 	</File>
-	<File name="src/Utils/singleton.h" open="1" top="0" tabpos="10">
+	<File name="src/Utils/singleton.h" open="1" top="0" tabpos="9">
 		<Cursor position="102" topLine="0" />
 	</File>
 	<File name="src/main.cpp" open="0" top="0" tabpos="6">

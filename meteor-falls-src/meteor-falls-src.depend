@@ -3396,3 +3396,318 @@
 1353316862 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.cpp
 	"FileNotFound.h"
 
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/application.cpp
+	"application.h"
+	<iostream>
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"MenuState.h"
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/application.h
+	"Application/applicationparameters.h"
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/applicationparameters.h
+	<unordered_map>
+	<string>
+	<vector>
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h
+	"Utils/singleton.h"
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/singleton.h
+
+1353322827 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/MenuState.h
+	<Ogre.h>
+	<CEGUI.h>
+	<RendererModules/Ogre/CEGUIOgreRenderer.h>
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h
+	<OIS/OIS.h>
+	<CEGUI.h>
+	<Ogre.h>
+
+1352896706 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
+	"applicationparameters.h"
+	"Application/parameterparserexception.h"
+	"Utils/Exception/BasicException.h"
+	<iostream>
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.h
+	<exception>
+	<string>
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/BasicException.h
+	<exception>
+	<string>
+
+1352896706 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.cpp
+	"parameterparserexception.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
+	"EngineManager.h"
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.h
+	<vector>
+	"../Engine.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/Engine.h
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
+	"EngineMessage.h"
+	"../EngineManager/EngineManager.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+	<vector>
+	<map>
+	<string>
+	"../../Utils/Vector3D.h"
+	"EngineMessageKey.h"
+	"EngineMessageType.h"
+	"../Engine.h"
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+	<boost/serialization/serialization.hpp>
+	<SFML/System/Vector3.hpp>
+	<OgreVector3.h>
+	<cmath>
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
+
+1352896706 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
+
+1352811613 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
+
+1352811651 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
+
+1353320131 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+	"OgreApplication.h"
+	"Utils/Exception/BasicException.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
+	<Ogre.h>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
+	"OgreWindowInputManager.h"
+	<boost/lexical_cast.hpp>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
+	"ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
+	"ClientNetworkEngineLan.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
+	"Engine/NetworkEngine/clientnetworkengine.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+	"Engine/NetworkEngine/NetworkEngine.h"
+	"Engine/NetworkEngine/TcpConnection.h"
+	"Engine/NetworkEngine/UdpConnection.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+	"Engine/Engine.h"
+	<boost/asio.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
+	<boost/asio.hpp>
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	<boost/thread/mutex.hpp>
+	<boost/asio.hpp>
+	<queue>
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+	<boost/asio.hpp>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
+	"Connection.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
+	"Engine/NetworkEngine/NetworkEngine.h"
+	<boost/archive/text_iarchive.hpp>
+	<boost/archive/text_oarchive.hpp>
+	"Engine/EngineMessage/EngineMessage.h"
+	<iostream>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp
+	"Engine/NetworkEngine/NetworkIpAdressFinder.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h
+	<boost/asio.hpp>
+	<string>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
+	"ServerClient.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
+	"Engine/NetworkEngine/TcpConnection.h"
+	"Engine/NetworkEngine/UdpConnection.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+	"ServerNetworkEngine.h"
+	<iostream>
+	"Engine/EngineMessage/EngineMessage.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
+	"NetworkEngine.h"
+	"ServerClient.h"
+	<vector>
+	<boost/thread/mutex.hpp>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
+	"TcpConnection.h"
+	<boost/bind.hpp>
+	<iomanip>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.cpp
+	"UdpConnection.h"
+	<boost/bind.hpp>
+	<iomanip>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+	"clientnetworkengine.h"
+	"Engine/NetworkEngine/NetworkIpAdressFinder.h"
+	"Utils/Exception/BasicException.h"
+	"Engine/EngineMessage/EngineMessage.h"
+	<boost/archive/text_oarchive.hpp>
+	<boost/archive/text_iarchive.hpp>
+
+1352811679 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.cpp
+
+1352811690 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
+	"XmlDocumentManager.h"
+	"Utils/Exception/FileNotFound.h"
+	<fstream>
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
+	<string>
+	<map>
+	<rapidxml.hpp>
+	"Utils/singleton.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/rapidxml//rapidxml.hpp
+	<cstdlib>
+	<cassert>
+	<new>
+	<exception>
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.h
+	<exception>
+	<string>
+
+1353073116 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeOut.cpp
+
+1353301444 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
+	"Playlist.h"
+
+1353300139 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.h
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<map>
+	<SFML/Audio.hpp>
+	"Engine/SoundEngine/FadeIn.h"
+
+1353257646 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeIn.h
+
+1353318132 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
+	"SoundEngine.h"
+
+1353318132 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
+	<iostream>
+	<stdio.h>
+	<map>
+	<string>
+	<unordered_map>
+	<SFML/Audio.hpp>
+	"Utils/singleton.h"
+	"../Engine.h"
+	"soundbuffermanager.h"
+	"Engine/SoundEngine/FadeIn.h"
+
+1353251129 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.h
+	<SFML/Audio.hpp>
+	<unordered_map>
+	"Utils/singleton.h"
+
+1353312607 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.cpp
+	"soundbuffermanager.h"
+	"Utils/Exception/BasicException.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Fenetre.cpp
+	"Fenetre.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Fenetre.h
+	<Ogre.h>
+	"MenuState.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/MenuState.cpp
+	<string>
+	"MenuState.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/State.cpp
+	"State.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/State.h
+	"StateManager.h"
+
+1353316862 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.h
+	<queue>
+	"State.h"
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
+	"StateManager.h"
+
+1352896706 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/BasicException.cpp
+	"BasicException.h"
+	<boost/lexical_cast.hpp>
+
+1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.cpp
+	"FileNotFound.h"
+
+1353318394 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/main.cpp
+	<iostream>
+	"UnitTest/UnitTest.h"
+	<iostream>
+	"Application/application.h"
+	"Application/parameterparserexception.h"
+	"UnitTest/Tests/SoundEngineTest.cpp"
+
+1352897168 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/UnitTest/UnitTest.h
+	"../Engine/SoundEngine/SoundEngine.h"
+	<boost/test/unit_test.hpp>
+
+1353318368 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
+	"../UnitTest.h"
+	"Engine/SoundEngine/SoundEngine.h"
+	"Engine/SoundEngine/Playlist.h"
+	<string>
+	<iostream>
+	<stdio.h>
+	<map>
+	<assert.h>
+	<SFML/Audio.hpp>
+
+1353259164 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeIn.cpp
+	"FadeIn.h"
+	<cmath>
+
