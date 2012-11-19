@@ -8,6 +8,10 @@
 #include "EngineMessageKey.h"
 #include "EngineMessageType.h"
 #include "../Engine.h"
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/string.hpp>
 
 class EngineManager;
 
@@ -15,7 +19,7 @@ class EngineMessage{
 
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
-        int time;
+        int time, message;
         std::map<EngineMessageKey, int> ints;
         std::map<EngineMessageKey, double> doubles;
         std::map<EngineMessageKey, std::string> strings;
@@ -38,6 +42,11 @@ class EngineMessage{
         std::vector<Engine*> m_to;
         std::vector<EngineType> m_to_type;
 
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive& ar, const unsigned int version){
+            ar & message & time & m_from_type & m_to_type & ints & doubles & strings & positions;
+        }
 };
 
 #endif // ENGINEMESSAGE_H
