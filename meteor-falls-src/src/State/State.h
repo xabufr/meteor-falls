@@ -2,6 +2,7 @@
 #define STATE_H
 
 #include "StateManager.h"
+#include <vector>
 
 class StateManager;
 

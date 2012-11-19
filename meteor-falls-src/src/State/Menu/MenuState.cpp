@@ -112,7 +112,7 @@ void MenuState::exit()
 
 ret_code MenuState::work()
 {
-    CEGUI::System::getSingleton().injectMousePosition(m_mouse->getMouseState().X.abs, m_mouse->getMouseState().Y.abs);
+    //CEGUI::System::getSingleton().injectMousePosition(m_mouse->getMouseState().X.abs, m_mouse->getMouseState().Y.abs);
     if(m_mouse->getMouseState().buttonDown(OIS::MB_Left))
         CEGUI::System::getSingleton().injectMouseButtonDown(OgreWindowInputManager::convertButton(OIS::MB_Left));
     else if (!m_mouse->getMouseState().buttonDown(OIS::MB_Left))

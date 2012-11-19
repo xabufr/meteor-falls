@@ -1,31 +1,35 @@
 #include "StateManager.h"
 
-void StateManager::addState(State *p_state){
+void StateManager::addState(State *p_state)
+{
     m_states.push(p_state);
 }
 
-void StateManager::startLoop(){     //lance boucle infinie
+void StateManager::startLoop()
+{     //lance boucle infinie
     m_end = false;
-    m_states.front()->enter();
+    m_states.top()->enter();
     ret_code code = ret_code::CONTINUE;
     while(!m_end&& !m_states.empty()){
         if(code == ret_code::FINISHED){                       //ancien etat du state different du nouveau
-            m_states.front()->exit();
+            m_states.top()->exit();
             removeState();
-            m_states.front()->enter();
+            m_states.top()->enter();
         }
         else if(code == ret_code::EXIT_PROGRAM)
             exit();
         else
-            code = m_states.front()->work();
+            code = m_states.top()->work();
     }
 }
 
-void StateManager::exit(){          //arrete la boucle infinie
+void StateManager::exit()
+{   //arrete la boucle infinie
     m_end = true;
-    m_states.front()->exit();
+    m_states.top()->exit();
 }
 
-void StateManager::removeState(){
+void StateManager::removeState()
+{
     m_states.pop();
 }

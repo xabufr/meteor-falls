@@ -1,7 +1,7 @@
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
 
-#include <queue>
+#include <stack>
 #include "State.h"
 
 class State;
@@ -17,7 +17,7 @@ class StateManager
     protected:
 
     private:
-        std::queue<State*> m_states;
+        std::stack<State*> m_states;
         bool m_end;
 };
 
