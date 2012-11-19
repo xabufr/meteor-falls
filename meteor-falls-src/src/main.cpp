@@ -1,28 +1,27 @@
-#include "Fenetre.h"
+#ifdef UNIT_TEST
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MAIN
+#include "UnitTest/UnitTest.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include "windows.h"
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 #else
-int main(int argc, char *argv[])
-#endif
+#include <iostream>
+#include "Application/application.h"
+#include "Application/parameterparserexception.h"
+
+int main(int argc, char **argv)
 {
-    Fenetre fenetre;
 
-    try {
-        fenetre.start();
-    } catch( Ogre::Exception& e ) {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
-#else
-        std::cerr << "An exception has occured: " <<
-            e.getFullDescription().c_str() << std::endl;
-#endif
+    try
+    {
+        Application app(argc, argv);
+    }
+    catch(ParameterParserException &e){
+        std::cout << "L'argument " << e.getArgument() << " n'existe pas"<<std::endl;
+    }
+    catch(std::exception &e){
+        std::cout << e.what() << std::endl;
     }
 
     return 0;
 }
+#endif
