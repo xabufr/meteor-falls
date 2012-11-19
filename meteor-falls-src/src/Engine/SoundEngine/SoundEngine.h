@@ -10,6 +10,7 @@
 #include "../Engine.h"
 #include "soundbuffermanager.h"
 #include "Engine/SoundEngine/FadeIn.h"
+#include "Engine/EngineType.h"
 
 struct SoundParams
 {

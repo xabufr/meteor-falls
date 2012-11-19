@@ -53,6 +53,8 @@
 			<Add option="-fexceptions" />
 			<Add option="`pkg-config --cflags OGRE`" />
 			<Add directory="src" />
+			<Add directory="libs/ozcollidelib_1-1-1/include" />
+			<Add directory="libs/rapidxml" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -65,6 +67,7 @@
 			<Add option="-lboost_serialization" />
 			<Add option="-lssl" />
 			<Add option="-lozcollide" />
+			<Add option="-lboost_thread" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -89,8 +92,11 @@
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
+		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" />
+		<Unit filename="src/Engine/NetworkEngine/Connection.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/Connection.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
-<<<<<<< HEAD
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.h" />
@@ -110,23 +116,33 @@
 		<Unit filename="src/Engine/NetworkEngine/UdpConnection.h" />
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
-=======
->>>>>>> fe324a1a45ec054fdf0c77a274facd09855d608e
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.h" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.h" />
+		<Unit filename="src/Engine/SoundEngine/FadeIn.cpp" />
+		<Unit filename="src/Engine/SoundEngine/FadeIn.h" />
+		<Unit filename="src/Engine/SoundEngine/Playlist.cpp" />
+		<Unit filename="src/Engine/SoundEngine/Playlist.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.cpp" />
+		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
+		<Unit filename="src/Fenetre.cpp" />
+		<Unit filename="src/Fenetre.h" />
+		<Unit filename="src/InputListener.h" />
+		<Unit filename="src/MenuState.cpp" />
+		<Unit filename="src/MenuState.h" />
 <<<<<<< HEAD
+=======
 		<Unit filename="src/State/Game/GameState.cpp" />
 		<Unit filename="src/State/Game/GameState.h" />
+>>>>>>> 2d6433cfda7d822d550706c7ae1175f0e9bfbdbd
 		<Unit filename="src/State/State.cpp" />
 		<Unit filename="src/State/State.h" />
 		<Unit filename="src/State/StateManager.cpp" />
 		<Unit filename="src/State/StateManager.h" />
-=======
-		<Unit filename="src/MenuState.cpp" />
-		<Unit filename="src/MenuState.h" />
->>>>>>> fe324a1a45ec054fdf0c77a274facd09855d608e
 		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
@@ -134,13 +150,17 @@
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/DataChecksum.cpp" />
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
+		<Unit filename="src/Utils/Exception/FileNotFound.cpp" />
+		<Unit filename="src/Utils/Exception/FileNotFound.h" />
 		<Unit filename="src/Utils/Vector3D.cpp" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/version.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
