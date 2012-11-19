@@ -1,19 +1,9 @@
 #ifndef ENGINE_H
 #define ENGINE_H
+#include "EngineType.h"
 
 class EngineMessage;
 class EngineManager;
-enum EngineType
-
-{
-    NetworkEngine = 0,
-    GraphicEngine = 1,
-    GameEngine = 2,
-    SoundEngine = 3,
-    PhysicalEngine = 4,
-    ScriptEngine = 5,
-
-};
 
 class Engine
 {

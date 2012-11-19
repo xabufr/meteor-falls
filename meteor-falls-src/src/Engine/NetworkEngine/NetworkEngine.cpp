@@ -7,7 +7,7 @@
 
 EngineType NetworkEngine::getType()
 {
-    return EngineType::NetworkEngine;
+    return EngineType::NetworkEngineType;
 }
 
 NetworkEngine::NetworkEngine(EngineManager* manager):
