@@ -7,8 +7,8 @@ void StateManager::addState(State *p_state){
 void StateManager::startLoop(){     //lance boucle infinie
     m_end = false;
     m_states.front()->enter();
-    ret_code code = ret_code::HIDE;
-    while(m_end != true && !m_states.empty()){
+    ret_code code = ret_code::CONTINUE;
+    while(!m_end&& !m_states.empty()){
         if(code == ret_code::FINISHED){                       //ancien etat du state different du nouveau
             m_states.front()->exit();
             removeState();

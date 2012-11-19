@@ -4,31 +4,39 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-MenuState::MenuState()
+MenuState::MenuState(StateManager* mng):
+    State(mng)
 {
 }
 
 MenuState::~MenuState()
 {
+    delete m_background;
 }
 
-void MenuState::show()
+bool MenuState::quit(const CEGUI::EventArgs &){
+    OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
+    return true;
+}
+void MenuState::enter()
 {
-    OIS::Mouse *m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
-    OIS::Keyboard *m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+    m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
+    m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     OgreContextManager::get()->getOgreApplication()->LoadRessources("resources.cfg");
 
     m_scene_mgr = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("DefaultSceneManager", "Menu");
     m_scene_mgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
-    Ogre::Camera *m_camera = m_scene_mgr->createCamera("MenuCam");
+
+    m_camera = m_scene_mgr->createCamera("MenuCam");
     m_camera->lookAt(Ogre::Vector3(0, 0, 0));
     m_camera->setNearClipDistance(5);
+
     Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    Ogre::Rectangle2D *m_background = new Ogre::Rectangle2D(true);
+    m_background = new Ogre::Rectangle2D(true);
     m_background->setCorners(-1.0, 1.0, 1.0, -1.0);
     m_background->setMaterial("background");
     m_background->setRenderQueueGroup(Ogre::RENDER_QUEUE_BACKGROUND);
@@ -95,22 +103,23 @@ void MenuState::show()
                                          CEGUI::UDim(0.36+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
     CEGUI::System::getSingleton().setGUISheet(m_sheet);
-
-    while(OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
-    {
-        CEGUI::System::getSingleton().injectMousePosition(m_mouse->getMouseState().X.abs, m_mouse->getMouseState().Y.abs);
-        if(m_mouse->getMouseState().buttonDown(OIS::MB_Left))
-            CEGUI::System::getSingleton().injectMouseButtonDown(OgreWindowInputManager::convertButton(OIS::MB_Left));
-        else if (!m_mouse->getMouseState().buttonDown(OIS::MB_Left))
-            CEGUI::System::getSingleton().injectMouseButtonUp(OgreWindowInputManager::convertButton(OIS::MB_Left));
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            break;
-    }
-    delete m_background;
 }
 
-bool MenuState::quit(const CEGUI::EventArgs &){
-    OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
-    std::cout<<"ttut"<<std::endl;
-    return true;
+void MenuState::exit()
+{
+
+}
+
+ret_code MenuState::work()
+{
+    CEGUI::System::getSingleton().injectMousePosition(m_mouse->getMouseState().X.abs, m_mouse->getMouseState().Y.abs);
+    if(m_mouse->getMouseState().buttonDown(OIS::MB_Left))
+        CEGUI::System::getSingleton().injectMouseButtonDown(OgreWindowInputManager::convertButton(OIS::MB_Left));
+    else if (!m_mouse->getMouseState().buttonDown(OIS::MB_Left))
+        CEGUI::System::getSingleton().injectMouseButtonUp(OgreWindowInputManager::convertButton(OIS::MB_Left));
+    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+        return ret_code::EXIT_PROGRAM;
+    if(!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
+        return EXIT_PROGRAM;
+    return CONTINUE;
 }

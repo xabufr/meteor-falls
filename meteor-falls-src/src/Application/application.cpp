@@ -1,7 +1,7 @@
 #include "application.h"
 #include <iostream>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "MenuState.h"
+#include "State/Menu/MenuState.h"
 
 Application::Application(int argc, char **argv): m_params(argc, argv)
 {
@@ -12,9 +12,9 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
         return;
     }
     if(parameters["gui"]=="y"){
-        OgreContextManager::get();
-        MenuState menu;
-        menu.show();
+        StateManager manager;
+        manager.addState(new MenuState(&manager));
+        manager.startLoop();
     }
     else{
 
