@@ -9,8 +9,7 @@
 #include <iostream>
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
-
-    #include "UnitTest/Tests/SoundEngineTest.cpp"
+#include "UnitTest/Tests/SoundEngineTest.cpp"
 
 int main(int argc, char **argv)
 {

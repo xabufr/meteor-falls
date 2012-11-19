@@ -21,7 +21,7 @@
 
 1352846493 D
 
-1353060118 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/main.cpp
+1353257893 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
 	"UnitTest/UnitTest.h"
 	<iostream>
@@ -61,15 +61,20 @@
 
 1352811690 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
 
-1353062865 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
+1353316618 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
 	"SoundEngine.h"
 
-1353062891 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
-	<string.h>
+1353315916 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
 	<iostream>
 	<stdio.h>
 	<map>
+	<string>
+	<unordered_map>
 	<SFML/Audio.hpp>
+	"Utils/singleton.h"
+	"../Engine.h"
+	"soundbuffermanager.h"
+	"Engine/SoundEngine/FadeIn.h"
 
 1352845620 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/UnitTest/UnitTest.cpp
 	"UnitTest.h"
@@ -3156,9 +3161,10 @@
 1352896706 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Utils/Vector3D.cpp
 	"Vector3D.h"
 
-1353062794 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
+1353316722 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
 	"../UnitTest.h"
 	"Engine/SoundEngine/SoundEngine.h"
+	"Engine/SoundEngine/Playlist.h"
 	<string>
 	<iostream>
 	<stdio.h>
@@ -3246,4 +3252,32 @@
 
 1353059947 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
+
+1353259164 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeIn.cpp
+	"FadeIn.h"
+	<cmath>
+
+1353073116 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeOut.cpp
+
+1353301444 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
+	"Playlist.h"
+
+1353300139 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.h
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<map>
+	<SFML/Audio.hpp>
+	"Engine/SoundEngine/FadeIn.h"
+
+1353251129 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.h
+	<SFML/Audio.hpp>
+	<unordered_map>
+	"Utils/singleton.h"
+
+1353257646 /home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeIn.h
+
+1353312607 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.cpp
+	"soundbuffermanager.h"
+	"Utils/Exception/BasicException.h"
 

@@ -69,7 +69,6 @@
 		<Unit filename="src/Application/applicationparameters.h" />
 		<Unit filename="src/Application/parameterparserexception.cpp" />
 		<Unit filename="src/Application/parameterparserexception.h" />
-		<Unit filename="src/Engine/Engine.cpp" />
 		<Unit filename="src/Engine/Engine.h" />
 		<Unit filename="src/Engine/EngineManager/EngineManager.cpp" />
 		<Unit filename="src/Engine/EngineManager/EngineManager.h" />
@@ -97,8 +96,16 @@
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
+		<Unit filename="src/Engine/SoundEngine/FadeIn.cpp" />
+		<Unit filename="src/Engine/SoundEngine/FadeIn.h" />
+		<Unit filename="src/Engine/SoundEngine/FadeOut.cpp" />
+		<Unit filename="src/Engine/SoundEngine/FadeOut.h" />
+		<Unit filename="src/Engine/SoundEngine/Playlist.cpp" />
+		<Unit filename="src/Engine/SoundEngine/Playlist.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
+		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.cpp" />
+		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
 		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
