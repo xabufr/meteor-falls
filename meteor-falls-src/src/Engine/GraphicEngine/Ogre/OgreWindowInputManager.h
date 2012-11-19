@@ -2,6 +2,7 @@
 #define OGREWINDOWINPUTMANAGER_H
 
 #include <OIS/OIS.h>
+#include <CEGUI.h>
 #include <Ogre.h>
 
 class OgreWindowInputManager : public Ogre::WindowEventListener, public Ogre::FrameListener
@@ -17,6 +18,7 @@ class OgreWindowInputManager : public Ogre::WindowEventListener, public Ogre::Fr
 
         OIS::Mouse* getMouse();
         OIS::Keyboard* getKeyboard();
+        static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID);
 
         void addPersonalizedDevice(OIS::Object*);
         void removePersonalizedDevice(OIS::Object*);

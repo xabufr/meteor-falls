@@ -7,8 +7,8 @@ class OgreApplication
 {
     public:
         OgreApplication();
-        void LoadRessources(std::string &fileName);
-        void UnloadRessources(std::string &fileName);
+        void LoadRessources(std::string fileName);
+        void UnloadRessources(std::string fileName);
         virtual ~OgreApplication();
         bool RenderOneFrame();
 

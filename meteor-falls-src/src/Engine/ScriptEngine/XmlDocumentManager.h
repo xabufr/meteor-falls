@@ -8,6 +8,7 @@
 
 class XmlDocumentManager: public Singleton<XmlDocumentManager>
 {
+    friend class Singleton<XmlDocumentManager>;
     public:
         typedef std::pair<char*, rapidxml::xml_document<>*> Document;
 
