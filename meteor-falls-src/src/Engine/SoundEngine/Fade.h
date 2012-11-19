@@ -30,7 +30,6 @@ class Fade{
         }
 
         int work(int temps_actuel, int temps_total, int duree_fade, int volume_base); // millisecondes
-        float operator()(float temps);// retourne entre 0 et 1 / on se retrouve avec le temps ici
         static float Cubique(float);// ici, calcul de fonction cubique
         static float Carre(float);// ici, calcul de fonction carre
         static float Constant(float); // ici, calcul de fonction constant

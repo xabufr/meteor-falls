@@ -12,6 +12,7 @@ class MenuState: public State
 {
     private:
         bool quit(const CEGUI::EventArgs &);
+        bool startGame(const CEGUI::EventArgs &);
 
     public:
         MenuState(StateManager*);
@@ -28,6 +29,7 @@ class MenuState: public State
         Ogre::SceneManager *m_scene_mgr;
         Ogre::Camera *m_camera;
         Ogre::Rectangle2D *m_background;
+        CEGUI::Window *m_sheet;
 };
 
 #endif // MENUSTATE_H_INCLUDED

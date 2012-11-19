@@ -16,3 +16,5 @@ build/Release/*
 obj/*
 meteor-falls-src/meteor-falls-src.layout
 meteor-falls-src/meteor-falls-src.depend
+*.log
+*.Log

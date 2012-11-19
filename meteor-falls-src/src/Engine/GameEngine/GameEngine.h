@@ -17,7 +17,7 @@ class GameEngine : public Engine
         virtual ~GameEngine();
         virtual void handleMessage(const EngineMessage&);
         virtual void work();
-        virtual EngineType getType() const;
+        virtual EngineType getType();
 
     protected:
 

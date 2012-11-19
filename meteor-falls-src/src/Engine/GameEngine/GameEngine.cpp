@@ -20,7 +20,7 @@ void GameEngine::handleMessage(const EngineMessage&){
 void GameEngine::work(){
     m_map->update();
 }
-EngineType GameEngine::getType() const
+EngineType GameEngine::getType()
 {
     return EngineType::GameEngineType;
 }

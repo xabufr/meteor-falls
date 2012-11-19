@@ -22,11 +22,9 @@ class State
         virtual ret_code work() = 0;
 
     protected:
-
-    private:
+        StateManager *m_state_manager;
         void addState(State *p_state);
         void removeState(State *p_state);
-        StateManager *m_state_manager;
         std::vector<State*> m_states;
 };
 

@@ -10,12 +10,19 @@ void StateManager::addState(State *p_state)
 void StateManager::startLoop()
 {     //lance boucle infinie
     m_end = false;
+    State *last = m_states.top();
     m_states.top()->enter();
     ret_code code;
-    while(!m_end&& !m_states.empty())
+    while(!m_end&&!m_states.empty())
     {
+        if(last!=m_states.top())
+        {
+            last->exit();
+            last = m_states.top();
+            m_states.top()->enter();
+        }
         code = m_states.top()->work();
-        if(code == ret_code::FINISHED){                       //ancien etat du state different du nouveau
+        if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
             removeState();
             m_states.top()->enter();

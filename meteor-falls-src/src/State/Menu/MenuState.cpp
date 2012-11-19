@@ -3,22 +3,10 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../Game/GameState.h"
 
 MenuState::MenuState(StateManager* mng):
     State(mng)
-{
-}
-
-MenuState::~MenuState()
-{
-    delete m_background;
-}
-
-bool MenuState::quit(const CEGUI::EventArgs &){
-    OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
-    return true;
-}
-void MenuState::enter()
 {
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
@@ -68,13 +56,14 @@ void MenuState::enter()
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    CEGUI::Window *m_sheet = m_window_mgr.createWindow("OgreTray/TabButtonPane", "FenetreMenu");
+    m_sheet = m_window_mgr.createWindow("OgreTray/TabButtonPane", "FenetreMenu");
     m_sheet->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.50, 0)));
     m_sheet->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_sheet->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0.30, 0)));
 
     CEGUI::Window *m_play = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouer");
     m_play->setText("Jouer");
     m_play->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_play->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&MenuState::startGame, this));
     m_sheet->addChildWindow(m_play);
 
     CEGUI::Window *m_option = m_window_mgr.createWindow("OgreTray/Button", "BoutonOption");
@@ -102,12 +91,38 @@ void MenuState::enter()
     m_quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_quit->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.36+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
+    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    m_sheet->hide();
+    m_scene_mgr->getRootSceneNode()->setVisible(false);
+}
+
+MenuState::~MenuState()
+{
+    delete m_background;
+}
+
+bool MenuState::quit(const CEGUI::EventArgs &)
+{
+    OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
+    return true;
+}
+bool MenuState::startGame(const CEGUI::EventArgs&)
+{
+    m_state_manager->addState(new GameState(m_state_manager));
+    return true;
+}
+
+void MenuState::enter()
+{
+    m_sheet->show();
     CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    m_scene_mgr->getRootSceneNode()->setVisible(true);
 }
 
 void MenuState::exit()
 {
-
+    m_sheet->hide();
+    m_scene_mgr->getRootSceneNode()->setVisible(false);
 }
 
 ret_code MenuState::work()

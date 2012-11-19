@@ -55,6 +55,7 @@ EngineManager::EngineManager(Type t):
         m_network = new ServerNetworkEngine(this, 8888);
         break;
     }
+    m_game = new GameEngine(this, (t==CLIENT||t==CLIENT_LAN)?GameEngine::Type::CLIENT : GameEngine::Type::SERVER);
 }
 EngineManager::~EngineManager()
 {
@@ -93,6 +94,7 @@ bool EngineManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     m_network->work();
     m_game->work();
-    m_sound->work();
+    if(m_sound)
+        m_sound->work();
     return true;
 }

@@ -126,10 +126,8 @@
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.h" />
 		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.h" />
-		<Unit filename="src/Engine/SoundEngine/FadeIn.cpp" />
-		<Unit filename="src/Engine/SoundEngine/FadeIn.h" />
-		<Unit filename="src/Engine/SoundEngine/FadeOut.cpp" />
-		<Unit filename="src/Engine/SoundEngine/FadeOut.h" />
+		<Unit filename="src/Engine/SoundEngine/Fade.cpp" />
+		<Unit filename="src/Engine/SoundEngine/Fade.h" />
 		<Unit filename="src/Engine/SoundEngine/Playlist.cpp" />
 		<Unit filename="src/Engine/SoundEngine/Playlist.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
