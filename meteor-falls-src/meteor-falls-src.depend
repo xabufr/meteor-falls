@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-<<<<<<< HEAD
+140003698506233 <<<<<<< HEAD
+
 1352907830 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/application.cpp
 	"application.h"
 	<iostream>
@@ -31,7 +32,7 @@
 	<Ogre.h>
 
 1352903835 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
-=======
+
 1352896394 source:/home/thomas/meteor-falls/meteor-falls-src/src/main.cpp
 	"UnitTest/UnitTest.h"
 	<iostream>
@@ -47,13 +48,31 @@
 	"Application/applicationparameters.h"
 
 1352846537 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
->>>>>>> 2a39a790681e5fc555c7cea63ba286e385809ece
+
+1353316862 9a790681e5fc555c7cea63ba286e385809ece
 	"applicationparameters.h"
 	"Application/parameterparserexception.h"
 	"Utils/Exception/BasicException.h"
 	<iostream>
+	<vector>
+	<map>
+	<string>
+	"../../Utils/Vector3D.h"
+	"EngineMessageKey.h"
+	"EngineMessageType.h"
+	"../Engine.h"
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<map>
+	<SFML/Audio.hpp>
 
-<<<<<<< HEAD
+1352820006 D
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
 1352903835 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.h
 	<exception>
 	<string>
@@ -69,7 +88,7 @@
 
 1352903835 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 
-1353315151 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1353331521 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
 	"Utils/Exception/BasicException.h"
 
@@ -107,8 +126,6 @@
 	"../EngineManager/EngineManager.h"
 
 1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
-=======
-1352846493 D
 
 1353318394 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
@@ -195,19 +212,6 @@
 	"MessageEngine.h"
 
 1352820208 /home/fafa/meteor-falls/meteor-falls-src/src/Engine/MessageEngine/MessageEngine.h
->>>>>>> 2a39a790681e5fc555c7cea63ba286e385809ece
-	<vector>
-	<map>
-	<string>
-	"../../Utils/Vector3D.h"
-	"EngineMessageKey.h"
-	"EngineMessageType.h"
-	"../Engine.h"
-<<<<<<< HEAD
-	<boost/serialization/serialization.hpp>
-	<boost/serialization/map.hpp>
-	<boost/serialization/vector.hpp>
-	<boost/serialization/string.hpp>
 
 1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
 	<boost/serialization/serialization.hpp>
@@ -232,11 +236,20 @@
 	<boost/shared_ptr.hpp>
 	<boost/thread.hpp>
 
-1353319424 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
+1353331521 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
 	"SoundEngine.h"
 
-1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
-=======
+1353331521 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
+	<iostream>
+	<stdio.h>
+	<map>
+	<string>
+	<unordered_map>
+	<SFML/Audio.hpp>
+	"Utils/singleton.h"
+	"../Engine.h"
+	"soundbuffermanager.h"
+	"Engine/SoundEngine/FadeIn.h"
 
 1352816844 /home/fafa/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
 
@@ -254,22 +267,15 @@
 	"SoundEngine.h"
 
 1352820006 /home/fafa/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
->>>>>>> 2a39a790681e5fc555c7cea63ba286e385809ece
-	<string.h>
-	<iostream>
-	<stdio.h>
-	<map>
-	<SFML/Audio.hpp>
 
-<<<<<<< HEAD
-1353331029 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/MenuState.cpp
+1353331402 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-1353325890 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/main.cpp
+1353331522 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
 	"UnitTest/UnitTest.h"
 	<iostream>
@@ -281,9 +287,10 @@
 	"../Engine/SoundEngine/SoundEngine.h"
 	<boost/test/unit_test.hpp>
 
-1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
+1353331521 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
 	"../UnitTest.h"
 	"Engine/SoundEngine/SoundEngine.h"
+	"Engine/SoundEngine/Playlist.h"
 	<string>
 	<iostream>
 	<stdio.h>
@@ -291,7 +298,8 @@
 	<assert.h>
 	<SFML/Audio.hpp>
 
-=======
+1352974237 o.hpp>
+
 1352820006 source:/home/fafa/meteor-falls/meteor-falls-src/src/UnitTest/UnitTest.cpp
 	"UnitTest.h"
 	<string.h>
@@ -3342,8 +3350,6 @@
 	<assert.h>
 	<SFML/Audio.hpp>
 
-1352974237 o.hpp>
-
 1352904783 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 
@@ -3552,4 +3558,18 @@
 1353316862 source:/home/bastien/Bureau/Projet CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.cpp
 	"FileNotFound.h"
 
->>>>>>> 2a39a790681e5fc555c7cea63ba286e385809ece
+1353331521 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.h
+	<SFML/Audio.hpp>
+	<unordered_map>
+	"Utils/singleton.h"
+
+1353331521 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/FadeIn.h
+
+1353331521 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.h
+	<string.h>
+	<iostream>
+	<stdio.h>
+	<map>
+	<SFML/Audio.hpp>
+	"Engine/SoundEngine/FadeIn.h"
+
