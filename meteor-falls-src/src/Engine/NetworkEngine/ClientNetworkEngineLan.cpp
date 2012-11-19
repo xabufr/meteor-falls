@@ -1,6 +1,7 @@
 #include "ClientNetworkEngineLan.h"
 
-ClientNetworkEngineLan::ClientNetworkEngineLan()
+ClientNetworkEngineLan::ClientNetworkEngineLan(EngineManager* mng):
+    ClientNetworkEngine(mng)
 {
     //ctor
 }

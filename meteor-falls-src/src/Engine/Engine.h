@@ -2,7 +2,7 @@
 #define ENGINE_H
 
 class EngineMessage;
-
+class EngineManager;
 enum EngineType
 
 {
@@ -17,12 +17,15 @@ enum EngineType
 
 class Engine
 {
-    public:
+public:
 
-     virtual void handleMessage(const EngineMessage&) = 0;
-     virtual void work() = 0;
-     virtual EngineType getType() = 0;
+    virtual void handleMessage(const EngineMessage&) = 0;
+    virtual void work() = 0;
+    virtual EngineType getType() = 0;
 
+    Engine(EngineManager *manager):m_manager(manager){};
+protected:
+    EngineManager *m_manager;
 };
 
 #endif // ENGINE_H

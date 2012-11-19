@@ -46,6 +46,32 @@
 					<Add option="-lboost_unit_test_framework" />
 				</Linker>
 			</Target>
+			<Target title="Server">
+				<Option output="../build/Server/meteor-falls-src" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../build/" />
+				<Option object_output="../obj/Server/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="`pkg-config --cflags OGRE`" />
+					<Add option="-DDEBUG" />
+					<Add option="-DSERVER" />
+				</Compiler>
+			</Target>
+			<Target title="Client">
+				<Option output="../build/Client/meteor-falls-src" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../build/" />
+				<Option object_output="../obj/Client/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="`pkg-config --cflags OGRE`" />
+					<Add option="-DDEBUG" />
+					<Add option="-DCLIENT" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++0x" />
@@ -53,6 +79,8 @@
 			<Add option="-fexceptions" />
 			<Add option="`pkg-config --cflags OGRE`" />
 			<Add directory="src" />
+			<Add directory="libs/ozcollidelib_1-1-1/include/" />
+			<Add directory="libs/rapidxml/" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -62,6 +90,7 @@
 			<Add option="-lCEGUIBase" />
 			<Add option="-lozcollide" />
 			<Add option="-lboost_system" />
+			<Add option="-lboost_serialization" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -69,7 +98,6 @@
 		<Unit filename="src/Application/applicationparameters.h" />
 		<Unit filename="src/Application/parameterparserexception.cpp" />
 		<Unit filename="src/Application/parameterparserexception.h" />
-		<Unit filename="src/Engine/Engine.cpp" />
 		<Unit filename="src/Engine/Engine.h" />
 		<Unit filename="src/Engine/EngineManager/EngineManager.cpp" />
 		<Unit filename="src/Engine/EngineManager/EngineManager.h" />
@@ -87,8 +115,20 @@
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" />
+		<Unit filename="src/Engine/NetworkEngine/Connection.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/Connection.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.h" />
+		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.h" />
+		<Unit filename="src/Engine/NetworkEngine/NetworkMainTest.cpp">
+			<Option target="Server" />
+			<Option target="Client" />
+		</Unit>
+		<Unit filename="src/Engine/NetworkEngine/ServerClient.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ServerClient.h" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/TcpConnection.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/TcpConnection.h" />
 		<Unit filename="src/Engine/NetworkEngine/UdpConnection.cpp" />
@@ -97,6 +137,9 @@
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.h" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.cpp" />
+		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
 		<Unit filename="src/State/State.cpp" />
@@ -106,6 +149,9 @@
 		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="src/UnitTest/Tests/NetworkEngineTest.cpp">
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
@@ -113,10 +159,16 @@
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
 		<Unit filename="src/Utils/Exception/BasicException.h" />
-		<Unit filename="src/Utils/Vector3D.cpp" />
+		<Unit filename="src/Utils/Exception/FileNotFound.cpp" />
+		<Unit filename="src/Utils/Exception/FileNotFound.h" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
-		<Unit filename="src/main.cpp" />
+		<Unit filename="src/main.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="src/version.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
@@ -130,6 +182,12 @@
 				<doxyfile_dot />
 				<general />
 			</DoxyBlocks>
+			<AutoVersioning>
+				<Scheme minor_max="100" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="1000" />
+				<Settings autoincrement="1" date_declarations="1" update_manifest="1" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="src/version.h" />
+				<Changes_Log show_changes_editor="1" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
