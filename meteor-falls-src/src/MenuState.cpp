@@ -40,9 +40,9 @@ void MenuState::show()
     Ogre::SceneNode *node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeBackground", Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
     node->attachObject(m_background);
 
-    Ogre::Entity *m_sphere = m_scene_mgr->createEntity("Sphere", "sphere.mesh");
-    node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSphere", Ogre::Vector3(150, 50, -400), Ogre::Quaternion::IDENTITY);
-    m_sphere->setMaterialName("sphere");
+    Ogre::Entity *m_sphere = m_scene_mgr->createEntity("Sphere", "Sphere.mesh");
+    node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSphere", Ogre::Vector3(0, 0, -10), Ogre::Quaternion::IDENTITY);
+    m_sphere->setMaterialName("terre");
     node->attachObject(m_sphere);
 
     m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
