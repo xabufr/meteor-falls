@@ -12,6 +12,7 @@ class OgreContextManager : public Singleton<OgreContextManager>
         virtual ~OgreContextManager();
         OgreApplication* getOgreApplication();
         OgreWindowInputManager* getInputManager();
+        static OgreContextManager* get();
     protected:
     private:
         OgreApplication* m_application;

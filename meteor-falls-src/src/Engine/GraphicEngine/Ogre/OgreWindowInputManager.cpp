@@ -27,6 +27,7 @@ void OgreWindowInputManager::m_initOIS()
 
     m_mouse->setEventCallback(this);
     m_keyboard->setEventCallback(this);
+
 }
 void OgreWindowInputManager::windowResized(Ogre::RenderWindow* rw)
 {

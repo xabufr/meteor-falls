@@ -1,4 +1,6 @@
 #include "StateManager.h"
+#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 
 void StateManager::addState(State *p_state)
 {
@@ -9,8 +11,10 @@ void StateManager::startLoop()
 {     //lance boucle infinie
     m_end = false;
     m_states.top()->enter();
-    ret_code code = ret_code::CONTINUE;
-    while(!m_end&& !m_states.empty()){
+    ret_code code;
+    while(!m_end&& !m_states.empty())
+    {
+        code = m_states.top()->work();
         if(code == ret_code::FINISHED){                       //ancien etat du state different du nouveau
             m_states.top()->exit();
             removeState();
@@ -18,8 +22,9 @@ void StateManager::startLoop()
         }
         else if(code == ret_code::EXIT_PROGRAM)
             exit();
-        else
-            code = m_states.top()->work();
+
+        if(!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
+            exit();
     }
 }
 

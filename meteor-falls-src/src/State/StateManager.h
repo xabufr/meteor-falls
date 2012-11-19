@@ -18,7 +18,7 @@ class StateManager
 
     private:
         std::stack<State*> m_states;
-        bool m_end;
+        bool m_end, m_graphic;
 };
 
 #endif // STATEMANAGER_H
