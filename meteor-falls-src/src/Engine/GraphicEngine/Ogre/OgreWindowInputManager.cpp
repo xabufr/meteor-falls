@@ -151,6 +151,7 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
     if(m_injectMouse)
     {
         CEGUI::System::getSingleton().injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
+        CEGUI::System::getSingleton().injectMouseWheelChange(arg.state.Z.rel);
     }
     for(OIS::MouseListener *l : m_mouseListeners)
     {
