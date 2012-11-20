@@ -14,7 +14,7 @@ MenuState::MenuState(StateManager* mng):
     OgreContextManager::get()->getOgreApplication()->LoadRessources("resources.cfg");
 
     m_scene_mgr = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("DefaultSceneManager", "Menu");
-    m_scene_mgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
+    m_scene_mgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
 
     m_camera = m_scene_mgr->createCamera("MenuCam");
     m_camera->lookAt(Ogre::Vector3(0, 0, 0));
@@ -35,11 +35,39 @@ MenuState::MenuState(StateManager* mng):
 
     Ogre::SceneNode *node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeBackground", Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
     node->attachObject(m_background);
+    m_scene_mgr->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_TEXTURE_MODULATIVE);
 
-    Ogre::Entity *m_sphere = m_scene_mgr->createEntity("Sphere", "Sphere.mesh");
-    node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSphere", Ogre::Vector3(0, 0, -10), Ogre::Quaternion::IDENTITY);
-    m_sphere->setMaterialName("terre");
-    node->attachObject(m_sphere);
+    Ogre::Light* light = m_scene_mgr->createLight();
+    light->setDirection(1, 0.5, -0.5);
+    light->setType(Ogre::Light::LightTypes::LT_DIRECTIONAL);
+    light->setCastShadows(true);
+    m_scene_mgr->getRootSceneNode()->attachObject(light);
+
+    Ogre::Entity *m_terre = m_scene_mgr->createEntity("Terre", "Sphere.mesh");
+    m_nodeTerre = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeTerre", Ogre::Vector3(0, 0, -15), Ogre::Quaternion::IDENTITY);
+    m_nodeTerre->attachObject(m_terre);
+    m_nodeTerre->translate(2.5,0,0);
+    m_nodeTerre->pitch(Ogre::Radian(0.5));
+    m_terre->setCastShadows(true);
+    m_terre->setMaterialName("Material.001");
+    m_nodeTerre->scale(4,4,4);
+
+    Ogre::Entity *m_lune = m_scene_mgr->createEntity("Lune", "Sphere.mesh");
+    m_nodeLune = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeLune", Ogre::Vector3(0, 0, -15), Ogre::Quaternion::IDENTITY);
+    m_nodeLune->attachObject(m_lune);
+    m_nodeLune->translate(-2,1,0);
+    m_nodeLune->pitch(Ogre::Radian(0.5));
+    m_lune->setCastShadows(true);
+    m_lune->setMaterialName("lune");
+    m_nodeLune->scale(1,1,1);
+
+    Ogre::Entity *m_soleil = m_scene_mgr->createEntity("Soleil", "Sphere.mesh");
+    m_nodeSoleil = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSoleil", Ogre::Vector3(-10, 0, -30), Ogre::Quaternion::IDENTITY);
+    m_nodeSoleil->attachObject(m_soleil);
+    m_nodeSoleil->pitch(Ogre::Radian(0.5));
+    m_soleil->setCastShadows(true);
+    m_soleil->setMaterialName("soleil");
+    m_nodeSoleil->scale(2,2,2);
 
     m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 
@@ -115,7 +143,7 @@ bool MenuState::startGame(const CEGUI::EventArgs&)
 void MenuState::enter()
 {
     m_sheet->show();
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
     m_scene_mgr->getRootSceneNode()->setVisible(true);
 }
 
@@ -127,7 +155,10 @@ void MenuState::exit()
 
 ret_code MenuState::work()
 {
+    m_nodeTerre->yaw(Ogre::Degree(6*m_timer.getElapsedTime().asSeconds()));
+    m_nodeLune->yaw(Ogre::Degree(6*m_timer.getElapsedTime().asSeconds()));
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return ret_code::EXIT_PROGRAM;
+    m_timer.restart();
     return CONTINUE;
 }
