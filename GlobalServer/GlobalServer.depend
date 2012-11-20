@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1353319424 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Connection.cpp
+	"Connection.h"
+
+1353319424 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Connection.h
+	<boost/thread/mutex.hpp>
+	<boost/asio.hpp>
+	<queue>
+
+1353347019 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
+

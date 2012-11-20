@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "../State.h"
+#include <OIS/OIS.h>
 class EngineManager;
 class GameState : public State
 {
@@ -14,6 +15,7 @@ class GameState : public State
 
     protected:
     private:
+        OIS::Keyboard *m_keyboard;
         EngineManager *m_engineManager;
 };
 
