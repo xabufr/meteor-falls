@@ -35,6 +35,7 @@ class MenuState: public State
         Ogre::SceneNode *m_nodeLune;
         Ogre::SceneNode *m_nodeSoleil;
         sf::Clock m_timer;
+        Ogre::SceneNode* terreAtmosphere;
 };
 
 #endif // MENUSTATE_H_INCLUDED

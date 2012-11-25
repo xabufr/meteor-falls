@@ -15,6 +15,7 @@ MenuState::MenuState(StateManager* mng):
 
     m_scene_mgr = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("DefaultSceneManager", "Menu");
     m_scene_mgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
+    m_scene_mgr->setSkyBox(true, "Space/Skybox", 10000, true);
 
     m_camera = m_scene_mgr->createCamera("MenuCam");
     m_camera->lookAt(Ogre::Vector3(0, 0, 0));
@@ -24,7 +25,7 @@ MenuState::MenuState(StateManager* mng):
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    m_background = new Ogre::Rectangle2D(true);
+    /*m_background = new Ogre::Rectangle2D(true);
     m_background->setCorners(-1.0, 1.0, 1.0, -1.0);
     m_background->setMaterial("background");
     m_background->setRenderQueueGroup(Ogre::RENDER_QUEUE_BACKGROUND);
@@ -35,6 +36,7 @@ MenuState::MenuState(StateManager* mng):
 
     Ogre::SceneNode *node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeBackground", Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
     node->attachObject(m_background);
+    */
     m_scene_mgr->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_TEXTURE_MODULATIVE);
 
     Ogre::Light* light = m_scene_mgr->createLight();
@@ -44,16 +46,25 @@ MenuState::MenuState(StateManager* mng):
     m_scene_mgr->getRootSceneNode()->attachObject(light);
 
     Ogre::Entity *m_terre = m_scene_mgr->createEntity("Terre", "Sphere.mesh");
-    m_nodeTerre = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeTerre", Ogre::Vector3(0, 0, -15), Ogre::Quaternion::IDENTITY);
+    m_nodeTerre = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeTerre", Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
     m_nodeTerre->attachObject(m_terre);
-    m_nodeTerre->translate(2.5,0,0);
-    m_nodeTerre->pitch(Ogre::Radian(0.5));
+    //m_nodeTerre->pitch(Ogre::Radian(0.5));
     m_terre->setCastShadows(true);
-    m_terre->setMaterialName("Material.001");
+    m_terre->setMaterialName("Terre");
     m_nodeTerre->scale(4,4,4);
 
+    terreAtmosphere = m_scene_mgr->getRootSceneNode()->createChildSceneNode("atmosphere",  Ogre::Vector3(2.5, 0, -15));
+    terreAtmosphere->setScale(4.1, 4.1, 4.1);
+    terreAtmosphere->pitch(Ogre::Degree(180+90));
+    terreAtmosphere->yaw(Ogre::Degree(180));
+    Ogre::Entity *atmo = m_scene_mgr->createEntity("Terre_atmosphere", "Circle.mesh");
+    atmo->setMaterialName("Terre/Atmosphere");
+    terreAtmosphere->attachObject(atmo);
+    //atmo->setRenderQueueGroup (Ogre::RenderQueueGroupID::RENDER_QUEUE_BACKGROUND);
+    atmo->getSubEntity (0)->setCustomParameter (0, Ogre::Vector4(4,0,0,0));
+
     Ogre::Entity *m_lune = m_scene_mgr->createEntity("Lune", "Sphere.mesh");
-    m_nodeLune = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeLune", Ogre::Vector3(0, 0, -15), Ogre::Quaternion::IDENTITY);
+    m_nodeLune = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeLune", Ogre::Vector3(0, 0, -20), Ogre::Quaternion::IDENTITY);
     m_nodeLune->attachObject(m_lune);
     m_nodeLune->translate(-2,1,0);
     m_nodeLune->pitch(Ogre::Radian(0.5));
@@ -155,6 +166,16 @@ void MenuState::exit()
 
 ret_code MenuState::work()
 {
+    Ogre::Vector3      cam_to_obj = terreAtmosphere->getPosition() - m_camera->getPosition();
+    Ogre::Quaternion   quaternion_yaw = Ogre::Vector3( cam_to_obj.x, 0.0, cam_to_obj.z ).getRotationTo( cam_to_obj );
+    Ogre::Quaternion   quaternion_pitch = Ogre::Vector3( 0.0, 0.0, 1.0 ).getRotationTo( Ogre::Vector3( cam_to_obj.x, 0.0, cam_to_obj.z ));
+    Ogre::Vector3      newOrientation = m_camera->getDerivedUp( ).crossProduct( cam_to_obj );
+    Ogre::Quaternion   rollRotation = ( Ogre::Vector3( 1.0, 0.0, 0.0 ) ).getRotationTo( ( quaternion_yaw * quaternion_pitch ).Inverse( ) * newOrientation );
+    terreAtmosphere->setOrientation( quaternion_yaw * quaternion_pitch * rollRotation );
+    terreAtmosphere->yaw(Ogre::Degree(90));
+    terreAtmosphere->pitch(Ogre::Degree(90));
+    terreAtmosphere->roll(Ogre::Degree(90));
+
     m_nodeTerre->yaw(Ogre::Degree(6*m_timer.getElapsedTime().asSeconds()));
     m_nodeLune->yaw(Ogre::Degree(6*m_timer.getElapsedTime().asSeconds()));
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
