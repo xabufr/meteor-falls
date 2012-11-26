@@ -39,8 +39,6 @@ MenuState::MenuState(StateManager* mng):
     light->setSpecularColour(1,1,1);
     light->setAttenuation(3000, 1, 0.0007, 0);
 
-    //light->setCastShadows(true);
-
     m_eTerre = m_scene_mgr->createEntity("Terre", "Sphere.mesh");
     m_nodeTerre = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeTerre", Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
     m_nodeTerre->attachObject(m_eTerre);
@@ -70,12 +68,12 @@ MenuState::MenuState(StateManager* mng):
     m_nodeSoleil->attachObject(m_eSoleil);
     m_eSoleil->setCastShadows(true);
     m_eSoleil->setMaterialName("soleil");
-    //m_nodeSoleil->scale(2,2,2);
     m_nodeSoleil->attachObject(light);
 
-
-    m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-
+    CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
+    CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
+    CEGUI::System::getSingleton().setDefaultMouseCursor("Interface", "MouseArrow");
+    CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
 
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
@@ -99,14 +97,11 @@ bool MenuState::startGame()
 
 void MenuState::enter()
 {
-    m_sheet->show();
-    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
     m_scene_mgr->getRootSceneNode()->setVisible(true);
 }
 
 void MenuState::exit()
 {
-    m_sheet->hide();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
 }
 

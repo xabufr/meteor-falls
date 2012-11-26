@@ -3,8 +3,6 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-#include <CEGUI.h>
-#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
 #include <SFML/System.hpp>
