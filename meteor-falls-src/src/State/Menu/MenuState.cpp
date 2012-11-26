@@ -37,9 +37,9 @@ MenuState::MenuState(StateManager* mng):
     node->attachObject(m_background);
 
     Ogre::Entity *m_sphere = m_scene_mgr->createEntity("Sphere", "Sphere.mesh");
-    node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSphere", Ogre::Vector3(0, 0, -10), Ogre::Quaternion::IDENTITY);
-    m_sphere->setMaterialName("terre");
+    node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("NodeSphere", Ogre::Vector3(0, 0, -20), Ogre::Quaternion::IDENTITY);
     node->attachObject(m_sphere);
+    node->setScale(4, 4, 4);
 
     m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 
@@ -90,10 +90,6 @@ MenuState::MenuState(StateManager* mng):
                                            CEGUI::UDim(0.24+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
     m_quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_quit->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.36+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-
-    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
-    m_sheet->hide();
-    m_scene_mgr->getRootSceneNode()->setVisible(false);
 }
 
 MenuState::~MenuState()
@@ -114,9 +110,7 @@ bool MenuState::startGame(const CEGUI::EventArgs&)
 
 void MenuState::enter()
 {
-    m_sheet->show();
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
-    m_scene_mgr->getRootSceneNode()->setVisible(true);
+   // CEGUI::System::getSingleton().setGUISheet(m_sheet);
 }
 
 void MenuState::exit()

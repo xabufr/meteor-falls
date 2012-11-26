@@ -1,4 +1,4 @@
-#include "Connection.h"
+#include "../../meteor-falls-src/src/Engine/NetworkEngine/Connection.h"
 
 Connection::Connection(boost::shared_ptr<boost::asio::io_service> s) : m_service(s)
 {

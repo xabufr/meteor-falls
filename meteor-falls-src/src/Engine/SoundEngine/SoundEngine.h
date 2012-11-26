@@ -7,8 +7,8 @@
 #include <SFML/Audio.hpp>
 #include "../Engine.h"
 #include "soundbuffermanager.h"
-#include "Engine/SoundEngine/Fade.h"
-#include "Engine/EngineType.h"
+#include "../../Engine/SoundEngine/Fade.h"
+#include "../../Engine/EngineType.h"
 
 class EngineMessage;
 struct SoundParams
