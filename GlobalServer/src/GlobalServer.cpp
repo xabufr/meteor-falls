@@ -1,6 +1,10 @@
 #include <boost/bind.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/string.hpp>
 #include "GlobalServer.h"
-#include "../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
 
 GlobalServer::GlobalServer(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
 m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port))
@@ -21,17 +25,33 @@ void GlobalServer::work()
         boost::mutex::scoped_lock l(m_mutex_clients);
         clients = m_clients;
     }
-    std::vector<EngineMessage*> messages;
-    EngineMessage *message;
+    std::vector<ServerGlobalMessage> messages;
+    ServerGlobalMessage message;
     for (SslConnection::pointer client : clients){
         if (!client->isConnected() || !client->isListening())
             removeClient(client);
         else{
             while (client->hasData()){
-                message = NetworkEngine::deserialize(client->getData());
+                message = m_deserialize(client->getData());
                 messages.push_back(message);
 
-                std::cout << message->strings[FILE_NAME] << std::endl;
+                /*si il demande la liste des serveur
+                switch (message->type)
+                {
+                    case ServerGlobalMessage::Type::LOGIN:
+                        break;
+                    case ServerGlobalMessage::Type::LOGOUT:
+                        break;
+                    case ServerGlobalMessage::Type::SERVER_LIST:
+                        break;
+                    case ServerGlobalMessage::Type::SERVER_UP:
+                        break;
+                    case ServerGlobalMessage::Type::SERVER_DEL:
+                        break;
+                }
+                client->send(serialize());*/
+
+                std::cout << message.type << std::endl;
             }
             while (client->hasError())
                 std::cout<<client->getError().message()<<std::endl;
@@ -55,6 +75,9 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
             m_clients.push_back(conn);
             conn->setConnected(true);
             conn->startListen();
+            /*on lui envoie son num de session
+            ServerGlobalMessage *message;
+            conn->send(serialize(message));*/
         }
         m_startAccept();
     }
@@ -72,3 +95,22 @@ void GlobalServer::removeClient(SslConnection::pointer c)
         }
     }
 }
+
+std::string GlobalServer::m_serialize(ServerGlobalMessage message)
+{
+    std::ostringstream os;
+    boost::archive::text_oarchive archive(os);
+    archive << message;
+    return os.str();
+}
+
+ServerGlobalMessage GlobalServer::m_deserialize(std::string data)
+{
+    ServerGlobalMessage message;
+    std::istringstream iss(data);
+    boost::archive::text_iarchive archive(iss);
+    archive >> message;
+    return message;
+}
+
+
