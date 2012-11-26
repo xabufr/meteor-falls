@@ -21,7 +21,7 @@ class MenuState: public State
 
         virtual void enter();
         virtual void exit();
-        virtual ret_code work();
+        virtual ret_code work(unsigned int time);
 
     private:
         CEGUI::OgreRenderer *m_renderer;
@@ -34,8 +34,29 @@ class MenuState: public State
         Ogre::SceneNode *m_nodeTerre;
         Ogre::SceneNode *m_nodeLune;
         Ogre::SceneNode *m_nodeSoleil;
-        sf::Clock m_timer;
+        sf::Clock m_timerClick;
         Ogre::SceneNode* terreAtmosphere;
+        Ogre::Entity* m_currentSelected;
+        Ogre::RaySceneQuery* m_sceneQuery;
+
+        /**
+            Les entités qui vont correspondre à des entrées menu
+        */
+        Ogre::Entity *m_eTerre, *m_eAtmoTerre, *m_eSoleil, *m_eLune;
+
+        /**
+            Gestion des transitions
+        */
+        bool m_transitionning;
+        enum{
+            TERRE,
+            MENU
+        } m_transitionTo;
+        sf::Clock m_timerTranslation;
+        struct{
+            Ogre::Vector3 from, to;
+            float duration;
+        } m_transitionParams;
 };
 
 #endif // MENUSTATE_H_INCLUDED

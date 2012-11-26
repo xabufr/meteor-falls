@@ -69,8 +69,6 @@
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
 			<Add option="-lboost_unit_test_framework" />
-			<Add option="-lpthread" />
-			<Add option="-lcrypto" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -96,6 +94,8 @@
 		<Unit filename="src/Engine/GameEngine/Team.h" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/GetMeshInformation.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp" />
