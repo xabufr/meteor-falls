@@ -8,12 +8,13 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
 #include <SFML/System.hpp>
+#include <boost/function.hpp>
 
 class MenuState: public State
 {
     private:
         bool quit(const CEGUI::EventArgs &);
-        bool startGame(const CEGUI::EventArgs &);
+        bool startGame();
 
     public:
         MenuState(StateManager*);
@@ -24,13 +25,11 @@ class MenuState: public State
         virtual ret_code work(unsigned int time);
 
     private:
-        CEGUI::OgreRenderer *m_renderer;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
         Ogre::SceneManager *m_scene_mgr;
         Ogre::Camera *m_camera;
         Ogre::Rectangle2D *m_background;
-        CEGUI::Window *m_sheet;
         Ogre::SceneNode *m_nodeTerre;
         Ogre::SceneNode *m_nodeLune;
         Ogre::SceneNode *m_nodeSoleil;
@@ -56,6 +55,7 @@ class MenuState: public State
         struct{
             Ogre::Vector3 from, to;
             float duration;
+            boost::function<void()> function;
         } m_transitionParams;
 };
 
