@@ -26,6 +26,8 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         virtual bool hasData();
         std::string getData();
 
+        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& socket();
+
         virtual ~SslConnection();
 
 
