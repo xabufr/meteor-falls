@@ -90,6 +90,10 @@
 		<Unit filename="src/Engine/GameEngine/GameEngine.h" />
 		<Unit filename="src/Engine/GameEngine/Map.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map.h" />
+		<Unit filename="src/Engine/GameEngine/ObjetTerrain.cpp" />
+		<Unit filename="src/Engine/GameEngine/ObjetTerrain.h" />
+		<Unit filename="src/Engine/GameEngine/Team.cpp" />
+		<Unit filename="src/Engine/GameEngine/Team.h" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.cpp" />

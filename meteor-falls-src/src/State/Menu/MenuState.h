@@ -7,6 +7,7 @@
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
+#include <SFML/System.hpp>
 
 class MenuState: public State
 {
@@ -30,6 +31,11 @@ class MenuState: public State
         Ogre::Camera *m_camera;
         Ogre::Rectangle2D *m_background;
         CEGUI::Window *m_sheet;
+        Ogre::SceneNode *m_nodeTerre;
+        Ogre::SceneNode *m_nodeLune;
+        Ogre::SceneNode *m_nodeSoleil;
+        sf::Clock m_timer;
+        Ogre::SceneNode* terreAtmosphere;
 };
 
 #endif // MENUSTATE_H_INCLUDED
