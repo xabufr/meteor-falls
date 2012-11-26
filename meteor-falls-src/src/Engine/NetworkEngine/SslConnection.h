@@ -20,6 +20,7 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         void connect(boost::asio::ip::tcp::endpoint);
 
         void connectionAccepted(const boost::system::error_code& ); //Méthode appelée par le serveur
+        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& socket();
 
         virtual void send(std::string data);
         virtual void startListen();

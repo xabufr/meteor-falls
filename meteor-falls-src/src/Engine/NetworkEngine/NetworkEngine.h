@@ -1,6 +1,6 @@
 #ifndef H_NETWORKENGINE_H
 #define H_NETWORKENGINE_H
-#include "Engine/Engine.h"
+#include "../Engine.h"
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>

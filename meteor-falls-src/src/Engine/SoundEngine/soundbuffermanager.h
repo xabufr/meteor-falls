@@ -2,7 +2,7 @@
 #define SOUNDBUFFERMANAGER_H
 #include <SFML/Audio.hpp>
 #include <unordered_map>
-#include "Utils/singleton.h"
+#include "../../Utils/singleton.h"
 
 class SoundBufferManager: public Singleton<SoundBufferManager>
 {

@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1353319424 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Connection.cpp
-	"Connection.h"
+1353927540 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Connection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/Connection.h"
 
 1353319424 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Connection.h
 	<boost/thread/mutex.hpp>
@@ -8,4 +8,345 @@
 	<queue>
 
 1353347019 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
+
+1353927408 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/SslConnection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
+	<boost/bind.hpp>
+
+1353922247 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/SslConnection.h
+	<boost/asio.hpp>
+	<boost/asio/ssl.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/enable_shared_from_this.hpp>
+	"Connection.h"
+
+1353929089 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/TcpConnection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h"
+	<boost/bind.hpp>
+	<iomanip>
+
+1353319424 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/TcpConnection.h
+	<boost/asio.hpp>
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+
+1353929162 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerClient.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h"
+
+1353405668 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerClient.h
+	"TcpConnection.h"
+	"UdpConnection.h"
+
+1353405731 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/UdpConnection.h
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+	<boost/asio.hpp>
+
+1353929076 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/UdpConnection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h"
+	<boost/bind.hpp>
+	<iomanip>
+
+1353927710 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/NetworkEngine.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h"
+	<boost/archive/text_iarchive.hpp>
+	<boost/archive/text_oarchive.hpp>
+	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
+	<iostream>
+
+1353407005 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/NetworkEngine.h
+	"Engine.h"
+	<boost/asio.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
+
+1353406874 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Engine.h
+	"EngineType.h"
+
+1353407028 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineType.h
+
+1353407075 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineMessage.h
+	<vector>
+	<map>
+	<string>
+	"Vector3D.h"
+	"EngineMessageKey.h"
+	"EngineMessageType.h"
+	"Engine.h"
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1353407086 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Vector3D.h
+	<boost/serialization/serialization.hpp>
+	<SFML/System/Vector3.hpp>
+	<OgreVector3.h>
+	<cmath>
+
+1353406978 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineMessageKey.h
+
+1353406978 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineMessageType.h
+
+1353927590 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineMessage.cpp
+	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
+	"../../meteor-falls-src/src/Engine/EngineManager/EngineManager.h"
+
+1353407508 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineManager.h
+	<vector>
+	"EngineType.h"
+	<OgreFrameListener.h>
+
+1353929061 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerNetworkEngine.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h"
+	<iostream>
+	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
+
+1353407743 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerNetworkEngine.h
+	"NetworkEngine.h"
+	"ServerClient.h"
+	<vector>
+	<boost/thread/mutex.hpp>
+
+1353928631 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/BasicException.cpp
+	"../../meteor-falls-src/src/Utils/Exception/BasicException.h"
+	<boost/lexical_cast.hpp>
+
+1353407849 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/BasicException.h
+	<exception>
+	<string>
+
+1353407876 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/NetworkIpAdressFinder.cpp
+	"NetworkIpAdressFinder.h"
+
+1353407826 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/NetworkIpAdressFinder.h
+	<boost/asio.hpp>
+	<string>
+
+1353928801 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/clientnetworkengine.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h"
+	"../../meteor-falls-src/src/Utils/Exception/BasicException.h"
+	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
+	<boost/archive/text_oarchive.hpp>
+	<boost/archive/text_iarchive.hpp>
+
+1353407796 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/clientnetworkengine.h
+	"NetworkEngine.h"
+	"TcpConnection.h"
+	"UdpConnection.h"
+
+1353927702 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/EngineManager.cpp
+	"../../meteor-falls-src/src/Engine/EngineManager/EngineManager.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h"
+	"../../meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.h"
+	"../../meteor-falls-src/src/Engine/GameEngine/GameEngine.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
+
+1353926964 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
+	<boost/bind.hpp>
+	"GlobalServer.h"
+	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
+
+1353924028 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.h
+	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
+	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h"
+	<vector>
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
+	<boost/asio.hpp>
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	<boost/thread/mutex.hpp>
+	<boost/asio.hpp>
+	<queue>
+
+1353925560 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
+	<boost/asio.hpp>
+	<boost/asio/ssl.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/enable_shared_from_this.hpp>
+	"Connection.h"
+
+1353593668 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
+	"TcpConnection.h"
+	"UdpConnection.h"
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h
+	<boost/enable_shared_from_this.hpp>
+	<boost/shared_ptr.hpp>
+	"Connection.h"
+	<boost/asio.hpp>
+
+1353593686 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+	"../Engine.h"
+	<boost/asio.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/Engine.h
+	"EngineType.h"
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineType.h
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+	<vector>
+	<map>
+	<string>
+	"../../Utils/Vector3D.h"
+	"EngineMessageKey.h"
+	"EngineMessageType.h"
+	"../Engine.h"
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+	<boost/serialization/serialization.hpp>
+	<SFML/System/Vector3.hpp>
+	<OgreVector3.h>
+	<cmath>
+
+1352903835 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
+
+1352903835 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.h
+	<vector>
+	"../EngineType.h"
+	<OgreFrameListener.h>
+
+1353927862 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.h
+	<iostream>
+	<map>
+	<string>
+	<unordered_map>
+	<SFML/Audio.hpp>
+	"../Engine.h"
+	"soundbuffermanager.h"
+	"../../Engine/SoundEngine/Fade.h"
+	"../../Engine/EngineType.h"
+
+1353927843 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.h
+	<SFML/Audio.hpp>
+	<unordered_map>
+	"../../Utils/singleton.h"
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/singleton.h
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Fade.h
+
+1353927875 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
+	"../../Engine/NetworkEngine/clientnetworkengine.h"
+
+1353927892 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+	"../../Engine/NetworkEngine/NetworkEngine.h"
+	"../../Engine/NetworkEngine/TcpConnection.h"
+	"../../Engine/NetworkEngine/UdpConnection.h"
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
+	"NetworkEngine.h"
+	"ServerClient.h"
+	<vector>
+	<boost/thread/mutex.hpp>
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.h
+	"../Engine.h"
+	<Ogre.h>
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
+	<string>
+	"Map.h"
+	"../EngineMessage/EngineMessage.h"
+	"../Engine.h"
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+	<string>
+	<iostream>
+
+1353927925 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h
+	"../../../Utils/singleton.h"
+
+1352906765 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
+	<Ogre.h>
+
+1353928220 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/ClientNetworkEngineLan.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h"
+
+1353928238 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GameEngine.cpp
+	"../../meteor-falls-src/src/Engine/GameEngine/GameEngine.h"
+
+1353928311 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/ogrecontextmanager.cpp
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+
+1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h
+	<OIS/OIS.h>
+	<CEGUI.h>
+	<Ogre.h>
+
+1353928329 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/OgreApplication.cpp
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"../../meteor-falls-src/src/Utils/Exception/BasicException.h"
+
+1352903835 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Exception/BasicException.h
+	<exception>
+	<string>
+
+1353928335 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GraphicEngine.cpp
+	"../../meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+
+1353928680 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/OgreWindowInputManager.cpp
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	<boost/lexical_cast.hpp>
+	<CEGUI.h>
+
+1353928701 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Map.cpp
+	"../../meteor-falls-src/src/Engine/GameEngine/Map.h"
+	"../../meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h"
+	<boost/lexical_cast.hpp>
+	<Ogre.h>
+	<Terrain/OgreTerrain.h>
+
+1353928786 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
+	<string>
+	<map>
+	<rapidxml.hpp>
+	"../../Utils/singleton.h"
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/rapidxml/rapidxml.hpp
+	<cstdlib>
+	<cassert>
+	<new>
+	<exception>
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h
+	<boost/asio.hpp>
+	<string>
+
+1353929111 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/XmlDocumentManager.cpp
+	"../../meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../meteor-falls-src/src/Utils/Exception/FileNotFound.h"
+	<fstream>
+
+1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.h
+	<exception>
+	<string>
+
+1353929237 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/FileNotFound.cpp
+	"../../meteor-falls-src/src/Utils/Exception/FileNotFound.h"
 
