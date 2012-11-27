@@ -137,6 +137,8 @@ void Map::update(){
     if(keyboard->isKeyDown(OIS::KC_Q))
         m_camera->moveRelative(Ogre::Vector3(-10, 0, 0));
     m_camera->yaw(Ogre::Degree(-0.03*mouse->getMouseState().X.rel));
+    m_camera->pitch(Ogre::Degree(-0.03*mouse->getMouseState().Y.rel));
+    std::cout << mouse->getMouseState().Y.rel << std::endl;
 
 
 }
