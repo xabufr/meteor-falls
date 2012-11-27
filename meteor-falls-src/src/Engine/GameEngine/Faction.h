@@ -1,6 +1,6 @@
 #ifndef FACTION_H
 #define FACTION_H
-
+#include <string>
 
 class Faction
 {
@@ -9,6 +9,7 @@ class Faction
         virtual ~Faction();
     protected:
     private:
+        std::string m_nom;
 };
 
 #endif // FACTION_H

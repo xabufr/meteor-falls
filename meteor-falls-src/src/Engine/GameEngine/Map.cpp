@@ -3,12 +3,15 @@
 #include <boost/lexical_cast.hpp>
 #include <Ogre.h>
 #include <Terrain/OgreTerrain.h>
+#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 
 using namespace rapidxml;
 
-Map::Map()
+Map::Map(Ogre::SceneManager *p_scene_mgr)
 {
-    //ctor
+    m_scene_mgr = p_scene_mgr;
+    m_loaded = false;
 }
 
 Map::~Map()
@@ -17,6 +20,7 @@ Map::~Map()
 }
 
 void Map::load(std::string p_name){
+    m_loaded = true;
     m_name = p_name;
     rapidxml::xml_document<> *map_params = XmlDocumentManager::get()->getDocument("data/maps/" + p_name + "/" + p_name + ".xml");
     xml_node<> *size = map_params->first_node("map")->first_node("size");
@@ -39,27 +43,45 @@ void Map::load(std::string p_name){
     m_cycle_hour = boost::lexical_cast<int>(std::string(cycle_hour->value()));
 
     //chargement du terrain ogre
-    /*Ogre::Terrain *mTerrain;
-    Ogre::TerrainGlobalOptions *mGlobals;
-    mTerrain = OGRE_NEW Ogre::Terrain(mSceneMgr);
+    Ogre::Terrain *m_terrain;
+    Ogre::TerrainGlobalOptions *m_globals;
+    m_terrain = OGRE_NEW Ogre::Terrain(m_scene_mgr);
+
+    m_scene_mgr->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 
     // options globales
-    mGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
-    mGlobals->setMaxPixelError(10);
-    mGlobals->setCompositeMapDistance(8000);
-    mGlobals->setLightMapDirection(mLight->getDerivedDirection());
-    mGlobals->setCompositeMapAmbient(mSceneMgr->getAmbientLight());
-    mGlobals->setCompositeMapDiffuse(mLight->getDiffuseColour());
+    m_globals = OGRE_NEW Ogre::TerrainGlobalOptions();
+    m_globals->setMaxPixelError(10);
+    m_globals->setCompositeMapDistance(8000);
+
+    Ogre::Light *light = m_scene_mgr->createLight("lumiere1");
+    light->setDiffuseColour(1.0, 0.7, 1.0);
+    light->setSpecularColour(1.0, 0.7, 1.0);
+    light->setPosition(-100, 200, 100);
+    //m_globals->setLightMapDirection(light->getDerivedDirection());
+    m_globals->setCompositeMapAmbient(Ogre::ColourValue(0.8, 0.8, 0.8));
+    //m_globals->setCompositeMapDiffuse(light->getDiffuseColour());
+
+    Ogre::Camera* m_camera;
+    m_camera = m_scene_mgr->createCamera("MapCam");
+    Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
+    vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+    m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+
+    m_camera->setPosition(Ogre::Vector3(0, 20, 0));
+    m_camera->lookAt(Ogre::Vector3(-10, 20, -10));
+    m_camera->setNearClipDistance(0.1);
+    m_camera->setFarClipDistance(100000);
 
     Ogre::Image img;
-    img.load("data/maps/" + p_name + "/" + p_name + ".png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    img.load(p_name + "/" + p_name + ".png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
     // informations géométriques
     Ogre::Terrain::ImportData imp;
     imp.inputImage = &img;
     imp.terrainSize = img.getWidth();
-    imp.worldSize = 8000;
-    imp.inputScale = 600;
+    imp.worldSize = 2000;
+    imp.inputScale = 10;
     imp.minBatchSize = 33;
     imp.maxBatchSize = 65;
 
@@ -74,16 +96,16 @@ void Map::load(std::string p_name){
     imp.layerList[2].worldSize = 200;
     imp.layerList[2].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
     imp.layerList[2].textureNames.push_back("dirt_grayrocky_normalheight.dds");
-    mTerrain->prepare(imp);
-    mTerrain->load();
+    m_terrain->prepare(imp);
+    m_terrain->load();
 
     // plaquage de texture
-    Ogre::TerrainLayerBlendMap* blendMap1 = mTerrain->getLayerBlendMap(1);
+    Ogre::TerrainLayerBlendMap* blendMap1 = m_terrain->getLayerBlendMap(1);
     float* pBlend1 = blendMap1->getBlendPointer();
 
-    for (Ogre::uint16 y = 0; y < mTerrain->getLayerBlendMapSize(); ++y)
+    for (Ogre::uint16 y = 0; y < m_terrain->getLayerBlendMapSize(); ++y)
     {
-        for (Ogre::uint16 x = 0; x < mTerrain->getLayerBlendMapSize(); ++x)
+        for (Ogre::uint16 x = 0; x < m_terrain->getLayerBlendMapSize(); ++x)
         {
             *pBlend1++ = 150;
         }
@@ -92,7 +114,7 @@ void Map::load(std::string p_name){
     blendMap1->dirty();
     blendMap1->update();
 
-    mTerrain->freeTemporaryResources();*/
+    m_terrain->freeTemporaryResources();
 }
 
 std::string Map::getName(){
@@ -101,4 +123,8 @@ std::string Map::getName(){
 
 void Map::update(){
 
+}
+
+bool Map::getLoaded(){
+    return m_loaded;
 }

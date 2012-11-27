@@ -114,6 +114,8 @@ void MenuState::enter()
 void MenuState::exit()
 {
     m_scene_mgr->getRootSceneNode()->setVisible(false);
+    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
+    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
 }
 
 ret_code MenuState::work(unsigned int time)
@@ -202,7 +204,7 @@ ret_code MenuState::work(unsigned int time)
         {
             m_camera->setPosition(m_transitionParams.to);
             m_transitionning=false;
-  //          m_transitionParams.function();
+            m_transitionParams.function();
         }
     }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))

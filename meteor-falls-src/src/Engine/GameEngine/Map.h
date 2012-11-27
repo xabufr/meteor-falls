@@ -1,21 +1,25 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <Ogre.h>
 #include <string>
 #include <iostream>
 
 class Map
 {
     public:
-        Map();
+        Map(Ogre::SceneManager*);
         virtual ~Map();
         void load(std::string p_name);
         std::string getName();
         void update();
+        bool getLoaded();
 
     protected:
 
     private:
+        Ogre::SceneManager *m_scene_mgr;
+        bool m_loaded;
         std::string m_name;
         int m_size_x;
         int m_size_y;
