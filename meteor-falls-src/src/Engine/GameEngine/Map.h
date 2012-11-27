@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include <string>
 #include <iostream>
+#include "Engine/GameEngine/Unites/Hero.h"
 
 class Map
 {
@@ -19,6 +20,7 @@ class Map
 
     private:
         Ogre::SceneManager *m_scene_mgr;
+        Ogre::Entity *m_eNinja;
         bool m_loaded;
         std::string m_name;
         int m_size_x;

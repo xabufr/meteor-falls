@@ -154,7 +154,7 @@ ret_code MenuState::work(unsigned int time)
                 m_timerTranslation.restart();
                 m_transitionParams.from=m_camera->getPosition();
                 m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
-                m_transitionParams.duration=2.5;
+                m_transitionParams.duration=0;
                 m_transitionParams.function = boost::bind(&MenuState::startGame, this);
             }
         }

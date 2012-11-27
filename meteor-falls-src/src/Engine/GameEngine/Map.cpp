@@ -68,8 +68,8 @@ void Map::load(std::string p_name){
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    m_camera->setPosition(Ogre::Vector3(0, 20, 0));
-    m_camera->lookAt(Ogre::Vector3(-10, 20, -10));
+    m_camera->setPosition(Ogre::Vector3(0, 0, 850));
+    m_camera->lookAt(Ogre::Vector3(0, 0, 0));
     m_camera->setNearClipDistance(0.1);
     m_camera->setFarClipDistance(100000);
 
@@ -115,6 +115,12 @@ void Map::load(std::string p_name){
     blendMap1->update();
 
     m_terrain->freeTemporaryResources();
+
+    //Hero MonHero("ninja","ninja.mesh",m_scene_mgr);
+
+    m_eNinja = m_scene_mgr->createEntity("ninja", "ninja.mesh");
+    Ogre::SceneNode *node= m_scene_mgr->getRootSceneNode()->createChildSceneNode("nodeninja", Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
+    node->attachObject(m_eNinja);
 }
 
 std::string Map::getName(){

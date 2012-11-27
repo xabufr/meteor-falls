@@ -5,6 +5,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
+#include <Ogre.h>
 #include <boost/bind.hpp>
 #include "Terrestre.h"
 
@@ -12,7 +13,7 @@ class Hero : public Terrestre
 {
     public:
 
-        Hero(std::string name, std::string chemin);
+        Hero(std::string name, std::string chemin,Ogre::SceneManager *scene_mgr);
         virtual ~Hero();
 
 
@@ -22,6 +23,7 @@ class Hero : public Terrestre
         std::string m_name;
         std::string m_chemin;
         Ogre::Entity *m_eNinja;
+        Ogre::SceneManager *m_scene_mgr;
 
 };
 

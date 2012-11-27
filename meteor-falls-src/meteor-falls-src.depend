@@ -4305,7 +4305,7 @@
 1353316862 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Exception/FileNotFound.cpp
 	"FileNotFound.h"
 
-1354012342 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/main.cpp
+1354022362 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/main.cpp
 	<iostream>
 	"UnitTest/UnitTest.h"
 	<iostream>
@@ -4344,10 +4344,11 @@
 	"../Engine.h"
 	"Engine/GameEngine/Unites/Hero.h"
 
-1354022135 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+1354026959 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
 	<Ogre.h>
 	<string>
 	<iostream>
+	"Engine/GameEngine/Unites/Hero.h"
 
 1353337251 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.h
 	"../Engine.h"
@@ -4371,7 +4372,7 @@
 	<vector>
 	<map>
 
-1354022135 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.cpp
+1354027555 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.cpp
 	"Map.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
@@ -4441,7 +4442,7 @@
 	"../State.h"
 	<OIS/OIS.h>
 
-1354022135 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1354023846 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -4568,15 +4569,16 @@
 1354008709 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 	"Unite.h"
 
-1354013251 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
+1354025444 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
 
-1354013182 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
+1354024852 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
 	<string>
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/GetMeshInformation.h"
+	<Ogre.h>
 	<boost/bind.hpp>
 	"Terrestre.h"
 
