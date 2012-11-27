@@ -3,7 +3,7 @@
 
 SslConnection::pointer SslConnection::create(boost::shared_ptr<boost::asio::io_service> s, Type t)
 {
-    boost::asio::ssl::context context(boost::asio::ssl::context::sslv2);
+    boost::asio::ssl::context context(*s,boost::asio::ssl::context_base::method::sslv2);
     context.set_verify_mode(boost::asio::ssl::context::verify_none);
     return pointer(new SslConnection(s,t, context));
 }
