@@ -8,6 +8,12 @@ void StateManager::addState(State *p_state)
     m_states.push(p_state);
 }
 
+bool StateManager::isEmpty()
+{
+    return m_states.empty();
+}
+
+
 void StateManager::startLoop()
 {     //lance boucle infinie
     m_end = false;

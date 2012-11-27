@@ -1,11 +1,16 @@
 #include "UniteFactory.h"
 
-UniteFactory::UniteFactory()
+UniteFactory::UniteFactory(Faction* f)
 {
-    //ctor
+
 }
 
 UniteFactory::~UniteFactory()
 {
-    //dtor
+
+}
+
+Unite* UniteFactory::create(UnitId id)
+{
+
 }

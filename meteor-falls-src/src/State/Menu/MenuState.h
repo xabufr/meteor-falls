@@ -35,6 +35,7 @@ class MenuState: public State
         Ogre::SceneNode* terreAtmosphere;
         Ogre::Entity* m_currentSelected;
         Ogre::RaySceneQuery* m_sceneQuery;
+        StateManager *m_stateMgr;
 
         /**
             Les entités qui vont correspondre à des entrées menu
