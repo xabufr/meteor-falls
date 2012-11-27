@@ -26,3 +26,7 @@ OgreWindowInputManager* OgreContextManager::getInputManager()
 {
     return m_inputManager;
 }
+OgreContextManager* OgreContextManager::get()
+{
+    return Singleton<OgreContextManager>::get();
+}

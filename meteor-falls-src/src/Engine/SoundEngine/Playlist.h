@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <map>
 #include <SFML/Audio.hpp>
-#include "Engine/SoundEngine/FadeIn.h"
+#include "Engine/SoundEngine/Fade.h"
 
 
 class Playlist

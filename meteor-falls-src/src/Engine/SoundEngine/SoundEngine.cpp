@@ -1,4 +1,5 @@
 #include "SoundEngine.h"
+#include "Engine/EngineMessage/EngineMessage.h"
 
 SoundEngine::SoundEngine(EngineManager * manager)
     : Engine(manager)
@@ -90,21 +91,21 @@ void SoundEngine::work()// appeller la classe Fade
       //  std::cout << "new voilume : "<<new_volume << std::endl;
 }
 
-/*
-void SoundEngine::handleEngineEvent(EngineEvent* event)
+
+void SoundEngine::handleEngineEvent(EngineMessage* event)
 {
-    switch(event->GetMessage())
+    switch(event->message)
     {
-    case TypeMessage::JouerSon:
-        this->PlaySound(event->GetStrings().find(IndexMessages::Chemin)->second);
+    case PLAY_SOUND:
+        //this->PlaySound(event->GetStrings().find(IndexMessages::Chemin)->second);
         break;
     }
 }
-*/
+
 
 EngineType SoundEngine::getType() const
 {
-   // return EngineType::SoundEngine;// enginetype
+    return EngineType::SoundEngineType;// enginetype
 }
 
 

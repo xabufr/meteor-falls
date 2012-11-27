@@ -1,17 +1,16 @@
 #ifndef SOUNDENGINE_H
 #define SOUNDENGINE_H
 #include <iostream>
-#include <stdio.h>
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <SFML/Audio.hpp>
-#include "Utils/singleton.h"
 #include "../Engine.h"
 #include "soundbuffermanager.h"
-#include "Engine/SoundEngine/FadeIn.h"
+#include "Engine/SoundEngine/Fade.h"
 #include "Engine/EngineType.h"
 
+class EngineMessage;
 struct SoundParams
 {
     sf::Sound *sound;
@@ -64,7 +63,7 @@ class SoundEngine : public Engine
 
         // rajouter le stop / loop pour le son
 
-        //virtual void handleEngineEvent(EngineEvent*);// Type engineEvent ??
+        virtual void handleEngineEvent(EngineMessage*);// Type engineEvent ??
         virtual EngineType getType() const;
 
     protected:

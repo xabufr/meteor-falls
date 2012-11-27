@@ -1,20 +1,5 @@
-#include "FadeIn.h"
+#include "Fade.h"
 #include <cmath>
-
-float Fade::operator()(float temps)// calcule le temps ici
-{
-    if (m_fadeType == in)
-    {
-        temps = 1 - temps;
-    }
-
-    switch(m_fadeFunction)
-    {
-        cubique :
-            break;
-    }
-
-}
 
 float Fade::Cubique(float temps)// ici, calcul de fonction cubique
 {
@@ -57,7 +42,7 @@ int Fade::work(int temps_actuel, int temps_total, int duree_fade, int volume_bas
             return (volume_base * Constant(temps));
 
     }
-
+    return volume_base;
 }
 
 

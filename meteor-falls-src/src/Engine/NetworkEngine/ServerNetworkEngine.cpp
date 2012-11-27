@@ -22,7 +22,7 @@ void ServerNetworkEngine::work()
 {
     std::vector<ServerClient> clients;
     {
-        boost::mutex::scoped_lock(l);
+        boost::mutex::scoped_lock l(m_mutex_clients);
         clients =  m_clients;
     }
     std::vector<EngineMessage*> messages;
@@ -63,7 +63,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
     if(!e)
     {
         {
-            boost::mutex::scoped_lock(l);
+            boost::mutex::scoped_lock l(m_mutex_clients);
             m_clients.push_back(ServerClient(conn, m_lastClient++));
             conn->setConnected(true);
             conn->startListen();

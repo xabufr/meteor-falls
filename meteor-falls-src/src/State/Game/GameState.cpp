@@ -5,12 +5,12 @@
 GameState::GameState(StateManager* mng):
     State(mng)
 {
-    m_engineManager = new EngineManager(EngineManager::Type::CLIENT);
+
 }
 
 GameState::~GameState()
 {
-    delete m_engineManager;
+
 }
 ret_code GameState::work()
 {
@@ -20,10 +20,10 @@ ret_code GameState::work()
 
 void GameState::enter()
 {
-
+    m_engineManager = new EngineManager(EngineManager::Type::CLIENT);
 }
 
 void GameState::exit()
 {
-
+    delete m_engineManager;
 }

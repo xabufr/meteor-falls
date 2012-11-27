@@ -4,19 +4,26 @@
 #include <string>
 #include "Map.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../Engine.h"
 
 class GameEngine : public Engine
 {
     public:
-        /*GameEngine();
-        virtual ~GameEngine();*/
-        void handleMessage(const EngineMessage&);
-        void work();
+        enum Type{
+            CLIENT,
+            SERVER
+        };
+        GameEngine(EngineManager*, Type);
+        virtual ~GameEngine();
+        virtual void handleMessage(const EngineMessage&);
+        virtual void work();
+        virtual EngineType getType();
 
     protected:
 
     private:
         Map *m_map;
+        Type m_type;
 };
 
 #endif // GAMEENGINE_H

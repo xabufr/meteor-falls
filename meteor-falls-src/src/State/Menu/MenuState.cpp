@@ -3,32 +3,28 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../Game/GameState.h"
 
-MenuState::MenuState()
+MenuState::MenuState(StateManager* mng):
+    State(mng)
 {
-}
-
-MenuState::~MenuState()
-{
-}
-
-void MenuState::show()
-{
-    OIS::Mouse *m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
-    OIS::Keyboard *m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+    m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
+    m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     OgreContextManager::get()->getOgreApplication()->LoadRessources("resources.cfg");
 
     m_scene_mgr = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("DefaultSceneManager", "Menu");
     m_scene_mgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
-    Ogre::Camera *m_camera = m_scene_mgr->createCamera("MenuCam");
+
+    m_camera = m_scene_mgr->createCamera("MenuCam");
     m_camera->lookAt(Ogre::Vector3(0, 0, 0));
     m_camera->setNearClipDistance(5);
+
     Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    Ogre::Rectangle2D *m_background = new Ogre::Rectangle2D(true);
+    m_background = new Ogre::Rectangle2D(true);
     m_background->setCorners(-1.0, 1.0, 1.0, -1.0);
     m_background->setMaterial("background");
     m_background->setRenderQueueGroup(Ogre::RENDER_QUEUE_BACKGROUND);
@@ -60,13 +56,14 @@ void MenuState::show()
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    CEGUI::Window *m_sheet = m_window_mgr.createWindow("OgreTray/TabButtonPane", "FenetreMenu");
+    m_sheet = m_window_mgr.createWindow("OgreTray/TabButtonPane", "FenetreMenu");
     m_sheet->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.50, 0)));
     m_sheet->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_sheet->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0.30, 0)));
 
     CEGUI::Window *m_play = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouer");
     m_play->setText("Jouer");
     m_play->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_play->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&MenuState::startGame, this));
     m_sheet->addChildWindow(m_play);
 
     CEGUI::Window *m_option = m_window_mgr.createWindow("OgreTray/Button", "BoutonOption");
@@ -94,23 +91,43 @@ void MenuState::show()
     m_quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_quit->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.36+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    m_sheet->hide();
+    m_scene_mgr->getRootSceneNode()->setVisible(false);
+}
 
-    while(OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
-    {
-        CEGUI::System::getSingleton().injectMousePosition(m_mouse->getMouseState().X.abs, m_mouse->getMouseState().Y.abs);
-        if(m_mouse->getMouseState().buttonDown(OIS::MB_Left))
-            CEGUI::System::getSingleton().injectMouseButtonDown(OgreWindowInputManager::convertButton(OIS::MB_Left));
-        else if (!m_mouse->getMouseState().buttonDown(OIS::MB_Left))
-            CEGUI::System::getSingleton().injectMouseButtonUp(OgreWindowInputManager::convertButton(OIS::MB_Left));
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            break;
-    }
+MenuState::~MenuState()
+{
     delete m_background;
 }
 
-bool MenuState::quit(const CEGUI::EventArgs &){
+bool MenuState::quit(const CEGUI::EventArgs &)
+{
     OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
-    std::cout<<"ttut"<<std::endl;
     return true;
+}
+bool MenuState::startGame(const CEGUI::EventArgs&)
+{
+    m_state_manager->addState(new GameState(m_state_manager));
+    return true;
+}
+
+void MenuState::enter()
+{
+    m_sheet->show();
+    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    m_scene_mgr->getRootSceneNode()->setVisible(true);
+}
+
+void MenuState::exit()
+{
+    m_sheet->hide();
+    m_scene_mgr->getRootSceneNode()->setVisible(false);
+}
+
+ret_code MenuState::work()
+{
+    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+        return ret_code::EXIT_PROGRAM;
+    return CONTINUE;
 }
