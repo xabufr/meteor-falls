@@ -14,6 +14,8 @@ class XmlDocumentManager: public Singleton<XmlDocumentManager>
 
         rapidxml::xml_document<>* getDocument(const std::string&);
 
+        static XmlDocumentManager* get();
+
     protected:
         XmlDocumentManager();
         virtual ~XmlDocumentManager();

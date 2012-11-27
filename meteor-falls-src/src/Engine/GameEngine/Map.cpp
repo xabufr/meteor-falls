@@ -2,9 +2,11 @@
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
 #include <boost/lexical_cast.hpp>
 #include <Ogre.h>
+#include <OIS/OIS.h>
 #include <Terrain/OgreTerrain.h>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
 using namespace rapidxml;
 
@@ -62,14 +64,13 @@ void Map::load(std::string p_name){
     m_globals->setCompositeMapAmbient(Ogre::ColourValue(0.8, 0.8, 0.8));
     //m_globals->setCompositeMapDiffuse(light->getDiffuseColour());
 
-    Ogre::Camera* m_camera;
     m_camera = m_scene_mgr->createCamera("MapCam");
     Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-    m_camera->setPosition(Ogre::Vector3(0, 20, 0));
-    m_camera->lookAt(Ogre::Vector3(-10, 20, -10));
+    m_camera->setPosition(Ogre::Vector3(0, 100, 0));
+    m_camera->lookAt(Ogre::Vector3(-100, 100, -100));
     m_camera->setNearClipDistance(0.1);
     m_camera->setFarClipDistance(100000);
 
@@ -81,7 +82,7 @@ void Map::load(std::string p_name){
     imp.inputImage = &img;
     imp.terrainSize = img.getWidth();
     imp.worldSize = 2000;
-    imp.inputScale = 10;
+    imp.inputScale = 100;
     imp.minBatchSize = 33;
     imp.maxBatchSize = 65;
 
@@ -122,6 +123,23 @@ std::string Map::getName(){
 }
 
 void Map::update(){
+    OIS::Mouse* mouse;
+    mouse = OgreContextManager::get()->getInputManager()->getMouse();
+    OIS::Keyboard* keyboard;
+    keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+
+    if(keyboard->isKeyDown(OIS::KC_Z))
+        m_camera->moveRelative(Ogre::Vector3(0, 0, -10));
+    if(keyboard->isKeyDown(OIS::KC_S))
+        m_camera->moveRelative(Ogre::Vector3(0, 0, 10));
+    if(keyboard->isKeyDown(OIS::KC_D))
+        m_camera->moveRelative(Ogre::Vector3(10, 0, 0));
+    if(keyboard->isKeyDown(OIS::KC_Q))
+        m_camera->moveRelative(Ogre::Vector3(-10, 0, 0));
+    m_camera->yaw(Ogre::Degree(-0.03*mouse->getMouseState().X.rel));
+    m_camera->pitch(Ogre::Degree(-0.03*mouse->getMouseState().Y.rel));
+    std::cout << mouse->getMouseState().Y.rel << std::endl;
+
 
 }
 

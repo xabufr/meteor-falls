@@ -1,11 +1,11 @@
 #include "Recherche.h"
 
-Recherche::Recherche()
+Recherche::Recherche(RechercheId id) : m_id(id)
 {
-    //ctor
+
 }
 
 Recherche::~Recherche()
 {
-    //dtor
+
 }

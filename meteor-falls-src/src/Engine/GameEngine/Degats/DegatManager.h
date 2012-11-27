@@ -1,8 +1,8 @@
 #ifndef DEGATMANAGER_H
 #define DEGATMANAGER_H
-#include "Utils/singleton.h"
-#include "typedefs.h"
 
+#include "typedefs.h"
+#include "Utils/singleton.h"
 #include <unordered_map>
 
 class Degat;
