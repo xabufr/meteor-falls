@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "../EngineMessage/EngineMessage.h"
 #include "../Engine.h"
+#include "Engine/GameEngine/Unites/Hero.h"
 
 class GameEngine : public Engine
 {

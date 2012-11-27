@@ -32,14 +32,14 @@ class MenuState: public State
         Ogre::SceneNode *m_nodeLune;
         Ogre::SceneNode *m_nodeSoleil;
         sf::Clock m_timerClick;
-        Ogre::SceneNode* terreAtmosphere;
+        Ogre::SceneNode* terreAtmosphere, *soleilAtmosphere;
         Ogre::Entity* m_currentSelected;
         Ogre::RaySceneQuery* m_sceneQuery;
 
         /**
             Les entités qui vont correspondre à des entrées menu
         */
-        Ogre::Entity *m_eTerre, *m_eAtmoTerre, *m_eSoleil, *m_eLune;
+        Ogre::Entity *m_eTerre, *m_eAtmoTerre, *m_eSoleil, *m_eLune, *m_eAtmosoleil;
 
         /**
             Gestion des transitions

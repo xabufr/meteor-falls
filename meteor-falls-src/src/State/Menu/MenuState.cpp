@@ -49,6 +49,7 @@ MenuState::MenuState(StateManager* mng):
     m_camera->setAutoTracking(true, m_nodeTerre, Ogre::Vector3(-1.0,0,0));
 
     terreAtmosphere = m_scene_mgr->getRootSceneNode()->createChildSceneNode("atmosphere",  Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
+    // cree atmosphere
     m_eAtmoTerre = m_scene_mgr->createEntity("Terre_atmosphere", "Circle.mesh");
     m_eAtmoTerre->setMaterialName("Terre/Atmosphere");
     terreAtmosphere->attachObject(m_eAtmoTerre);
@@ -69,7 +70,17 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setCastShadows(true);
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
-
+/*
+    soleilAtmosphere = m_scene_mgr->getRootSceneNode()->createChildSceneNode("atmosphereJaune",  Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
+    // cree atmosphere soleil
+    m_eAtmosoleil = m_scene_mgr->createEntity("soleil_atmosphere", "Circle.mesh");
+    m_eAtmosoleil->setMaterialName("Soleil/Atmosphere");
+    soleilAtmosphere->attachObject(m_eAtmosoleil);
+    soleilAtmosphere->scale(4.05, 4.05, 4.05);      // x , y , z
+    soleilAtmosphere->pitch(Ogre::Degree(180+90));  //x
+    soleilAtmosphere->yaw(Ogre::Degree(180+90));    //y
+    soleilAtmosphere->roll(Ogre::Degree(180+90));   //z
+*/
     CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
     CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
     CEGUI::System::getSingleton().setDefaultMouseCursor("Interface", "MouseArrow");
@@ -115,6 +126,8 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->setOrientation( quaternion_yaw * quaternion_pitch * rollRotation );
     terreAtmosphere->pitch(Ogre::Degree(180+90));
     terreAtmosphere->yaw(Ogre::Degree(90));
+    // => mesh atmosphere devant camera
+
     terreAtmosphere->roll(Ogre::Degree(90));
 
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
