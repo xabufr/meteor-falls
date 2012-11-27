@@ -20,6 +20,11 @@ void OgreWindowInputManager::m_initOIS()
 
     m_window->getCustomAttribute("WINDOW", &windowHnd);
     pl.insert(std::make_pair<std::string, std::string>("WINDOW", boost::lexical_cast<std::string>(windowHnd)));
+
+    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
+    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
+    pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+
     m_inputManager = OIS::InputManager::createInputSystem(pl);
 
     m_mouse =   static_cast<OIS::Mouse*>   (m_inputManager->createInputObject(OIS::Type::OISMouse,    true));
@@ -34,7 +39,7 @@ void OgreWindowInputManager::windowResized(Ogre::RenderWindow* rw)
     if(rw!=m_window||!m_mouse) return;
     const OIS::MouseState &ms = m_mouse->getMouseState();
     ms.width = rw->getWidth();
-    ms.height = rw->getHeight();
+    ms.height = rw->getHeight()-100;//bug X11 OU OIS
 }
 
 void OgreWindowInputManager::windowClosed(Ogre::RenderWindow* rw)
@@ -150,9 +155,10 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
 {
     if(m_injectMouse)
     {
-        CEGUI::System::getSingleton().injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
+        CEGUI::System::getSingleton().injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
         CEGUI::System::getSingleton().injectMouseWheelChange(arg.state.Z.rel);
     }
+
     for(OIS::MouseListener *l : m_mouseListeners)
     {
         if(!l->mouseMoved(arg))

@@ -18,6 +18,7 @@ OgreApplication::OgreApplication()
 
     m_window = m_root->initialise(true, "Meteor-Falls");
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+    m_ceguiRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
 }
 
 OgreApplication::~OgreApplication()
@@ -72,4 +73,8 @@ Ogre::RenderWindow* OgreApplication::getWindow()
 Ogre::Root* OgreApplication::getRoot()
 {
     return m_root;
+}
+CEGUI::Renderer* OgreApplication::getCEGUI()
+{
+    return m_ceguiRenderer;
 }
