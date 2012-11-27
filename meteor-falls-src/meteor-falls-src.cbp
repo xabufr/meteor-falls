@@ -58,6 +58,7 @@
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
+			<Add option="-lOgreTerrain" />
 			<Add option="-lOIS" />
 			<Add option="-lsfml-audio" />
 			<Add option="-lsfml-system" />

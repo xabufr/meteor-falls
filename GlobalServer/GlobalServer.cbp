@@ -48,10 +48,17 @@
 			<Add option="-lboost_unit_test_framework" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
+			<Add option="-lcrypt" />
+			<Add option="-lmysqld" />
+			<Add option="-ldl" />
+			<Add option="-lz" />
+			<Add option="-lrt" />
 		</Linker>
 		<Unit filename="src/BasicException.cpp" />
 		<Unit filename="src/ClientNetworkEngineLan.cpp" />
 		<Unit filename="src/Connection.cpp" />
+		<Unit filename="src/Creator.cpp" />
+		<Unit filename="src/Creator.h" />
 		<Unit filename="src/EngineManager.cpp" />
 		<Unit filename="src/EngineMessage.cpp" />
 		<Unit filename="src/FileNotFound.cpp" />
@@ -64,6 +71,8 @@
 		<Unit filename="src/NetworkIpAdressFinder.cpp" />
 		<Unit filename="src/OgreApplication.cpp" />
 		<Unit filename="src/OgreWindowInputManager.cpp" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/Player.h" />
 		<Unit filename="src/Server.cpp" />
 		<Unit filename="src/Server.h" />
 		<Unit filename="src/ServerClient.cpp" />
