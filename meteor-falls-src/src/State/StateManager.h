@@ -13,6 +13,7 @@ class StateManager
         void startLoop();
         void exit();
         void removeState();
+        bool isEmpty();
 
     protected:
 
