@@ -27,6 +27,7 @@ class Map
         bool m_cycle_enable;
         int m_cycle_duration;
         int m_cycle_hour;
+        Ogre::Camera* m_camera;
 
 
 };

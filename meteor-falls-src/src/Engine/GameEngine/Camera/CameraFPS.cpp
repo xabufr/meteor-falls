@@ -2,7 +2,7 @@
 
 CameraFPS::CameraFPS()
 {
-    //ctor
+
 }
 
 CameraFPS::~CameraFPS()
