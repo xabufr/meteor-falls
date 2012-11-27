@@ -1,7 +1,7 @@
 #ifndef OGRECONTEXTMANAGER_H
 #define OGRECONTEXTMANAGER_H
 
-#include "Utils/singleton.h"
+#include "../../../Utils/singleton.h"
 
 class OgreApplication;
 class OgreWindowInputManager;

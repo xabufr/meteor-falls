@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GlobalServer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/GlobalServer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++0x" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/GlobalServer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add option="-lOgreMain" />
+			<Add option="-lOIS" />
+			<Add option="-lsfml-audio" />
+			<Add option="-lsfml-system" />
+			<Add option="-lCEGUIBase" />
+			<Add option="-lCEGUIOgreRenderer" />
+			<Add option="-lboost_system" />
+			<Add option="-lboost_serialization" />
+			<Add option="-lssl" />
+			<Add option="-lozcollide" />
+			<Add option="-lboost_thread" />
+			<Add option="-lboost_unit_test_framework" />
+			<Add option="-lpthread" />
+			<Add option="-lcrypto" />
+		</Linker>
+		<Unit filename="src/BasicException.cpp" />
+		<Unit filename="src/BasicException.h" />
+		<Unit filename="src/Connection.cpp" />
+		<Unit filename="src/Connection.h" />
+		<Unit filename="src/Engine.h" />
+		<Unit filename="src/EngineManager.cpp" />
+		<Unit filename="src/EngineManager.h" />
+		<Unit filename="src/EngineMessage.cpp" />
+		<Unit filename="src/EngineMessage.h" />
+		<Unit filename="src/EngineMessageKey.h" />
+		<Unit filename="src/EngineMessageType.h" />
+		<Unit filename="src/EngineType.h" />
+		<Unit filename="src/GlobalServer.cpp" />
+		<Unit filename="src/GlobalServer.h" />
+		<Unit filename="src/NetworkEngine.cpp" />
+		<Unit filename="src/NetworkEngine.h" />
+		<Unit filename="src/NetworkIpAdressFinder.cpp" />
+		<Unit filename="src/NetworkIpAdressFinder.h" />
+		<Unit filename="src/ServerClient.cpp" />
+		<Unit filename="src/ServerClient.h" />
+		<Unit filename="src/ServerNetworkEngine.cpp" />
+		<Unit filename="src/ServerNetworkEngine.h" />
+		<Unit filename="src/SslConnection.cpp" />
+		<Unit filename="src/SslConnection.h" />
+		<Unit filename="src/TcpConnection.cpp" />
+		<Unit filename="src/TcpConnection.h" />
+		<Unit filename="src/UdpConnection.cpp" />
+		<Unit filename="src/UdpConnection.h" />
+		<Unit filename="src/Vector3D.h" />
+		<Unit filename="src/clientnetworkengine.cpp" />
+		<Unit filename="src/clientnetworkengine.h" />
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

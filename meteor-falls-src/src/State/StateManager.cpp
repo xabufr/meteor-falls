@@ -1,6 +1,7 @@
 #include "StateManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include <SFML/System.hpp>
 
 void StateManager::addState(State *p_state)
 {
@@ -12,6 +13,7 @@ void StateManager::startLoop()
     m_end = false;
     State *last = m_states.top();
     m_states.top()->enter();
+    sf::Clock timer;
     ret_code code;
     while(!m_end&&!m_states.empty())
     {
@@ -21,7 +23,8 @@ void StateManager::startLoop()
             last = m_states.top();
             m_states.top()->enter();
         }
-        code = m_states.top()->work();
+        code = m_states.top()->work(timer.getElapsedTime().asMilliseconds());
+        timer.restart();
         if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
             removeState();
