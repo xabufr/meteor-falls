@@ -41,6 +41,12 @@ MenuState::MenuState(StateManager* mng):
     m_sphere->setMaterialName("terre");
     node->attachObject(m_sphere);
 
+    //./bootstrap + ./configure + make -j3 + sudo make install
+
+    //A commenter
+    //OgreContextManager::get()->getInputManager()->injectMouseEventToCEGUI(false);
+    //OgreContextManager::get()->getInputManager()->injectKeyboardEventToCEGUI(false);
+
     m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 
     CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
@@ -91,7 +97,7 @@ MenuState::MenuState(StateManager* mng):
     m_quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_quit->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.36+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
-    //CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    CEGUI::System::getSingleton().setGUISheet(m_sheet);
     m_sheet->hide();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
 }
@@ -123,6 +129,8 @@ void MenuState::exit()
 {
     m_sheet->hide();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
+    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
+    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
 }
 
 ret_code MenuState::work()
