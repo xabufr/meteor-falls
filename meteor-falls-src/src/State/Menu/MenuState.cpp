@@ -189,7 +189,7 @@ ret_code MenuState::work(unsigned int time)
         {
             m_camera->setPosition(m_transitionParams.to);
             m_transitionning=false;
-            m_transitionParams.function();
+  //          m_transitionParams.function();
         }
     }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
