@@ -9,11 +9,11 @@
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
 #include "Engine/GameEngine/Map.h"
+#include "Engine/GameEngine/Degats/DegatManager.h"
 
 int main(int argc, char **argv)
 {
     //launchUnitTestForSound();
-
     try
     {
         Application app(argc, argv);
