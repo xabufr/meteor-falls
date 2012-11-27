@@ -31,6 +31,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="../meteor-falls-src/libs/rapidxml" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -49,37 +50,32 @@
 			<Add option="-lcrypto" />
 		</Linker>
 		<Unit filename="src/BasicException.cpp" />
-		<Unit filename="src/BasicException.h" />
+		<Unit filename="src/ClientNetworkEngineLan.cpp" />
 		<Unit filename="src/Connection.cpp" />
-		<Unit filename="src/Connection.h" />
-		<Unit filename="src/Engine.h" />
 		<Unit filename="src/EngineManager.cpp" />
-		<Unit filename="src/EngineManager.h" />
 		<Unit filename="src/EngineMessage.cpp" />
-		<Unit filename="src/EngineMessage.h" />
-		<Unit filename="src/EngineMessageKey.h" />
-		<Unit filename="src/EngineMessageType.h" />
-		<Unit filename="src/EngineType.h" />
+		<Unit filename="src/FileNotFound.cpp" />
+		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GlobalServer.cpp" />
 		<Unit filename="src/GlobalServer.h" />
+		<Unit filename="src/GraphicEngine.cpp" />
+		<Unit filename="src/Map.cpp" />
 		<Unit filename="src/NetworkEngine.cpp" />
-		<Unit filename="src/NetworkEngine.h" />
 		<Unit filename="src/NetworkIpAdressFinder.cpp" />
-		<Unit filename="src/NetworkIpAdressFinder.h" />
+		<Unit filename="src/OgreApplication.cpp" />
+		<Unit filename="src/OgreWindowInputManager.cpp" />
+		<Unit filename="src/Server.cpp" />
+		<Unit filename="src/Server.h" />
 		<Unit filename="src/ServerClient.cpp" />
-		<Unit filename="src/ServerClient.h" />
+		<Unit filename="src/ServerGlobalMessage.h" />
 		<Unit filename="src/ServerNetworkEngine.cpp" />
-		<Unit filename="src/ServerNetworkEngine.h" />
 		<Unit filename="src/SslConnection.cpp" />
-		<Unit filename="src/SslConnection.h" />
 		<Unit filename="src/TcpConnection.cpp" />
-		<Unit filename="src/TcpConnection.h" />
 		<Unit filename="src/UdpConnection.cpp" />
-		<Unit filename="src/UdpConnection.h" />
-		<Unit filename="src/Vector3D.h" />
+		<Unit filename="src/XmlDocumentManager.cpp" />
 		<Unit filename="src/clientnetworkengine.cpp" />
-		<Unit filename="src/clientnetworkengine.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/ogrecontextmanager.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

@@ -3778,7 +3778,7 @@
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 
-1354004399 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1354028858 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
 	"Utils/Exception/BasicException.h"
 
@@ -4288,11 +4288,11 @@
 	"StateManager.h"
 	<vector>
 
-1353398433 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.h
+1354028858 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.h
 	<stack>
 	"State.h"
 
-1354004399 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
+1354028858 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
 	"StateManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
@@ -4344,7 +4344,7 @@
 	"../Engine.h"
 	"Engine/GameEngine/Unites/Hero.h"
 
-1354026959 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+1354028858 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
 	<Ogre.h>
 	<string>
 	<iostream>
@@ -4372,14 +4372,16 @@
 	<vector>
 	<map>
 
-1354027555 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.cpp
+1354028904 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.cpp
 	"Map.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
 	<Ogre.h>
+	<OIS/OIS.h>
 	<Terrain/OgreTerrain.h>
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
 1337975324 /usr/local/include/OGRE/Terrain/OgreTerrain.h
 	"OgreTerrainPrerequisites.h"
@@ -4408,7 +4410,7 @@
 
 1353398433 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Fade.h
 
-1354014840 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
+1354028858 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
 	<Ogre.h>
 	<OIS/OIS.h>
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -4442,9 +4444,10 @@
 	"../State.h"
 	<OIS/OIS.h>
 
-1354023846 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1354028997 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
+	"LoginState.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -5111,4 +5114,15 @@
 	"UniteFactory.h"
 
 1354022135 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
+
+1354028858 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
+	"LoginState.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"State/Game/GameState.h"
+
+1354028858 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.h
+	"State/State.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	<CEGUI.h>
+	<OIS/OIS.h>
 
