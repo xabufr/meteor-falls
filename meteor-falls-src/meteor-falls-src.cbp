@@ -91,6 +91,13 @@
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/Armure.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/Degat.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/Degat.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/DegatManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/DegatManager.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/typedefs.h" />
 		<Unit filename="src/Engine/GameEngine/Equipe.cpp" />
 		<Unit filename="src/Engine/GameEngine/Equipe.h" />
 		<Unit filename="src/Engine/GameEngine/Faction.cpp" />
@@ -107,6 +114,8 @@
 		<Unit filename="src/Engine/GameEngine/Map.h" />
 		<Unit filename="src/Engine/GameEngine/ObjetTerrain.cpp" />
 		<Unit filename="src/Engine/GameEngine/ObjetTerrain.h" />
+		<Unit filename="src/Engine/GameEngine/Recherche.cpp" />
+		<Unit filename="src/Engine/GameEngine/Recherche.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Aerien.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Aerien.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Batiment.cpp" />
@@ -121,6 +130,8 @@
 		<Unit filename="src/Engine/GameEngine/Unites/TypeUnite.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Unite.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Unite.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/UniteFactory.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/UniteFactory.h" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp" />
