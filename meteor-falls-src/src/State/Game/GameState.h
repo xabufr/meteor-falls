@@ -9,7 +9,7 @@ class GameState : public State
     public:
         GameState(StateManager*);
         virtual ~GameState();
-        virtual ret_code work();
+        virtual ret_code work(unsigned int);
         virtual void enter();
         virtual void exit();
 

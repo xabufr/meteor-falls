@@ -1,4 +1,3 @@
-
 #include <iostream>
 #ifdef UNIT_TEST
 #define BOOST_TEST_DYN_LINK

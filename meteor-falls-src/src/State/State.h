@@ -19,7 +19,7 @@ class State
         State(StateManager *p_state_manager);
         virtual void enter() = 0;
         virtual void exit() = 0;
-        virtual ret_code work() = 0;
+        virtual ret_code work(unsigned int time) = 0;
 
     protected:
         StateManager *m_state_manager;

@@ -14,7 +14,7 @@ GameState::~GameState()
 {
 
 }
-ret_code GameState::work()
+ret_code GameState::work(unsigned int time)
 {
     m_engineManager->work();
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))

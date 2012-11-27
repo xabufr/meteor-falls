@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <rapidxml.hpp>
-#include "Utils/singleton.h"
+#include "../../Utils/singleton.h"
 
 class XmlDocumentManager: public Singleton<XmlDocumentManager>
 {

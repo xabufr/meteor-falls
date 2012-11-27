@@ -1,7 +1,7 @@
 #ifndef SERVERCLIENT_H
 #define SERVERCLIENT_H
-#include "Engine/NetworkEngine/TcpConnection.h"
-#include "Engine/NetworkEngine/UdpConnection.h"
+#include "TcpConnection.h"
+#include "UdpConnection.h"
 
 class ServerClient
 {

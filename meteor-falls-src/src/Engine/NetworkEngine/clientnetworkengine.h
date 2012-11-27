@@ -1,9 +1,9 @@
 #ifndef CLIENTNETWORKENGINE_H
 #define CLIENTNETWORKENGINE_H
 
-#include "Engine/NetworkEngine/NetworkEngine.h"
-#include "Engine/NetworkEngine/TcpConnection.h"
-#include "Engine/NetworkEngine/UdpConnection.h"
+#include "../../Engine/NetworkEngine/NetworkEngine.h"
+#include "../../Engine/NetworkEngine/TcpConnection.h"
+#include "../../Engine/NetworkEngine/UdpConnection.h"
 
 class ClientNetworkEngine : public NetworkEngine
 {
