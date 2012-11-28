@@ -6,7 +6,7 @@
 
 using namespace rapidxml;
 
-Map::Map()
+Map::Map(Ogre::SceneManager*)
 {
     //ctor
 }

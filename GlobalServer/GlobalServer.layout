@@ -10,11 +10,17 @@
 	<File name="src/Connection.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="58" topLine="0" />
 	</File>
+	<File name="src/Creator.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="8091" topLine="199" />
+	</File>
+	<File name="src/Creator.h" open="1" top="0" tabpos="5">
+		<Cursor position="1731" topLine="6" />
+	</File>
 	<File name="src/EngineManager.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1410" topLine="30" />
 	</File>
 	<File name="src/EngineMessage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="452" topLine="3" />
+		<Cursor position="179" topLine="0" />
 	</File>
 	<File name="src/FileNotFound.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="53" topLine="0" />
@@ -23,19 +29,19 @@
 		<Cursor position="55" topLine="0" />
 	</File>
 	<File name="src/GlobalServer.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3420" topLine="9" />
+		<Cursor position="2180" topLine="33" />
 	</File>
-	<File name="src/GlobalServer.h" open="1" top="0" tabpos="2">
-		<Cursor position="940" topLine="0" />
+	<File name="src/GlobalServer.h" open="0" top="0" tabpos="2">
+		<Cursor position="307" topLine="0" />
 	</File>
 	<File name="src/GraphicEngine.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="194" topLine="0" />
 	</File>
 	<File name="src/Map.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="99" topLine="0" />
+		<Cursor position="282" topLine="0" />
 	</File>
-	<File name="src/NetworkEngine.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="161" topLine="0" />
+	<File name="src/NetworkEngine.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="919" topLine="0" />
 	</File>
 	<File name="src/NetworkIpAdressFinder.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="37" topLine="0" />
@@ -46,17 +52,26 @@
 	<File name="src/OgreWindowInputManager.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="63" topLine="0" />
 	</File>
-	<File name="src/Server.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="226" topLine="0" />
+	<File name="src/Player.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="129" topLine="0" />
 	</File>
-	<File name="src/Server.h" open="1" top="0" tabpos="6">
-		<Cursor position="260" topLine="6" />
+	<File name="src/Player.h" open="0" top="0" tabpos="0">
+		<Cursor position="246" topLine="28" />
+	</File>
+	<File name="src/Server.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="481" topLine="0" />
+	</File>
+	<File name="src/Server.h" open="1" top="0" tabpos="4">
+		<Cursor position="498" topLine="9" />
 	</File>
 	<File name="src/ServerClient.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="58" topLine="0" />
 	</File>
+	<File name="src/ServerGlobalMessage.h" open="1" top="0" tabpos="2">
+		<Cursor position="495" topLine="0" />
+	</File>
 	<File name="src/ServerNetworkEngine.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="833" topLine="20" />
+		<Cursor position="2353" topLine="65" />
 	</File>
 	<File name="src/SslConnection.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="3133" topLine="90" />
@@ -73,7 +88,7 @@
 	<File name="src/clientnetworkengine.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1394" topLine="36" />
 	</File>
-	<File name="src/main.cpp" open="1" top="0" tabpos="3">
+	<File name="src/main.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="60" topLine="0" />
 	</File>
 	<File name="src/ogrecontextmanager.cpp" open="0" top="0" tabpos="0">

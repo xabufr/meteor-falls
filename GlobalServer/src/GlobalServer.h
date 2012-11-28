@@ -6,6 +6,7 @@
 #include "Server.h"
 #include "ServerGlobalMessage.h"
 #include <vector>
+#include "Creator.h"
 
 class GlobalServer : public NetworkEngine
 {
@@ -22,8 +23,8 @@ class GlobalServer : public NetworkEngine
         void m_startAccept();
         void m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e);
         void removeClient(SslConnection::pointer c);
-        friend class boost::serialization::access;
-        std::string m_serialize(ServerGlobalMessage message);
-        ServerGlobalMessage m_deserialize(std::string data);
+        std::string m_serialize(const ServerGlobalMessage *message);
+        ServerGlobalMessage* m_deserialize(const std::string &data);
+        Creator *m_sql;
 };
 #endif // GLOBALSERVER_H_INCLUDED

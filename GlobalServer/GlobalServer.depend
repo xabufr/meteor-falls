@@ -151,18 +151,22 @@
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
 
-1353942649 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
+1354033833 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
 	<boost/bind.hpp>
+	<boost/archive/text_iarchive.hpp>
 	<boost/archive/text_oarchive.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
 	"GlobalServer.h"
-	"../../meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h"
 
-1353947986 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.h
+1354034518 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.h
 	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
 	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h"
 	"Server.h"
 	"ServerGlobalMessage.h"
 	<vector>
+	"Creator.h"
 
 1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
 	<boost/asio.hpp>
@@ -275,15 +279,18 @@
 	"../EngineMessage/EngineMessage.h"
 	"../Engine.h"
 
-1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+1354026110 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+	<Ogre.h>
 	<string>
 	<iostream>
 
 1353927925 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h
 	"../../../Utils/singleton.h"
 
-1352906765 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
+1354026110 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
 	<Ogre.h>
+	<CEGUI.h>
+	<RendererModules/Ogre/CEGUIOgreRenderer.h>
 
 1353928220 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/ClientNetworkEngineLan.cpp
 	"../../meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h"
@@ -319,7 +326,7 @@
 	<boost/lexical_cast.hpp>
 	<CEGUI.h>
 
-1353928701 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Map.cpp
+1354033118 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Map.cpp
 	"../../meteor-falls-src/src/Engine/GameEngine/Map.h"
 	"../../meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
@@ -354,18 +361,47 @@
 1353929237 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/FileNotFound.cpp
 	"../../meteor-falls-src/src/Utils/Exception/FileNotFound.h"
 
-1353943496 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.h
+1354035110 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.h
 	<iostream>
 	<map>
 	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354035411 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp
+	"Server.h"
+
+1354033047 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+	"Player.h"
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/map.hpp>
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1353943448 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp
-	"Server.h"
-	<boost/archive/text_oarchive.hpp>
+1354033741 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp
+	"Player.h"
 
-1353946647 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+1354033808 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.h
+	<iostream>
+	<map>
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354034495 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.h
+	<iostream>
+	<map>
+	<string>
+	<boost/lexical_cast.hpp>
+	<sstream>
+	<mysql.h>
+	<my_global.h>
+	<my_sys.h>
+
+1354034581 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.cpp
+	"Player.h"
+	"Server.h"
+	"Creator.h"
 
