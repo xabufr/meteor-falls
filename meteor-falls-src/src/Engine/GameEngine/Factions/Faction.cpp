@@ -194,3 +194,10 @@ FactionId Faction::id() const
 {
     return m_id;
 }
+TypeUnite* Faction::getType(UnitId id)
+{
+    auto it = m_typesUnites.find(id);
+    if(it!=m_typesUnites.end())
+        return it->second;
+    return 0;
+}

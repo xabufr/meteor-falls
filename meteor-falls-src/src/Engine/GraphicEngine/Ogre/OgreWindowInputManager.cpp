@@ -4,12 +4,12 @@
 
 OgreWindowInputManager::~OgreWindowInputManager()
 {
-    m_injectMouse=true;
-    m_injectKeyboard=true;
 }
 OgreWindowInputManager::OgreWindowInputManager(Ogre::RenderWindow* window) : m_window(window)
 {
     m_initOIS();
+    m_injectMouse=true;
+    m_injectKeyboard=true;
 }
 
 void OgreWindowInputManager::m_initOIS()
