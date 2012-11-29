@@ -11,8 +11,6 @@
 MenuState::MenuState(StateManager* mng):
     State(mng)
 {
-    m_stateMgr = new StateManager();
-
     m_transitionning=false;
     m_currentSelected = 0;
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
@@ -90,13 +88,12 @@ MenuState::MenuState(StateManager* mng):
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
-    m_stateMgr->addState(new LoginState(m_stateMgr));
+    m_sousState = new LoginState(m_state_manager);
 }
 
 MenuState::~MenuState()
 {
     delete m_background;
-    delete m_stateMgr;
 }
 
 bool MenuState::quit(const CEGUI::EventArgs &)
@@ -112,11 +109,15 @@ bool MenuState::startGame()
 
 void MenuState::enter()
 {
+    if(m_sousState)
+        m_sousState->enter();
     m_scene_mgr->getRootSceneNode()->setVisible(true);
 }
 
 void MenuState::exit()
 {
+    if(m_sousState)
+        m_sousState->exit();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
     OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
@@ -137,12 +138,12 @@ ret_code MenuState::work(unsigned int time)
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
     m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
 
-    if (m_stateMgr->isEmpty())
+    if (m_sousState==0)
     {
         /*Piking*/
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
-                    height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
+                     height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
         Ogre::Ray pickingRay = m_camera->getCameraToViewportRay(mousePos.d_x/float(width), mousePos.d_y/float(height));
 
         Ogre::Entity *selected = findFirstPicking(pickingRay, m_sceneQuery);
@@ -196,23 +197,27 @@ ret_code MenuState::work(unsigned int time)
             }
         }
         else
-	{
-		Ogre::Vector3 pos = m_transitionParams.to*
-		                    (m_timerTranslation.getElapsedTime().asSeconds()/
-		                    m_transitionParams.duration) +
-		                    m_transitionParams.from*(1.f-(m_timerTranslation.getElapsedTime().asSeconds()/
-		                    m_transitionParams.duration));
-		m_camera->setPosition(pos);
-		if(m_timerTranslation.getElapsedTime().asSeconds()>m_transitionParams.duration)
-		{
-		    m_camera->setPosition(m_transitionParams.to);
-		    m_transitionning=false;
-		    m_transitionParams.function();
-		}
-	 }
+        {
+            Ogre::Vector3 pos = m_transitionParams.to*
+                                (m_timerTranslation.getElapsedTime().asSeconds()/
+                                 m_transitionParams.duration) +
+                                 m_transitionParams.from*(1.f-(m_timerTranslation.getElapsedTime().asSeconds()/
+                                 m_transitionParams.duration));
+
+            m_camera->setPosition(pos);
+            if(m_timerTranslation.getElapsedTime().asSeconds()>m_transitionParams.duration)
+            {
+                m_camera->setPosition(m_transitionParams.to);
+                m_transitionning=false;
+                m_transitionParams.function();
+            }
+        }
 
     }
-    m_stateMgr->startLoop();
+    else
+    {
+        m_sousState->work(time);
+    }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return ret_code::EXIT_PROGRAM;
     return CONTINUE;

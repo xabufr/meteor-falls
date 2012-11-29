@@ -103,7 +103,6 @@ ret_code LoginState::work(unsigned int time)
 void LoginState::exit()
 {
     m_sheet->hide();
-    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
 }
 
 void LoginState::enter()
