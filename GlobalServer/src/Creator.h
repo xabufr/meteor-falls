@@ -3,11 +3,13 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 #include <boost/lexical_cast.hpp>
 #include<sstream>
 #include <mysql.h>
 #include <my_global.h>
 #include <my_sys.h>
+#include "Admin.h"
 
 class Player;
 class Server;
@@ -27,9 +29,11 @@ class Creator
         void insert(std::string id,std::string ip,std::string nom,std::string version,int nombre_joueurs_max,int nombre_joueurs_connectes,bool passwd,std::string carte_jouee,std::string type_partie,float temps_jeu);
 
         Player select_player(std::string Nom_Player);
+        Admin select_admin(std::string);
         Server select_server(std::string ip);
+        std::vector<Server> select_all_server();
 
-        void delete_player(std::string ip);
+        void delete_player(std::string nom);
         void delete_server(std::string ip);
 
 	private :

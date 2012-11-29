@@ -70,6 +70,8 @@
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
 			<Add option="-lboost_unit_test_framework" />
+			<Add option="-lpthread" />
+			<Add option="-lcrypto" />
 		</Linker>
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
@@ -147,6 +149,8 @@
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
+		<Unit filename="src/Engine/NetworkEngine/ClientLogin.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ClientLogin.h" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" />
 		<Unit filename="src/Engine/NetworkEngine/Connection.cpp" />

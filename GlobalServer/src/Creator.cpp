@@ -77,58 +77,50 @@ Player Creator::select_player(std::string Nom_Player)
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;
     MYSQL_ROW row;
-    int i = 1;
+
     Player MonPlayer("","",0,0,0,"","","","");
 
-    unsigned int num_champs = 9;
     result = mysql_use_result(m_MYSQL);
 
     while ((row = mysql_fetch_row(result)))
     {
-        unsigned long *lengths;
-        lengths = mysql_fetch_lengths(result);
-
-        for(i = 0; i < num_champs; i++)
-        {
-            //On ecrit toutes les valeurs
-            switch (i)
-            {
-                case 0:
-                    MonPlayer.set_id(row[i]);
-                    break;
-                case 1:
-                    MonPlayer.set_pseudo(Nom_Player);
-                    break;
-                case 2:
-                    MonPlayer.set_session(row[i]);
-                    break;
-                case 3:
-                    MonPlayer.set_exp_rpg(atoi(row[i]));
-                    break;
-                case 4:
-                    MonPlayer.set_exp_rts(atoi(row[i]));
-                    break;
-                case 5:
-                    MonPlayer.set_level(atoi(row[i]));
-                    break;
-                case 6:
-                    MonPlayer.set_passwd(row[i]);
-                    break;
-                case 7:
-                    MonPlayer.set_email(row[i]);
-                    break;
-                case 8:
-                    MonPlayer.set_pays(row[i]);
-                    break;
-            }
-        }
-        i++;
+        MonPlayer.set_id(row[0]);
+        MonPlayer.set_pseudo(Nom_Player);
+        MonPlayer.set_session(row[2]);
+        MonPlayer.set_exp_rpg(atoi(row[3]));
+        MonPlayer.set_exp_rts(atoi(row[4]));
+        MonPlayer.set_level(atoi(row[5]));
+        MonPlayer.set_passwd(row[6]);
+        MonPlayer.set_email(row[7]);
+        MonPlayer.set_pays(row[8]);
     }
 
-    return MonPlayer;
     mysql_free_result(result);
-
+    return MonPlayer;
 }
+
+Admin Creator::select_admin(std::string pseudo)
+{
+    Admin admin;
+    std::string sql_query = "SELECT * FROM Admin WHERE pseudo = " + pseudo;
+
+    mysql_query(m_MYSQL, sql_query.c_str());
+    MYSQL_RES *result = NULL;
+    MYSQL_ROW row;
+
+    result = mysql_use_result(m_MYSQL);
+
+    while ((row = mysql_fetch_row(result)))
+    {
+        admin.set_pseudo(pseudo);
+        admin.set_passwd(row[2]);
+    }
+
+    mysql_free_result(result);
+    return admin;
+}
+
+
 
 Server Creator::select_server(std::string ip)
 {
@@ -137,61 +129,59 @@ Server Creator::select_server(std::string ip)
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;
     MYSQL_ROW row;
-    int i = 1;
-    Server MonServer("","","","",0,0,0,"","",0);
 
-    unsigned int num_champs = 10;
+    Server MonServer("","","","",0,0,0,"","",0);
     result = mysql_use_result(m_MYSQL);
 
     while ((row = mysql_fetch_row(result)))
     {
-        unsigned long *lengths;
-        lengths = mysql_fetch_lengths(result);
-
-        for(i = 0; i < num_champs; i++)
-        {
-            //On ecrit toutes les valeurs
-            switch (i)
-            {
-                case 0:
-                    MonServer.set_id_server(row[i]);
-                    break;
-                case 1:
-                    MonServer.set_ip_server(ip);
-                    break;
-                case 2:
-                    MonServer.set_nom(row[i]);
-                    break;
-                case 3:
-                    MonServer.set_version(row[i]);
-                    break;
-                case 4:
-                    MonServer.set_nombre_joueurs_max(atoi(row[i]));
-                    break;
-                case 5:
-                    MonServer.set_nombre_joueurs_connectes(atoi(row[i]));
-                    break;
-                case 6:
-                    MonServer.set_passwd(row[i]);
-                    break;
-                case 7:
-                    MonServer.set_carte_jouee(row[i]);
-                    break;
-                case 8:
-                    MonServer.set_type_partie(row[i]);
-                    break;
-                case 9:
-                    MonServer.set_temps_jeu(atoi(row[i]));
-                    break;
-            }
-        }
-        i++;
+        MonServer.set_id_server(row[0]);
+        MonServer.set_ip_server(ip);
+        MonServer.set_nom(row[2]);
+        MonServer.set_version(row[3]);
+        MonServer.set_nombre_joueurs_max(atoi(row[4]));
+        MonServer.set_nombre_joueurs_connectes(atoi(row[5]));
+        MonServer.set_passwd(row[6]);
+        MonServer.set_carte_jouee(row[7]);
+        MonServer.set_type_partie(row[8]);
+        MonServer.set_temps_jeu(atoi(row[9]));
     }
 
-    return MonServer;
     mysql_free_result(result);
-
+    return MonServer;
 }
+
+std::vector<Server> Creator::select_all_server()
+{
+    std::vector<Server> list_server;
+    std::string sql_query = "SELECT * FROM Server";
+
+    mysql_query(m_MYSQL, sql_query.c_str());
+    MYSQL_RES *result = NULL;
+    MYSQL_ROW row;
+
+    result = mysql_use_result(m_MYSQL);
+    Server srv;
+
+    while ((row = mysql_fetch_row(result)))
+    {
+        srv.set_id_server(row[0]);
+        srv.set_ip_server(row[1]);
+        srv.set_nom(row[2]);
+        srv.set_version(row[3]);
+        srv.set_nombre_joueurs_max(atoi(row[4]));
+        srv.set_nombre_joueurs_connectes(atoi(row[5]));
+        srv.set_passwd(row[6]);
+        srv.set_carte_jouee(row[7]);
+        srv.set_type_partie(row[8]);
+        srv.set_temps_jeu(atoi(row[9]));
+
+        list_server.push_back(srv);
+    }
+    mysql_free_result(result);
+    return list_server;
+}
+
 
 
 void Creator::update(std::string Id_Player, std::string pseudo,std::string session,int exp_rpg,int exp_rts,int level,std::string passwsd,std::string email,std::string pays)
@@ -229,10 +219,10 @@ void Creator::update(std::string id,std::string ip,std::string nom,std::string v
 }
 
 
-void Creator::delete_player(std::string ip)
+void Creator::delete_player(std::string nom)
 {
     std::string sql_query;
-    sql_query = "DELETE FROM Player WHERE id_player = " +boost::lexical_cast<std::string>(id);
+    sql_query = "DELETE FROM Player WHERE id_player = " +nom;
     mysql_query(m_MYSQL, sql_query.c_str());
 }
 
@@ -240,6 +230,6 @@ void Creator::delete_player(std::string ip)
 void Creator::delete_server(std::string ip)
 {
     std::string sql_query;
-    sql_query = "DELETE FROM Server WHERE id_server = " +boost::lexical_cast<std::string>(id);
+    sql_query = "DELETE FROM Server WHERE id_server = " +boost::lexical_cast<std::string>(ip);
     mysql_query(m_MYSQL, sql_query.c_str());
 }

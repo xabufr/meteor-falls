@@ -8,6 +8,7 @@
 #include <SFML/System.hpp>
 #include <boost/function.hpp>
 
+
 class MenuState: public State
 {
     private:

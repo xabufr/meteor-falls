@@ -22,7 +22,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-Os" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,18 +34,10 @@
 			<Add directory="../meteor-falls-src/libs/rapidxml" />
 		</Compiler>
 		<Linker>
-			<Add option="-lOgreMain" />
-			<Add option="-lOIS" />
-			<Add option="-lsfml-audio" />
-			<Add option="-lsfml-system" />
-			<Add option="-lCEGUIBase" />
-			<Add option="-lCEGUIOgreRenderer" />
 			<Add option="-lboost_system" />
 			<Add option="-lboost_serialization" />
 			<Add option="-lssl" />
-			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
-			<Add option="-lboost_unit_test_framework" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
 			<Add option="-lcrypt" />
@@ -54,37 +46,20 @@
 			<Add option="-lz" />
 			<Add option="-lrt" />
 		</Linker>
-		<Unit filename="src/BasicException.cpp" />
-		<Unit filename="src/ClientNetworkEngineLan.cpp" />
+		<Unit filename="src/Admin.cpp" />
+		<Unit filename="src/Admin.h" />
 		<Unit filename="src/Connection.cpp" />
 		<Unit filename="src/Creator.cpp" />
 		<Unit filename="src/Creator.h" />
-		<Unit filename="src/EngineManager.cpp" />
-		<Unit filename="src/EngineMessage.cpp" />
-		<Unit filename="src/FileNotFound.cpp" />
-		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GlobalServer.cpp" />
 		<Unit filename="src/GlobalServer.h" />
-		<Unit filename="src/GraphicEngine.cpp" />
-		<Unit filename="src/Map.cpp" />
-		<Unit filename="src/NetworkEngine.cpp" />
-		<Unit filename="src/NetworkIpAdressFinder.cpp" />
-		<Unit filename="src/OgreApplication.cpp" />
-		<Unit filename="src/OgreWindowInputManager.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/Player.h" />
 		<Unit filename="src/Server.cpp" />
 		<Unit filename="src/Server.h" />
-		<Unit filename="src/ServerClient.cpp" />
 		<Unit filename="src/ServerGlobalMessage.h" />
-		<Unit filename="src/ServerNetworkEngine.cpp" />
 		<Unit filename="src/SslConnection.cpp" />
-		<Unit filename="src/TcpConnection.cpp" />
-		<Unit filename="src/UdpConnection.cpp" />
-		<Unit filename="src/XmlDocumentManager.cpp" />
-		<Unit filename="src/clientnetworkengine.cpp" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/ogrecontextmanager.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

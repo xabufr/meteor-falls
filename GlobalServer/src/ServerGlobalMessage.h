@@ -2,6 +2,7 @@
 #define SERVERGLOBALMESSAGE_H_INCLUDED
 
 #include "Player.h"
+#include "Admin.h"
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>
@@ -12,6 +13,8 @@ class ServerGlobalMessage
   public:
         enum Type{
             LOGIN,
+            ADMIN_LOGIN,
+            ADMIN_CMD,
             LOGOUT,
             SERVER_LIST,
             SERVER_UP,
@@ -20,7 +23,9 @@ class ServerGlobalMessage
 
         std::vector<Server> servers;
         Player player;
+        Admin admin;
         std::vector<std::string> news, command;
+        bool make;
         ServerGlobalMessage();
   private:
         friend class boost::serialization::access;

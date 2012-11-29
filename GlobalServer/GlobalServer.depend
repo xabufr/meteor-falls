@@ -7,7 +7,7 @@
 	<boost/asio.hpp>
 	<queue>
 
-1353938177 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
+1354184413 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
 	"GlobalServer.h"
 
 1353927408 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/SslConnection.cpp
@@ -151,7 +151,7 @@
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
 
-1354033833 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
+1354180678 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
 	<boost/bind.hpp>
 	<boost/archive/text_iarchive.hpp>
 	<boost/archive/text_oarchive.hpp>
@@ -160,12 +160,14 @@
 	<boost/serialization/string.hpp>
 	"GlobalServer.h"
 
-1354034518 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.h
+1354184434 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.h
 	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
-	"../../meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h"
 	"Server.h"
 	"ServerGlobalMessage.h"
 	<vector>
+	<boost/asio.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
 	"Creator.h"
 
 1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
@@ -279,7 +281,7 @@
 	"../EngineMessage/EngineMessage.h"
 	"../Engine.h"
 
-1354026110 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
+1354054301 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map.h
 	<Ogre.h>
 	<string>
 	<iostream>
@@ -326,14 +328,18 @@
 	<boost/lexical_cast.hpp>
 	<CEGUI.h>
 
-1354033118 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Map.cpp
+1354057909 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Map.cpp
 	"../../meteor-falls-src/src/Engine/GameEngine/Map.h"
 	"../../meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
 	<Ogre.h>
+	<OIS/OIS.h>
 	<Terrain/OgreTerrain.h>
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-1353928786 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
+1354054301 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
 	<string>
 	<map>
 	<rapidxml.hpp>
@@ -372,8 +378,9 @@
 1354035411 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp
 	"Server.h"
 
-1354033047 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+1354181266 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
 	"Player.h"
+	"Admin.h"
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/map.hpp>
 	<boost/serialization/vector.hpp>
@@ -390,18 +397,29 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354034495 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.h
+1354182398 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.h
 	<iostream>
 	<map>
 	<string>
+	<vector>
 	<boost/lexical_cast.hpp>
 	<sstream>
 	<mysql.h>
 	<my_global.h>
 	<my_sys.h>
+	"Admin.h"
 
-1354034581 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.cpp
+1354182503 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.cpp
 	"Player.h"
 	"Server.h"
 	"Creator.h"
+
+1354182371 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.h
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354182449 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp
+	"Admin.h"
 

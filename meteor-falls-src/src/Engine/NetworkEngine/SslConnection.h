@@ -17,7 +17,7 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         typedef boost::shared_ptr<SslConnection> pointer;
 
         static pointer create(boost::shared_ptr<boost::asio::io_service>, Type);
-        void connect(boost::asio::ip::tcp::endpoint);
+        void connect(boost::asio::ip::tcp::endpoint);//CONNECTION AU SERVER
 
         void connectionAccepted(const boost::system::error_code& ); //Méthode appelée par le serveur
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& socket();
