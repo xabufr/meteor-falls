@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <map>
 #include <assert.h>
-#include <SFML/Audio.hpp>
+#include "precompiled/sfml_audio.h"
 /*
 void launchUnitTestForSound();
 void launchUnitTests()

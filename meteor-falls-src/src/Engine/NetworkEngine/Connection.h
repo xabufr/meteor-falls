@@ -1,8 +1,7 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
-#include <boost/thread/mutex.hpp>
-#include <boost/asio.hpp>
+#include "precompiled/asio.h"
 #include <queue>
 
 class Connection

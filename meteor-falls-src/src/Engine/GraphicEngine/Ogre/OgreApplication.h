@@ -1,7 +1,8 @@
 #ifndef OGREAPPLICATION_H
 #define OGREAPPLICATION_H
 
-#include <Ogre.h>
+#include <OgreRenderWindow.h>
+#include <OgreRoot.h>
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 

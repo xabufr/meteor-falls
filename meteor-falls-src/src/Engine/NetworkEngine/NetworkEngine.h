@@ -1,9 +1,9 @@
 #ifndef H_NETWORKENGINE_H
 #define H_NETWORKENGINE_H
 #include "../Engine.h"
-#include <boost/asio.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/thread.hpp>
+#include "precompiled/asio.h"
+#include "precompiled/shared_ptr.h"
+
 
 class NetworkEngine : public Engine
 {

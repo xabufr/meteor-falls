@@ -6,7 +6,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../Game/GameState.h"
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
-#include <boost/bind.hpp>
+#include "precompiled/bind.h"
 
 MenuState::MenuState(StateManager* mng):
     State(mng)

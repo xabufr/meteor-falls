@@ -1,6 +1,7 @@
 #include "OgreWindowInputManager.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 #include <CEGUI.h>
+#include <OgreLogManager.h>
 
 OgreWindowInputManager::~OgreWindowInputManager()
 {

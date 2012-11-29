@@ -1,5 +1,7 @@
 #include "OgreApplication.h"
 #include "Utils/Exception/BasicException.h"
+#include <OgreConfigFile.h>
+#include <OgreWindowEventUtilities.h>
 
 OgreApplication::OgreApplication()
 {

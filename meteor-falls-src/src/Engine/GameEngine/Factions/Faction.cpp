@@ -4,7 +4,7 @@
 #include "../Unites/typedefs.h"
 #include "../Unites/TypeUnite.h"
 #include "../Degats/DegatManager.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 #include "../Recherches/Recherche.h"
 #include "Utils/Exception/FileNotFound.h"
 

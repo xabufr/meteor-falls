@@ -1,9 +1,13 @@
 #include "Map.h"
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
-#include <boost/lexical_cast.hpp>
-#include <Ogre.h>
-#include <OIS/OIS.h>
+#include "precompiled/lexical_cast.h"
+
+#include <OgreSceneManager.h>
 #include <Terrain/OgreTerrain.h>
+#include <OgreCamera.h>
+#include <Terrain/OgreTerrainLayerBlendMap.h>
+
+#include <OIS/OIS.h>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"

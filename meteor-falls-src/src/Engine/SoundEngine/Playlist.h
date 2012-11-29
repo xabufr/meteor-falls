@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <map>
-#include <SFML/Audio.hpp>
+#include "precompiled/sfml_audio.h"
 #include "Engine/SoundEngine/Fade.h"
 
 

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include <rapidxml.hpp>
+#include "precompiled/_rapidxml.h"
 #include "../../Utils/singleton.h"
 
 class XmlDocumentManager: public Singleton<XmlDocumentManager>
