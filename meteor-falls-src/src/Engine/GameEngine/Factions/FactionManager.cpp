@@ -1,7 +1,7 @@
 #include "FactionManager.h"
 #include "Faction.h"
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 
 
 FactionManager::FactionManager()

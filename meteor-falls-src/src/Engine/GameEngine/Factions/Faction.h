@@ -24,6 +24,7 @@ class Faction
         /** \brief Charge tous les fichiers passés via addConfigFile()
          */
         void load();
+        TypeUnite* getType(UnitId);
     protected:
     private:
         const std::string m_nom;

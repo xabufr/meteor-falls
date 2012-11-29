@@ -1,7 +1,7 @@
 #include "StateManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include <SFML/System.hpp>
+#include "precompiled/sfml_system.h"
 
 void StateManager::addState(State *p_state)
 {

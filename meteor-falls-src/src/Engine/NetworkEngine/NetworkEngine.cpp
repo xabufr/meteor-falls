@@ -1,6 +1,5 @@
 #include "Engine/NetworkEngine/NetworkEngine.h"
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
+#include "precompiled/serialization.h"
 #include "Engine/EngineMessage/EngineMessage.h"
 #include <iostream>
 

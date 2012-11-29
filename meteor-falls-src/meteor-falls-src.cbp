@@ -213,6 +213,38 @@
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/precompiled/_rapidxml.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/asio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/bind.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/lexical_cast.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/serialization.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_audio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_system.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/shared_ptr.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="src/version.h" />
 		<Extensions>
 			<code_completion />

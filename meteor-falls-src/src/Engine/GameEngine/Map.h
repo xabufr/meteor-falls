@@ -1,7 +1,9 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <Ogre.h>
+#include <OgreSceneManager.h>
+#include <OgreCamera.h>
+
 #include <string>
 #include <iostream>
 

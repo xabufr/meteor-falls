@@ -4,7 +4,6 @@
 #include "NetworkEngine.h"
 #include "ServerClient.h"
 #include <vector>
-#include <boost/thread/mutex.hpp>
 
 class ServerNetworkEngine : public NetworkEngine
 {

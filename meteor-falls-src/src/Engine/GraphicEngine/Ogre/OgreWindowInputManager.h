@@ -3,7 +3,9 @@
 
 #include <OIS/OIS.h>
 #include <CEGUI.h>
-#include <Ogre.h>
+#include <OgreRenderWindow.h>
+#include <OgreWindowEventUtilities.h>
+#include <OgreFrameListener.h>
 
 class OgreWindowInputManager :
     public Ogre::WindowEventListener,

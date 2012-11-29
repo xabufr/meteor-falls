@@ -4,7 +4,7 @@
 #include "../Unites/typedefs.h"
 #include "../Unites/TypeUnite.h"
 #include "../Degats/DegatManager.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 #include "../Recherches/Recherche.h"
 #include "Utils/Exception/FileNotFound.h"
 
@@ -193,4 +193,11 @@ void Faction::load()
 FactionId Faction::id() const
 {
     return m_id;
+}
+TypeUnite* Faction::getType(UnitId id)
+{
+    auto it = m_typesUnites.find(id);
+    if(it!=m_typesUnites.end())
+        return it->second;
+    return 0;
 }

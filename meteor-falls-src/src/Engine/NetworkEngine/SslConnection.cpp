@@ -1,5 +1,5 @@
 #include "SslConnection.h"
-#include <boost/bind.hpp>
+#include "precompiled/bind.h"
 
 SslConnection::pointer SslConnection::create(boost::shared_ptr<boost::asio::io_service> s, Type t)
 {

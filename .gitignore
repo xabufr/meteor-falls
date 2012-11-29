@@ -11,6 +11,9 @@
 *.la
 *.a
 
+#precompiled header
+*.gch
+
 build/Debug/*
 build/Release/*
 obj/*

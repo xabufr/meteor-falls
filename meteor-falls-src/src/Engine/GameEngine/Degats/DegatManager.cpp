@@ -2,7 +2,7 @@
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
 #include "Degat.h"
 #include "Armure.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 
 Armure* DegatManager::getArmure(ArmureId armure)
 {

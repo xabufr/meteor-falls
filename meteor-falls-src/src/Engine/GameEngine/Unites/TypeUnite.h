@@ -26,6 +26,28 @@ class TypeUnite
 
         static Type typeFromString(const std::string&);
 
+        UnitId id() const;
+        Type type() const;
+        Faction* fation() const;
+
+        int vie() const;
+        const std::string& nom() const;
+        const Ressources& cout() const;
+        const Ressources& apports() const;
+        int temps_construction() const;
+        int attaque() const;
+        float vision() const;
+        float portee() const;
+        TypeUnite* amelioration() const;
+        const std::vector<TypeUnite*>& construit() const;
+        const std::vector<Recherche*>& recherches() const;
+        const std::vector<Recherche*>& necessiteRecherche() const;
+        const std::vector<TypeUnite*>& necessiteUnite() const;
+        int niveau_recquis() const;
+        Degat* typeDegats() const;
+        Armure* armure() const;
+        const MeshParameters& meshParameters() const;
+
     private:
         friend class Faction;
         const UnitId m_id;
