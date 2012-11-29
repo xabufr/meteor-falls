@@ -15,6 +15,9 @@ Server::Server(std::string id,std::string ip,std::string nom,std::string m_versi
 
  Server::Server()
 {
-
+    m_nombre_joueurs_max = 0;
+    m_nombre_joueurs_connectes = 0;
+    m_passwd = 0;
+    m_temps_jeu = 0;
 }
 

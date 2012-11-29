@@ -3,9 +3,23 @@
 
 SslConnection::pointer SslConnection::create(boost::shared_ptr<boost::asio::io_service> s, Type t)
 {
-    boost::asio::ssl::context context(*s,boost::asio::ssl::context_base::method::sslv2);
-    context.set_verify_mode(boost::asio::ssl::context::verify_none);
-    return pointer(new SslConnection(s,t, context));
+    if(t==SERVER){
+        boost::asio::ssl::context context(*s, boost::asio::ssl::context::sslv23);
+        context.set_options(
+        boost::asio::ssl::context::default_workarounds
+        | boost::asio::ssl::context::no_sslv2
+        | boost::asio::ssl::context::single_dh_use);
+        context.use_certificate_chain_file("server.pem");
+        context.use_private_key_file("server.pem", boost::asio::ssl::context::pem);
+        context.use_tmp_dh_file("dh512.pem");
+
+        return pointer(new SslConnection(s,t, context));
+    }
+    else
+    {
+        boost::asio::ssl::context context(boost::asio::ssl::context::sslv23);
+        return pointer(new SslConnection(s,t, context));
+    }
 }
 
 void SslConnection::send(std::string data)
@@ -82,7 +96,14 @@ void SslConnection::handleReadData(const boost::system::error_code&)
 
 void SslConnection::handleSendData(std::string data)
 {
-    m_socket.async_write_some(boost::asio::buffer(data),
+
+    std::ostringstream os;
+    os << std::setw(header_size) << std::hex << data.size();
+    if( !os || os.str().size() != header_size){
+        m_addError(boost::asio::error::basic_errors::invalid_argument);
+        return;
+    }
+    m_socket.async_write_some(boost::asio::buffer(os.str() + data),
                               boost::bind(&SslConnection::handleDataSent, shared_from_this(),
                                           boost::asio::placeholders::error));
 }
@@ -94,6 +115,8 @@ void SslConnection::handleHandshake(const boost::system::error_code& e)
         setConnected(true);
         startListen();
     }
+    else
+        m_addError(e);
 }
 
 SslConnection::SslConnection(boost::shared_ptr<boost::asio::io_service> s, Type t, boost::asio::ssl::context& c):
@@ -101,21 +124,29 @@ SslConnection::SslConnection(boost::shared_ptr<boost::asio::io_service> s, Type 
     m_type(t),
     m_socket(*s, c)
 {
-
+    if(t==CLIENT)
+        m_socket.set_verify_mode(boost::asio::ssl::verify_none);
 }
 
 void SslConnection::handleConnect(const boost::system::error_code& e)
 {
     if(!e)
     {
+
         if(m_type==Type::CLIENT)
-            m_socket.async_handshake(boost::asio::ssl::stream_base::handshake_type::client,
+        {
+            m_socket.async_handshake(boost::asio::ssl::stream_base::client,
                                       boost::bind(&SslConnection::handleHandshake, shared_from_this(),
                                                   boost::asio::placeholders::error));
+        }
+
         else
-            m_socket.async_handshake(boost::asio::ssl::stream_base::handshake_type::server,
+        {
+            m_socket.async_handshake(boost::asio::ssl::stream_base::server,
                                       boost::bind(&SslConnection::handleHandshake, shared_from_this(),
                                                   boost::asio::placeholders::error));
+        }
+
     }
     else
         m_addError(e);
@@ -126,10 +157,10 @@ void SslConnection::connect(boost::asio::ip::tcp::endpoint e)
                                boost::bind(&SslConnection::handleConnect, shared_from_this(),
                                            boost::asio::placeholders::error));
 }
-void SslConnection::connectionAccepted(const boost::system::error_code& e)
+void SslConnection::connectionAccepted()
 {
     if(m_type==Type::SERVER)
-        handleConnect(e);
+        handleConnect(boost::system::error_code());
 }
 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& SslConnection::socket()
 {

@@ -110,6 +110,9 @@ Admin Creator::select_admin(std::string pseudo)
 
     result = mysql_use_result(m_MYSQL);
 
+    if(result==0)
+        return admin;
+
     while ((row = mysql_fetch_row(result)))
     {
         admin.set_pseudo(pseudo);

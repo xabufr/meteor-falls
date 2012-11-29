@@ -423,3 +423,115 @@
 1354182449 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp
 	"Admin.h"
 
+1354195676 source:/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp
+	"Admin.h"
+
+1354195676 /home/thomas/meteor-falls/GlobalServer/src/Admin.h
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1353960410 source:/home/thomas/meteor-falls/GlobalServer/src/Connection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/Connection.h"
+
+1354183517 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	"precompiled/asio.h"
+	<queue>
+
+1354183570 /home/thomas/meteor-falls/meteor-falls-src/src/precompiled/asio.h
+	<boost/asio.hpp>
+	<boost/thread/mutex.hpp>
+	<boost/thread.hpp>
+	<boost/asio/ssl.hpp>
+
+1354110581 source:/home/thomas/meteor-falls/GlobalServer/src/Player.cpp
+	"Player.h"
+
+1354223023 /home/thomas/meteor-falls/GlobalServer/src/Player.h
+	<iostream>
+	<map>
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354224488 source:/home/thomas/meteor-falls/GlobalServer/src/Creator.cpp
+	"Player.h"
+	"Server.h"
+	"Creator.h"
+
+1354110581 /home/thomas/meteor-falls/GlobalServer/src/Server.h
+	<iostream>
+	<map>
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354195676 /home/thomas/meteor-falls/GlobalServer/src/Creator.h
+	<iostream>
+	<map>
+	<string>
+	<vector>
+	<boost/lexical_cast.hpp>
+	<sstream>
+	<mysql.h>
+	<my_global.h>
+	<my_sys.h>
+	"Admin.h"
+
+1354224330 source:/home/thomas/meteor-falls/GlobalServer/src/GlobalServer.cpp
+	<boost/bind.hpp>
+	<boost/archive/text_iarchive.hpp>
+	<boost/archive/text_oarchive.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+	"GlobalServer.h"
+
+1354195676 /home/thomas/meteor-falls/GlobalServer/src/GlobalServer.h
+	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
+	"Server.h"
+	"ServerGlobalMessage.h"
+	<vector>
+	<boost/asio.hpp>
+	<boost/shared_ptr.hpp>
+	<boost/thread.hpp>
+	"Creator.h"
+
+1354215307 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
+	"precompiled/asio.h"
+	"precompiled/shared_ptr.h"
+	"Connection.h"
+
+1354184897 /home/thomas/meteor-falls/meteor-falls-src/src/precompiled/shared_ptr.h
+	<boost/shared_ptr.hpp>
+	<boost/enable_shared_from_this.hpp>
+
+1354224343 /home/thomas/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+	"Player.h"
+	"Admin.h"
+	"Server.h"
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354204013 source:/home/thomas/meteor-falls/GlobalServer/src/main.cpp
+	"GlobalServer.h"
+
+1354223191 source:/home/thomas/meteor-falls/GlobalServer/src/Server.cpp
+	"Server.h"
+
+1354219919 source:/home/thomas/meteor-falls/GlobalServer/src/SslConnection.cpp
+	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
+	<boost/bind.hpp>
+
+1354222880 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp
+	"SslConnection.h"
+	"precompiled/bind.h"
+
+1354183682 /home/thomas/meteor-falls/meteor-falls-src/src/precompiled/bind.h
+	<boost/bind.hpp>
+
