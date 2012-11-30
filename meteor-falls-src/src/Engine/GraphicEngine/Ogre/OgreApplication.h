@@ -5,6 +5,7 @@
 #include <OgreRoot.h>
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include "LoadingListener.h"
 
 class OgreApplication
 {
@@ -23,9 +24,12 @@ class OgreApplication
     protected:
     private:
         void m_ParcourirRessource(std::string &fileName, bool add);
+        void m_bootstrapCegui();
+        bool m_ceguiStarted;
         Ogre::Root *m_root;
         Ogre::RenderWindow *m_window;
         CEGUI::Renderer *m_ceguiRenderer;
+        LoadingListener m_listener;
 };
 
 #endif // OGREAPPLICATION_H
