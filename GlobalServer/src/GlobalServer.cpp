@@ -12,7 +12,7 @@ m_work(new boost::asio::io_service::work(*m_service)),
 m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
 m_start(true)
 {
-    m_sql = new Creator("rack.gheberg.eu", "theshark", "fabrice", "test");
+    m_sql = new Creator("rack.gheberg.eu", "fabrice", "theshark", "test");
     m_sql->connect_mysql();
     m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
@@ -50,25 +50,27 @@ void GlobalServer::work()
             removeClient(client);
         else{
             while (client->hasData()){
-                message = m_deserialize(client->getData());
-                ServerGlobalMessage *msg;
+                    std::string data = client->getData();
+            std::cout<<data<<std::endl;
+                message = m_deserialize(data);
+                ServerGlobalMessage *msg = message;
                 msg->type = message->type;
 
                 switch (message->type)
                 {
-                    case ServerGlobalMessage::Type::LOGIN:
+                    case ServerGlobalMessageType::LOGIN:
                     {
                         msg->player = m_sql->select_player(message->player.get_pseudo());
                         msg->make = (msg->player.get_passwd() == message->player.get_passwd())?true:false;
                     }
                     break;
-                    case ServerGlobalMessage::Type::ADMIN_LOGIN:
+                    case ServerGlobalMessageType::ADMIN_LOGIN:
                     {
                         msg->admin = m_sql->select_admin(message->admin.get_pseudo());
                         msg->make = (msg->admin.get_passwd() == message->admin.get_passwd())?true:false;
                     }
                     break;
-                    case ServerGlobalMessage::Type::ADMIN_CMD:
+                    case ServerGlobalMessageType::ADMIN_CMD:
                     {
                         msg->admin = m_sql->select_admin(message->admin.get_pseudo());
                         if (msg->admin.get_passwd() == message->admin.get_passwd())
@@ -83,19 +85,19 @@ void GlobalServer::work()
                         }
                     }
                     break;
-                    case ServerGlobalMessage::Type::LOGOUT:
+                    case ServerGlobalMessageType::LOGOUT:
                     {
                         removeClient(client);
                         msg->make = true;
                     }
                     break;
-                    case ServerGlobalMessage::Type::SERVER_LIST:
+                    case ServerGlobalMessageType::SERVER_LIST:
                     {
                         msg->servers = m_sql->select_all_server();
-                        msg->type = ServerGlobalMessage::Type::SERVER_LIST;
+                        msg->type = ServerGlobalMessageType::SERVER_LIST;
                     }
                     break;
-                    case ServerGlobalMessage::Type::SERVER_UP:
+                    case ServerGlobalMessageType::SERVER_UP:
                     {
                         Server srv = message->servers[0];
                         m_sql->update(srv.get_id_server(), srv.get_ip_server(), srv.get_nom(),
@@ -105,7 +107,7 @@ void GlobalServer::work()
                         msg->make = true;
                     }
                     break;
-                    case ServerGlobalMessage::Type::SERVER_DEL:
+                    case ServerGlobalMessageType::SERVER_DEL:
                     {
                         m_sql->delete_server(message->servers[0].get_ip_server());
                         msg->make = true;
@@ -114,6 +116,7 @@ void GlobalServer::work()
                 }
                 client->send(m_serialize(msg));
                 std::cout << message->type << std::endl;
+                delete message;
             }
             while (client->hasError())
                 std::cout<<client->getError().message()<<std::endl;
@@ -135,8 +138,7 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
         {
             boost::mutex::scoped_lock l(m_mutex_clients);
             m_clients.push_back(conn);
-            conn->setConnected(true);
-            conn->connectAccept(e);
+            conn->connectionAccepted();
         }
         m_startAccept();
     }
