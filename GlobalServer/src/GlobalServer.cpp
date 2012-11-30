@@ -50,10 +50,10 @@ void GlobalServer::work()
             removeClient(client);*/
         /*else*/{
             while (client->hasData()){
-                    std::string data = client->getData();
-            std::cout<<data<<std::endl;
+                std::string data = client->getData();
+
                 message = m_deserialize(data);
-                ServerGlobalMessage *msg = message;
+                ServerGlobalMessage *msg = new ServerGlobalMessage;
                 msg->type = message->type;
 
                 switch (message->type)
@@ -75,7 +75,7 @@ void GlobalServer::work()
                         msg->admin = m_sql->select_admin(message->admin.get_pseudo());
                         if (msg->admin.get_passwd() == message->admin.get_passwd())
                         {
-                            if (message->admin.get_cmd() == "server stop")
+                            if (message->admin.get_cmd() == "server_stop")
                             {
                                 m_start = false;
                                 msg->make = true;
@@ -115,8 +115,8 @@ void GlobalServer::work()
                     break;
                 }
                 client->send(m_serialize(msg));
-                std::cout << message->type << std::endl;
                 delete message;
+                delete msg;
             }
             while (client->hasError())
                 std::cout<<client->getError().message()<<std::endl;

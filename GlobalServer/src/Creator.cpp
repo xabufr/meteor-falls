@@ -102,7 +102,7 @@ Player Creator::select_player(std::string Nom_Player)
 Admin Creator::select_admin(std::string pseudo)
 {
     Admin admin;
-    std::string sql_query = "SELECT * FROM Admin WHERE pseudo = " + pseudo;
+    std::string sql_query = "SELECT * FROM Admin WHERE pseudo = '" + pseudo+"'";
 
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;

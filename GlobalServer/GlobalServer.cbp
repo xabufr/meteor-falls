@@ -47,10 +47,11 @@
 			<Add option="-lz" />
 			<Add option="-lrt" />
 		</Linker>
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/Connection.h" />
 		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp" />
 		<Unit filename="src/Admin.cpp" />
 		<Unit filename="src/Admin.h" />
-		<Unit filename="src/Connection.cpp" />
 		<Unit filename="src/Creator.cpp" />
 		<Unit filename="src/Creator.h" />
 		<Unit filename="src/GlobalServer.cpp" />

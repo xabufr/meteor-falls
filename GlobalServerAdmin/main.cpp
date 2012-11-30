@@ -7,7 +7,7 @@
 
 using namespace std;
 void runNetwork(boost::shared_ptr<boost::asio::io_service> service);
-void runCommand(SslConnection::pointer, boost::shared_ptr<boost::asio::io_service>);
+void runCommand(SslConnection::pointer, boost::shared_ptr<boost::asio::io_service>, std::string login, std::string pass);
 
 std::string serialize(const ServerGlobalMessage *message)
 {
@@ -19,7 +19,7 @@ std::string serialize(const ServerGlobalMessage *message)
 
 ServerGlobalMessage* deserialize(const std::string &data)
 {
-    ServerGlobalMessage *message;
+    ServerGlobalMessage *message = new ServerGlobalMessage();
     std::istringstream iss(data);
     boost::archive::text_iarchive archive(iss);
     archive >> *message;
@@ -68,23 +68,46 @@ int main()
     std::cin >> login;
     std::cout << "Password: ";
     std::cin >> motpasse;
-    std::cout << "Authentification"<<std::endl;
+    std::cout << "Authentification";
+    std::cout.flush();
 
     ServerGlobalMessage message;
     message.type = ServerGlobalMessageType::ADMIN_LOGIN;
     message.admin.set_pseudo(login);
-    message.admin.set_pseudo(motpasse);
+    message.admin.set_passwd(motpasse);
     message.admin.set_cmd("connexion");
-
-    std::cout<<serialize(&message)<<std::endl;
 
     connexion->send(serialize(&message));
 
-    boost::thread commandThread(boost::bind(&runCommand, connexion, service));
+    while(1)
+    {
+        std::cout << ".";
+        std::cout.flush();
+        if(connexion->hasData())
+            break;
+        if(connexion->hasError())
+        {
+            std::cout << std::endl << connexion->getError().message() << std::endl;
+            return 0;
+        }
+        boost::this_thread::sleep(boost::posix_time::milliseconds(150));
+    }
+    std::cout<<std::endl;
+    std::string data = connexion->getData();
+    ServerGlobalMessage *messageAuth = deserialize(data);
+    if(messageAuth->make)
+        std::cout << "Authentifié"<<std::endl;
+    else
+    {
+        std::cout << "Erreur d'authentification"<<std::endl;
+        return 0;
+    }
+    delete messageAuth;
+    boost::thread commandThread(boost::bind(&runCommand, connexion, service, login, motpasse));
 
     boost::this_thread::sleep(boost::posix_time::milliseconds(150));
 
-    while(commandThread.timed_join(boost::posix_time::milliseconds(50)))
+    while(!commandThread.timed_join(boost::posix_time::milliseconds(50)))
     {
         while(connexion->hasError())
         {
@@ -98,6 +121,7 @@ int main()
     }
     worker.reset();
     connexion.reset();
+    service->stop();
     network.join();
 
     return 0;
@@ -107,14 +131,28 @@ void runNetwork(boost::shared_ptr<boost::asio::io_service> service)
 {
     service->run();
 }
-void runCommand(SslConnection::pointer, boost::shared_ptr<boost::asio::io_service>)
+void runCommand(SslConnection::pointer connexion, boost::shared_ptr<boost::asio::io_service>, std::string login, std::string pass)
 {
     std::string command;
-    while(1)
+    while(/*connexion->isConnected()*/connexion->isListening())
     {
-        std::cout << ">" << std::endl;
+        std::cout << ">";
+        std::cout.flush();
         std::cin>>command;
         if(command=="exit")
             break;
+        else if(command=="help"||command=="h")
+        {
+            std::cout << "exit  ->  quitter l'invité de commande" << std::endl;
+        }
+        else
+        {
+            ServerGlobalMessage mes;
+            mes.admin.set_pseudo(login);
+            mes.admin.set_passwd(pass);
+            mes.admin.set_cmd(command);
+            mes.type = ServerGlobalMessageType::ADMIN_CMD;
+            connexion->send(serialize(&mes));
+        }
     }
 }

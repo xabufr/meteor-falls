@@ -33,6 +33,7 @@ void SslConnection::startListen()
 {
     if(isConnected()&&!isListening())
     {
+        setListening(true);
         m_socket.async_read_some(boost::asio::buffer(m_header_data, header_size),
                                   boost::bind(&SslConnection::handleReadHeader, shared_from_this(),
                                               boost::asio::placeholders::error));
