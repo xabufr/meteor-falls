@@ -72,7 +72,7 @@ void Creator::insert(std::string id,std::string ip,std::string nom,std::string v
 
 Player Creator::select_player(std::string Nom_Player)
 {
-    std::string sql_query = "SELECT * FROM Player WHERE pseudo_player = " + Nom_Player;
+    std::string sql_query = "SELECT * FROM Player WHERE pseudo_player = '" + Nom_Player +"'";
 
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;
@@ -105,7 +105,7 @@ Player Creator::select_player(std::string Nom_Player)
 Admin Creator::select_admin(std::string pseudo)
 {
     Admin admin;
-    std::string sql_query = "SELECT * FROM Admin WHERE pseudo = " + pseudo;
+    std::string sql_query = "SELECT * FROM Admin WHERE pseudo = '" + pseudo + "'";
 
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;
@@ -130,7 +130,7 @@ Admin Creator::select_admin(std::string pseudo)
 
 Server Creator::select_server(std::string ip)
 {
-    std::string sql_query = "SELECT * FROM Server WHERE ip_server = " + ip;
+    std::string sql_query = "SELECT * FROM Server WHERE ip_server = '" + ip +"'";
 
     mysql_query(m_MYSQL, sql_query.c_str());
     MYSQL_RES *result = NULL;
@@ -231,10 +231,10 @@ void Creator::update(std::string id,std::string ip,std::string nom,std::string v
 }
 
 
-void Creator::delete_player(std::string nom)
+void Creator::delete_player(std::string id)
 {
     std::string sql_query;
-    sql_query = "DELETE FROM Player WHERE id_player = " +nom;
+    sql_query = "DELETE FROM Player WHERE id_player = '" + id + "'";
     mysql_query(m_MYSQL, sql_query.c_str());
 }
 
@@ -242,6 +242,6 @@ void Creator::delete_player(std::string nom)
 void Creator::delete_server(std::string ip)
 {
     std::string sql_query;
-    sql_query = "DELETE FROM Server WHERE id_server = " +boost::lexical_cast<std::string>(ip);
+    sql_query = "DELETE FROM Server WHERE id_server = '" +boost::lexical_cast<std::string>(ip) +"'";
     mysql_query(m_MYSQL, sql_query.c_str());
 }

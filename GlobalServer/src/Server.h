@@ -28,7 +28,7 @@ class Server
 		void set_nombre_joueurs_connectes(int nombre_joueurs_connectes) {m_nombre_joueurs_connectes = m_nombre_joueurs_connectes;};
 
 		bool get_passwd() {return m_passwd;};
-		bool set_passwd(bool passwd) {m_passwd = passwd;};
+		void set_passwd(bool passwd) {m_passwd = passwd;};
 
 		std::string get_carte_jouee() {return m_carte_jouee;};
 		void set_carte_jouee(std::string carte_jouee) {m_carte_jouee = carte_jouee;};

@@ -12,7 +12,7 @@ m_work(new boost::asio::io_service::work(*m_service)),
 m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
 m_start(true)
 {
-    m_sql = new Creator("rack.gheberg.eu", "fabrice", "theshark", "test");
+    m_sql = new Creator("rack.gheberg.eu", "theshark", "fabrice", "test");
     m_sql->connect_mysql();
     m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
@@ -53,7 +53,7 @@ void GlobalServer::work()
                     std::string data = client->getData();
             std::cout<<data<<std::endl;
                 message = m_deserialize(data);
-                ServerGlobalMessage *msg = message;
+                ServerGlobalMessage *msg = new ServerGlobalMessage;
                 msg->type = message->type;
 
                 switch (message->type)
@@ -75,7 +75,7 @@ void GlobalServer::work()
                         msg->admin = m_sql->select_admin(message->admin.get_pseudo());
                         if (msg->admin.get_passwd() == message->admin.get_passwd())
                         {
-                            if (message->admin.get_cmd() == "server stop")
+                            if (message->admin.get_cmd() == "server_stop")
                             {
                                 m_start = false;
                                 msg->make = true;

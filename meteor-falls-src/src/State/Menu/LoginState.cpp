@@ -104,8 +104,8 @@ ret_code LoginState::work(unsigned int time)
 
 bool LoginState::send(const CEGUI::EventArgs &)
 {
-    ClientLogin log(6050);
-    bool res;
+    ClientLogin *log = new ClientLogin(6048);
+    bool res = true;
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
@@ -120,12 +120,12 @@ bool LoginState::send(const CEGUI::EventArgs &)
                                          CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
     m_txt->setText("Connexion en cours...");
-    res = log.send_log(std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
+    res = log->send_log(std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
 
     if (res)
         m_txt->setText("Connection établie.");
-
-    m_txt->setText("Login ou mot de passe erroné.");
+    else
+        m_txt->setText("Login ou mot de passe erroné.");
 
     return true;
 }

@@ -33,7 +33,7 @@ class Creator
         Server select_server(std::string ip);
         std::vector<Server> select_all_server();
 
-        void delete_player(std::string nom);
+        void delete_player(std::string id);
         void delete_server(std::string ip);
 
 	private :
