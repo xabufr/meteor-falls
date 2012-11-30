@@ -7,14 +7,14 @@
 	<File name="src/Admin.h" open="0" top="0" tabpos="0">
 		<Cursor position="801" topLine="0" />
 	</File>
-	<File name="src/Creator.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="4001" topLine="99" />
+	<File name="src/Creator.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="497" topLine="0" />
 	</File>
 	<File name="src/Creator.h" open="0" top="0" tabpos="3">
 		<Cursor position="231" topLine="0" />
 	</File>
-	<File name="src/GlobalServer.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="1524" topLine="45" />
+	<File name="src/GlobalServer.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="5528" topLine="0" />
 	</File>
 	<File name="src/GlobalServer.h" open="0" top="0" tabpos="2">
 		<Cursor position="699" topLine="7" />
@@ -37,7 +37,7 @@
 	<File name="src/SslConnection.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="138" topLine="0" />
 	</File>
-	<File name="src/main.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="111" topLine="0" />
+	<File name="src/main.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="174" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

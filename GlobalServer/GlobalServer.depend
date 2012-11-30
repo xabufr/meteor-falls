@@ -7,7 +7,7 @@
 	<boost/asio.hpp>
 	<queue>
 
-1354184413 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
+1354208318 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/main.cpp
 	"GlobalServer.h"
 
 1353927408 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/SslConnection.cpp
@@ -151,7 +151,7 @@
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"../../meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h"
 
-1354180678 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
+1354184502 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/GlobalServer.cpp
 	<boost/bind.hpp>
 	<boost/archive/text_iarchive.hpp>
 	<boost/archive/text_oarchive.hpp>
@@ -176,16 +176,13 @@
 	<boost/shared_ptr.hpp>
 	"Connection.h"
 
-1353319424 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
-	<boost/thread/mutex.hpp>
-	<boost/asio.hpp>
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	"precompiled/asio.h"
 	<queue>
 
-1353925560 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
-	<boost/asio.hpp>
-	<boost/asio/ssl.hpp>
-	<boost/shared_ptr.hpp>
-	<boost/enable_shared_from_this.hpp>
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
+	"precompiled/asio.h"
+	"precompiled/shared_ptr.h"
 	"Connection.h"
 
 1353593668 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
@@ -378,18 +375,19 @@
 1354035411 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp
 	"Server.h"
 
-1354181266 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+1354206275 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
 	"Player.h"
 	"Admin.h"
+	"Server.h"
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/map.hpp>
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354033741 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp
+1354206781 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp
 	"Player.h"
 
-1354033808 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.h
+1354206640 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.h
 	<iostream>
 	<map>
 	<string>
@@ -409,7 +407,7 @@
 	<my_sys.h>
 	"Admin.h"
 
-1354182503 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.cpp
+1354188062 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Creator.cpp
 	"Player.h"
 	"Server.h"
 	"Creator.h"
@@ -422,4 +420,14 @@
 
 1354182449 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp
 	"Admin.h"
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/asio.h
+	<boost/asio.hpp>
+	<boost/thread/mutex.hpp>
+	<boost/thread.hpp>
+	<boost/asio/ssl.hpp>
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/shared_ptr.h
+	<boost/shared_ptr.hpp>
+	<boost/enable_shared_from_this.hpp>
 

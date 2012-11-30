@@ -136,7 +136,7 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
             boost::mutex::scoped_lock l(m_mutex_clients);
             m_clients.push_back(conn);
             conn->setConnected(true);
-            conn->startListen();
+            conn->connectAccept(e);
         }
         m_startAccept();
     }
@@ -165,7 +165,7 @@ std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
 
 ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
 {
-    ServerGlobalMessage *message;
+    ServerGlobalMessage *message = new ServerGlobalMessage();
     std::istringstream iss(data);
     boost::archive::text_iarchive archive(iss);
     archive >> *message;

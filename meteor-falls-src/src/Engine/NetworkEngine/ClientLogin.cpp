@@ -1,4 +1,8 @@
-#incldue "ClientLogin.h"
+#include "ClientLogin.h"
+#include "../../../GlobalServer/src/Player.h"
+#include <boost/bind.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 
 ServerGlobalMessage* ClientLogin::m_deserialize(const std::string &data)
 {
@@ -37,7 +41,7 @@ void ClientLogin::m_startAccept()
 {
     SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::CLIENT);
     m_acceptor_ssl.async_accept(connection_ssl->socket(),
-                                boost::bind(&GlobalServer::m_handleAccept_ssl, this,
+                                boost::bind(&ClientLogin::m_handleAccept_ssl, this,
                                             connection_ssl, boost::asio::placeholders::error));
 }
 
@@ -46,10 +50,35 @@ bool ClientLogin::get_start()
     return m_start;
 }
 
-void ClientLogin::work()
+bool ClientLogin::send_log(std::string pseudo, std::string passwd)
+{
+    Player player;
+    ServerGlobalMessage* message;
+    bool rep;
+
+    player.set_pseudo(pseudo);
+    player.set_passwd(passwd);
+
+    message->player = player;
+    message->type = ServerGlobalMessage::Type::LOGIN;
+
+    SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::CLIENT);
+    connection_ssl->send(m_serialize(message));
+
+    while (m_start)
+    {
+       rep = work();
+    }
+
+    return rep;
+}
+
+
+
+bool ClientLogin::work()
 {
     if (!m_server->isConnected() || !m_server->isListening())
-             return;
+             return false;
 
     ServerGlobalMessage *message;
     while (m_server->hasData())
@@ -57,13 +86,20 @@ void ClientLogin::work()
         switch (message->type)
         {
             case ServerGlobalMessage::Type::LOGIN:
+            {
+                m_start = false;
                 return message->make;
+            }
             break;
             case ServerGlobalMessage::Type::LOGOUT:
+            {
+                m_start = false;
                 return message->make;
+            }
             break;
         }
     }
+    return false;
 }
 
  ClientLogin::~ClientLogin()
@@ -79,9 +115,10 @@ m_work(new boost::asio::io_service::work(*m_service)),
 m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
 m_start(true)
 {
-    m_server->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port);
+    m_server = SslConnection::create(m_service, SslConnection::CLIENT);
+    m_server->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port));
     m_server->setConnected(true);
-    m_thread_service = boost::thread(&GlobalServer::m_run, this);
+    m_thread_service = boost::thread(&ClientLogin::m_run, this);
     m_startAccept();
 }
 

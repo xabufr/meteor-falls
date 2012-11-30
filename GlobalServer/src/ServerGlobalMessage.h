@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Admin.h"
+#include "Server.h"
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>

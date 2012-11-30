@@ -32,6 +32,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="../meteor-falls-src/libs/rapidxml" />
+			<Add directory="../meteor-falls-src/src" />
 		</Compiler>
 		<Linker>
 			<Add option="-lboost_system" />

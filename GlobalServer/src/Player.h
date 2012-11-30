@@ -11,6 +11,7 @@ class Player
 {
 	public :
 		Player(std::string Id_Player, std::string pseudo,int exp_rpg,int exp_rts,int level,std::string passwsd,std::string email,std::string pays,std::string session);
+        Player();
 
 		std::string get_pseudo() {return m_pseudo;};
 		void set_pseudo(std::string pseudo) {m_pseudo = pseudo;};
