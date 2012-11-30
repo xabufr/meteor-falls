@@ -6,7 +6,7 @@
 
 ServerGlobalMessage* ClientLogin::m_deserialize(const std::string &data)
 {
-    ServerGlobalMessage *message;
+    ServerGlobalMessage *message = new ServerGlobalMessage;
     std::istringstream iss(data);
     boost::archive::text_iarchive archive(iss);
     archive >> *message;
@@ -53,17 +53,16 @@ bool ClientLogin::get_start()
 bool ClientLogin::send_log(std::string pseudo, std::string passwd)
 {
     Player player;
-    ServerGlobalMessage* message;
-    bool rep;
+    ServerGlobalMessage* message = new ServerGlobalMessage;
+    bool rep = true;
 
     player.set_pseudo(pseudo);
     player.set_passwd(passwd);
 
     message->player = player;
-    message->type = ServerGlobalMessage::Type::LOGIN;
+    message->type = ServerGlobalMessageType::LOGIN;
 
-    SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::CLIENT);
-    connection_ssl->send(m_serialize(message));
+    m_server->send(m_serialize(message));
 
     while (m_start)
     {
@@ -85,13 +84,13 @@ bool ClientLogin::work()
     {
         switch (message->type)
         {
-            case ServerGlobalMessage::Type::LOGIN:
+            case ServerGlobalMessageType::LOGIN:
             {
                 m_start = false;
                 return message->make;
             }
             break;
-            case ServerGlobalMessage::Type::LOGOUT:
+            case ServerGlobalMessageType::LOGOUT:
             {
                 m_start = false;
                 return message->make;
@@ -117,7 +116,6 @@ m_start(true)
 {
     m_server = SslConnection::create(m_service, SslConnection::CLIENT);
     m_server->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port));
-    m_server->setConnected(true);
     m_thread_service = boost::thread(&ClientLogin::m_run, this);
     m_startAccept();
 }

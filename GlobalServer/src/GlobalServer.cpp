@@ -12,7 +12,7 @@ m_work(new boost::asio::io_service::work(*m_service)),
 m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
 m_start(true)
 {
-    m_sql = new Creator("rack.gheberg.eu", "fabrice", "theshark", "test");
+    m_sql = new Creator("rack.gheberg.eu", "theshark", "fabrice", "test");
     m_sql->connect_mysql();
     m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
