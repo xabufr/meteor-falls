@@ -46,9 +46,9 @@ void GlobalServer::work()
 
     ServerGlobalMessage *message;
     for (SslConnection::pointer client : clients){
-        /*if (!client->isConnected() || !client->isListening())
-            removeClient(client);*/
-        /*else*/{
+        if (!client->isConnected() || !client->isListening())
+            removeClient(client);
+        else{
             while (client->hasData()){
                 std::string data = client->getData();
 

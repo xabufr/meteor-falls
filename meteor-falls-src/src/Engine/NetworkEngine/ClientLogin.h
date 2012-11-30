@@ -2,14 +2,20 @@
 #define CLIENTLOGIN_H_INCLUDED
 
 #include "Engine/NetworkEngine/SslConnection.h"
+#include "../../../GlobalServer/src/ServerGlobalMessage.h"
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/string.hpp>
 
 class ClientLogin
 {
     public:
-        ClientLogin();
+        ClientLogin(unsigned short);
         ~ClientLogin();
-        void work();
+        bool work();
         bool get_start();
+        bool send_log(std::string, std::string);
     protected:
         boost::shared_ptr<boost::asio::io_service> m_service;
         boost::shared_ptr<boost::asio::io_service::work> m_work;

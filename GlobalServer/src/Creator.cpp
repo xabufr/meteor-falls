@@ -2,7 +2,7 @@
 #include "Server.h"
 #include "Creator.h"
 
-Creator::Creator(char* host,char* password,char* user,char* db_name)
+Creator::Creator(char* host,char* user,char* password,char* db_name)
 {
      m_host = host;
      m_password = password;
@@ -82,6 +82,9 @@ Player Creator::select_player(std::string Nom_Player)
 
     result = mysql_use_result(m_MYSQL);
 
+    if (result == NULL)
+        return MonPlayer;
+
     while ((row = mysql_fetch_row(result)))
     {
         MonPlayer.set_id(row[0]);
@@ -110,7 +113,7 @@ Admin Creator::select_admin(std::string pseudo)
 
     result = mysql_use_result(m_MYSQL);
 
-    if(result==0)
+    if (result == NULL)
         return admin;
 
     while ((row = mysql_fetch_row(result)))
@@ -135,6 +138,9 @@ Server Creator::select_server(std::string ip)
 
     Server MonServer("","","","",0,0,0,"","",0);
     result = mysql_use_result(m_MYSQL);
+
+    if (result == NULL)
+        return MonServer;
 
     while ((row = mysql_fetch_row(result)))
     {
@@ -165,6 +171,9 @@ std::vector<Server> Creator::select_all_server()
 
     result = mysql_use_result(m_MYSQL);
     Server srv;
+
+    if (result == NULL)
+        return list_server;
 
     while ((row = mysql_fetch_row(result)))
     {
