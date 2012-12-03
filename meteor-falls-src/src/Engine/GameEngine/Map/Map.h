@@ -6,6 +6,7 @@
 
 #include <string>
 #include <iostream>
+#include "../Camera/CameraRTS.h"
 
 class Map
 {
@@ -25,11 +26,11 @@ class Map
         std::string m_name;
         int m_size_x;
         int m_size_y;
-        int m_size_z;
         bool m_cycle_enable;
         int m_cycle_duration;
         int m_cycle_hour;
         Ogre::Camera* m_camera;
+        CameraRTS* m_camera_test;
 
 
 };

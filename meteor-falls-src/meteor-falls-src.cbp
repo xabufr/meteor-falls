@@ -70,6 +70,7 @@
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
 			<Add option="-lboost_unit_test_framework" />
+			<Add option="-lboost_filesystem" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
 		</Linker>
@@ -94,6 +95,8 @@
 		<Unit filename="src/Engine/GameEngine/Camera/Camera.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
@@ -117,8 +120,8 @@
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRPG.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.h" />
-		<Unit filename="src/Engine/GameEngine/Map.cpp" />
-		<Unit filename="src/Engine/GameEngine/Map.h" />
+		<Unit filename="src/Engine/GameEngine/Map/Map.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/Map.h" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.h" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.cpp" />
@@ -216,6 +219,8 @@
 		<Unit filename="src/Utils/Exception/BasicException.h" />
 		<Unit filename="src/Utils/Exception/FileNotFound.cpp" />
 		<Unit filename="src/Utils/Exception/FileNotFound.h" />
+		<Unit filename="src/Utils/File.cpp" />
+		<Unit filename="src/Utils/File.h" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />

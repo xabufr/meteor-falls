@@ -2,6 +2,8 @@
 #include "precompiled/lexical_cast.h"
 #include <CEGUI.h>
 #include <OgreLogManager.h>
+#include "ogrecontextmanager.h"
+#include "OgreApplication.h"
 
 OgreWindowInputManager::~OgreWindowInputManager()
 {
@@ -11,6 +13,7 @@ OgreWindowInputManager::OgreWindowInputManager(Ogre::RenderWindow* window) : m_w
     m_initOIS();
     m_injectMouse=true;
     m_injectKeyboard=true;
+    m_injectWindowEvent = true;
 }
 
 void OgreWindowInputManager::m_initOIS()
@@ -41,6 +44,15 @@ void OgreWindowInputManager::windowResized(Ogre::RenderWindow* rw)
     const OIS::MouseState &ms = m_mouse->getMouseState();
     ms.width = rw->getWidth();
     ms.height = rw->getHeight()-100;//bug X11 OU OIS
+    static bool first=true;
+    if(m_injectWindowEvent&&!first)
+    {
+        CEGUI::Size s;
+        s.d_height=rw->getHeight();
+        s.d_width=rw->getWidth();
+        CEGUI::System::getSingleton().notifyDisplaySizeChanged(s);
+    }
+    first=false;
 }
 
 void OgreWindowInputManager::windowClosed(Ogre::RenderWindow* rw)
@@ -118,6 +130,11 @@ void OgreWindowInputManager::injectMouseEventToCEGUI(bool i)
 {
     m_injectMouse=i;
 }
+void OgreWindowInputManager::injectWindowEventToCEGUI(bool i)
+{
+    m_injectWindowEvent=i;
+}
+
 void OgreWindowInputManager::addMouseListener(OIS::MouseListener* l)
 {
     m_mouseListeners.push_back(l);

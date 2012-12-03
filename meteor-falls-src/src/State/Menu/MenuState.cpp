@@ -143,8 +143,6 @@ ret_code MenuState::work(unsigned int time)
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
     m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
 
-    Playlist::get()->work();
-
     if (m_sousState==0)
     {
         /*Piking*/

@@ -2,7 +2,7 @@
 #define GAMEENGINE_H
 
 #include <string>
-#include "Map.h"
+#include "Map/Map.h"
 #include "../EngineMessage/EngineMessage.h"
 #include "../Engine.h"
 
