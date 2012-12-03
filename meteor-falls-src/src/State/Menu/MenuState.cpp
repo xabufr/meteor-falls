@@ -7,6 +7,7 @@
 #include "../Game/GameState.h"
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
 #include "precompiled/bind.h"
+#include "../../Engine/SoundEngine/Playlist.h"
 
 MenuState::MenuState(StateManager* mng):
     State(mng)
@@ -87,6 +88,9 @@ MenuState::MenuState(StateManager* mng):
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
     m_sousState = new LoginState(m_state_manager);
+
+    Playlist::loadFile("data/playlist.xml");
+
 }
 
 MenuState::~MenuState()
@@ -110,6 +114,8 @@ void MenuState::enter()
     if(m_sousState)
         m_sousState->enter();
     m_scene_mgr->getRootSceneNode()->setVisible(true);
+    Playlist::get()->select_group("menu");
+
 }
 
 void MenuState::exit()
@@ -135,6 +141,8 @@ ret_code MenuState::work(unsigned int time)
 
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
     m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
+
+    Playlist::get()->work();
 
     if (m_sousState==0)
     {

@@ -1,4 +1,6 @@
 #include "Playlist.h"
+#include "../ScriptEngine/XmlDocumentManager.h"
+#include "../../Utils/File.h"
 
 Playlist::Playlist()
 {
@@ -39,9 +41,6 @@ void Playlist::readPlaylist()
         {
 
         }
-
-        std::cout << "chanson lancee" << std::endl;
-        std::cout << m_vector_paths_group_musiques[m_groupe_courant][(m_music_playing[m_groupe_courant])] << std::endl;
         m_music_playing[m_groupe_courant]++;
         m_music->play();
         m_temps_ecoule.restart();
@@ -70,8 +69,8 @@ void Playlist::set_Volume(int type_son, int new_volume)
 int Playlist::get_Audio_State() // stop / pause / read
 {
     if (m_stop == true)
-    m_music_playing[m_groupe_courant] = 0; // debut de la liste de lecture
-        return 3;
+        m_music_playing[m_groupe_courant] = 0; // debut de la liste de lecture
+    return 3;
 
     if (m_pause == true)
         return 2;
@@ -109,50 +108,47 @@ int Playlist::get_MusicPlayed()
 void Playlist::work()
 {
 
-        int new_volume;
+    int new_volume;
 
-        if (first_song)
-        {
-            readPlaylist();
-            first_song = false;
-        }
+    if (first_song)
+    {
+        readPlaylist();
+        first_song = false;
+    }
 
-      //  std::cout << "volume principal : " <<m_volume << std::endl;
+    //  std::cout << "volume principal : " <<m_volume << std::endl;
 
-        int sec_restantes =  get_Temps_Chanson() - m_temps_ecoule.getElapsedTime().asSeconds();
-              /*  std::cout << "temps chanson : "<< get_Temps_Chanson() << std::endl;
-                std::cout << "temps ecoule : "<< m_temps_ecoule.getElapsedTime().asSeconds() << std::endl;
-                std::cout << "secondes rest : "<< sec_restantes << std::endl;*/
+    int sec_restantes =  get_Temps_Chanson() - m_temps_ecoule.getElapsedTime().asSeconds();
+    /*  std::cout << "temps chanson : "<< get_Temps_Chanson() << std::endl;
+      std::cout << "temps ecoule : "<< m_temps_ecoule.getElapsedTime().asSeconds() << std::endl;
+      std::cout << "secondes rest : "<< sec_restantes << std::endl;*/
 
 
-        if (sec_restantes <= m_fade_time)
-        {
-            MonFade.setType(Fade::fadeType::out);
-            new_volume = MonFade.work(m_temps_ecoule.getElapsedTime().asMilliseconds(), m_music->getDuration().asMilliseconds(), 20000, m_volume);
-            m_music->setVolume(new_volume);
+    if (sec_restantes <= m_fade_time)
+    {
+        MonFade.setType(Fade::fadeType::out);
+        new_volume = MonFade.work(m_temps_ecoule.getElapsedTime().asMilliseconds(), m_music->getDuration().asMilliseconds(), 20000, m_volume);
+        m_music->setVolume(new_volume);
 
-      //  std::cout << "fadeout" << std::endl;
-        }
-        else if (m_temps_ecoule.getElapsedTime().asSeconds() <= m_fade_time)
-        {
-            MonFade.setType(Fade::fadeType::in);
-            new_volume = MonFade.work(m_temps_ecoule.getElapsedTime().asMilliseconds(), m_music->getDuration().asMilliseconds(), 20000, m_volume);
-            m_music->setVolume(new_volume);
-                    std::cout << "fadein" << std::endl;
-        }
-        else
-        {
-            m_music->setVolume(m_volume);
-        }
+        //  std::cout << "fadeout" << std::endl;
+    }
+    else if (m_temps_ecoule.getElapsedTime().asSeconds() <= m_fade_time)
+    {
+        MonFade.setType(Fade::fadeType::in);
+        new_volume = MonFade.work(m_temps_ecoule.getElapsedTime().asMilliseconds(), m_music->getDuration().asMilliseconds(), 20000, m_volume);
+        m_music->setVolume(new_volume);
+    }
+    else
+    {
+        m_music->setVolume(m_volume);
+    }
 
-        if (m_music->getStatus() == sf::SoundSource::Status::Stopped)
-        {
-                select_group(m_groupe_courant);
-                m_music_playing[m_groupe_courant]++;
-                readPlaylist();
-        }
-
-      //  std::cout << "new voilume : "<<new_volume << std::endl;
+    if (m_music->getStatus() == sf::SoundSource::Status::Stopped)
+    {
+        select_group(m_groupe_courant);
+        m_music_playing[m_groupe_courant]++;
+        readPlaylist();
+    }
 }
 
 
@@ -173,5 +169,27 @@ void Playlist::set_type_transition(Fade::fadeFunction string)
     else if (string == Fade::fadeFunction::constant)
         MonFade.setFunction(Fade::fadeFunction::constant);
 
+}
+void Playlist::loadFile(const std::string &file)
+{
+    rapidxml::xml_document<>* doc = XmlDocumentManager::get()->getDocument(file);
+    rapidxml::xml_node<>* root = doc->first_node("playlists");
+    rapidxml::xml_node<>* current;
+    Playlist *playlist = Playlist::get();
+    for(current=root->first_node("playlist");current;current=current->next_sibling("playlist"))
+    {
+        rapidxml::xml_attribute<>* att = current->first_attribute("rep");
+        if(att)
+        {
+            std::string repertoire(att->value());
+            std::string groupe(current->first_attribute("nom")->value());
+            std::list<std::string> liste = FileUtils::getRecurse(repertoire, std::list<std::string>({"ogg", "wav"}));
+            for(std::string &s : liste)
+            {
+                playlist->addMusic(s, groupe);
+                std::cout << s << std::endl;
+            }
+        }
+    }
 }
 
