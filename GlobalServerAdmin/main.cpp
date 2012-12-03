@@ -45,7 +45,7 @@ int main()
     }
     std::cout << "Connexion à " << adresseIP<<std::endl;
     connexion->connect(boost::asio::ip::tcp::endpoint(adresseIP, 6050));
-    boost::thread network = boost::bind(&runNetwork, service);
+    boost::thread network = boost::thread(&runNetwork, service);
 
     while(1)
     {

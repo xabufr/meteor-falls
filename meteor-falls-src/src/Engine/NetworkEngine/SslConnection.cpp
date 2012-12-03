@@ -161,7 +161,11 @@ void SslConnection::connect(boost::asio::ip::tcp::endpoint e)
 void SslConnection::connectionAccepted()
 {
     if(m_type==Type::SERVER)
+    {
+        setConnected(true);
         handleConnect(boost::system::error_code());
+    }
+
 }
 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& SslConnection::socket()
 {

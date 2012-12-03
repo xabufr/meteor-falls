@@ -72,6 +72,7 @@
 			<Add option="-lboost_unit_test_framework" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
+			<Add option="-lOgreTerrain" />
 		</Linker>
 		<Unit filename="../GlobalServer/src/Admin.cpp" />
 		<Unit filename="../GlobalServer/src/Player.cpp" />
@@ -94,6 +95,8 @@
 		<Unit filename="src/Engine/GameEngine/Camera/Camera.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
