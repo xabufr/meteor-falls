@@ -31,6 +31,7 @@ class OgreWindowInputManager :
 
         void injectKeyboardEventToCEGUI(bool);
         void injectMouseEventToCEGUI(bool);
+        void injectWindowEventToCEGUI(bool);
 
         void addMouseListener(OIS::MouseListener*);
         void delMouseListener(OIS::MouseListener*);
@@ -51,7 +52,7 @@ class OgreWindowInputManager :
         OIS::InputManager *m_inputManager;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
-        bool m_injectMouse, m_injectKeyboard;
+        bool m_injectMouse, m_injectKeyboard, m_injectWindowEvent;
 
         std::vector<OIS::Object*> m_personalizedDevices;
         std::vector<OIS::MouseListener*> m_mouseListeners;
