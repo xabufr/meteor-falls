@@ -70,6 +70,7 @@
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
 			<Add option="-lboost_unit_test_framework" />
+			<Add option="-lboost_filesystem" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
 		</Linker>
