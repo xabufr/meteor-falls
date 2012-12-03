@@ -3,10 +3,12 @@
 
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
-
+#include <Hydrax.h>
 #include <string>
 #include <iostream>
-#include "../Camera/CameraRTS.h"
+#include "../Camera/CameraLibre.h"
+#include "../../../../SkyX/Include/SkyX.h"
+#include <Terrain/OgreTerrain.h>
 
 class Map
 {
@@ -22,16 +24,20 @@ class Map
 
     private:
         Ogre::SceneManager *m_scene_mgr;
+        Ogre::TerrainGlobalOptions *m_globals;
+        Ogre::Light *light;
         bool m_loaded;
         std::string m_name;
         int m_size_x;
         int m_size_y;
         bool m_cycle_enable;
-        int m_cycle_duration;
+        float m_cycle_coef;
         int m_cycle_hour;
         Ogre::Camera* m_camera;
-        CameraRTS* m_camera_test;
-
+        CameraLibre* m_camera_test;
+        SkyX::SkyX *m_skyx;
+        SkyX::BasicController *m_controller;
+        Hydrax::Hydrax *m_hydrax;
 
 };
 

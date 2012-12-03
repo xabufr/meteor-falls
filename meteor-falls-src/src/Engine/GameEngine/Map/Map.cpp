@@ -3,7 +3,7 @@
 #include "precompiled/lexical_cast.h"
 
 #include <OgreSceneManager.h>
-#include <Terrain/OgreTerrain.h>
+
 #include <OgreCamera.h>
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
@@ -12,12 +12,26 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
+#include <Noise/Perlin/Perlin.h>
+#include <Modules/ProjectedGrid/ProjectedGrid.h>
+
 using namespace rapidxml;
 
 Map::Map(Ogre::SceneManager *p_scene_mgr)
 {
     m_scene_mgr = p_scene_mgr;
     m_loaded = false;
+    m_controller = new SkyX::BasicController();
+    m_skyx = new SkyX::SkyX(p_scene_mgr, m_controller);
+    m_skyx->create();
+
+    OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(m_skyx);
+    OgreContextManager::get()->getOgreApplication()->getWindow()->addListener(m_skyx);
+
+    m_skyx->getCloudsManager()->add(SkyX::CloudLayer::Options(/* Default options */));
+
+
+
 }
 
 Map::~Map()
@@ -39,32 +53,40 @@ void Map::load(std::string p_name){
     m_cycle_enable = cycle_enable->value();
     if(std::string(cycle_enable->value()) == "true"){
         xml_node<> *cycle_duration = cycle->first_node("duration");
-        m_cycle_duration = boost::lexical_cast<int>(std::string(cycle_duration->value()));
+        m_cycle_coef = boost::lexical_cast<float>(std::string(cycle_duration->value()));
+
+        m_skyx->setTimeMultiplier(m_cycle_coef);
     }
     else
-        m_cycle_duration = 0;
+    {
+        m_cycle_coef = 0;
+    }
     xml_node<> *cycle_hour = cycle->first_node("hour");
     m_cycle_hour = boost::lexical_cast<int>(std::string(cycle_hour->value()));
+    m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
+
 
     //chargement du terrain ogre
     Ogre::Terrain *m_terrain;
-    Ogre::TerrainGlobalOptions *m_globals;
+
     m_terrain = OGRE_NEW Ogre::Terrain(m_scene_mgr);
 
-    m_scene_mgr->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
+    m_scene_mgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
 
     // options globales
     m_globals = OGRE_NEW Ogre::TerrainGlobalOptions();
     m_globals->setMaxPixelError(10);
     m_globals->setCompositeMapDistance(8000);
 
-    Ogre::Light *light = m_scene_mgr->createLight("lumiere1");
-    light->setDiffuseColour(1.0, 0.7, 1.0);
-    light->setSpecularColour(1.0, 0.7, 1.0);
-    light->setPosition(-100, 200, 100);
-    //m_globals->setLightMapDirection(light->getDerivedDirection());
-    m_globals->setCompositeMapAmbient(Ogre::ColourValue(0.8, 0.8, 0.8));
-    //m_globals->setCompositeMapDiffuse(light->getDiffuseColour());
+    light = m_scene_mgr->createLight("soleil");
+    light->setDiffuseColour(1.0, 1.0, 1.0);
+    light->setSpecularColour(1.0, 1.0, 1.0);
+    light->setType(Ogre::Light::LightTypes::LT_DIRECTIONAL);
+    light->setDirection(Ogre::Vector3(0,-1,0));
+
+    m_globals->setLightMapDirection(light->getDerivedDirection());
+    m_globals->setCompositeMapAmbient(Ogre::ColourValue(0, 0, 0));
+    m_globals->setCompositeMapDiffuse(light->getDiffuseColour());
 
     m_camera = m_scene_mgr->createCamera("FreeCam");
     Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
@@ -76,8 +98,29 @@ void Map::load(std::string p_name){
     m_camera->setNearClipDistance(0.1);
     m_camera->setFarClipDistance(100000);
 
-    m_camera_test = new CameraRTS();
+    m_camera_test = new CameraLibre();
     m_camera_test->setCamera(m_camera);
+
+    m_hydrax = new Hydrax::Hydrax(m_scene_mgr, m_camera, m_camera->getViewport());
+    Hydrax::Module::ProjectedGrid *mModule
+			= new Hydrax::Module::ProjectedGrid(// Hydrax parent pointer
+			                                    m_hydrax,
+												// Noise module
+			                                    new Hydrax::Noise::Perlin(/*Generic one*/),
+												// Base plane
+			                                    Ogre::Plane(Ogre::Vector3(0,1,0), Ogre::Vector3(0,0,0)),
+												// Normal mode
+												Hydrax::MaterialManager::NM_VERTEX,
+												// Projected grid options
+										        Hydrax::Module::ProjectedGrid::Options(/*264 /*Generic one*/));
+    m_hydrax->setModule(static_cast<Hydrax::Module::Module*>(mModule));
+
+    // Load all parameters from config file
+    // Remarks: The config file must be in Hydrax resource group.
+    // All parameters can be set/updated directly by code(Like previous versions),
+    // but due to the high number of customizable parameters, since 0.4 version, Hydrax allows save/load config files.
+    m_hydrax->loadCfg("Tropical.hdx");
+    m_hydrax->create();
 
     Ogre::Image img;
     img.load(p_name + "/" + p_name + ".png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -135,12 +178,21 @@ void Map::update(){
 
     Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
     CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
+    m_hydrax->update(1.f/60.f);
+
+    if(m_cycle_coef<=0.0001)
+    {
+        m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
+    }
 
     /* ############### Test Camera Libre et Camera RTS ############## */
-    m_camera_test->forward(keyboard->isKeyDown(OIS::KC_Z) || keyboard->isKeyDown(OIS::KC_UP) || mouse_pos.d_y == 0);
-    m_camera_test->back(keyboard->isKeyDown(OIS::KC_S) || keyboard->isKeyDown(OIS::KC_DOWN) || mouse_pos.d_y == window->getHeight()-1);
-    m_camera_test->right(keyboard->isKeyDown(OIS::KC_D) || keyboard->isKeyDown(OIS::KC_RIGHT) || mouse_pos.d_x == window->getWidth()-1);
-    m_camera_test->left(keyboard->isKeyDown(OIS::KC_Q) || keyboard->isKeyDown(OIS::KC_LEFT) || mouse_pos.d_x == 0);
+    m_camera_test->forward(keyboard->isKeyDown(OIS::KC_Z) );
+    m_camera_test->back(keyboard->isKeyDown(OIS::KC_S));
+    m_camera_test->right(keyboard->isKeyDown(OIS::KC_D));
+    m_camera_test->left(keyboard->isKeyDown(OIS::KC_Q));
+    m_camera_test->lookRightLeft(Ogre::Degree(-mouse->getMouseState().X.rel*0.1));
+    m_camera_test->lookUpDown(Ogre::Degree(-mouse->getMouseState().Y.rel*0.1));
+    light->setDirection(-m_controller->getSunDirection());
 
     m_camera_test->update(1000/60);
     /* ############################################################## */

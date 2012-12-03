@@ -9,7 +9,7 @@ OgreApplication::OgreApplication()
 {
     #ifdef RELEASE
     m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
-    #elifdef DEBUG
+    #elif defined DEBUG
     m_root = new Ogre::Root("plugins_debug.cfg", "ogre_debug.cfg", "Ogre_debug.log");
     #else
     m_root = new Ogre::Root();

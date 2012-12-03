@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
-#include "Engine/GameEngine/Map.h"
+#include "Engine/GameEngine/Map/Map.h"
 #include "Engine/GameEngine/Factions/FactionManager.h"
 
 
