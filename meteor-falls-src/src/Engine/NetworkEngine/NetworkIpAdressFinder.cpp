@@ -11,7 +11,7 @@ boost::asio::ip::address getAddress(boost::asio::io_service &service, std::strin
         return address;
     }
     boost::asio::ip::tcp::resolver resolver(service);
-    boost::asio::ip::tcp::resolver::query query(host);
+    boost::asio::ip::tcp::resolver::query query(host, "80");
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
     boost::asio::ip::tcp::resolver::iterator end;
     if(iter!=end)

@@ -33,6 +33,7 @@ void SslConnection::startListen()
 {
     if(isConnected()&&!isListening())
     {
+        setListening(true);
         m_socket.async_read_some(boost::asio::buffer(m_header_data, header_size),
                                   boost::bind(&SslConnection::handleReadHeader, shared_from_this(),
                                               boost::asio::placeholders::error));
@@ -160,7 +161,11 @@ void SslConnection::connect(boost::asio::ip::tcp::endpoint e)
 void SslConnection::connectionAccepted()
 {
     if(m_type==Type::SERVER)
+    {
+        setConnected(true);
         handleConnect(boost::system::error_code());
+    }
+
 }
 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& SslConnection::socket()
 {

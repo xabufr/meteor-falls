@@ -1,43 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="src/Admin.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="464" topLine="0" />
+	<File name="src/Creator.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="78" topLine="147" />
 	</File>
-	<File name="src/Admin.h" open="0" top="0" tabpos="0">
-		<Cursor position="801" topLine="0" />
+	<File name="src/GlobalServer.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="5274" topLine="129" />
 	</File>
-	<File name="src/Creator.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="7917" topLine="215" />
-	</File>
-	<File name="src/Creator.h" open="0" top="0" tabpos="3">
-		<Cursor position="1814" topLine="9" />
-	</File>
-	<File name="src/GlobalServer.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="527" topLine="2" />
-	</File>
-	<File name="src/GlobalServer.h" open="0" top="0" tabpos="2">
-		<Cursor position="699" topLine="7" />
-	</File>
-	<File name="src/Player.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="437" topLine="0" />
-	</File>
-	<File name="src/Player.h" open="0" top="0" tabpos="0">
-		<Cursor position="69" topLine="30" />
-	</File>
-	<File name="src/Server.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="481" topLine="0" />
-	</File>
-	<File name="src/Server.h" open="0" top="0" tabpos="4">
-		<Cursor position="1175" topLine="14" />
-	</File>
-	<File name="src/ServerGlobalMessage.h" open="0" top="0" tabpos="4">
-		<Cursor position="492" topLine="4" />
-	</File>
-	<File name="src/SslConnection.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="138" topLine="0" />
-	</File>
-	<File name="src/main.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="199" topLine="0" />
+	<File name="../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="5134" topLine="137" />
 	</File>
 </CodeBlocks_layout_file>

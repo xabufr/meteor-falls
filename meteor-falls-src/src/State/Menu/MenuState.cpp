@@ -72,8 +72,6 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
 
-    //m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-
     CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
@@ -220,6 +218,11 @@ ret_code MenuState::work(unsigned int time)
     }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return ret_code::EXIT_PROGRAM;
+    else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
+    {
+        m_sousState->exit();
+    }
+
     return CONTINUE;
 }
 

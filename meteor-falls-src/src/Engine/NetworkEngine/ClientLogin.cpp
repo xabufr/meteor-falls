@@ -45,7 +45,7 @@ m_work(new boost::asio::io_service::work(*m_service)),
 m_login(false)
 {
     m_connection = SslConnection::create(m_service, SslConnection::Type::CLIENT);
-    m_connection->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port));
+    m_connection->connect(boost::asio::ip::tcp::endpoint(getAddress(*m_service, "127.0.0.1"), port));
     m_service_thread = boost::thread(&ClientLogin::m_run, this);
 
     Player player;
@@ -72,18 +72,18 @@ m_login(false)
 
     while(1)
     {
-        while(m_connection->hasError())
+        if(m_connection->hasError())
         {
             std::cout<<m_connection->getError().message()<<std::endl;
         }
-        while(m_connection->hasData())
+        if(m_connection->hasData())
         {
             message = m_deserialize(m_connection->getData());
             switch (message->type)
             {
                 case ServerGlobalMessageType::LOGIN:
                 {
-                    if (message->admin.get_pseudo() == pseudo && message->admin.get_passwd() == passwd)
+                    if (message->player.get_pseudo() == pseudo && message->player.get_passwd() == passwd)
                     {
                         m_login = true;
                         delete message;
