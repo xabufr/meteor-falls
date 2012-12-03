@@ -34,8 +34,6 @@ void Map::load(std::string p_name){
     m_size_x = boost::lexical_cast<int>(std::string(size_x->value()));
     xml_attribute<> *size_y = size_x->next_attribute("y");
     m_size_y = boost::lexical_cast<int>(std::string(size_y->value()));
-    xml_attribute<> *size_z = size_y->next_attribute("z");
-    m_size_z = boost::lexical_cast<int>(std::string(size_z->value()));
     xml_node<> *cycle = size->next_sibling("cycle");
     xml_attribute<> *cycle_enable = cycle->first_attribute("enable");
     m_cycle_enable = cycle_enable->value();
@@ -88,8 +86,8 @@ void Map::load(std::string p_name){
     Ogre::Terrain::ImportData imp;
     imp.inputImage = &img;
     imp.terrainSize = img.getWidth();
-    imp.worldSize = 2000;
-    imp.inputScale = 100;
+    imp.worldSize = m_size_x;
+    imp.inputScale = m_size_y;
     imp.minBatchSize = 33;
     imp.maxBatchSize = 65;
 

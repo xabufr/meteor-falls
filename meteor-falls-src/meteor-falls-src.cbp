@@ -120,8 +120,8 @@
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRPG.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.h" />
-		<Unit filename="src/Engine/GameEngine/Map.cpp" />
-		<Unit filename="src/Engine/GameEngine/Map.h" />
+		<Unit filename="src/Engine/GameEngine/Map/Map.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/Map.h" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.h" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.cpp" />
