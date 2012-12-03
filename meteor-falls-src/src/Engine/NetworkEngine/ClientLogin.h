@@ -11,25 +11,19 @@
 class ClientLogin
 {
     public:
-        ClientLogin(unsigned short);
+        ClientLogin(unsigned short, std::string, std::string);
         ~ClientLogin();
-        bool work();
-        bool get_start();
-        bool send_log(std::string, std::string);
+        bool isLogin();
     protected:
         boost::shared_ptr<boost::asio::io_service> m_service;
         boost::shared_ptr<boost::asio::io_service::work> m_work;
-        boost::thread m_thread_service;
     private:
-        SslConnection::pointer m_server;
-        boost::asio::ip::tcp::acceptor m_acceptor_ssl;
-        boost::mutex m_mutex_server;
-        void m_startAccept();
-        void m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e);
+        SslConnection::pointer m_connection;
+        boost::thread m_service_thread;
         void m_run();
+        bool m_login;
         std::string m_serialize(const ServerGlobalMessage *message);
         ServerGlobalMessage* m_deserialize(const std::string &data);
-        bool m_start;
 };
 
 #endif // CLIENTLOGIN_H_INCLUDED

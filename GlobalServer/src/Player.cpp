@@ -14,7 +14,7 @@ Player::Player(std::string Id_Player, std::string pseudo,int exp_rpg,int exp_rts
 
 }
 
-Player::Player():m_id_player(0),
+Player::Player():m_id_player(""),
 m_pseudo(""),
 m_exp_rpg(0),
 m_exp_rts(0),
@@ -22,7 +22,7 @@ m_level(0),
 m_passwd(""),
 m_pays(""),
 m_email(""),
-m_num_session(0)
+m_num_session("")
 {
 
 }

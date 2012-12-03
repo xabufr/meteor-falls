@@ -79,6 +79,8 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
     m_connect->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::send, this));
     m_sheet->addChildWindow(m_connect);
 
+    m_message = m_window_mgr.createWindow("OgreTray/StaticText", "StaticText");
+
     m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
     m_login->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_login->getSize().d_x.d_scale/2), 0),
@@ -102,30 +104,45 @@ ret_code LoginState::work(unsigned int time)
     return CONTINUE;
 }
 
+void LoginState::m_state_element(const bool actif)
+{
+    m_login->setEnabled(actif);
+    m_passwd->setEnabled(actif);
+    m_connect->setEnabled(actif);
+}
+
+
+
 bool LoginState::send(const CEGUI::EventArgs &)
 {
-    ClientLogin *log = new ClientLogin(6048);
-    bool res = true;
+    m_state_element(false);
 
-    CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
+    m_message->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_message->setProperty("FrameEnabled", "false");
+    m_message->setProperty("BackgroundEnabled", "false");
+    m_message->setProperty("VertFormatting", "TopAligned");
+    m_sheet->addChildWindow(m_message);
 
-    CEGUI::Window *m_txt = m_window_mgr.createWindow("OgreTray/StaticText", "StaticText");
-    m_txt->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
-    m_txt->setProperty("FrameEnabled", "false");
-    m_txt->setProperty("BackgroundEnabled", "false");
-    m_txt->setProperty("VertFormatting", "TopAligned");
-    m_sheet->addChildWindow(m_txt);
-
-    m_txt->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_txt->getSize().d_x.d_scale/2), 0),
+    m_message->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_message->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
-    m_txt->setText("Connexion en cours...");
-    res = log->send_log(std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
+    if (std::string(m_login->getText().c_str()) == "" || std::string(m_passwd->getText().c_str()) == "")
+    {
+       m_message->setText("Veuillez saisir un login et un password.");
+       return false;
+    }
 
-    if (res)
-        m_txt->setText("Connection établie.");
+    m_message->setText("Connexion en cours...");
+    ClientLogin *log = new ClientLogin(6050, std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
+
+    if (log->isLogin())
+        m_message->setText("Connection établie.");
     else
-        m_txt->setText("Login ou mot de passe erroné.");
+        m_message->setText("Login ou mot de passe erroné.");
+
+    delete log;
+
+    m_state_element(true);
 
     return true;
 }

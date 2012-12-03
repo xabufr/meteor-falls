@@ -46,12 +46,11 @@ void GlobalServer::work()
 
     ServerGlobalMessage *message;
     for (SslConnection::pointer client : clients){
-        if (!client->isConnected() || !client->isListening())
+        if (!client->isConnected())
             removeClient(client);
         else{
             while (client->hasData()){
                 std::string data = client->getData();
-
                 message = m_deserialize(data);
                 ServerGlobalMessage *msg = new ServerGlobalMessage;
                 msg->type = message->type;
@@ -115,7 +114,6 @@ void GlobalServer::work()
                     break;
                 }
                 client->send(m_serialize(msg));
-                delete message;
                 delete msg;
             }
             while (client->hasError())
