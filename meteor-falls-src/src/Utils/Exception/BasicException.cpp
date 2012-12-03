@@ -1,5 +1,5 @@
 #include "BasicException.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 
 BasicException::~BasicException() throw()
 {

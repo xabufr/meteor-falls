@@ -1,10 +1,8 @@
 #ifndef SSLCONNECTION_H
 #define SSLCONNECTION_H
 
-#include <boost/asio.hpp>
-#include <boost/asio/ssl.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
+#include "precompiled/asio.h"
+#include "precompiled/shared_ptr.h"
 #include "Connection.h"
 
 class SslConnection: public boost::enable_shared_from_this<SslConnection>, public Connection
@@ -17,9 +15,9 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         typedef boost::shared_ptr<SslConnection> pointer;
 
         static pointer create(boost::shared_ptr<boost::asio::io_service>, Type);
-        void connect(boost::asio::ip::tcp::endpoint);
+        void connect(boost::asio::ip::tcp::endpoint);//CONNECTION AU SERVER
 
-        void connectionAccepted(const boost::system::error_code& ); //Méthode appelée par le serveur
+        void connectionAccepted(); //Méthode appelée par le serveur
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& socket();
 
         virtual void send(std::string data);
@@ -28,6 +26,9 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         std::string getData();
 
         virtual ~SslConnection();
+        static std::string getPass(){return "test";}
+        static bool verify_certificate(bool preverified,
+        boost::asio::ssl::verify_context& ctx){return true;}
 
 
     protected:

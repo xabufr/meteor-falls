@@ -1,82 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="src/BasicException.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="53" topLine="0" />
+	<File name="src/Creator.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="301" topLine="9" />
+		</Cursor>
 	</File>
-	<File name="src/ClientNetworkEngineLan.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="153" topLine="0" />
+	<File name="../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3084" topLine="96" />
+		</Cursor>
 	</File>
-	<File name="src/Connection.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="58" topLine="0" />
+	<File name="src/GlobalServer.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1154" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/EngineManager.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1410" topLine="30" />
+	<File name="src/ServerGlobalMessage.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="622" topLine="24" />
+		</Cursor>
 	</File>
-	<File name="src/EngineMessage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="452" topLine="3" />
+	<File name="src/GlobalServer.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="527" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/FileNotFound.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="53" topLine="0" />
+	<File name="src/main.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="130" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="src/GameEngine.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="55" topLine="0" />
+	<File name="src/Player.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1851" topLine="39" />
+		</Cursor>
 	</File>
-	<File name="src/GlobalServer.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3420" topLine="9" />
+	<File name="src/Server.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="606" topLine="1" />
+		</Cursor>
 	</File>
-	<File name="src/GlobalServer.h" open="1" top="0" tabpos="2">
-		<Cursor position="940" topLine="0" />
+	<File name="src/Server.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2264" topLine="46" />
+		</Cursor>
 	</File>
-	<File name="src/GraphicEngine.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="194" topLine="0" />
+	<File name="src/Creator.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3690" topLine="97" />
+		</Cursor>
 	</File>
-	<File name="src/Map.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="99" topLine="0" />
-	</File>
-	<File name="src/NetworkEngine.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="161" topLine="0" />
-	</File>
-	<File name="src/NetworkIpAdressFinder.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="37" topLine="0" />
-	</File>
-	<File name="src/OgreApplication.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="119" topLine="0" />
-	</File>
-	<File name="src/OgreWindowInputManager.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="63" topLine="0" />
-	</File>
-	<File name="src/Server.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="226" topLine="0" />
-	</File>
-	<File name="src/Server.h" open="1" top="0" tabpos="6">
-		<Cursor position="260" topLine="6" />
-	</File>
-	<File name="src/ServerClient.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="58" topLine="0" />
-	</File>
-	<File name="src/ServerNetworkEngine.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="833" topLine="20" />
-	</File>
-	<File name="src/SslConnection.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="3133" topLine="90" />
-	</File>
-	<File name="src/TcpConnection.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="58" topLine="0" />
-	</File>
-	<File name="src/UdpConnection.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="10" topLine="0" />
-	</File>
-	<File name="src/XmlDocumentManager.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="786" topLine="15" />
-	</File>
-	<File name="src/clientnetworkengine.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1394" topLine="36" />
-	</File>
-	<File name="src/main.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="60" topLine="0" />
-	</File>
-	<File name="src/ogrecontextmanager.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="204" topLine="0" />
+	<File name="src/Admin.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="787" topLine="10" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

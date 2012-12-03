@@ -1,6 +1,7 @@
 #ifndef GETMESHINFORMATION_H_INCLUDED
 #define GETMESHINFORMATION_H_INCLUDED
-#include <Ogre.h>
+#include <OgreRay.h>
+#include <OgreSceneQuery.h>
 
 // Get the mesh information for the given mesh.
 // Code found in Wiki: www.ogre3d.org/wiki/index.php/RetrieveVertexData

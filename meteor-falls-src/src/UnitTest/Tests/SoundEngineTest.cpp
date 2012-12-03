@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <map>
 #include <assert.h>
-#include <SFML/Audio.hpp>
+#include "precompiled/sfml_audio.h"
 /*
 void launchUnitTestForSound();
 void launchUnitTests()
@@ -18,20 +18,20 @@ void launchUnitTests()
 void launchUnitTestForSound()
 {
 
-    Playlist MyPlaylist;
+    Playlist *MyPlaylist = Playlist::get();
 
-    MyPlaylist.addMusic("data/sound/music/test/01.ogg", "MaPlaylist");
-    MyPlaylist.addMusic("data/sound/music/test/02.ogg", "MaPlaylist");
-    MyPlaylist.addMusic("data/sound/music/test/k.ogg", "MaPlaylist");
+    MyPlaylist->addMusic("data/sound/music/test/01.ogg", "MaPlaylist");
+    MyPlaylist->addMusic("data/sound/music/test/02.ogg", "MaPlaylist");
+    MyPlaylist->addMusic("data/sound/music/test/k.ogg", "MaPlaylist");
 
-    MyPlaylist.select_group("MaPlaylist");
+    MyPlaylist->select_group("MaPlaylist");
 
-    assert(MyPlaylist.get_HowManyMusic() == 3);
+    assert(MyPlaylist->get_HowManyMusic() == 3);
     //assert(MyPlaylist.get_MusicPlayed() == 1);
 
     for(;;)
     {
-        MyPlaylist.work();
+        MyPlaylist->work();
     }
 
 

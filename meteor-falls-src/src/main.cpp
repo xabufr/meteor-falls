@@ -9,11 +9,13 @@
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
 #include "Engine/GameEngine/Map.h"
+#include "Engine/GameEngine/Factions/FactionManager.h"
+
 
 int main(int argc, char **argv)
 {
     //launchUnitTestForSound();
-
+    FactionManager::get();
     try
     {
         Application app(argc, argv);

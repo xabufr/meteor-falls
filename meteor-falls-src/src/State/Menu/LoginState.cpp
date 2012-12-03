@@ -2,6 +2,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "Engine/NetworkEngine/ClientLogin.h"
 #include "State/Game/GameState.h"
 
  LoginState::~LoginState()
@@ -75,6 +76,7 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
     m_connect = m_window_mgr.createWindow("OgreTray/Button", "BoutonConnect");
     m_connect->setText("Connexion");
     m_connect->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_connect->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::send, this));
     m_sheet->addChildWindow(m_connect);
 
     m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_x.d_scale/2), 0),
@@ -100,10 +102,37 @@ ret_code LoginState::work(unsigned int time)
     return CONTINUE;
 }
 
+bool LoginState::send(const CEGUI::EventArgs &)
+{
+    ClientLogin *log = new ClientLogin(6048);
+    bool res = true;
+
+    CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
+
+    CEGUI::Window *m_txt = m_window_mgr.createWindow("OgreTray/StaticText", "StaticText");
+    m_txt->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_txt->setProperty("FrameEnabled", "false");
+    m_txt->setProperty("BackgroundEnabled", "false");
+    m_txt->setProperty("VertFormatting", "TopAligned");
+    m_sheet->addChildWindow(m_txt);
+
+    m_txt->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_txt->getSize().d_x.d_scale/2), 0),
+                                         CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
+
+    m_txt->setText("Connexion en cours...");
+    res = log->send_log(std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
+
+    if (res)
+        m_txt->setText("Connection établie.");
+    else
+        m_txt->setText("Login ou mot de passe erroné.");
+
+    return true;
+}
+
 void LoginState::exit()
 {
     m_sheet->hide();
-    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
 }
 
 void LoginState::enter()

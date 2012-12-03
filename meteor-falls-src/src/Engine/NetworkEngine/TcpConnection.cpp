@@ -1,5 +1,5 @@
 #include "TcpConnection.h"
-#include <boost/bind.hpp>
+#include "precompiled/bind.h"
 #include <iomanip>
 
 TcpConnection::pointer TcpConnection::create(boost::shared_ptr<boost::asio::io_service> io)

@@ -2,7 +2,7 @@
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
 #include "Degat.h"
 #include "Armure.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 
 Armure* DegatManager::getArmure(ArmureId armure)
 {
@@ -51,10 +51,29 @@ DegatManager::DegatManager()
 
         armure = new Armure(id,nom);
         m_armures[id]=armure;
+
+        //Paramètres de l'armure
+        rapidxml::xml_node<>* nodeDef;
+        for(nodeDef=currentNode->first_node("defenses")->first_node("degat");
+        nodeDef; nodeDef=nodeDef->next_sibling("degat"))
+        {
+            deg=getDegat(boost::lexical_cast<DegatId>(nodeDef->first_attribute("id")->value()));
+            if(deg)
+            {
+                armure->addDegat(deg, boost::lexical_cast<int>(nodeDef->first_attribute("valeur")->value()));
+            }
+        }
     }
 }
 
 DegatManager::~DegatManager()
 {
-
+    for(auto it : m_armures)
+    {
+        delete it.second;
+    }
+    for(auto it : m_degats)
+    {
+        delete it.second;
+    }
 }

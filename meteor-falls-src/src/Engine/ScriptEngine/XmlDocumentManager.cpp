@@ -46,3 +46,7 @@ XmlDocumentManager::Document XmlDocumentManager::m_loadDocument(const std::strin
 
     return doc;
 }
+XmlDocumentManager* XmlDocumentManager::get()
+{
+    return Singleton<XmlDocumentManager>::get();
+}

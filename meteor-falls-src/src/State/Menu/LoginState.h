@@ -26,6 +26,7 @@ class LoginState : public State
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
         bool m_connection(const CEGUI::EventArgs &);
+        bool send(const CEGUI::EventArgs &);
 
 };
 

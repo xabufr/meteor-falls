@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include <rapidxml.hpp>
+#include "precompiled/_rapidxml.h"
 #include "../../Utils/singleton.h"
 
 class XmlDocumentManager: public Singleton<XmlDocumentManager>
@@ -13,6 +13,8 @@ class XmlDocumentManager: public Singleton<XmlDocumentManager>
         typedef std::pair<char*, rapidxml::xml_document<>*> Document;
 
         rapidxml::xml_document<>* getDocument(const std::string&);
+
+        static XmlDocumentManager* get();
 
     protected:
         XmlDocumentManager();

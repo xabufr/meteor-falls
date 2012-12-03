@@ -1,15 +1,16 @@
 #include "OgreWindowInputManager.h"
-#include <boost/lexical_cast.hpp>
+#include "precompiled/lexical_cast.h"
 #include <CEGUI.h>
+#include <OgreLogManager.h>
 
 OgreWindowInputManager::~OgreWindowInputManager()
 {
-    m_injectMouse=true;
-    m_injectKeyboard=true;
 }
 OgreWindowInputManager::OgreWindowInputManager(Ogre::RenderWindow* window) : m_window(window)
 {
     m_initOIS();
+    m_injectMouse=true;
+    m_injectKeyboard=true;
 }
 
 void OgreWindowInputManager::m_initOIS()
@@ -21,9 +22,9 @@ void OgreWindowInputManager::m_initOIS()
     m_window->getCustomAttribute("WINDOW", &windowHnd);
     pl.insert(std::make_pair<std::string, std::string>("WINDOW", boost::lexical_cast<std::string>(windowHnd)));
 
-    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
-    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
-    pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
+    //pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
+    //pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
+    //pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
 
     m_inputManager = OIS::InputManager::createInputSystem(pl);
 

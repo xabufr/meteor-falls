@@ -2,8 +2,7 @@
 #include "Engine/NetworkEngine/NetworkIpAdressFinder.h"
 #include "Utils/Exception/BasicException.h"
 #include "Engine/EngineMessage/EngineMessage.h"
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include "precompiled/serialization.h"
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng):
     NetworkEngine(mng)

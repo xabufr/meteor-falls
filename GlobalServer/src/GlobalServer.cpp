@@ -6,17 +6,35 @@
 #include <boost/serialization/string.hpp>
 #include "GlobalServer.h"
 
-GlobalServer::GlobalServer(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
-m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port))
+GlobalServer::GlobalServer(unsigned short port) :
+m_service(new boost::asio::io_service),
+m_work(new boost::asio::io_service::work(*m_service)),
+m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
+m_start(true)
 {
+    m_sql = new Creator("rack.gheberg.eu", "theshark", "fabrice", "test");
+    m_sql->connect_mysql();
+    m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
 }
 
 GlobalServer::~GlobalServer()
 {
-
+    delete m_sql;
+    m_work.reset();
+    m_service->stop();
+    m_thread_service.join();
 }
 
+bool GlobalServer::get_start()
+{
+    return m_start;
+}
+
+void GlobalServer::m_run()
+{
+    m_service->run();
+}
 
 void GlobalServer::work()
 {
@@ -25,33 +43,80 @@ void GlobalServer::work()
         boost::mutex::scoped_lock l(m_mutex_clients);
         clients = m_clients;
     }
-    std::vector<ServerGlobalMessage> messages;
-    ServerGlobalMessage message;
+
+    ServerGlobalMessage *message;
     for (SslConnection::pointer client : clients){
         if (!client->isConnected() || !client->isListening())
             removeClient(client);
         else{
             while (client->hasData()){
-                message = m_deserialize(client->getData());
-                messages.push_back(message);
+                std::string data = client->getData();
 
-                /*si il demande la liste des serveur
+                message = m_deserialize(data);
+                ServerGlobalMessage *msg = new ServerGlobalMessage;
+                msg->type = message->type;
+
                 switch (message->type)
                 {
-                    case ServerGlobalMessage::Type::LOGIN:
-                        break;
-                    case ServerGlobalMessage::Type::LOGOUT:
-                        break;
-                    case ServerGlobalMessage::Type::SERVER_LIST:
-                        break;
-                    case ServerGlobalMessage::Type::SERVER_UP:
-                        break;
-                    case ServerGlobalMessage::Type::SERVER_DEL:
-                        break;
+                    case ServerGlobalMessageType::LOGIN:
+                    {
+                        msg->player = m_sql->select_player(message->player.get_pseudo());
+                        msg->make = (msg->player.get_passwd() == message->player.get_passwd())?true:false;
+                    }
+                    break;
+                    case ServerGlobalMessageType::ADMIN_LOGIN:
+                    {
+                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
+                        msg->make = (msg->admin.get_passwd() == message->admin.get_passwd())?true:false;
+                    }
+                    break;
+                    case ServerGlobalMessageType::ADMIN_CMD:
+                    {
+                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
+                        if (msg->admin.get_passwd() == message->admin.get_passwd())
+                        {
+                            if (message->admin.get_cmd() == "server_stop")
+                            {
+                                m_start = false;
+                                msg->make = true;
+                            }
+                            else
+                                msg->make = false;
+                        }
+                    }
+                    break;
+                    case ServerGlobalMessageType::LOGOUT:
+                    {
+                        removeClient(client);
+                        msg->make = true;
+                    }
+                    break;
+                    case ServerGlobalMessageType::SERVER_LIST:
+                    {
+                        msg->servers = m_sql->select_all_server();
+                        msg->type = ServerGlobalMessageType::SERVER_LIST;
+                    }
+                    break;
+                    case ServerGlobalMessageType::SERVER_UP:
+                    {
+                        Server srv = message->servers[0];
+                        m_sql->update(srv.get_id_server(), srv.get_ip_server(), srv.get_nom(),
+                                      srv.get_version(), srv.get_nombre_joueurs_max(),
+                                      srv.get_nombre_joueurs_connectes(), srv.get_passwd(), srv.get_carte_jouee(), srv.get_type_partie(),
+                                      srv.get_temps_jeu());
+                        msg->make = true;
+                    }
+                    break;
+                    case ServerGlobalMessageType::SERVER_DEL:
+                    {
+                        m_sql->delete_server(message->servers[0].get_ip_server());
+                        msg->make = true;
+                    }
+                    break;
                 }
-                client->send(serialize());*/
-
-                std::cout << message.type << std::endl;
+                client->send(m_serialize(msg));
+                delete message;
+                delete msg;
             }
             while (client->hasError())
                 std::cout<<client->getError().message()<<std::endl;
@@ -73,11 +138,7 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
         {
             boost::mutex::scoped_lock l(m_mutex_clients);
             m_clients.push_back(conn);
-            conn->setConnected(true);
-            conn->startListen();
-            /*on lui envoie son num de session
-            ServerGlobalMessage *message;
-            conn->send(serialize(message));*/
+            conn->connectionAccepted();
         }
         m_startAccept();
     }
@@ -96,21 +157,19 @@ void GlobalServer::removeClient(SslConnection::pointer c)
     }
 }
 
-std::string GlobalServer::m_serialize(ServerGlobalMessage message)
+std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
 {
     std::ostringstream os;
     boost::archive::text_oarchive archive(os);
-    archive << message;
+    archive << *message;
     return os.str();
 }
 
-ServerGlobalMessage GlobalServer::m_deserialize(std::string data)
+ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
 {
-    ServerGlobalMessage message;
+    ServerGlobalMessage *message = new ServerGlobalMessage();
     std::istringstream iss(data);
     boost::archive::text_iarchive archive(iss);
-    archive >> message;
+    archive >> *message;
     return message;
 }
-
-

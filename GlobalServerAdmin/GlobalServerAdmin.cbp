@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GlobalServerAdmin" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../build/Debug/GlobalServerAdmin" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../build/Release/GlobalServerAdmin" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++0x" />
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../meteor-falls-src/src" />
+		</Compiler>
+		<Linker>
+			<Add option="-lboost_system" />
+			<Add option="-lboost_serialization" />
+			<Add option="-lssl" />
+			<Add option="-lboost_thread" />
+			<Add option="-lpthread" />
+			<Add option="-lcrypto" />
+		</Linker>
+		<Unit filename="../GlobalServer/src/Admin.cpp" />
+		<Unit filename="../GlobalServer/src/Admin.h" />
+		<Unit filename="../GlobalServer/src/Player.cpp" />
+		<Unit filename="../GlobalServer/src/Player.h" />
+		<Unit filename="../GlobalServer/src/Server.cpp" />
+		<Unit filename="../GlobalServer/src/Server.h" />
+		<Unit filename="../GlobalServer/src/ServerGlobalMessage.h" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/Connection.h" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp" />
+		<Unit filename="../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h" />
+		<Unit filename="../meteor-falls-src/src/precompiled/asio.h" />
+		<Unit filename="../meteor-falls-src/src/precompiled/bind.h" />
+		<Unit filename="../meteor-falls-src/src/precompiled/lexical_cast.h" />
+		<Unit filename="../meteor-falls-src/src/precompiled/serialization.h" />
+		<Unit filename="../meteor-falls-src/src/precompiled/shared_ptr.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

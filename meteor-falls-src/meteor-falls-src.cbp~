@@ -58,6 +58,7 @@
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
+			<Add option="-lOgreTerrain" />
 			<Add option="-lOIS" />
 			<Add option="-lsfml-audio" />
 			<Add option="-lsfml-system" />
@@ -68,7 +69,14 @@
 			<Add option="-lssl" />
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
+			<Add option="-lboost_unit_test_framework" />
+			<Add option="-lpthread" />
+			<Add option="-lcrypto" />
+			<Add option="-lOgreTerrain" />
 		</Linker>
+		<Unit filename="../GlobalServer/src/Admin.cpp" />
+		<Unit filename="../GlobalServer/src/Player.cpp" />
+		<Unit filename="../GlobalServer/src/Server.cpp" />
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />
@@ -83,15 +91,79 @@
 		<Unit filename="src/Engine/EngineMessage/EngineMessageKey.h" />
 		<Unit filename="src/Engine/EngineMessage/EngineMessageType.h" />
 		<Unit filename="src/Engine/EngineType.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/Camera.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/Camera.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/Armure.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/Degat.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/Degat.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/DegatManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Degats/DegatManager.h" />
+		<Unit filename="src/Engine/GameEngine/Degats/typedefs.h" />
+		<Unit filename="src/Engine/GameEngine/Factions/Equipe.cpp" />
+		<Unit filename="src/Engine/GameEngine/Factions/Equipe.h" />
+		<Unit filename="src/Engine/GameEngine/Factions/Faction.cpp" />
+		<Unit filename="src/Engine/GameEngine/Factions/Faction.h" />
+		<Unit filename="src/Engine/GameEngine/Factions/FactionManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Factions/FactionManager.h" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
+		<Unit filename="src/Engine/GameEngine/GameEngine.h" />
+		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.cpp" />
+		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.h" />
+		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRPG.cpp" />
+		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRPG.h" />
+		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.cpp" />
+		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.h" />
+		<Unit filename="src/Engine/GameEngine/Map.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map.h" />
+		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.h" />
+		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.cpp" />
+		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.h" />
+		<Unit filename="src/Engine/GameEngine/Ressources/Ressources.cpp" />
+		<Unit filename="src/Engine/GameEngine/Ressources/Ressources.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Aerien.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Aerien.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Batiment.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Batiment.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Hero.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Hero.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Mobile.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Mobile.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Terrestre.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Terrestre.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/TypeUnite.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/TypeUnite.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/Unite.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/Unite.h" />
+		<Unit filename="src/Engine/GameEngine/Unites/UniteFactory.cpp" />
+		<Unit filename="src/Engine/GameEngine/Unites/UniteFactory.h" />
+<<<<<<< HEAD
+=======
+		<Unit filename="src/Engine/GameEngine/Unites/typedefs.h" />
+>>>>>>> 446236748fb6232aac2e1332b2ebc84fd07e66f5
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/GraphicEngine.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/GetMeshInformation.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/LoadingListener.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/LoadingListener.h" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp" />
+		<Unit filename="src/Engine/GraphicEngine/Ogre/LoadingScreen.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreApplication.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp" />
 		<Unit filename="src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h" />
+		<Unit filename="src/Engine/NetworkEngine/ClientLogin.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ClientLogin.h" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ClientNetworkEngineLan.h" />
 		<Unit filename="src/Engine/NetworkEngine/Connection.cpp" />
@@ -117,38 +189,32 @@
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/clientnetworkengine.h" />
 		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.cpp" />
+		<Unit filename="src/Engine/PhysicalEngine/PhysicalEngine.h" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/ScriptEngine.h" />
 		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.cpp" />
 		<Unit filename="src/Engine/ScriptEngine/XmlDocumentManager.h" />
-		<Unit filename="src/Engine/SoundEngine/FadeIn.cpp" />
-		<Unit filename="src/Engine/SoundEngine/FadeIn.h" />
+		<Unit filename="src/Engine/SoundEngine/Fade.cpp" />
+		<Unit filename="src/Engine/SoundEngine/Fade.h" />
 		<Unit filename="src/Engine/SoundEngine/Playlist.cpp" />
 		<Unit filename="src/Engine/SoundEngine/Playlist.h" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.cpp" />
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.cpp" />
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
-		<Unit filename="src/Fenetre.cpp" />
-		<Unit filename="src/Fenetre.h" />
-		<Unit filename="src/InputListener.h" />
-		<Unit filename="src/MenuState.cpp" />
-		<Unit filename="src/MenuState.h" />
-<<<<<<< HEAD
-=======
 		<Unit filename="src/State/Game/GameState.cpp" />
 		<Unit filename="src/State/Game/GameState.h" />
->>>>>>> 2d6433cfda7d822d550706c7ae1175f0e9bfbdbd
+		<Unit filename="src/State/Menu/LoginState.cpp" />
+		<Unit filename="src/State/Menu/LoginState.h" />
+		<Unit filename="src/State/Menu/MenuState.cpp" />
+		<Unit filename="src/State/Menu/MenuState.h" />
 		<Unit filename="src/State/State.cpp" />
 		<Unit filename="src/State/State.h" />
 		<Unit filename="src/State/StateManager.cpp" />
 		<Unit filename="src/State/StateManager.h" />
-		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp">
-			<Option target="UnitTest" />
-		</Unit>
-		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp">
-			<Option target="UnitTest" />
-		</Unit>
+		<Unit filename="src/UnitTest/Tests/ApplicationParametersTest.cpp" />
+		<Unit filename="src/UnitTest/Tests/NetworkEngineTest.cpp" />
+		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp" />
 		<Unit filename="src/UnitTest/UnitTest.h" />
 		<Unit filename="src/Utils/DataChecksum.cpp" />
 		<Unit filename="src/Utils/DataChecksum.h" />
@@ -156,10 +222,41 @@
 		<Unit filename="src/Utils/Exception/BasicException.h" />
 		<Unit filename="src/Utils/Exception/FileNotFound.cpp" />
 		<Unit filename="src/Utils/Exception/FileNotFound.h" />
-		<Unit filename="src/Utils/Vector3D.cpp" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/precompiled/_rapidxml.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/asio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/bind.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/lexical_cast.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/serialization.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_audio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_system.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/shared_ptr.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="src/version.h" />
 		<Extensions>
 			<code_completion />
