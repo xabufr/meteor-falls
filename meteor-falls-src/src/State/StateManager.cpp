@@ -2,6 +2,7 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "precompiled/sfml_system.h"
+#include "../Engine/SoundEngine/Playlist.h"
 
 void StateManager::addState(State *p_state)
 {
@@ -13,6 +14,10 @@ bool StateManager::isEmpty()
     return m_states.empty();
 }
 
+StateManager::StateManager(): m_graphic(true), m_audio(true)
+{
+
+}
 
 void StateManager::startLoop()
 {     //lance boucle infinie
@@ -21,8 +26,14 @@ void StateManager::startLoop()
     m_states.top()->enter();
     sf::Clock timer;
     ret_code code;
+    Playlist *pl;
+    if(m_audio)
+        pl = Playlist::get();
     while(!m_end&&!m_states.empty())
     {
+        if(m_audio)
+            pl->work();
+
         if(last!=m_states.top())
         {
             last->exit();

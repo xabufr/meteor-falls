@@ -14,12 +14,16 @@ class StateManager
         void exit();
         void removeState();
         bool isEmpty();
+        void setAudio(bool a){ m_audio=a; }
+        void setGraphic(bool g){ m_graphic=g; }
+
+        StateManager();
 
     protected:
 
     private:
         std::stack<State*> m_states;
-        bool m_end, m_graphic;
+        bool m_end, m_graphic, m_audio;
 };
 
 #endif // STATEMANAGER_H
