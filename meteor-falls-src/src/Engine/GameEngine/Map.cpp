@@ -64,7 +64,7 @@ void Map::load(std::string p_name){
     m_globals->setCompositeMapAmbient(Ogre::ColourValue(0.8, 0.8, 0.8));
     //m_globals->setCompositeMapDiffuse(light->getDiffuseColour());
 
-    m_camera = m_scene_mgr->createCamera("MapCam");
+    m_camera = m_scene_mgr->createCamera("FreeCam");
     Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
     vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     m_camera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
@@ -73,6 +73,9 @@ void Map::load(std::string p_name){
     m_camera->lookAt(Ogre::Vector3(-100, 100, -100));
     m_camera->setNearClipDistance(0.1);
     m_camera->setFarClipDistance(100000);
+
+    m_camera_test = new CameraRTS();
+    m_camera_test->setCamera(m_camera);
 
     Ogre::Image img;
     img.load(p_name + "/" + p_name + ".png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -128,19 +131,17 @@ void Map::update(){
     OIS::Keyboard* keyboard;
     keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
-    if(keyboard->isKeyDown(OIS::KC_Z))
-        m_camera->moveRelative(Ogre::Vector3(0, 0, -10));
-    if(keyboard->isKeyDown(OIS::KC_S))
-        m_camera->moveRelative(Ogre::Vector3(0, 0, 10));
-    if(keyboard->isKeyDown(OIS::KC_D))
-        m_camera->moveRelative(Ogre::Vector3(10, 0, 0));
-    if(keyboard->isKeyDown(OIS::KC_Q))
-        m_camera->moveRelative(Ogre::Vector3(-10, 0, 0));
-    m_camera->yaw(Ogre::Degree(-0.03*mouse->getMouseState().X.rel));
-    m_camera->pitch(Ogre::Degree(-0.03*mouse->getMouseState().Y.rel));
-    std::cout << mouse->getMouseState().Y.rel << std::endl;
+    Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
+    CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
 
+    /* ############### Test Camera Libre et Camera RTS ############## */
+    m_camera_test->forward(keyboard->isKeyDown(OIS::KC_Z) || keyboard->isKeyDown(OIS::KC_UP) || mouse_pos.d_y == 0);
+    m_camera_test->back(keyboard->isKeyDown(OIS::KC_S) || keyboard->isKeyDown(OIS::KC_DOWN) || mouse_pos.d_y == window->getHeight()-1);
+    m_camera_test->right(keyboard->isKeyDown(OIS::KC_D) || keyboard->isKeyDown(OIS::KC_RIGHT) || mouse_pos.d_x == window->getWidth()-1);
+    m_camera_test->left(keyboard->isKeyDown(OIS::KC_Q) || keyboard->isKeyDown(OIS::KC_LEFT) || mouse_pos.d_x == 0);
 
+    m_camera_test->update(1000/60);
+    /* ############################################################## */
 }
 
 bool Map::getLoaded(){

@@ -8,8 +8,15 @@ class Camera
     public:
         Camera();
         virtual ~Camera();
+        virtual void update(int) = 0;
+        virtual void setCamera(Ogre::Camera*);
+        Ogre::Camera* getCamera();
+
     protected:
         Ogre::Camera *m_camera;
+
+    private:
+
 };
 
 #endif // CAMERA_H

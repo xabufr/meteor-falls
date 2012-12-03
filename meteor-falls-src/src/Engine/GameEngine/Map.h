@@ -4,6 +4,7 @@
 #include <Ogre.h>
 #include <string>
 #include <iostream>
+#include "Camera/CameraRTS.h"
 
 class Map
 {
@@ -28,6 +29,7 @@ class Map
         int m_cycle_duration;
         int m_cycle_hour;
         Ogre::Camera* m_camera;
+        CameraRTS* m_camera_test;
 
 
 };
