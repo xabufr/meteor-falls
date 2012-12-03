@@ -137,3 +137,70 @@
 	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
 	<boost/bind.hpp>
 
+1354182449 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp
+	"Admin.h"
+
+1354182371 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.h
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354277887 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp
+	"Player.h"
+
+1354266122 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.h
+	<iostream>
+	<map>
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1354265694 source:/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp
+	"Server.h"
+
+1354267810 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.h
+	<iostream>
+	<map>
+	<string>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/string.hpp>
+
+1353319424 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
+	"Connection.h"
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	"precompiled/asio.h"
+	<queue>
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/asio.h
+	<boost/asio.hpp>
+	<boost/thread/mutex.hpp>
+	<boost/thread.hpp>
+	<boost/asio/ssl.hpp>
+
+1353319424 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp
+	"Engine/NetworkEngine/NetworkIpAdressFinder.h"
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h
+	"precompiled/asio.h"
+	<string>
+
+1354265694 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp
+	"SslConnection.h"
+	"precompiled/bind.h"
+
+1354265694 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
+	"precompiled/asio.h"
+	"precompiled/shared_ptr.h"
+	"Connection.h"
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/shared_ptr.h
+	<boost/shared_ptr.hpp>
+	<boost/enable_shared_from_this.hpp>
+
+1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/bind.h
+	<boost/bind.hpp>
+

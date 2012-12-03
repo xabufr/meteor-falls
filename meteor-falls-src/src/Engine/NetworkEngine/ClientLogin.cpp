@@ -1,5 +1,6 @@
 #include "ClientLogin.h"
 #include "../../../GlobalServer/src/Player.h"
+#include "Engine/NetworkEngine/NetworkIpAdressFinder.h"
 #include <boost/bind.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
@@ -26,98 +27,76 @@ void ClientLogin::m_run()
     m_service->run();
 }
 
-void ClientLogin::m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e)
+bool ClientLogin::isLogin()
 {
-    if (!e){
-        {
-            boost::mutex::scoped_lock l(m_mutex_server);
-            conn->startListen();
-        }
-        m_startAccept();
-    }
-}
-
-void ClientLogin::m_startAccept()
-{
-    SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::CLIENT);
-    m_acceptor_ssl.async_accept(connection_ssl->socket(),
-                                boost::bind(&ClientLogin::m_handleAccept_ssl, this,
-                                            connection_ssl, boost::asio::placeholders::error));
-}
-
-bool ClientLogin::get_start()
-{
-    return m_start;
-}
-
-bool ClientLogin::send_log(std::string pseudo, std::string passwd)
-{
-    Player player;
-    ServerGlobalMessage* message = new ServerGlobalMessage;
-    bool rep = true;
-
-    player.set_pseudo(pseudo);
-    player.set_passwd(passwd);
-
-    message->player = player;
-    message->type = ServerGlobalMessageType::LOGIN;
-
-    m_server->send(m_serialize(message));
-
-    while (m_start)
-    {
-       rep = work();
-    }
-
-    return rep;
-}
-
-
-
-bool ClientLogin::work()
-{
-    if (!m_server->isConnected() || !m_server->isListening())
-             return false;
-
-    ServerGlobalMessage *message;
-    while (m_server->hasData())
-    {
-        switch (message->type)
-        {
-            case ServerGlobalMessageType::LOGIN:
-            {
-                m_start = false;
-                return message->make;
-            }
-            break;
-            case ServerGlobalMessageType::LOGOUT:
-            {
-                m_start = false;
-                return message->make;
-            }
-            break;
-        }
-    }
-    return false;
+    return m_login;
 }
 
  ClientLogin::~ClientLogin()
 {
     m_work.reset();
     m_service->stop();
-    m_thread_service.join();
+    m_service_thread.join();
 }
 
- ClientLogin::ClientLogin(unsigned short port) :
+ ClientLogin::ClientLogin(unsigned short port, std::string pseudo, std::string passwd) :
 m_service(new boost::asio::io_service),
 m_work(new boost::asio::io_service::work(*m_service)),
-m_acceptor_ssl(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
-m_start(true)
+m_login(false)
 {
-    m_server = SslConnection::create(m_service, SslConnection::CLIENT);
-    m_server->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port));
-    m_thread_service = boost::thread(&ClientLogin::m_run, this);
-    m_startAccept();
+    m_connection = SslConnection::create(m_service, SslConnection::Type::CLIENT);
+    m_connection->connect(boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port));
+    m_service_thread = boost::thread(&ClientLogin::m_run, this);
+
+    Player player;
+    ServerGlobalMessage* message = new ServerGlobalMessage();
+
+    while(1)
+    {
+        if(m_connection->isConnected())
+            break;
+        if(m_connection->hasError())
+        {
+            std::cout << std::endl << m_connection->getError().message() << std::endl;
+            return;
+        }
+        boost::this_thread::sleep(boost::posix_time::milliseconds(150));
+    }
+    player.set_pseudo(pseudo);
+    player.set_passwd(passwd);
+
+    message->player = player;
+    message->type = ServerGlobalMessageType::LOGIN;
+
+    m_connection->send(m_serialize(message));
+
+    while(1)
+    {
+        while(m_connection->hasError())
+        {
+            std::cout<<m_connection->getError().message()<<std::endl;
+        }
+        while(m_connection->hasData())
+        {
+            message = m_deserialize(m_connection->getData());
+            switch (message->type)
+            {
+                case ServerGlobalMessageType::LOGIN:
+                {
+                    if (message->admin.get_pseudo() == pseudo && message->admin.get_passwd() == passwd)
+                    {
+                        m_login = true;
+                        delete message;
+                        return;
+                    }
+                    delete message;
+                    return;
+                }
+                break;
+            }
+        }
+    }
+    delete message;
 }
 
 

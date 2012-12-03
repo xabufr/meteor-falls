@@ -50,8 +50,8 @@ void GlobalServer::work()
             removeClient(client);
         else{
             while (client->hasData()){
-                    std::string data = client->getData();
-            std::cout<<data<<std::endl;
+                std::string data = client->getData();
+                std::cout<<data<<std::endl;
                 message = m_deserialize(data);
                 ServerGlobalMessage *msg = new ServerGlobalMessage;
                 msg->type = message->type;
@@ -116,7 +116,7 @@ void GlobalServer::work()
                 }
                 client->send(m_serialize(msg));
                 std::cout << message->type << std::endl;
-                delete message;
+                delete msg;
             }
             while (client->hasError())
                 std::cout<<client->getError().message()<<std::endl;
