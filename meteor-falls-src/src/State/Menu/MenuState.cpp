@@ -1,6 +1,7 @@
 #include <string>
 #include "MenuState.h"
 #include "LoginState.h"
+#include "State/Console.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -228,7 +229,7 @@ ret_code MenuState::work(unsigned int time)
         return ret_code::EXIT_PROGRAM;
     else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
     {
-        m_sousState->exit();
+        Console::get()->show();
     }
 
     return CONTINUE;
