@@ -3,11 +3,11 @@
 
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
-#include <Hydrax.h>
+#include <Hydrax/Hydrax.h>
 #include <string>
 #include <iostream>
 #include "../Camera/CameraLibre.h"
-#include "../../../../SkyX/Include/SkyX.h"
+#include <SkyX/SkyX.h>
 #include <vector>
 #include "../../../Utils/Vector3D.h"
 #include <Terrain/OgreTerrainGroup.h>
