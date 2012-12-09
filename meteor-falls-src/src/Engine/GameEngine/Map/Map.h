@@ -8,8 +8,13 @@
 #include <iostream>
 #include "../Camera/CameraLibre.h"
 #include "../../../../SkyX/Include/SkyX.h"
-#include <Terrain/OgreTerrain.h>
+#include <vector>
+#include "../../../Utils/Vector3D.h"
+#include <Terrain/OgreTerrainGroup.h>
+#include "Engine/ScriptEngine/XmlDocumentManager.h"
 
+
+class WorldObject;
 class Map
 {
     public:
@@ -19,12 +24,16 @@ class Map
         std::string getName();
         void update();
         bool getLoaded();
+        float getHeightAt(float x, float z);
+        Vector3D getNormalAt(float x, float z);
 
     protected:
 
     private:
         Ogre::SceneManager *m_scene_mgr;
         Ogre::TerrainGlobalOptions *m_globals;
+        Ogre::ShadowCameraSetupPtr m_cam_setup;
+		Ogre::TerrainGroup *m_terrainGroup;
         Ogre::Light *light;
         bool m_loaded;
         std::string m_name;
@@ -39,6 +48,12 @@ class Map
         SkyX::BasicController *m_controller;
         Hydrax::Hydrax *m_hydrax;
 
+        std::vector<WorldObject*> m_worldObjects;
+
+        static Ogre::ColourValue getRGBA(rapidxml::xml_node<>*);
+		static Vector3D getPosition(rapidxml::xml_node<>*, const std::string& = "");
+		static Ogre::Quaternion getRotation(rapidxml::xml_node<>*);
+		void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
 };
 
 #endif // MAP_H

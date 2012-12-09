@@ -6,7 +6,7 @@
 class Hero : public Terrestre
 {
     public:
-        Hero();
+        Hero(Ogre::SceneManager* mng);
         virtual ~Hero();
     protected:
     private:

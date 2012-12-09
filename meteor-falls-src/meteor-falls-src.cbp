@@ -208,6 +208,12 @@
 		<Unit filename="src/Engine/GameEngine/Map/Map.h" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.h" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObject.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObject.h" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObjectManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObjectManager.h" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.cpp" />
+		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.h" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.cpp" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.h" />
 		<Unit filename="src/Engine/GameEngine/Ressources/Ressources.cpp" />
@@ -305,6 +311,8 @@
 		<Unit filename="src/Utils/Exception/FileNotFound.h" />
 		<Unit filename="src/Utils/File.cpp" />
 		<Unit filename="src/Utils/File.h" />
+		<Unit filename="src/Utils/Random.cpp" />
+		<Unit filename="src/Utils/Random.h" />
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />

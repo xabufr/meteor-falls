@@ -5,7 +5,7 @@
 GraphicEngine::GraphicEngine(EngineManager* m):
     Engine(m)
 {
-    m_sceneManager = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("DefaultSceneManager");
+    m_sceneManager = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("OctreeSceneManager");
 }
 
 GraphicEngine::~GraphicEngine()

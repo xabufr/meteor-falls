@@ -1,0 +1,4 @@
+-I../libs/ozcollidelib_1-1-1/include
+-I../libs/rapidxml
+-I../Hydrax/include
+-I/usr/include/CEGUI

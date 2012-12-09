@@ -1,6 +1,6 @@
 #include "Aerien.h"
 
-Aerien::Aerien()
+Aerien::Aerien(Ogre::SceneManager* mng) : Mobile(mng)
 {
     //ctor
 }

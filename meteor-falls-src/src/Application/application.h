@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "Application/applicationparameters.h"
+#include "applicationparameters.h"
 
 class Application
 {
