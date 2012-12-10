@@ -1,6 +1,6 @@
 #include "Playlist.h"
 #include "../ScriptEngine/XmlDocumentManager.h"
-#include "../../Utils/File.h"
+#include "Utils/File.h"
 
 Playlist::Playlist()
 {

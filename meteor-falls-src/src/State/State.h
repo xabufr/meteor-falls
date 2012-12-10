@@ -17,6 +17,7 @@ class State
 {
     public:
         State(StateManager *p_state_manager);
+        virtual bool isVisible() = 0;
         virtual void enter() = 0;
         virtual void exit() = 0;
         virtual ret_code work(unsigned int time) = 0;
