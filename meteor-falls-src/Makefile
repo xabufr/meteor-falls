@@ -1626,6 +1626,102 @@ src/Engine/SoundEngine/soundbuffermanager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.s
 .PHONY : src/Engine/SoundEngine/soundbuffermanager.cpp.s
 
+src/State/Command/Command.o: src/State/Command/Command.cpp.o
+.PHONY : src/State/Command/Command.o
+
+# target to build an object file
+src/State/Command/Command.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/Command.cpp.o
+.PHONY : src/State/Command/Command.cpp.o
+
+src/State/Command/Command.i: src/State/Command/Command.cpp.i
+.PHONY : src/State/Command/Command.i
+
+# target to preprocess a source file
+src/State/Command/Command.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/Command.cpp.i
+.PHONY : src/State/Command/Command.cpp.i
+
+src/State/Command/Command.s: src/State/Command/Command.cpp.s
+.PHONY : src/State/Command/Command.s
+
+# target to generate assembly for a file
+src/State/Command/Command.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/Command.cpp.s
+.PHONY : src/State/Command/Command.cpp.s
+
+src/State/Command/MenuState/ExitMenuState.o: src/State/Command/MenuState/ExitMenuState.cpp.o
+.PHONY : src/State/Command/MenuState/ExitMenuState.o
+
+# target to build an object file
+src/State/Command/MenuState/ExitMenuState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/ExitMenuState.cpp.o
+.PHONY : src/State/Command/MenuState/ExitMenuState.cpp.o
+
+src/State/Command/MenuState/ExitMenuState.i: src/State/Command/MenuState/ExitMenuState.cpp.i
+.PHONY : src/State/Command/MenuState/ExitMenuState.i
+
+# target to preprocess a source file
+src/State/Command/MenuState/ExitMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/ExitMenuState.cpp.i
+.PHONY : src/State/Command/MenuState/ExitMenuState.cpp.i
+
+src/State/Command/MenuState/ExitMenuState.s: src/State/Command/MenuState/ExitMenuState.cpp.s
+.PHONY : src/State/Command/MenuState/ExitMenuState.s
+
+# target to generate assembly for a file
+src/State/Command/MenuState/ExitMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/ExitMenuState.cpp.s
+.PHONY : src/State/Command/MenuState/ExitMenuState.cpp.s
+
+src/State/Command/MenuState/LoginMenuState.o: src/State/Command/MenuState/LoginMenuState.cpp.o
+.PHONY : src/State/Command/MenuState/LoginMenuState.o
+
+# target to build an object file
+src/State/Command/MenuState/LoginMenuState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/LoginMenuState.cpp.o
+.PHONY : src/State/Command/MenuState/LoginMenuState.cpp.o
+
+src/State/Command/MenuState/LoginMenuState.i: src/State/Command/MenuState/LoginMenuState.cpp.i
+.PHONY : src/State/Command/MenuState/LoginMenuState.i
+
+# target to preprocess a source file
+src/State/Command/MenuState/LoginMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/LoginMenuState.cpp.i
+.PHONY : src/State/Command/MenuState/LoginMenuState.cpp.i
+
+src/State/Command/MenuState/LoginMenuState.s: src/State/Command/MenuState/LoginMenuState.cpp.s
+.PHONY : src/State/Command/MenuState/LoginMenuState.s
+
+# target to generate assembly for a file
+src/State/Command/MenuState/LoginMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Command/MenuState/LoginMenuState.cpp.s
+.PHONY : src/State/Command/MenuState/LoginMenuState.cpp.s
+
+src/State/Console.o: src/State/Console.cpp.o
+.PHONY : src/State/Console.o
+
+# target to build an object file
+src/State/Console.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Console.cpp.o
+.PHONY : src/State/Console.cpp.o
+
+src/State/Console.i: src/State/Console.cpp.i
+.PHONY : src/State/Console.i
+
+# target to preprocess a source file
+src/State/Console.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Console.cpp.i
+.PHONY : src/State/Console.cpp.i
+
+src/State/Console.s: src/State/Console.cpp.s
+.PHONY : src/State/Console.s
+
+# target to generate assembly for a file
+src/State/Console.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Console.cpp.s
+.PHONY : src/State/Console.cpp.s
+
 src/State/Game/GameState.o: src/State/Game/GameState.cpp.o
 .PHONY : src/State/Game/GameState.o
 
@@ -2184,6 +2280,18 @@ help:
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.o"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.i"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.s"
+	@echo "... src/State/Command/Command.o"
+	@echo "... src/State/Command/Command.i"
+	@echo "... src/State/Command/Command.s"
+	@echo "... src/State/Command/MenuState/ExitMenuState.o"
+	@echo "... src/State/Command/MenuState/ExitMenuState.i"
+	@echo "... src/State/Command/MenuState/ExitMenuState.s"
+	@echo "... src/State/Command/MenuState/LoginMenuState.o"
+	@echo "... src/State/Command/MenuState/LoginMenuState.i"
+	@echo "... src/State/Command/MenuState/LoginMenuState.s"
+	@echo "... src/State/Console.o"
+	@echo "... src/State/Console.i"
+	@echo "... src/State/Console.s"
 	@echo "... src/State/Game/GameState.o"
 	@echo "... src/State/Game/GameState.i"
 	@echo "... src/State/Game/GameState.s"

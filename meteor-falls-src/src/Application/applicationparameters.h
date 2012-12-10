@@ -4,20 +4,25 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <argp.h>
 
-typedef std::unordered_map<std::string, std::string> ApplicationParametersKeys;
+struct Parameters
+{
+	bool gui, server, verbose;
+	Parameters()
+	{
+		server  = false;
+		verbose = false;
+	}
+};
 class ApplicationParameters
 {
     public:
         ApplicationParameters(int argc, char **argv);
         ApplicationParameters(std::vector<std::string> args);
         virtual ~ApplicationParameters();
-        ApplicationParametersKeys & getKeys();
-
-    private:
-        ApplicationParametersKeys m_keys;
-        void m_parse(std::vector<std::string> args);
-        void m_setDefault();
+		Parameters parametres;
+		static error_t parse_opt(int key, char *arg, argp_state *state);
 };
 
 #endif // APPLICATIONPARAMETERS_H

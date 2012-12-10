@@ -44,6 +44,7 @@ target_link_libraries(meteor-falls
 		boost_thread
 		boost_unit_test_framework
 		boost_filesystem
+		boost_regex
 		pthread
 		crypto
 		SkyX
