@@ -1,8 +1,0 @@
-#ifndef INPUTLISTENER_H_INCLUDED
-#define INPUTLISTENER_H_INCLUDED
-
-#include <OISMouse.h>
-
-
-
-#endif // INPUTLISTENER_H_INCLUDED

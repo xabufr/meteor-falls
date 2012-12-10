@@ -23,9 +23,12 @@ class LoginState : public State
         CEGUI::Window *m_login;
         CEGUI::Window *m_passwd;
         CEGUI::Window *m_connect;
+        CEGUI::Window *m_message;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
+        void m_state_element(const bool);
         bool m_connection(const CEGUI::EventArgs &);
+        bool send(const CEGUI::EventArgs &);
 
 };
 

@@ -2,8 +2,6 @@
 #include <iostream>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "State/Menu/MenuState.h"
-#include "Engine/GameEngine/GameEngine.h"
-#include "State/Game/GameState.h"
 
 Application::Application(int argc, char **argv): m_params(argc, argv)
 {
@@ -16,7 +14,6 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
     if(parameters["gui"]=="y"){
         StateManager manager;
         manager.addState(new MenuState(&manager));
-        //manager.addState(new GameState(&manager));
         manager.startLoop();
     }
     else{

@@ -2,6 +2,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "Engine/NetworkEngine/ClientLogin.h"
 #include "State/Game/GameState.h"
 
  LoginState::~LoginState()
@@ -75,7 +76,10 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
     m_connect = m_window_mgr.createWindow("OgreTray/Button", "BoutonConnect");
     m_connect->setText("Connexion");
     m_connect->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_connect->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::send, this));
     m_sheet->addChildWindow(m_connect);
+
+    m_message = m_window_mgr.createWindow("OgreTray/StaticText", "StaticText");
 
     m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
@@ -100,10 +104,52 @@ ret_code LoginState::work(unsigned int time)
     return CONTINUE;
 }
 
+void LoginState::m_state_element(const bool actif)
+{
+    m_login->setEnabled(actif);
+    m_passwd->setEnabled(actif);
+    m_connect->setEnabled(actif);
+}
+
+
+
+bool LoginState::send(const CEGUI::EventArgs &)
+{
+    m_state_element(false);
+
+    m_message->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_message->setProperty("FrameEnabled", "false");
+    m_message->setProperty("BackgroundEnabled", "false");
+    m_message->setProperty("VertFormatting", "TopAligned");
+    m_sheet->addChildWindow(m_message);
+
+    m_message->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_message->getSize().d_x.d_scale/2), 0),
+                                         CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
+
+    if (std::string(m_login->getText().c_str()) == "" || std::string(m_passwd->getText().c_str()) == "")
+    {
+       m_message->setText("Veuillez saisir un login et un password.");
+       return false;
+    }
+
+    m_message->setText("Connexion en cours...");
+    ClientLogin *log = new ClientLogin(6050, std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
+
+    if (log->isLogin())
+        m_message->setText("Connection établie.");
+    else
+        m_message->setText("Login ou mot de passe erroné.");
+
+    delete log;
+
+    m_state_element(true);
+
+    return true;
+}
+
 void LoginState::exit()
 {
     m_sheet->hide();
-    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
 }
 
 void LoginState::enter()

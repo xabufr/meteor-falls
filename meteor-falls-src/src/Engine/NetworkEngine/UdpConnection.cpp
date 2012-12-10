@@ -1,5 +1,5 @@
 #include "UdpConnection.h"
-#include <boost/bind.hpp>
+#include "precompiled/bind.h"
 #include <iomanip>
 
 UdpConnection::~UdpConnection()

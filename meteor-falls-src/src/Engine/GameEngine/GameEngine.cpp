@@ -24,7 +24,6 @@ void GameEngine::work(){
         m_map->update();
     else
         m_map->load("test");
-
 }
 EngineType GameEngine::getType()
 {

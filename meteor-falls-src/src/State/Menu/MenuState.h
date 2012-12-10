@@ -1,12 +1,18 @@
 #ifndef MENUSTATE_H_INCLUDED
 #define MENUSTATE_H_INCLUDED
 
-#include <Ogre.h>
+#include <OgreRectangle2D.h>
+#include <OgreSceneNode.h>
+#include <OgreCamera.h>
+#include <OgreEntity.h>
+#include <OgreSceneManager.h>
+#include <OgreSceneQuery.h>
 #include <OIS/OIS.h>
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
-#include <SFML/System.hpp>
+#include "precompiled/sfml_system.h"
 #include <boost/function.hpp>
+
 
 class MenuState: public State
 {
@@ -32,15 +38,16 @@ class MenuState: public State
         Ogre::SceneNode *m_nodeLune;
         Ogre::SceneNode *m_nodeSoleil;
         sf::Clock m_timerClick;
-        Ogre::SceneNode* terreAtmosphere, *soleilAtmosphere;
+        Ogre::SceneNode* terreAtmosphere;
         Ogre::Entity* m_currentSelected;
         Ogre::RaySceneQuery* m_sceneQuery;
-        StateManager *m_stateMgr;
+
+        State *m_sousState;
 
         /**
             Les entités qui vont correspondre à des entrées menu
         */
-        Ogre::Entity *m_eTerre, *m_eAtmoTerre, *m_eSoleil, *m_eLune, *m_eAtmosoleil;
+        Ogre::Entity *m_eTerre, *m_eAtmoTerre, *m_eSoleil, *m_eLune;
 
         /**
             Gestion des transitions

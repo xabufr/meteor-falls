@@ -2,7 +2,7 @@
 #define GRAPHICENGINE_H
 
 #include "../Engine.h"
-#include <Ogre.h>
+#include <OgreSceneManager.h>
 
 class GraphicEngine: public Engine
 {

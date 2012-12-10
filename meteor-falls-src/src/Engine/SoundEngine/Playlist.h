@@ -4,14 +4,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <map>
-#include <SFML/Audio.hpp>
+#include "precompiled/sfml_audio.h"
 #include "Engine/SoundEngine/Fade.h"
+#include "../../Utils/singleton.h"
 
-
-class Playlist
+class Playlist: public Singleton<Playlist>
 {
+    friend class Singleton<Playlist>;
     public:
-        Playlist();
         void addMusic(std::string path, std::string group); // ajouter une musique au vector et au groupe
 
         // control/*
@@ -36,6 +36,12 @@ class Playlist
         // parametres
         void set_fade_time(int time);
         void set_type_transition(Fade::fadeFunction string);
+
+        static Playlist* get(){return Singleton<Playlist>::get();};
+        static void loadFile(const std::string &file);
+
+    protected:
+        Playlist();
 
     private:
         int m_fade_time;

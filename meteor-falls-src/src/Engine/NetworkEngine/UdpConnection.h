@@ -1,10 +1,9 @@
 #ifndef UDPCONNECTION_H
 #define UDPCONNECTION_H
 
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/shared_ptr.hpp>
+#include "precompiled/shared_ptr.h"
 #include "Connection.h"
-#include <boost/asio.hpp>
+#include "precompiled/asio.h"
 
 class UdpConnection : public Connection, public boost::enable_shared_from_this<UdpConnection>
 {

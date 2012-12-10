@@ -6,13 +6,12 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../Game/GameState.h"
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
-#include <boost/bind.hpp>
+#include "precompiled/bind.h"
+#include "../../Engine/SoundEngine/Playlist.h"
 
 MenuState::MenuState(StateManager* mng):
     State(mng)
 {
-    m_stateMgr = new StateManager();
-
     m_transitionning=false;
     m_currentSelected = 0;
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
@@ -53,7 +52,6 @@ MenuState::MenuState(StateManager* mng):
     m_camera->setAutoTracking(true, m_nodeTerre, Ogre::Vector3(-1.0,0,0));
 
     terreAtmosphere = m_scene_mgr->getRootSceneNode()->createChildSceneNode("atmosphere",  Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
-    // cree atmosphere
     m_eAtmoTerre = m_scene_mgr->createEntity("Terre_atmosphere", "Circle.mesh");
     m_eAtmoTerre->setMaterialName("Terre/Atmosphere");
     terreAtmosphere->attachObject(m_eAtmoTerre);
@@ -74,19 +72,6 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setCastShadows(true);
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
-/*
-    soleilAtmosphere = m_scene_mgr->getRootSceneNode()->createChildSceneNode("atmosphereJaune",  Ogre::Vector3(2.5, 0, -15), Ogre::Quaternion::IDENTITY);
-    // cree atmosphere soleil
-    m_eAtmosoleil = m_scene_mgr->createEntity("soleil_atmosphere", "Circle.mesh");
-    m_eAtmosoleil->setMaterialName("Soleil/Atmosphere");
-    soleilAtmosphere->attachObject(m_eAtmosoleil);
-    soleilAtmosphere->scale(4.05, 4.05, 4.05);      // x , y , z
-    soleilAtmosphere->pitch(Ogre::Degree(180+90));  //x
-    soleilAtmosphere->yaw(Ogre::Degree(180+90));    //y
-    soleilAtmosphere->roll(Ogre::Degree(180+90));   //z
-*/
-
-    //m_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 
     CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -102,13 +87,15 @@ MenuState::MenuState(StateManager* mng):
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
-    m_stateMgr->addState(new LoginState(m_stateMgr));
+    m_sousState = new LoginState(m_state_manager);
+
+    Playlist::loadFile("data/playlist.xml");
+
 }
 
 MenuState::~MenuState()
 {
     delete m_background;
-    delete m_stateMgr;
 }
 
 bool MenuState::quit(const CEGUI::EventArgs &)
@@ -124,11 +111,17 @@ bool MenuState::startGame()
 
 void MenuState::enter()
 {
+    if(m_sousState)
+        m_sousState->enter();
     m_scene_mgr->getRootSceneNode()->setVisible(true);
+    Playlist::get()->select_group("menu");
+
 }
 
 void MenuState::exit()
 {
+    if(m_sousState)
+        m_sousState->exit();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
     OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
@@ -144,19 +137,17 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->setOrientation( quaternion_yaw * quaternion_pitch * rollRotation );
     terreAtmosphere->pitch(Ogre::Degree(180+90));
     terreAtmosphere->yaw(Ogre::Degree(90));
-    // => mesh atmosphere devant camera
-
     terreAtmosphere->roll(Ogre::Degree(90));
 
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
     m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
 
-    if (m_stateMgr->isEmpty())
+    if (m_sousState==0)
     {
         /*Piking*/
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
-                    height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
+                     height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
         Ogre::Ray pickingRay = m_camera->getCameraToViewportRay(mousePos.d_x/float(width), mousePos.d_y/float(height));
 
         Ogre::Entity *selected = findFirstPicking(pickingRay, m_sceneQuery);
@@ -166,15 +157,13 @@ ret_code MenuState::work(unsigned int time)
         {
             if(selected==m_eTerre||selected==m_eAtmoTerre)
             {
-
                 if(click)
                 {
                     m_transitionning=true;
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
-                    m_transitionParams.duration=0;
-                    m_transitionParams.function = boost::bind(&MenuState::startGame, this);
+                    m_transitionParams.duration=2.5;
                 }
             }
             else if(selected==m_eSoleil)
@@ -212,25 +201,34 @@ ret_code MenuState::work(unsigned int time)
             }
         }
         else
-	{
-		Ogre::Vector3 pos = m_transitionParams.to*
-		                    (m_timerTranslation.getElapsedTime().asSeconds()/
-		                    m_transitionParams.duration) +
-		                    m_transitionParams.from*(1.f-(m_timerTranslation.getElapsedTime().asSeconds()/
-		                    m_transitionParams.duration));
-		m_camera->setPosition(pos);
-		if(m_timerTranslation.getElapsedTime().asSeconds()>m_transitionParams.duration)
-		{
-		    m_camera->setPosition(m_transitionParams.to);
-		    m_transitionning=false;
-		    m_transitionParams.function();
-		}
-	 }
+        {
+            Ogre::Vector3 pos = m_transitionParams.to*
+                                (m_timerTranslation.getElapsedTime().asSeconds()/
+                                 m_transitionParams.duration) +
+                                 m_transitionParams.from*(1.f-(m_timerTranslation.getElapsedTime().asSeconds()/
+                                 m_transitionParams.duration));
+
+            m_camera->setPosition(pos);
+            if(m_timerTranslation.getElapsedTime().asSeconds()>m_transitionParams.duration)
+            {
+                m_camera->setPosition(m_transitionParams.to);
+                m_transitionning=false;
+                m_transitionParams.function();
+            }
+        }
 
     }
-    m_stateMgr->startLoop();
+    else
+    {
+        m_sousState->work(time);
+    }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return ret_code::EXIT_PROGRAM;
+    else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
+    {
+        m_sousState->exit();
+    }
+
     return CONTINUE;
 }
 
