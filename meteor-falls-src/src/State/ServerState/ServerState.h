@@ -24,6 +24,9 @@ class ServerState : public State
 	public:
 		ServerState(StateManager*);
 		void enter();
+		bool isVisible(){
+				return true;
+		}
 		void exit();
         ret_code work(unsigned int time);
 	private:
