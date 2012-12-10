@@ -6,7 +6,7 @@
 class Mobile : public Unite
 {
     public:
-        Mobile();
+        Mobile(Ogre::SceneManager*);
         virtual ~Mobile();
     protected:
     private:

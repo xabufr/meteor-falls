@@ -1,6 +1,6 @@
 #include "Unite.h"
 
-Unite::Unite()
+Unite::Unite(Ogre::SceneManager* mng): ObjetTerrain(mng)
 {
     //ctor
 }

@@ -1,6 +1,6 @@
 #include "Terrestre.h"
 
-Terrestre::Terrestre()
+Terrestre::Terrestre(Ogre::SceneManager *mng) : Mobile(mng)
 {
     //ctor
 }

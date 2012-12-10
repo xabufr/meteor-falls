@@ -6,7 +6,7 @@
 class Unite : public ObjetTerrain
 {
     public:
-        Unite();
+        Unite(Ogre::SceneManager*);
         virtual ~Unite();
     protected:
     private:

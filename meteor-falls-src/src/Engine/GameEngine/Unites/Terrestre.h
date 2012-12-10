@@ -6,7 +6,7 @@
 class Terrestre: public Mobile
 {
     public:
-        Terrestre();
+        Terrestre(Ogre::SceneManager*);
         virtual ~Terrestre();
     protected:
     private:
