@@ -18,3 +18,7 @@ void Equipe::setFaction(Faction* f)
 {
     m_faction=f;
 }
+void Equipe::setJoueurRTS(JoueurRTS* joueur)
+{
+	m_joueurRTS = joueur;
+}

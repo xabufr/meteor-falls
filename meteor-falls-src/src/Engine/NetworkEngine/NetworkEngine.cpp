@@ -1,6 +1,6 @@
 #include "Engine/NetworkEngine/NetworkEngine.h"
 #include "precompiled/serialization.h"
-#include "Engine/EngineMessage/EngineMessage.h"
+#include "../EngineMessage/EngineMessage.h"
 #include <iostream>
 
 

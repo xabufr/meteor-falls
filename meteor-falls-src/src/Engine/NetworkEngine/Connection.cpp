@@ -30,8 +30,10 @@ void Connection::m_addError(const boost::system::error_code& error)
 }
 void Connection::handleDataSent(const boost::system::error_code& e)
 {
-    if(e)
+    if(e){
+		std::cout << "error sending"<<std::endl;
         m_addError(e);
+	}
 }
 bool Connection::isListening()
 {

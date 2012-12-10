@@ -50,7 +50,7 @@ void StateManager::startLoop()
         else if(code == ret_code::EXIT_PROGRAM)
             exit();
 
-        if(!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
+        if(m_graphic&&!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
             exit();
     }
 }

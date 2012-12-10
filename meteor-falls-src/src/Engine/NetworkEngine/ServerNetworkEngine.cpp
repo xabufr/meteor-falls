@@ -4,7 +4,8 @@
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
-    m_lastClient(0)
+    m_lastClient(0),
+	m_port(port)
 {
     m_startAccept();
 }
@@ -48,6 +49,10 @@ void ServerNetworkEngine::work()
             }
         }
     }
+	while(m_udpConnexion->hasError())
+	{
+			std::cout << m_udpConnexion->getError().message() << std::endl;
+	}
 
 }
 void ServerNetworkEngine::m_startAccept()

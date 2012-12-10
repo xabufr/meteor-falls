@@ -3,7 +3,7 @@
 #include "Engine/SoundEngine/SoundEngine.h"
 #include "Engine/NetworkEngine/ClientNetworkEngineLan.h"
 #include "Engine/NetworkEngine/clientnetworkengine.h"
-#include "Engine/NetworkEngine/ServerNetworkEngine.h"
+#include "Engine/NetworkEngine/ServerNetworkEngineLan.h"
 #include "Engine/GraphicEngine/GraphicEngine.h"
 #include "Engine/GameEngine/GameEngine.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -29,7 +29,8 @@ void EngineManager::work()
 {
     if(m_type==SERVER || m_type==SERVER_LAN) //Sinon les autres moteurs doivent travailler pendant le rendu
     {
-
+		m_network->work();
+		m_game->work();
     }
 }
 EngineManager::EngineManager(Type t):
@@ -52,7 +53,7 @@ EngineManager::EngineManager(Type t):
         break;
     case Type::SERVER:
     case Type::SERVER_LAN:
-        m_network = new ServerNetworkEngine(this, 8888);
+        m_network = new ServerNetworkEngineLan(this, 8888);
         break;
     }
     m_game = new GameEngine(this, (t==CLIENT||t==CLIENT_LAN)?GameEngine::Type::CLIENT : GameEngine::Type::SERVER);

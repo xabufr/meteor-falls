@@ -6,6 +6,7 @@ enum EngineMessageType
 {
 
     PLAY_SOUND = 0,
+	SERVER_INFO = 1
 
 };
 

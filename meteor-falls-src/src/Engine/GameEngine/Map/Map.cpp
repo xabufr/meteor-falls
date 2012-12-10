@@ -16,8 +16,8 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-#include <Noise/Perlin/Perlin.h>
-#include <Modules/ProjectedGrid/ProjectedGrid.h>
+#include <Hydrax/Noise/Perlin/Perlin.h>
+#include <Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
 
 #include "WorldObject.h"
 #include "WorldObjectManager.h"

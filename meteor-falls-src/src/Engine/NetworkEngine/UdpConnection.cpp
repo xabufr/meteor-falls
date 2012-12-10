@@ -121,6 +121,7 @@ void UdpConnection::handleSendData(std::string data, boost::asio::ip::udp::endpo
 UdpConnection::UdpConnection(boost::shared_ptr<boost::asio::io_service> service) : Connection(service)
 {
     m_socket = new boost::asio::ip::udp::socket(*service);
+	m_socket->open(boost::asio::ip::udp::v4());
 }
 boost::asio::ip::udp::endpoint UdpConnection::getConnectionEndpoint()
 {
