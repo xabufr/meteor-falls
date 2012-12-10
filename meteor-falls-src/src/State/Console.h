@@ -1,10 +1,14 @@
 #ifndef CONSOLE_H_INCLUDED
 #define CONSOLE_H_INCLUDED
 
+#include <string>
+#include <vector>
+#include <iostream>
 #include "Utils/singleton.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include <CEGUI.h>
 #include <OIS/OIS.h>
+#include "Command/Command.h"
 
 class Console : public Singleton<Console>
 {
@@ -12,14 +16,20 @@ class Console : public Singleton<Console>
     public:
         void show();
         void hide();
+        bool isVisible();
+        void clearCommands();
+        void addCommand(Command*);
+        void start();
     protected:
         Console();
         ~Console();
     private:
+        bool m_visible;
+        std::string m_lines;
+        std::vector<Command*> m_commands;
+        OIS::Keyboard *m_keyboard;
         CEGUI::Window *m_sheet;
         CEGUI::Window *m_console;
-        OIS::Mouse *m_mouse;
-        OIS::Keyboard *m_keyboard;
 };
 
 #endif // CONSOLE_H_INCLUDED

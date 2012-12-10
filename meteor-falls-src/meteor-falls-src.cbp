@@ -65,12 +65,13 @@
 			<Add option="-lCEGUIBase" />
 			<Add option="-lCEGUIOgreRenderer" />
 			<Add option="-lboost_system" />
+			<Add option="-lboost_filesystem" />
 			<Add option="-lboost_serialization" />
+			<Add option="-lboost_regex" />
 			<Add option="-lssl" />
 			<Add option="-lozcollide" />
 			<Add option="-lboost_thread" />
 			<Add option="-lboost_unit_test_framework" />
-			<Add option="-lboost_filesystem" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
 		</Linker>
@@ -95,8 +96,6 @@
 		<Unit filename="src/Engine/GameEngine/Camera/Camera.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
-		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
-		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
@@ -199,6 +198,14 @@
 		<Unit filename="src/Engine/SoundEngine/SoundEngine.h" />
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.cpp" />
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
+		<Unit filename="src/State/Command/Command.cpp" />
+		<Unit filename="src/State/Command/Command.h" />
+		<Unit filename="src/State/Command/MenuState/ExitMenuState.cpp" />
+		<Unit filename="src/State/Command/MenuState/ExitMenuState.h" />
+		<Unit filename="src/State/Command/MenuState/LoginMenuState.cpp" />
+		<Unit filename="src/State/Command/MenuState/LoginMenuState.h" />
+		<Unit filename="src/State/Console.cpp" />
+		<Unit filename="src/State/Console.h" />
 		<Unit filename="src/State/Game/GameState.cpp" />
 		<Unit filename="src/State/Game/GameState.h" />
 		<Unit filename="src/State/Menu/LoginState.cpp" />
