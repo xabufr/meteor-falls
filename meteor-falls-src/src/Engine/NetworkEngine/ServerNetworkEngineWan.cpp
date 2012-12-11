@@ -11,7 +11,7 @@ ServerNetworkEngine(mng, port)
 	m_connexionServerG = SslConnection::create(m_service, SslConnection::CLIENT);
 	m_udpConnexion = UdpConnection::create(m_service);
 	bool error;
-	boost::asio::ip::address adr = getAddress(*m_service, "127.0.0.1", &error);
+	boost::asio::ip::address adr = getAddress(*m_service, "178.32.103.114", &error);
 	if(error)
 	{
 		THROW_BASIC_EXCEPTION("Adresse non résolvable");
@@ -36,22 +36,24 @@ void ServerNetworkEngineWan::m_handleSendWanInfo(const boost::system::error_code
 	ServerGlobalMessage message;
 	message.type = ServerGlobalMessageType::SERVER_UP;
 	Server server;
-	server.set_passwd(false);
-	server.set_nom(m_server_name);
-	server.set_nombre_joueurs_connectes(m_clients.size());
-	server.set_nombre_joueurs_max(m_max_clients);
-	server.set_carte_jouee(m_map_name);
+	server.passwd=false;
+	server.nom=m_server_name;
+	server.nombre_joueurs_connectes=m_clients.size();
+	server.nombre_joueurs_max=m_max_clients;
+	server.carte_jouee=m_map_name;
 	message.servers.push_back(server);
 
 	std::ostringstream os;
 	boost::archive::text_oarchive ar(os);
 	ar << message;
 	m_connexionServerG->send(os.str());
+	std::cout << "Envoi données"<<std::endl;
 }
 void ServerNetworkEngineWan::work()
 {
 	if(!m_hasSendtoG&&m_connexionServerG->isConnected())
 	{
+		std::cout << "Connexion réussie"<<std::endl;
 		announceServer();
 		m_hasSendtoG=true;
 	}

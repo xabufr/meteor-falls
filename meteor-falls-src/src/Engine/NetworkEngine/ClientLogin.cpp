@@ -62,8 +62,8 @@ m_login(false)
         }
         boost::this_thread::sleep(boost::posix_time::milliseconds(150));
     }
-    player.set_pseudo(pseudo);
-    player.set_passwd(passwd);
+    player.pseudo=pseudo;
+    player.passwd=passwd;
 
     message->player = player;
     message->type = ServerGlobalMessageType::LOGIN;
@@ -83,7 +83,7 @@ m_login(false)
             {
                 case ServerGlobalMessageType::LOGIN:
                 {
-                    if (message->player.get_pseudo() == pseudo && message->player.get_passwd() == passwd)
+                    if (message->player.pseudo == pseudo && message->player.passwd == passwd)
                     {
                         m_login = true;
                         delete message;

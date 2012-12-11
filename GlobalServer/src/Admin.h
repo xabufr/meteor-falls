@@ -11,20 +11,12 @@ class Admin
     public:
         Admin();
         ~Admin();
-        void set_passwd(std::string passwd);
-        std::string get_passwd();
-        void set_cmd(std::string cmd);
-        std::string get_cmd();
-        void set_pseudo(std::string pseudo);
-        std::string get_pseudo();
-    private:
-        std::string m_pseudo;
-        std::string m_passwd;
-        std::string m_cmd;
-        friend class boost::serialization::access;
+        std::string pseudo;
+        std::string passwd;
+        std::string cmd;
         template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
-            ar & m_pseudo & m_passwd & m_cmd;
+            ar & pseudo & passwd & cmd;
         }
 };
 

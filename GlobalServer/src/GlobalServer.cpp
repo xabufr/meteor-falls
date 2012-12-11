@@ -59,22 +59,22 @@ void GlobalServer::work()
                 {
                     case ServerGlobalMessageType::LOGIN:
                     {
-                        msg->player = m_sql->select_player(message->player.get_pseudo());
-                        msg->make = (msg->player.get_passwd() == message->player.get_passwd())?true:false;
+                        msg->player = m_sql->select_player(message->player.pseudo);
+                        msg->make = (msg->player.passwd == message->player.passwd)?true:false;
                     }
                     break;
                     case ServerGlobalMessageType::ADMIN_LOGIN:
                     {
-                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
-                        msg->make = (msg->admin.get_passwd() == message->admin.get_passwd())?true:false;
+                        msg->admin = m_sql->select_admin(message->admin.pseudo);
+                        msg->make = (msg->admin.passwd == message->admin.passwd)?true:false;
                     }
                     break;
                     case ServerGlobalMessageType::ADMIN_CMD:
                     {
-                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
-                        if (msg->admin.get_passwd() == message->admin.get_passwd())
+                        msg->admin = m_sql->select_admin(message->admin.pseudo);
+                        if (msg->admin.passwd == message->admin.passwd)
                         {
-                            if (message->admin.get_cmd() == "server_stop")
+                            if (message->admin.cmd == "server_stop")
                             {
                                 m_start = false;
                                 msg->make = true;
@@ -99,16 +99,13 @@ void GlobalServer::work()
                     case ServerGlobalMessageType::SERVER_UP:
                     {
                         Server srv = message->servers[0];
-                        m_sql->update(srv.get_id_server(), srv.get_ip_server(), srv.get_nom(),
-                                      srv.get_version(), srv.get_nombre_joueurs_max(),
-                                      srv.get_nombre_joueurs_connectes(), srv.get_passwd(), srv.get_carte_jouee(), srv.get_type_partie(),
-                                      srv.get_temps_jeu());
+                        m_sql->update(srv);
                         msg->make = true;
                     }
                     break;
                     case ServerGlobalMessageType::SERVER_DEL:
                     {
-                        m_sql->delete_server(message->servers[0].get_ip_server());
+                        m_sql->delete_server(message->servers[0].ip);
                         msg->make = true;
                     }
                     break;

@@ -71,9 +71,9 @@ void Connect::use(std::string s)
 
     ServerGlobalMessage message;
     message.type = ServerGlobalMessageType::ADMIN_LOGIN;
-    message.admin.set_pseudo(login);
-    message.admin.set_passwd(motpasse);
-    message.admin.set_cmd("connexion");
+    message.admin.pseudo=login;
+    message.admin.passwd=motpasse;
+    message.admin.cmd="connexion";
 
     connexion->send(m_serialize(&message));
 
