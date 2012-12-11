@@ -6,6 +6,7 @@
 #include "../EngineMessage/EngineMessage.h"
 #include "../Engine.h"
 
+class Joueur;
 class GameEngine : public Engine
 {
     public:
@@ -24,6 +25,7 @@ class GameEngine : public Engine
     private:
         Map *m_map;
         Type m_type;
+		Joueur *m_currentJoueur;
 };
 
 #endif // GAMEENGINE_H

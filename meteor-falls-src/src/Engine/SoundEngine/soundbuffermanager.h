@@ -1,6 +1,6 @@
 #ifndef SOUNDBUFFERMANAGER_H
 #define SOUNDBUFFERMANAGER_H
-#include "precompiled/sfml_audio.h"
+#include "../../precompiled/sfml_audio.h"
 #include <unordered_map>
 #include "../../Utils/singleton.h"
 

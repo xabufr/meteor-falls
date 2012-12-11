@@ -1,6 +1,7 @@
 #include "JoueurRPG.h"
+#include "Joueur.h"
 
-JoueurRPG::JoueurRPG()
+JoueurRPG::JoueurRPG(Joueur *j): m_joueur(j)
 {
     //ctor
 }

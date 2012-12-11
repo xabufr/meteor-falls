@@ -1,9 +1,10 @@
 #ifndef H_NETWORKENGINE_H
 #define H_NETWORKENGINE_H
 #include "../Engine.h"
-#include "precompiled/asio.h"
-#include "precompiled/shared_ptr.h"
-
+#include "../../precompiled/asio.h"
+#include "../../precompiled/shared_ptr.h"
+#include "TcpConnection.h"
+#include "UdpConnection.h"
 
 
 class NetworkEngine : public Engine
@@ -25,6 +26,7 @@ protected:
     boost::shared_ptr<boost::asio::io_service::work> m_work;
     boost::thread m_thread_service;
 
+	UdpConnection::pointer m_udpConnexion;
 private:
     void m_run();
 };

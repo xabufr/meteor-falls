@@ -28,5 +28,7 @@ obj/*
 *bin/*
 meteor-falls-src/meteor-falls-src.layout
 meteor-falls-src/meteor-falls-src.depend
+meteor-falls-src/CMakeFiles*
+meteor-falls-src/CMakeCache.txt
 *.log
 *.Log

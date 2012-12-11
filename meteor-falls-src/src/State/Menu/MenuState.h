@@ -8,9 +8,9 @@
 #include <OgreSceneManager.h>
 #include <OgreSceneQuery.h>
 #include <OIS/OIS.h>
-#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
-#include "precompiled/sfml_system.h"
+#include "../../precompiled/sfml_system.h"
 #include <boost/function.hpp>
 
 

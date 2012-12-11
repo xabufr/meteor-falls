@@ -1,6 +1,6 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
-#include "precompiled/serialization.h"
+#include "../precompiled/serialization.h"
 #include <SFML/System/Vector3.hpp>
 #include <OgreVector3.h>
 #include <cmath>

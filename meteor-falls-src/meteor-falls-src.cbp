@@ -187,6 +187,7 @@
 		<Unit filename="src/Engine/NetworkEngine/ServerClient.h" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.h" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/SslConnection.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/SslConnection.h" />
 		<Unit filename="src/Engine/NetworkEngine/TcpConnection.cpp" />
@@ -225,6 +226,8 @@
 		<Unit filename="src/State/Menu/LoginState.h" />
 		<Unit filename="src/State/Menu/MenuState.cpp" />
 		<Unit filename="src/State/Menu/MenuState.h" />
+		<Unit filename="src/State/ServerState/ServerState.cpp" />
+		<Unit filename="src/State/ServerState/ServerState.h" />
 		<Unit filename="src/State/State.cpp" />
 		<Unit filename="src/State/State.h" />
 		<Unit filename="src/State/StateManager.cpp" />
