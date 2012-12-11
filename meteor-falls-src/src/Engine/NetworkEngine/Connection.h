@@ -1,7 +1,7 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
-#include "precompiled/asio.h"
+#include "../../precompiled/asio.h"
 #include <queue>
 
 class Connection

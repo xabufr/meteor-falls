@@ -11,7 +11,7 @@
 #include <vector>
 #include "../../../Utils/Vector3D.h"
 #include <Terrain/OgreTerrainGroup.h>
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 
 
 class WorldObject;

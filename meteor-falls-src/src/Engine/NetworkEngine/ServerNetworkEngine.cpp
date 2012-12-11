@@ -7,12 +7,15 @@ ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port
     m_lastClient(0),
 	m_port(port)
 {
+	m_udpConnexion = UdpConnection::create(m_service);
+	m_timer_seed = new boost::asio::deadline_timer(*m_service);
     m_startAccept();
 }
 
 ServerNetworkEngine::~ServerNetworkEngine()
 {
-    //dtor
+	m_timer_seed->cancel();
+	delete m_timer_seed;
 }
 void ServerNetworkEngine::handleMessage(const EngineMessage&)
 {

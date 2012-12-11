@@ -1,4 +1,4 @@
-#include "Engine/NetworkEngine/NetworkIpAdressFinder.h"
+#include "NetworkIpAdressFinder.h"
 
 boost::asio::ip::address getAddress(boost::asio::io_service &service, std::string host, bool* error)
 {

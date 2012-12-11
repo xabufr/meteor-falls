@@ -9,6 +9,7 @@
 struct Parameters
 {
 	bool gui, server, verbose;
+	bool server_wan;
 	Parameters()
 	{
 		server  = false;

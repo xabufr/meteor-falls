@@ -1,5 +1,5 @@
-#include "Engine/NetworkEngine/NetworkEngine.h"
-#include "precompiled/serialization.h"
+#include "NetworkEngine.h"
+#include "../../precompiled/serialization.h"
 #include "../EngineMessage/EngineMessage.h"
 #include <iostream>
 
@@ -8,7 +8,6 @@ EngineType NetworkEngine::getType()
 {
     return EngineType::NetworkEngineType;
 }
-
 NetworkEngine::NetworkEngine(EngineManager* manager):
     Engine(manager),
     m_service(new boost::asio::io_service),
@@ -22,7 +21,6 @@ NetworkEngine::~NetworkEngine()
     m_service->stop();
     m_thread_service.join();
 }
-
 void NetworkEngine::m_run()
 {
     m_service->run();
@@ -34,7 +32,6 @@ std::string NetworkEngine::serialize(const EngineMessage* message)
     archive << *message;
     return os.str();
 }
-
 EngineMessage* NetworkEngine::deserialize(const std::string& data)
 {
     EngineMessage *message = new EngineMessage(m_manager);

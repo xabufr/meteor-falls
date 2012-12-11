@@ -11,10 +11,11 @@ ApplicationParameters::ApplicationParameters(int argc, char** argv)
 {
 		static char doc[] =
 				       "Meteor-falls, le jeu\
-							     \v tout droit réservé";
+							     \vtout droit réservé";
 		static char args_doc[] = "";
 		static argp_option options[] = {
-        	{"server", 's', 0, 0, "Démarre le server"},
+        	{"server-lan", 1, 0, 0, "Démarre le server lan"},
+        	{"server-wan", 2, 0, 0, "Démarre le server wan"},
 			{ 0 }
 		};
 		static argp argp_s = {
@@ -35,8 +36,13 @@ error_t ApplicationParameters::parse_opt(int key, char *arg, argp_state *state)
 	Parameters *params = static_cast<Parameters*>(state->input);
 	switch(key)
 	{
-		case 's':
+		case 1:
             params->server=true;
+			params->server_wan=false;
+			break;
+		case 2:
+            params->server=true;
+			params->server_wan=true;
 			break;
 	}
 	return 0;

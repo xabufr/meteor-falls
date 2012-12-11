@@ -3,15 +3,10 @@
 ServerNetworkEngineLan::ServerNetworkEngineLan(EngineManager* mng, unsigned short port):
 ServerNetworkEngine(mng,port)
 {
-	m_timer_seed = new boost::asio::deadline_timer(*m_service);
-
-	m_udpConnexion = UdpConnection::create(m_service);
 	announceServer();
 }
 ServerNetworkEngineLan::~ServerNetworkEngineLan()
 {
-	m_timer_seed->cancel();	
-	delete m_timer_seed;
 }
 void ServerNetworkEngineLan::m_handleSendLanInfo(const boost::system::error_code&)
 {

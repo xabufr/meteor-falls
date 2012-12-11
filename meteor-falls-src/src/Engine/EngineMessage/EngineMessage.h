@@ -8,7 +8,7 @@
 #include "EngineMessageKey.h"
 #include "EngineMessageType.h"
 #include "../Engine.h"
-#include "precompiled/serialization.h"
+#include "../../precompiled/serialization.h"
 
 class EngineManager;
 

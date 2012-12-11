@@ -19,10 +19,11 @@
 #include "../State.h"
 #include "../../Engine/EngineManager/EngineManager.h"
 
+class Parameters;
 class ServerState : public State
 {
 	public:
-		ServerState(StateManager*);
+		ServerState(StateManager*, Parameters*);
 		void enter();
 		bool isVisible(){
 				return true;
@@ -31,6 +32,7 @@ class ServerState : public State
         ret_code work(unsigned int time);
 	private:
 		EngineManager *m_eManager;
+		Parameters *m_param;
 };
 
 #endif // _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_STATE_SERVERSTATE_SERVERSTATE_H__

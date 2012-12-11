@@ -1,13 +1,14 @@
 #include "EngineManager.h"
-#include "Engine/NetworkEngine/NetworkEngine.h"
-#include "Engine/SoundEngine/SoundEngine.h"
-#include "Engine/NetworkEngine/ClientNetworkEngineLan.h"
-#include "Engine/NetworkEngine/clientnetworkengine.h"
-#include "Engine/NetworkEngine/ServerNetworkEngineLan.h"
-#include "Engine/GraphicEngine/GraphicEngine.h"
-#include "Engine/GameEngine/GameEngine.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "../NetworkEngine/NetworkEngine.h"
+#include "../SoundEngine/SoundEngine.h"
+#include "../NetworkEngine/ClientNetworkEngineLan.h"
+#include "../NetworkEngine/clientnetworkengine.h"
+#include "../NetworkEngine/ServerNetworkEngineLan.h"
+#include "../NetworkEngine/ServerNetworkEngineWan.h"
+#include "../GraphicEngine/GraphicEngine.h"
+#include "../GameEngine/GameEngine.h"
+#include "../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../GraphicEngine/Ogre/OgreApplication.h"
 
 Engine* EngineManager::get(EngineType p_engine_type){
     switch(p_engine_type)
@@ -52,6 +53,8 @@ EngineManager::EngineManager(Type t):
         m_network = new ClientNetworkEngineLan(this);
         break;
     case Type::SERVER:
+		m_network = new ServerNetworkEngineWan(this, 8888);
+		break;
     case Type::SERVER_LAN:
         m_network = new ServerNetworkEngineLan(this, 8888);
         break;

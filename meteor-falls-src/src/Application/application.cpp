@@ -16,7 +16,7 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
 		manager.setAudio(false);
 		manager.setGraphic(false);
 
-		manager.addState(new ServerState(&manager));
+		manager.addState(new ServerState(&manager, &m_params.parametres));
 		manager.startLoop();
     }
 }

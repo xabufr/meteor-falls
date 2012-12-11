@@ -1,8 +1,8 @@
 #ifndef TCPCONNECTION_H
 #define TCPCONNECTION_H
 
-#include "precompiled/asio.h"
-#include "precompiled/shared_ptr.h"
+#include "../../precompiled/asio.h"
+#include "../../precompiled/shared_ptr.h"
 #include "Connection.h"
 
 class TcpConnection : public Connection, public boost::enable_shared_from_this<TcpConnection>

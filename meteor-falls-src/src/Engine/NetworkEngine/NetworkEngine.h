@@ -1,8 +1,8 @@
 #ifndef H_NETWORKENGINE_H
 #define H_NETWORKENGINE_H
 #include "../Engine.h"
-#include "precompiled/asio.h"
-#include "precompiled/shared_ptr.h"
+#include "../../precompiled/asio.h"
+#include "../../precompiled/shared_ptr.h"
 #include "TcpConnection.h"
 #include "UdpConnection.h"
 

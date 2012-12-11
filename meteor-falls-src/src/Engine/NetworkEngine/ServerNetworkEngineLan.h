@@ -28,8 +28,6 @@ class ServerNetworkEngineLan: public ServerNetworkEngine
 		virtual ~ServerNetworkEngineLan();
 
 	private:
-		boost::asio::deadline_timer *m_timer_seed;
-
 		void m_handleSendLanInfo(const boost::system::error_code&);
 };
 #endif // _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_NETWORKENGINE_SERVERNETWORKENGINELAN_H__
