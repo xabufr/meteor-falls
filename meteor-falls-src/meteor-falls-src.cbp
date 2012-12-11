@@ -99,6 +99,8 @@
 		<Unit filename="src/Engine/GameEngine/Camera/Camera.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
@@ -209,6 +211,8 @@
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
 		<Unit filename="src/State/Command/Command.cpp" />
 		<Unit filename="src/State/Command/Command.h" />
+		<Unit filename="src/State/Command/Connect.cpp" />
+		<Unit filename="src/State/Command/Connect.h" />
 		<Unit filename="src/State/Command/MenuState/ExitMenuState.cpp" />
 		<Unit filename="src/State/Command/MenuState/ExitMenuState.h" />
 		<Unit filename="src/State/Command/MenuState/LoginMenuState.cpp" />

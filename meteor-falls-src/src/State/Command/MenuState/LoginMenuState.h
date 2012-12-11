@@ -10,7 +10,7 @@ class LoginMenuState : public Command
     public:
         LoginMenuState(State*, StateManager*);
         ~LoginMenuState();
-        virtual void use();
+        virtual void use(std::string);
     private:
         State *m_state;
         StateManager *m_state_mgr;

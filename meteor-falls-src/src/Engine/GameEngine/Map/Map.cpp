@@ -16,8 +16,8 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-#include <Noise/Perlin/Perlin.h>
-#include <Modules/ProjectedGrid/ProjectedGrid.h>
+#include <Hydrax/Noise/Perlin/Perlin.h>
+#include <Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
 
 #include "WorldObject.h"
 #include "WorldObjectManager.h"
@@ -325,7 +325,7 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 	currentNode->setPosition(position.convert<Ogre::Vector3>());
 	currentNode->setOrientation(rotation);
 	currentNode->setScale(scale.convert<Ogre::Vector3>());
-	/* 
+	/*
 	 * Ajout des entités
 	 * */
 	rapidxml::xml_node<>* entite = n->first_node("entity");

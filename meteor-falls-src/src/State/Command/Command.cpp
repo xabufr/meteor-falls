@@ -16,7 +16,7 @@ std::vector<std::string> Command::getProperties()
     return m_properties;
 }
 
-void Command::use()
+void Command::use(std::string s)
 {
 
 }

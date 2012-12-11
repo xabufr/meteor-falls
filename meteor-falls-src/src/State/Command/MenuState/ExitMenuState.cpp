@@ -14,7 +14,7 @@ ExitMenuState::~ExitMenuState()
 
 }
 
-void ExitMenuState::use()
+void ExitMenuState::use(std::string s)
 {
     OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
 }
