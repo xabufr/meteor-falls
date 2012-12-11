@@ -325,7 +325,7 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 	currentNode->setPosition(position.convert<Ogre::Vector3>());
 	currentNode->setOrientation(rotation);
 	currentNode->setScale(scale.convert<Ogre::Vector3>());
-	/* 
+	/*
 	 * Ajout des entités
 	 * */
 	rapidxml::xml_node<>* entite = n->first_node("entity");

@@ -15,7 +15,7 @@ class Command
         void setUsedPropertie(std::string);
         std::vector<std::string> getProperties();
         void setProperties(std::vector<std::string>);
-        virtual void use();
+        virtual void use(std::string);
     protected:
         std::string m_used_propertie;
         std::string m_name;

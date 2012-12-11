@@ -212,6 +212,8 @@
 		<Unit filename="src/Engine/SoundEngine/soundbuffermanager.h" />
 		<Unit filename="src/State/Command/Command.cpp" />
 		<Unit filename="src/State/Command/Command.h" />
+		<Unit filename="src/State/Command/Connect.cpp" />
+		<Unit filename="src/State/Command/Connect.h" />
 		<Unit filename="src/State/Command/MenuState/ExitMenuState.cpp" />
 		<Unit filename="src/State/Command/MenuState/ExitMenuState.h" />
 		<Unit filename="src/State/Command/MenuState/LoginMenuState.cpp" />

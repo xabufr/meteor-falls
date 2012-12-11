@@ -1,5 +1,4 @@
 #!/bin/sh
-sudo su
 cd SkyX
 cmake .
 make -j3

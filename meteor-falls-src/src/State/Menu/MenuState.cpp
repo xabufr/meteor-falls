@@ -2,6 +2,7 @@
 #include "MenuState.h"
 #include "LoginState.h"
 #include "State/Console.h"
+#include "State/Command/Connect.h"
 #include "State/Command/MenuState/ExitMenuState.h"
 #include "State/Command/MenuState/LoginMenuState.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -120,10 +121,13 @@ bool MenuState::startGame()
 
 void MenuState::enter()
 {
+    OgreContextManager::get()->getInputManager()->addKeyboardListener(Console::get());
+
     //initialisation des commandes
     Console::get()->clearCommands();
     Console::get()->addCommand(new ExitMenuState());
     Console::get()->addCommand(new LoginMenuState(m_sousState, m_state_manager));
+    Console::get()->addCommand(new Connect());
 
     if(m_sousState)
         m_sousState->enter();
@@ -242,17 +246,11 @@ ret_code MenuState::work(unsigned int time)
     {
         if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
             return ret_code::EXIT_PROGRAM;
-        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
-            Console::get()->show();
     }
     else
     {
         if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
             return ret_code::EXIT_PROGRAM;
-        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
-            Console::get()->hide();
-        else if (m_keyboard->isKeyDown(OIS::KC_RETURN))
-            Console::get()->start();
     }
 
     return CONTINUE;
