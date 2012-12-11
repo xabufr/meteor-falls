@@ -30,6 +30,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add directory="../meteor-falls-src/libs/rapidxml" />
 			<Add directory="../meteor-falls-src/src" />
