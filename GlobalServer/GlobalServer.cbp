@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add directory="../meteor-falls-src/libs/rapidxml" />
 			<Add directory="../meteor-falls-src/src" />
+			<Add directory="/usr/include/mysql" />
 		</Compiler>
 		<Linker>
 			<Add option="-lboost_system" />

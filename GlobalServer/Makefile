@@ -11,8 +11,8 @@ AR = ar
 LD = g++
 WINDRES = windres
 
-INC =  -I../meteor-falls-src/libs/rapidxml -I../meteor-falls-src/src
-CFLAGS =  -Wall
+INC =  -I../meteor-falls-src/libs/rapidxml -I../meteor-falls-src/src -I/usr/include/mysql
+CFLAGS =  -std=c++0x -Wall
 RESINC = 
 LIBDIR = 
 LIB = 
