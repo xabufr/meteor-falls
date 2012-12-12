@@ -100,6 +100,7 @@ void GlobalServer::work()
                     {
 						std::cout << "SERVER_UP" << std::endl;
                         Server srv = message->servers[0];
+						srv.ip = client->socket().remote_endpoint().address().to_string();
 						std::cout<< "Récupération du server"<< std::endl;
                         m_sql->update(srv);
                         msg->make = true;
