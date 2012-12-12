@@ -14,7 +14,7 @@ class Admin
         std::string pseudo;
         std::string passwd;
         std::string cmd;
-        template<class Archive>
+		template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
             ar & pseudo & passwd & cmd;
         }

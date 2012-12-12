@@ -22,7 +22,6 @@ class Player
 		std::string passwd;
 		std::string email;
 		std::string pays;
-		friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
             ar & id_player & pseudo & num_session & exp_rpg & exp_rts & level & passwd

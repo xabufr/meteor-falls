@@ -1,7 +1,5 @@
 #ifndef SERVER_H
 #define SERVER_H
-#include <iostream>
-#include <map>
 #include <string>
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/vector.hpp>
@@ -23,8 +21,8 @@ class Server
 		std::string type_partie;
 		float temps_jeu;
 
-        template<class Archive>
-        void serialize(Archive& ar, const unsigned int version){
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int pversion){
             ar & ip & nom & version & nombre_joueurs_max & nombre_joueurs_connectes & passwd
              & carte_jouee & type_partie & temps_jeu;
         }
