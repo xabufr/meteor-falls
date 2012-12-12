@@ -117,7 +117,7 @@ Server Creator::select_server(std::string ip)
     Server MonServer("","","",0,0,0,"","",0);
     result = mysql_use_result(m_MYSQL);
 
-    if (!(row = mysql_fetch_row(result))
+    if (!(row = mysql_fetch_row(result)))
         return MonServer;
 
         MonServer.ip=ip;
