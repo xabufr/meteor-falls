@@ -7,6 +7,7 @@ class ServerNetworkEngineWan : public ServerNetworkEngine
 {
 	public:
 		ServerNetworkEngineWan(EngineManager*, unsigned short port);
+		~ServerNetworkEngineWan();
 		virtual void sendAllUdp(const std::string&);
 		virtual void announceServer();
 		virtual void work();

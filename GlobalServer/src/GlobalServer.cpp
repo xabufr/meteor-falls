@@ -47,7 +47,10 @@ void GlobalServer::work()
     ServerGlobalMessage *message;
     for (SslConnection::pointer client : clients){
         if (!client->isConnected())
+		{
+			m_serversDel(client);
             removeClient(client);
+		}
         else{
             while (client->hasData()){
                 std::string data = client->getData();
@@ -98,12 +101,11 @@ void GlobalServer::work()
                     break;
                     case ServerGlobalMessageType::SERVER_UP:
                     {
-						std::cout << "SERVER_UP" << std::endl;
                         Server srv = message->servers[0];
 						srv.ip = client->socket().remote_endpoint().address().to_string();
-						std::cout<< "Récupération du server"<< std::endl;
                         m_sql->update(srv);
                         msg->make = true;
+						m_serversAdd(client);
                     }
                     break;
                     case ServerGlobalMessageType::SERVER_DEL:
@@ -171,3 +173,27 @@ ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
     archive >> *message;
     return message;
 }
+void GlobalServer::m_serversAdd(SslConnection::pointer p)
+{
+	for(SslConnection::pointer p_cur: m_servers)
+	{
+		if(p.get()==p_cur.get())
+		{
+			return;
+		}
+	}
+	m_servers.push_back(p);	
+}
+void GlobalServer::m_serversDel(SslConnection::pointer p)
+{
+	for(size_t i=0;i<m_servers.size();++i)
+	{
+		if(m_servers[i].get() == p.get())
+		{
+			m_sql->delete_server(p->socket().remote_endpoint().address().to_string());
+			m_servers.erase(m_servers.begin()+i);
+			return;
+		}
+	}
+}
+

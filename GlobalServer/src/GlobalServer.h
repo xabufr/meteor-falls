@@ -23,14 +23,15 @@ class GlobalServer
         boost::shared_ptr<boost::asio::io_service::work> m_work;
         boost::thread m_thread_service;
     private:
-        std::vector<SslConnection::pointer> m_clients;
-        std::vector<Server> m_servers;
+        std::vector<SslConnection::pointer> m_clients, m_servers;
         boost::asio::ip::tcp::acceptor m_acceptor_ssl;
         boost::mutex m_mutex_clients;
         void m_startAccept();
         void m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e);
         void removeClient(SslConnection::pointer c);
         void m_run();
+		void m_serversAdd(SslConnection::pointer);
+		void m_serversDel(SslConnection::pointer);
         std::string m_serialize(const ServerGlobalMessage *message);
         ServerGlobalMessage* m_deserialize(const std::string &data);
         Creator *m_sql;

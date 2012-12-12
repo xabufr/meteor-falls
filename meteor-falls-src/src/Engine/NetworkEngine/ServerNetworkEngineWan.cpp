@@ -18,6 +18,9 @@ ServerNetworkEngine(mng, port)
 	}
 	m_connexionServerG->connect(boost::asio::ip::tcp::endpoint(adr, 80));
 }
+ServerNetworkEngineWan::~ServerNetworkEngineWan()
+{
+}
 void ServerNetworkEngineWan::sendAllUdp(const std::string& data)
 {
 }
