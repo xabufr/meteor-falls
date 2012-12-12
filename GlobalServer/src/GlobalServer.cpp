@@ -98,6 +98,7 @@ void GlobalServer::work()
                     break;
                     case ServerGlobalMessageType::SERVER_UP:
                     {
+						std::cout << "SERVER_UP" << std::endl;
                         Server srv = message->servers[0];
                         m_sql->update(srv);
                         msg->make = true;
