@@ -183,8 +183,9 @@ void Creator::update(const Player& p)
 }
 void Creator::update(const Server& server)
 {
-	
+	std::cout<< "update début" << std::endl;
 	Server s = select_server(server.ip);
+	std::cout << "server récupéré"<<std::endl;
 	if(s.ip.empty())
 	{
 		insertServer(server);
