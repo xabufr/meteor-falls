@@ -120,6 +120,7 @@ Server Creator::select_server(std::string ip)
     if (result == NULL)
         return MonServer;
 
+	std::cout << "not null" << std::endl;
         MonServer.ip=ip;
         MonServer.nom=row[2];
         MonServer.version=row[3];
