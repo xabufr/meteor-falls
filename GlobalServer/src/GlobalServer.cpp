@@ -100,6 +100,7 @@ void GlobalServer::work()
                     {
 						std::cout << "SERVER_UP" << std::endl;
                         Server srv = message->servers[0];
+						std::cout<< "Récupération du server"<< std::endl;
                         m_sql->update(srv);
                         msg->make = true;
                     }
