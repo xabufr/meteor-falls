@@ -30,12 +30,12 @@ public:
 
     virtual ~UdpConnection();
 protected:
-    virtual void handleReadHeader(const boost::system::error_code&);
-    virtual void handleReadData(const boost::system::error_code&);
+    virtual void handleReadData(const boost::system::error_code&, size_t length);
     void handleSendData(std::string, boost::asio::ip::udp::endpoint);
     void handleSendData(std::string){}
     void handleStartReceive();
-
+	virtual void handleReadHeader(const boost::system::error_code&){}
+	virtual void handleReadData(const boost::system::error_code&){}
 private:
     UdpConnection(boost::shared_ptr<boost::asio::io_service> service);
 
@@ -47,8 +47,8 @@ private:
     boost::mutex m_mutex_buffers, m_mutex_connexion_endpoint;
 
     std::vector<char> m_buffer_receive;
-    enum { header_size = 8 };
-    char m_header_data[header_size];
+    enum { buffer_size = 2048 };
+    char m_buffer_data[buffer_size];
 };
 
 #endif // UDPCONNECTION_H

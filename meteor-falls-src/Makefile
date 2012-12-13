@@ -1842,6 +1842,30 @@ src/State/Menu/MenuState.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/MenuState.cpp.s
 .PHONY : src/State/Menu/MenuState.cpp.s
 
+src/State/Menu/ServerList.o: src/State/Menu/ServerList.cpp.o
+.PHONY : src/State/Menu/ServerList.o
+
+# target to build an object file
+src/State/Menu/ServerList.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.o
+.PHONY : src/State/Menu/ServerList.cpp.o
+
+src/State/Menu/ServerList.i: src/State/Menu/ServerList.cpp.i
+.PHONY : src/State/Menu/ServerList.i
+
+# target to preprocess a source file
+src/State/Menu/ServerList.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.i
+.PHONY : src/State/Menu/ServerList.cpp.i
+
+src/State/Menu/ServerList.s: src/State/Menu/ServerList.cpp.s
+.PHONY : src/State/Menu/ServerList.s
+
+# target to generate assembly for a file
+src/State/Menu/ServerList.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.s
+.PHONY : src/State/Menu/ServerList.cpp.s
+
 src/State/ServerState/ServerState.o: src/State/ServerState/ServerState.cpp.o
 .PHONY : src/State/ServerState/ServerState.o
 
@@ -2355,6 +2379,9 @@ help:
 	@echo "... src/State/Menu/MenuState.o"
 	@echo "... src/State/Menu/MenuState.i"
 	@echo "... src/State/Menu/MenuState.s"
+	@echo "... src/State/Menu/ServerList.o"
+	@echo "... src/State/Menu/ServerList.i"
+	@echo "... src/State/Menu/ServerList.s"
 	@echo "... src/State/ServerState/ServerState.o"
 	@echo "... src/State/ServerState/ServerState.i"
 	@echo "... src/State/ServerState/ServerState.s"

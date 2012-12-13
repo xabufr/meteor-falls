@@ -4,6 +4,7 @@ ServerNetworkEngineLan::ServerNetworkEngineLan(EngineManager* mng, unsigned shor
 ServerNetworkEngine(mng,port)
 {
 	announceServer();
+	m_udpConnexion->socket()->set_option(boost::asio::ip::udp::socket::broadcast(true));
 }
 ServerNetworkEngineLan::~ServerNetworkEngineLan()
 {

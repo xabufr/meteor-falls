@@ -21,11 +21,12 @@ void UdpConnection::startListen()
 }
 void UdpConnection::handleStartReceive()
 {
-    m_socket->async_receive_from(boost::asio::buffer(m_header_data, header_size),
+    m_socket->async_receive_from(boost::asio::buffer(m_buffer_data, buffer_size),
                                  m_endpointSender,
-                                 boost::bind(&UdpConnection::handleReadHeader,
+                                 boost::bind(&UdpConnection::handleReadData,
                                              shared_from_this(),
-                                             boost::asio::placeholders::error));
+                                           	 _1, 
+											 _2));
 }
 bool UdpConnection::hasData()
 {
@@ -57,40 +58,19 @@ void UdpConnection::bind(boost::asio::ip::udp::endpoint e)
     setConnected(true);
     m_socket->bind(e);
 }
-void UdpConnection::handleReadHeader(const boost::system::error_code& e)
-{
-    if(e){
-        setListening(false);
-        m_addError(e);
-        return;
-    }
-    std::istringstream is(std::string(m_header_data, header_size));
-    size_t hs;
-    if(!(is>>std::hex>>hs)){
-        setListening(false);
-        m_addError(boost::asio::error::basic_errors::invalid_argument);
-        return;
-    }
-    m_buffer_receive.resize(hs);
-    m_socket->async_receive_from(boost::asio::buffer(m_buffer_receive),
-                                 m_endpointSender,
-                                 boost::bind(&UdpConnection::handleReadData,
-                                             shared_from_this(),
-                                             boost::asio::placeholders::error));
-}
-void UdpConnection::handleReadData(const boost::system::error_code& e)
+void UdpConnection::handleReadData(const boost::system::error_code& e, size_t length)
 {
     if(e){
         m_addError(e);
         setListening(false);
         return;
     }
-    std::string data(m_buffer_receive.data(), m_buffer_receive.size());
+    std::string data(m_buffer_data, length);
     {
         boost::mutex::scoped_lock l(m_mutex_buffers);
         m_queue_buffers.push(std::make_pair(m_endpointSender, data));
     }
-    m_socket->async_receive_from(boost::asio::buffer(m_header_data, header_size),
+    m_socket->async_receive_from(boost::asio::buffer(m_buffer_data, buffer_size),
                                  m_endpointSender,
                                  boost::bind(&UdpConnection::handleReadHeader,
                                              shared_from_this(),
@@ -98,13 +78,7 @@ void UdpConnection::handleReadData(const boost::system::error_code& e)
 }
 void UdpConnection::handleSendData(std::string data, boost::asio::ip::udp::endpoint e)
 {
-    std::ostringstream os;
-    os << std::setw(header_size) << std::hex << data.size();
-    if( !os || os.str().size() != header_size){
-        m_addError(boost::asio::error::basic_errors::invalid_argument);
-        return;
-    }
-    m_socket->async_send_to(boost::asio::buffer(os.str() + data), e,
+    m_socket->async_send_to(boost::asio::buffer(data), e,
                             boost::bind(&UdpConnection::handleDataSent,
                                         shared_from_this(),
                                         boost::asio::placeholders::error));
@@ -112,7 +86,7 @@ void UdpConnection::handleSendData(std::string data, boost::asio::ip::udp::endpo
 UdpConnection::UdpConnection(boost::shared_ptr<boost::asio::io_service> service) : Connection(service)
 {
     m_socket = new boost::asio::ip::udp::socket(*service);
-	m_socket->open(boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("172.16.8.27"), 80).protocol());
+	m_socket->open(boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("172.0.0.1"), 8888).protocol());
 }
 boost::asio::ip::udp::endpoint UdpConnection::getConnectionEndpoint()
 {
