@@ -217,6 +217,6 @@ void Creator::delete_player(std::string id)
 void Creator::delete_server(std::string ip)
 {
     std::string sql_query;
-    sql_query = "DELETE FROM Server WHERE id_server = '" +boost::lexical_cast<std::string>(ip) +"'";
+    sql_query = "DELETE FROM Server WHERE ip_server = '" +boost::lexical_cast<std::string>(ip) +"'";
     mysql_query(m_MYSQL, sql_query.c_str());
 }
