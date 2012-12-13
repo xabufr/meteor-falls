@@ -72,9 +72,9 @@ void UdpConnection::handleReadData(const boost::system::error_code& e, size_t le
     }
     m_socket->async_receive_from(boost::asio::buffer(m_buffer_data, buffer_size),
                                  m_endpointSender,
-                                 boost::bind(&UdpConnection::handleReadHeader,
+                                 boost::bind(&UdpConnection::handleReadData,
                                              shared_from_this(),
-                                             boost::asio::placeholders::error));
+                                             _1, _2));
 }
 void UdpConnection::handleSendData(std::string data, boost::asio::ip::udp::endpoint e)
 {

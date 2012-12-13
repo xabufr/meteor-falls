@@ -89,7 +89,7 @@ ret_code ServerList::work(unsigned int time)
                                                         , NULL)->getText().c_str()), expName))
             return CONTINUE;
 */
-        m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+m_connection->getData().first.address().to_string()
+        m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+data.first.address().to_string()
                                                         +")"+message->strings[EngineMessageKey::SERVER_NAME]
                                                         +" "+message->strings[EngineMessageKey::MAP_NAME]
                                                         +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
