@@ -57,9 +57,9 @@
 	<boost/thread.hpp>
 	"Creator.h"
 
-1354265694 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
-	"precompiled/asio.h"
-	"precompiled/shared_ptr.h"
+1355229404 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h
+	"../../precompiled/asio.h"
+	"../../precompiled/shared_ptr.h"
 	"Connection.h"
 
 1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/asio.h
@@ -72,8 +72,8 @@
 	<boost/shared_ptr.hpp>
 	<boost/enable_shared_from_this.hpp>
 
-1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
-	"precompiled/asio.h"
+1355229404 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.h
+	"../../precompiled/asio.h"
 	<queue>
 
 1354277738 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h

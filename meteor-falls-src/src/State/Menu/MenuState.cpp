@@ -106,6 +106,7 @@ MenuState::MenuState(StateManager* mng):
 MenuState::~MenuState()
 {
     delete m_background;
+    delete m_sousState;
 }
 
 bool MenuState::quit(const CEGUI::EventArgs &)
@@ -116,6 +117,15 @@ bool MenuState::quit(const CEGUI::EventArgs &)
 bool MenuState::startGame()
 {
     m_state_manager->addState(new GameState(m_state_manager));
+    return true;
+}
+
+bool MenuState::showLanServer()
+{
+
+    m_sousState = new ServerList(ServerList::Type::LAN, m_state_manager);
+    m_sousState->enter();
+
     return true;
 }
 
@@ -184,6 +194,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showLanServer, this);
                 }
             }
             else if(selected==m_eSoleil)
@@ -242,16 +253,8 @@ ret_code MenuState::work(unsigned int time)
         m_sousState->work(time);
     }
 
-    if (!Console::get()->isVisible())
-    {
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            return ret_code::EXIT_PROGRAM;
-    }
-    else
-    {
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            return ret_code::EXIT_PROGRAM;
-    }
+    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }

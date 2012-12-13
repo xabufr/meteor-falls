@@ -26,6 +26,8 @@ public:
 
     void bind(boost::asio::ip::udp::endpoint e);
 
+    boost::asio::ip::udp::socket *socket(){return m_socket;}
+
     virtual ~UdpConnection();
 protected:
     virtual void handleReadHeader(const boost::system::error_code&);
