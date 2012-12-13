@@ -56,7 +56,7 @@ EngineManager::EngineManager(Type t):
 		m_network = new ServerNetworkEngineWan(this, 8888);
 		break;
     case Type::SERVER_LAN:
-        m_network = new ServerNetworkEngineLan(this, 8888);
+        m_network = new ServerNetworkEngineLan(this, 80);
         break;
     }
     m_game = new GameEngine(this, (t==CLIENT||t==CLIENT_LAN)?GameEngine::Type::CLIENT : GameEngine::Type::SERVER);
