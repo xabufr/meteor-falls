@@ -1,5 +1,5 @@
 #include "SslConnection.h"
-#include "precompiled/bind.h"
+#include "../../precompiled/bind.h"
 
 SslConnection::pointer SslConnection::create(boost::shared_ptr<boost::asio::io_service> s, Type t)
 {
@@ -21,14 +21,12 @@ SslConnection::pointer SslConnection::create(boost::shared_ptr<boost::asio::io_s
         return pointer(new SslConnection(s,t, context));
     }
 }
-
 void SslConnection::send(std::string data)
 {
     if(isConnected())
         m_service->post(boost::bind(&SslConnection::handleSendData, shared_from_this(), data));
 
 }
-
 void SslConnection::startListen()
 {
     if(isConnected()&&!isListening())
@@ -39,7 +37,6 @@ void SslConnection::startListen()
                                               boost::asio::placeholders::error));
     }
 }
-
 bool SslConnection::hasData()
 {
     boost::mutex::scoped_lock l(m_mutex_data);
@@ -52,12 +49,10 @@ std::string SslConnection::getData()
     m_dataQueue.pop();
     return data;
 }
-
 SslConnection::~SslConnection()
 {
 
 }
-
 void SslConnection::handleReadHeader(const boost::system::error_code& e)
 {
     if(e)
@@ -83,7 +78,6 @@ void SslConnection::handleReadHeader(const boost::system::error_code& e)
                                              boost::asio::placeholders::error));
     }
 }
-
 void SslConnection::handleReadData(const boost::system::error_code&)
 {
     {
@@ -94,7 +88,6 @@ void SslConnection::handleReadData(const boost::system::error_code&)
                                   boost::bind(&SslConnection::handleReadHeader, shared_from_this(),
                                               boost::asio::placeholders::error));
 }
-
 void SslConnection::handleSendData(std::string data)
 {
 
@@ -108,7 +101,6 @@ void SslConnection::handleSendData(std::string data)
                               boost::bind(&SslConnection::handleDataSent, shared_from_this(),
                                           boost::asio::placeholders::error));
 }
-
 void SslConnection::handleHandshake(const boost::system::error_code& e)
 {
     if(!e)
@@ -119,7 +111,6 @@ void SslConnection::handleHandshake(const boost::system::error_code& e)
     else
         m_addError(e);
 }
-
 SslConnection::SslConnection(boost::shared_ptr<boost::asio::io_service> s, Type t, boost::asio::ssl::context& c):
     Connection(s),
     m_type(t),
@@ -128,7 +119,6 @@ SslConnection::SslConnection(boost::shared_ptr<boost::asio::io_service> s, Type 
     if(t==CLIENT)
         m_socket.set_verify_mode(boost::asio::ssl::verify_none);
 }
-
 void SslConnection::handleConnect(const boost::system::error_code& e)
 {
     if(!e)

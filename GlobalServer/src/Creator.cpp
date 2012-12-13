@@ -183,13 +183,10 @@ void Creator::update(const Player& p)
 }
 void Creator::update(const Server& server)
 {
-	std::cout<< "update début" << std::endl;
 	Server s = select_server(server.ip);
-	std::cout << "server récupéré"<<std::endl;
 	if(s.ip.empty())
 	{
 		insertServer(server);
-		std::cout << "Création serveur"<<std::endl;
 	}
 	else
 	{
@@ -205,7 +202,6 @@ void Creator::update(const Server& server)
    		"', temps_jeu_server= '" +boost::lexical_cast<std::string>(server.temps_jeu) + "' "+
 		"WHERE ip_server='"+server.ip+"'";
     	mysql_query(m_MYSQL, sql_query.c_str());
-		std::cout << "MAJ serveur"<<std::endl;
 	}
 }   
 void Creator::delete_player(std::string id)

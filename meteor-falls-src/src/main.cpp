@@ -14,8 +14,6 @@
 
 int main(int argc, char **argv)
 {
-    //launchUnitTestForSound();
-    FactionManager::get();
     try
     {
         Application app(argc, argv);

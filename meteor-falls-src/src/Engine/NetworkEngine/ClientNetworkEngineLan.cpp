@@ -5,7 +5,6 @@ ClientNetworkEngineLan::ClientNetworkEngineLan(EngineManager* mng):
 {
     //ctor
 }
-
 ClientNetworkEngineLan::~ClientNetworkEngineLan()
 {
     //dtor

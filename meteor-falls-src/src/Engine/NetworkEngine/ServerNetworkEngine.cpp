@@ -1,6 +1,6 @@
 #include "ServerNetworkEngine.h"
 #include <iostream>
-#include "Engine/EngineMessage/EngineMessage.h"
+#include "../EngineMessage/EngineMessage.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -11,7 +11,6 @@ ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port
 	m_timer_seed = new boost::asio::deadline_timer(*m_service);
     m_startAccept();
 }
-
 ServerNetworkEngine::~ServerNetworkEngine()
 {
 	m_timer_seed->cancel();
@@ -21,7 +20,6 @@ void ServerNetworkEngine::handleMessage(const EngineMessage&)
 {
 
 }
-
 void ServerNetworkEngine::work()
 {
     std::vector<ServerClient> clients;
@@ -65,7 +63,6 @@ void ServerNetworkEngine::m_startAccept()
                             boost::bind(&ServerNetworkEngine::m_handleAccept, this,
                                         connection, boost::asio::placeholders::error));
 }
-
 void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boost::system::error_code& e)
 {
     if(!e)
@@ -91,7 +88,6 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
         }
     }
 }
-
 void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {
     std::string data(NetworkEngine::serialize(message));
@@ -110,7 +106,6 @@ void ServerNetworkEngine::sendToTcp(ServerClient& c, std::string d)
 {
     c.tcp()->send(d);
 }
-
 void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* message)
 {
     std::string data(NetworkEngine::serialize(message));

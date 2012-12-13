@@ -1,8 +1,8 @@
 #include "clientnetworkengine.h"
-#include "Engine/NetworkEngine/NetworkIpAdressFinder.h"
-#include "Utils/Exception/BasicException.h"
-#include "Engine/EngineMessage/EngineMessage.h"
-#include "precompiled/serialization.h"
+#include "NetworkIpAdressFinder.h"
+#include "../../Utils/Exception/BasicException.h"
+#include "../EngineMessage/EngineMessage.h"
+#include "../../precompiled/serialization.h"
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng):
     NetworkEngine(mng)
@@ -10,7 +10,6 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng):
     m_tcp = TcpConnection::create(m_service);
     m_udp = UdpConnection::create(m_service);
 }
-
 ClientNetworkEngine::~ClientNetworkEngine()
 {
     //dtor
@@ -30,7 +29,6 @@ void ClientNetworkEngine::work()
         std::string data = m_tcp->getData();
     }
 }
-
 void ClientNetworkEngine::handleMessage(const EngineMessage& e)
 {
     sendToAllTcp(e);
@@ -54,7 +52,6 @@ void ClientNetworkEngine::connect(std::string address, unsigned short port)
     /*m_udp->connect(boost::asio::ip::udp::endpoint(m_serverAddress, m_port));
     m_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));*/
 }
-
 int ClientNetworkEngine::getState() const
 {
     return m_state;

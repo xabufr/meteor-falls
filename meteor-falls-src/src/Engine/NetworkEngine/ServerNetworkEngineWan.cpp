@@ -24,13 +24,11 @@ ServerNetworkEngineWan::~ServerNetworkEngineWan()
 void ServerNetworkEngineWan::sendAllUdp(const std::string& data)
 {
 }
-
 void ServerNetworkEngineWan::announceServer()
 {
 	m_timer_seed->expires_from_now(boost::posix_time::seconds(5));
 	m_timer_seed->async_wait(boost::bind(&ServerNetworkEngineWan::m_handleSendWanInfo, this, _1));
 }
-
 void ServerNetworkEngineWan::m_handleSendWanInfo(const boost::system::error_code&)
 {
 	m_timer_seed->expires_from_now(boost::posix_time::seconds(5));
