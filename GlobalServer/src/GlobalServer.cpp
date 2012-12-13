@@ -17,7 +17,6 @@ m_start(true)
     m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
 }
-
 GlobalServer::~GlobalServer()
 {
     delete m_sql;
@@ -25,17 +24,14 @@ GlobalServer::~GlobalServer()
     m_service->stop();
     m_thread_service.join();
 }
-
 bool GlobalServer::get_start()
 {
     return m_start;
 }
-
 void GlobalServer::m_run()
 {
     m_service->run();
 }
-
 void GlobalServer::work()
 {
     std::vector<SslConnection::pointer> clients;
@@ -123,7 +119,6 @@ void GlobalServer::work()
         }
     }
 }
-
 void GlobalServer::m_startAccept()
 {
     SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::SERVER);
@@ -131,7 +126,6 @@ void GlobalServer::m_startAccept()
                                 boost::bind(&GlobalServer::m_handleAccept_ssl, this,
                                             connection_ssl, boost::asio::placeholders::error));
 }
-
 void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e)
 {
     if (!e){
@@ -143,7 +137,6 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
         m_startAccept();
     }
 }
-
 void GlobalServer::removeClient(SslConnection::pointer c)
 {
     boost::mutex::scoped_lock l(m_mutex_clients);
@@ -156,7 +149,6 @@ void GlobalServer::removeClient(SslConnection::pointer c)
         }
     }
 }
-
 std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
 {
     std::ostringstream os;
@@ -164,7 +156,6 @@ std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
     archive << *message;
     return os.str();
 }
-
 ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
 {
     ServerGlobalMessage *message = new ServerGlobalMessage();
@@ -190,6 +181,7 @@ void GlobalServer::m_serversDel(SslConnection::pointer p)
 	{
 		if(m_servers[i].get() == p.get())
 		{
+			std::cout << "erase " << p->socket().remote_endpoint().address().to_string();
 			m_sql->delete_server(p->socket().remote_endpoint().address().to_string());
 			m_servers.erase(m_servers.begin()+i);
 			return;
