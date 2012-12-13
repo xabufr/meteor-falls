@@ -177,7 +177,7 @@ void GlobalServer::m_serversAdd(SslConnection::pointer p)
 }
 void GlobalServer::m_serversDel(SslConnection::pointer p)
 {
-	std::cout "m_serverDel"<<std::endl;
+	std::cout<< "m_serverDel"<<std::endl;
 	for(size_t i=0;i<m_servers.size();++i)
 	{
 		if(m_servers[i].get() == p.get())
