@@ -10,6 +10,7 @@
 #include <OIS/OIS.h>
 #include "../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
+#include "ServerList.h"
 #include "../../precompiled/sfml_system.h"
 #include <boost/function.hpp>
 
@@ -19,6 +20,7 @@ class MenuState: public State
     private:
         bool quit(const CEGUI::EventArgs &);
         bool startGame();
+        bool showLanServer();
 
     public:
         MenuState(StateManager*);
@@ -45,7 +47,6 @@ class MenuState: public State
         Ogre::RaySceneQuery* m_sceneQuery;
         bool m_visible;
         State *m_sousState;
-
         /**
             Les entités qui vont correspondre à des entrées menu
         */

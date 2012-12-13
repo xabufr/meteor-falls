@@ -179,15 +179,14 @@
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.h" />
-		<Unit filename="src/Engine/NetworkEngine/NetworkMainTest.cpp">
-			<Option target="Server" />
-			<Option target="Client" />
-		</Unit>
 		<Unit filename="src/Engine/NetworkEngine/ServerClient.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ServerClient.h" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngineLan.h" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp" />
+		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngineWan.h" />
 		<Unit filename="src/Engine/NetworkEngine/SslConnection.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/SslConnection.h" />
 		<Unit filename="src/Engine/NetworkEngine/TcpConnection.cpp" />
@@ -226,6 +225,8 @@
 		<Unit filename="src/State/Menu/LoginState.h" />
 		<Unit filename="src/State/Menu/MenuState.cpp" />
 		<Unit filename="src/State/Menu/MenuState.h" />
+		<Unit filename="src/State/Menu/ServerList.cpp" />
+		<Unit filename="src/State/Menu/ServerList.h" />
 		<Unit filename="src/State/ServerState/ServerState.cpp" />
 		<Unit filename="src/State/ServerState/ServerState.h" />
 		<Unit filename="src/State/State.cpp" />

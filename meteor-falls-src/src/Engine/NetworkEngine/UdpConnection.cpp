@@ -60,6 +60,7 @@ void UdpConnection::send(std::string data, boost::asio::ip::udp::endpoint e)
 void UdpConnection::bind(boost::asio::ip::udp::endpoint e)
 {
     setListening(true);
+    setConnected(true);
     m_socket->bind(e);
 }
 
@@ -121,7 +122,7 @@ void UdpConnection::handleSendData(std::string data, boost::asio::ip::udp::endpo
 UdpConnection::UdpConnection(boost::shared_ptr<boost::asio::io_service> service) : Connection(service)
 {
     m_socket = new boost::asio::ip::udp::socket(*service);
-	m_socket->open(boost::asio::ip::udp::v4());
+	m_socket->open(boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("172.16.8.27"), 80).protocol());
 }
 boost::asio::ip::udp::endpoint UdpConnection::getConnectionEndpoint()
 {

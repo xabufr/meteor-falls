@@ -34,12 +34,19 @@ std::string NetworkEngine::serialize(const EngineMessage* message)
 }
 EngineMessage* NetworkEngine::deserialize(const std::string& data)
 {
-    EngineMessage *message = new EngineMessage(m_manager);
+    return deserialize(data, m_manager);
+}
+
+EngineMessage* NetworkEngine::deserialize(const std::string& data, EngineManager* mng)
+{
+    EngineMessage *message = new EngineMessage(mng);
     std::istringstream iss(data);
     boost::archive::text_iarchive archive(iss);
     archive >> *message;
     return message;
 }
+
+
 void NetworkEngine::setEngineManager(EngineManager *mng)
 {
     m_manager=mng;

@@ -20,6 +20,7 @@ public:
     virtual EngineType getType();
 
     static std::string serialize(const EngineMessage*);
+    static EngineMessage* deserialize(const std::string &, EngineManager*);
     EngineMessage* deserialize(const std::string &);
 protected:
     boost::shared_ptr<boost::asio::io_service> m_service;
