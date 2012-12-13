@@ -44,8 +44,6 @@ void GlobalServer::work()
     for (SslConnection::pointer client : clients){
         if (!client->isConnected())
 		{
-			m_serversDel(client);
-            removeClient(client);
 		}
         else{
             while (client->hasData()){
@@ -115,7 +113,11 @@ void GlobalServer::work()
                 delete msg;
             }
             while (client->hasError())
+			{
                 std::cout<<client->getError().message()<<std::endl;
+				m_serversDel(client);
+           	 	removeClient(client);
+			}
         }
     }
 }
