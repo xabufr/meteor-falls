@@ -52,7 +52,6 @@ void StateManager::startLoop()
 		{
 			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - timer.getElapsedTime().asMilliseconds()));
 		}
-		std::cout << timer.getElapsedTime().asMilliseconds() << std::endl;
         timer.restart();
     }
 }

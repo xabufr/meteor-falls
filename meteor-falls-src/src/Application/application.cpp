@@ -20,8 +20,6 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
 		manager.startLoop();
     }
 }
-
 Application::~Application()
 {
 }
-

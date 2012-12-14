@@ -25,6 +25,10 @@ class ServerNetworkEngine : public NetworkEngine
         static void sendToTcp(ServerClient&, EngineMessage*);
         static void sendToTcp(ServerClient&, std::string);
 
+		void setServerName(const std::string&);
+		void setMaxClients(unsigned short);
+		void setMapName(const std::string&);
+
     protected:
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);

@@ -117,3 +117,18 @@ void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* mes
             c.tcp()->send(data);
     }
 }
+
+void ServerNetworkEngine::setServerName(const std::string& name)
+{
+	m_server_name=name;	
+}
+void ServerNetworkEngine::setMaxClients(unsigned short number)
+{
+	m_max_clients=number;
+}
+void ServerNetworkEngine::setMapName(const std::string& name)
+{
+	m_map_name=name;	
+}
+
+

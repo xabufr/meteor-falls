@@ -80,15 +80,15 @@ ret_code ServerList::work(unsigned int time)
 		std::cout << data.second << std::endl;
         message = NetworkEngine::deserialize(data.second, 0);
 		std::cout << "message extrait" << std::endl;
-       /* boost::regex expName("^Server ("+m_connection->getData().first.address().to_string()+")[\w]*$");
-        if (boost::regex_match(std::string(m_listServer->findItemWithText("Server ("+m_connection->getData().first.address().to_string()
+        boost::regex expName("^Server ("+data.first.address().to_string()+")[\\w]*$");
+/*        if (boost::regex_match(std::string(m_listServer->findItemWithText("Server ("+data.first.address().to_string()
                                                         +")"+message->strings[EngineMessageKey::SERVER_NAME]
                                                         +" "+message->strings[EngineMessageKey::MAP_NAME]
                                                         +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
                                                         +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
                                                         , NULL)->getText().c_str()), expName))
-            return CONTINUE;
-*/
+            return CONTINUE;*/
+
         m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+data.first.address().to_string()
                                                         +")"+message->strings[EngineMessageKey::SERVER_NAME]
                                                         +" "+message->strings[EngineMessageKey::MAP_NAME]
