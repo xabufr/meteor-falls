@@ -29,6 +29,7 @@ class ClientNetworkEngine : public NetworkEngine
 		std::string m_password, m_salt, m_session;
 		unsigned int m_playerNumber;
 
+	public:
         enum ClientNetworkEngineState{
             CONNECTING,
             CONNECTED,

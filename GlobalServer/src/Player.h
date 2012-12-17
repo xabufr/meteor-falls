@@ -16,6 +16,7 @@ class Player
 		std::string id_player;
 		std::string pseudo;
 		std::string num_session;
+		std::string ip;
 		int exp_rpg;
 		int exp_rts;
 		int level;
