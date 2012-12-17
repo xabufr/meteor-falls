@@ -101,7 +101,7 @@ ret_code LoginState::work(unsigned int time)
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;
     else if (m_keyboard->isKeyDown(OIS::KC_J))
-        m_state_manager->addState(new GameState(m_state_manager));
+        m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
     return CONTINUE;
 }
 

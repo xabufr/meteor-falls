@@ -31,7 +31,7 @@ private:
     Type m_type;
 
     public:
-        EngineManager(Type t);
+        EngineManager(Type t, const std::string& address = "", const std::string& password = "");
         ~EngineManager();
         Engine* get(EngineType p_engine_type);
         void work();

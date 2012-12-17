@@ -1,4 +1,5 @@
 #include "ServerList.h"
+#include "../../State/Game/GameState.h"
 #include "../../Engine/NetworkEngine/NetworkEngine.h"
 #include "../../Engine/NetworkEngine/NetworkIpAdressFinder.h"
 #include "../../../../GlobalServer/src/Server.h"
@@ -12,6 +13,7 @@ ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
     m_service(new boost::asio::io_service),
     m_work(new boost::asio::io_service::work(*m_service)),
     m_visible(false),
+    m_state_mgr(mgr),
     m_type(t)
 {
     m_connection_udp = UdpConnection::create(m_service);
@@ -152,7 +154,17 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
 {
     for (size_t i=0; i<m_listServer->getItemCount(); ++i)
         if (m_listServer->getListboxItemFromIndex(i)->isSelected())
-            std::cout << std::string(m_listServer->getListboxItemFromIndex(i)->getText().c_str()) << std::endl;
+        {
+            Server *server = static_cast<Server*>(m_listServer->getUserData());
+            switch (m_type)
+            {
+                case LAN:
+                    m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, server->ip));
+                    break;
+                case WAN:
+                    break;
+            }
+        }
     return true;
 }
 

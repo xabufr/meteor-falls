@@ -40,6 +40,7 @@ class ServerList : public State, public OIS::MouseListener
         boost::shared_ptr<boost::asio::io_service::work> m_work;
         std::string m_serialize(const ServerGlobalMessage *);
         ServerGlobalMessage* m_deserialize(const std::string &);
+        StateManager *m_state_mgr;
         void m_run();
         bool m_visible;
         bool m_item_selected(const CEGUI::EventArgs &);

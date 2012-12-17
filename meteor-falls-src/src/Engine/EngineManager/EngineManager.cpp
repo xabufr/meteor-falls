@@ -34,7 +34,7 @@ void EngineManager::work()
 		m_game->work();
     }
 }
-EngineManager::EngineManager(Type t):
+EngineManager::EngineManager(Type t, const std::string& address, const std::string& password):
     m_type(t),
     m_sound(0)
 {
@@ -47,10 +47,10 @@ EngineManager::EngineManager(Type t):
     switch(t)
     {
     case Type::CLIENT:
-//        m_network = new ClientNetworkEngine(this);
+        m_network = new ClientNetworkEngine(this, address, 8888, password);
         break;
     case Type::CLIENT_LAN:
-  //      m_network = new ClientNetworkEngineLan(this);
+        m_network = new ClientNetworkEngineLan(this, address, 8888, password);
         break;
     case Type::SERVER:
 	  //  m_network = new ServerNetworkEngineWan(this, 8888);

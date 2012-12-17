@@ -4,8 +4,11 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-GameState::GameState(StateManager* mng):
-    State(mng)
+GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::string& address, const std::string& password):
+    State(mng),
+    m_address(address),
+    m_password(password),
+    m_type(t)
 {
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 }
@@ -29,7 +32,7 @@ bool GameState::isVisible()
 
 void GameState::enter()
 {
-    m_engineManager = new EngineManager(EngineManager::Type::CLIENT);
+    m_engineManager = new EngineManager(m_type, m_address, m_password);
     m_visible = true;
 }
 

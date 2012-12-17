@@ -116,7 +116,7 @@ bool MenuState::quit(const CEGUI::EventArgs &)
 }
 bool MenuState::startGame()
 {
-    m_state_manager->addState(new GameState(m_state_manager));
+    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
     return true;
 }
 
