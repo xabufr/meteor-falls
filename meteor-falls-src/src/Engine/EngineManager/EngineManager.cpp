@@ -47,13 +47,13 @@ EngineManager::EngineManager(Type t):
     switch(t)
     {
     case Type::CLIENT:
-        m_network = new ClientNetworkEngine(this);
+//        m_network = new ClientNetworkEngine(this);
         break;
     case Type::CLIENT_LAN:
-        m_network = new ClientNetworkEngineLan(this);
+  //      m_network = new ClientNetworkEngineLan(this);
         break;
     case Type::SERVER:
-		m_network = new ServerNetworkEngineWan(this, 8888);
+	  //  m_network = new ServerNetworkEngineWan(this, 8888);
 		break;
     case Type::SERVER_LAN:
         m_network = new ServerNetworkEngineLan(this, 8888);

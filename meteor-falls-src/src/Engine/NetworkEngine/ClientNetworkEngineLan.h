@@ -5,10 +5,11 @@
 class ClientNetworkEngineLan : public ClientNetworkEngine
 {
     public:
-        ClientNetworkEngineLan(EngineManager*);
+		ClientNetworkEngineLan(EngineManager* mng, const std::string& address, unsigned short port, const std::string& password);
         virtual ~ClientNetworkEngineLan();
 
         virtual void sendToAllUdp(const EngineMessage &e);
+		virtual void logingIn();
     protected:
     private:
 };

@@ -32,12 +32,13 @@ class ServerNetworkEngine : public NetworkEngine
     protected:
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);
+		virtual void m_addNewPlayer(client_id, EngineMessage*) = 0;
 
         std::vector<ServerClient> m_clients;
         boost::asio::ip::tcp::acceptor m_acceptor;
         boost::mutex m_mutex_clients;
         client_id m_lastClient;
-		std::string m_server_name, m_map_name;
+		std::string m_server_name, m_map_name, m_password;
 		unsigned short m_max_clients;
 		unsigned short m_port;
 		boost::asio::deadline_timer *m_timer_seed;

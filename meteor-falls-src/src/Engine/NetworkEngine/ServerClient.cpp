@@ -2,7 +2,7 @@
 
 ServerClient::ServerClient(TcpConnection::pointer tcp, unsigned int id) : m_tcp(tcp), m_id(id)
 {
-
+	isConnected=false;
 }
 ServerClient::~ServerClient()
 {
@@ -11,10 +11,6 @@ ServerClient::~ServerClient()
 TcpConnection::pointer ServerClient::tcp()
 {
     return m_tcp;
-}
-UdpConnection::pointer ServerClient::udp()
-{
-    return m_udp;
 }
 unsigned int ServerClient::id()
 {

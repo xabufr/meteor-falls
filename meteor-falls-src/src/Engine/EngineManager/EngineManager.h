@@ -14,7 +14,7 @@ class EngineManager: public Ogre::FrameListener
 {
 private:
 
-public:
+	public:
     enum Type{
         SERVER,
         CLIENT,
@@ -27,7 +27,7 @@ public:
         LOADING_MAP,
         PLAYING
     };
-private:
+	private:
     Type m_type;
 
     public:

@@ -3,18 +3,20 @@
 #include "TcpConnection.h"
 #include "UdpConnection.h"
 
+class Joueur;
 class ServerClient
 {
     public:
         ServerClient(TcpConnection::pointer, unsigned int id);
         virtual ~ServerClient();
         TcpConnection::pointer tcp();
-        UdpConnection::pointer udp();
         unsigned int id();
+		bool isConnected;
+		Joueur *joueur;
+		std::string sel, session;
     protected:
     private:
         TcpConnection::pointer m_tcp;
-        UdpConnection::pointer m_udp;
         unsigned int m_id;
 };
 

@@ -1,5 +1,7 @@
 #include "ServerNetworkEngineLan.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../GameEngine/Joueur/Joueur.h"
+
 ServerNetworkEngineLan::ServerNetworkEngineLan(EngineManager* mng, unsigned short port):
 ServerNetworkEngine(mng,port)
 {
@@ -23,7 +25,6 @@ void ServerNetworkEngineLan::m_handleSendLanInfo(const boost::system::error_code
 
 	std::string data = NetworkEngine::serialize(&mess);
 	m_udpConnexion->send(data, boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("225.125.145.155"), m_port));
-	std::cout << "Sending infos" << std::endl;
 }
 void ServerNetworkEngineLan::announceServer()
 {
@@ -33,4 +34,34 @@ void ServerNetworkEngineLan::announceServer()
 void ServerNetworkEngineLan::sendAllUdp(const std::string& data)
 {
 	m_udpConnexion->send(data, boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("225.125.145.155"), m_port));
+}
+void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message)
+{
+	std::string password = message->strings[EngineMessageKey::PASSWORD];
+	std::string pseudo = message->strings[EngineMessageKey::PSEUDO];
+	boost::mutex::scoped_lock(m_mutex_clients);
+	ServerClient* client=nullptr;
+	for(ServerClient &c : m_clients)
+	{
+		if(c.id()==id)
+		{
+        	client=&c;
+		}
+	}
+	if(client==nullptr)
+		return;
+	EngineMessage *messageClient = new EngineMessage(m_manager);
+	messageClient->message       = EngineMessageType::LOGIN_RESULT;
+	if(password != NetworkEngine::SHA1(m_password+client->sel))
+	{
+		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = -1;
+	}
+	else
+	{
+		client->joueur = new Joueur;
+		client->joueur->setNom(pseudo);
+		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+	}
+	client->tcp()->send(serialize(messageClient));
+	delete messageClient;
 }

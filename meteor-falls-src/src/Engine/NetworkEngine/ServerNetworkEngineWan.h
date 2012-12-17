@@ -15,6 +15,7 @@ class ServerNetworkEngineWan : public ServerNetworkEngine
 		void m_handleSendWanInfo(const boost::system::error_code&);
 		SslConnection::pointer m_connexionServerG;
 		bool m_hasSendtoG;
-
+		virtual void m_addNewPlayer(client_id, EngineMessage*);
+		void m_recupererSession(ServerClient*);
 };
 #endif // _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_SERVERNETWORKENGINEWAN_H__

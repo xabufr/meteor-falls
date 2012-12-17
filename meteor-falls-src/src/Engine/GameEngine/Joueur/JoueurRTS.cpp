@@ -5,7 +5,6 @@ JoueurRTS::JoueurRTS(Joueur *j): m_joueur(j)
 {
     //ctor
 }
-
 JoueurRTS::~JoueurRTS()
 {
     //dtor
