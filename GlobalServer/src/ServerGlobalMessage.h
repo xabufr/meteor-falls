@@ -16,7 +16,8 @@ namespace ServerGlobalMessageType{
     LOGOUT = 3,
     SERVER_LIST = 4,
     SERVER_UP = 5,
-    SERVER_DEL = 6;
+    SERVER_DEL = 6,
+	GET_IP_SESSION = 7;
 }
 class ServerGlobalMessage
 {

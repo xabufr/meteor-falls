@@ -5,6 +5,7 @@
 #include "NetworkIpAdressFinder.h"
 #include "../../Utils/Exception/BasicException.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../GameEngine/Joueur/Joueur.h"
 
 ServerNetworkEngineWan::ServerNetworkEngineWan(EngineManager* mng, unsigned short port):
 ServerNetworkEngine(mng, port)
@@ -63,6 +64,40 @@ void ServerNetworkEngineWan::work()
 	{
 		THROW_BASIC_EXCEPTION(m_connexionServerG->getError().message());	
 	}
+	while (m_connexionServerG->hasData())
+	{
+		std::string data = m_connexionServerG->getData();
+		ServerGlobalMessage message;
+		std::istringstream iss(data);
+		boost::archive::text_iarchive ar(iss);
+		ar>>message;
+		if (message.type==ServerGlobalMessageType::GET_IP_SESSION)
+		{
+			boost::mutex::scoped_lock(m_mutex_clients);		
+			ServerClient *cli = nullptr;
+			for(ServerClient &c : m_clients)
+			{
+				if(c.session==message.player.num_session)
+				{
+					cli=&c;
+					break;
+				}
+			}
+			if(cli==nullptr)
+				continue;
+			if(cli->tcp()->socket().remote_endpoint().address().to_string()==message.player.ip)
+			{
+				//On peut ajouter le client
+				cli->isConnected=true;
+				cli->joueur = new Joueur;
+				cli->joueur->setNom(message.player.pseudo);
+				EngineMessage messageLogin(m_manager);
+				messageLogin.message = EngineMessageType::NEW_PLAYER;
+				messageLogin.ints[EngineMessageKey::PLAYER_NUMBER] = cli->id();
+				cli->tcp()->send(serialize(&messageLogin));
+			}
+		}
+	}
 	ServerNetworkEngine::work();
 }
 void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message)
@@ -94,5 +129,11 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
 }
 void ServerNetworkEngineWan::m_recupererSession(ServerClient* sc)
 {
-	
+	ServerGlobalMessage message;
+	message.type               = ServerGlobalMessageType::GET_IP_SESSION;
+	message.player.num_session = sc->session;
+	std::ostringstream os;
+	boost::archive::text_oarchive ar(os);
+	ar << message;
+    m_connexionServerG->send(os.str());
 }

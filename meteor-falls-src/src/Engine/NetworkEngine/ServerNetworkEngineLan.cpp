@@ -60,6 +60,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 	{
 		client->joueur = new Joueur;
 		client->joueur->setNom(pseudo);
+		client->isConnected=true;
 		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 	}
 	client->tcp()->send(serialize(messageClient));

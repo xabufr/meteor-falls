@@ -37,8 +37,11 @@ void ClientNetworkEngine::work()
 				logingIn();
 				break;
 			case EngineMessageType::LOGIN_RESULT:
-				m_state        = CONNECTED;
 				m_playerNumber = message->ints[EngineMessageKey::PLAYER_NUMBER];
+				if(m_playerNumber!=-1)
+					m_state = CONNECTED;
+				else
+					m_state=NONE;
 				break;
 		}
 		delete message;
@@ -75,7 +78,7 @@ void ClientNetworkEngine::logingIn()
 {
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::NEW_PLAYER;
-	mess.strings[EngineMessageKey::PASSWORD] = m_password;
+	mess.strings[EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
 	mess.strings[EngineMessageKey::SESSION] = m_session;
 	m_tcp->send(serialize(&mess));
 }
