@@ -1,24 +1,21 @@
 #include "StateManager.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include "precompiled/sfml_system.h"
+#include "../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "../precompiled/sfml_system.h"
 #include "../Engine/SoundEngine/Playlist.h"
 
 void StateManager::addState(State *p_state)
 {
     m_states.push(p_state);
 }
-
 bool StateManager::isEmpty()
 {
     return m_states.empty();
 }
-
 StateManager::StateManager(): m_graphic(true), m_audio(true)
 {
 
 }
-
 void StateManager::startLoop()
 {     //lance boucle infinie
     m_end = false;
@@ -41,7 +38,6 @@ void StateManager::startLoop()
             m_states.top()->enter();
         }
         code = m_states.top()->work(timer.getElapsedTime().asMilliseconds());
-        timer.restart();
         if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
             removeState();
@@ -52,15 +48,18 @@ void StateManager::startLoop()
 
         if(m_graphic&&!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
             exit();
+		if(timer.getElapsedTime().asMilliseconds() < 1000.f/100.f)
+		{
+			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - timer.getElapsedTime().asMilliseconds()));
+		}
+        timer.restart();
     }
 }
-
 void StateManager::exit()
 {   //arrete la boucle infinie
     m_end = true;
     m_states.top()->exit();
 }
-
 void StateManager::removeState()
 {
     m_states.pop();

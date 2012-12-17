@@ -10,10 +10,15 @@ struct Parameters
 {
 	bool gui, server, verbose;
 	bool server_wan;
+	std::string server_name, server_map;
+	unsigned short server_max_client;
 	Parameters()
 	{
-		server  = false;
-		verbose = false;
+		server  		  = false;
+		verbose 		  = false;
+		server_max_client = 64;
+		server_name       = "Default server name";
+		server_map        = "test";
 	}
 };
 class ApplicationParameters
