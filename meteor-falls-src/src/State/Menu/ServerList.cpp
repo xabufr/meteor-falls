@@ -111,13 +111,16 @@ ret_code ServerList::work(unsigned int time)
                                                             )));
             delete message;
             m_listServer->resetList();
-            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it )
-                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
+            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){
+				CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
                                       +") "+(*it).second->nom
                                       +" "+(*it).second->carte_jouee
                                       +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
                                       +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
-                                      +")", m_listServer->getItemCount()+1, static_cast<void *>((*it).second)));
+                                      +")", m_listServer->getItemCount()+1, static_cast<void*>((*it).second));
+                m_listServer->addItem(item);
+				item->setUserData(it->second);
+			}
         }
         break;
         case WAN:
@@ -138,13 +141,16 @@ ret_code ServerList::work(unsigned int time)
 
             delete message;
             m_listServer->resetList();
-            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it )
-                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
+            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){
+				CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
                                       +") "+(*it).second->nom
                                       +" "+(*it).second->carte_jouee
                                       +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
                                       +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
-                                      +")", m_listServer->getItemCount()+1, (*it).second));
+                                      +")", m_listServer->getItemCount()+1, (*it).second);
+                m_listServer->addItem(item);
+				item->setUserData(it->second);
+			}
         }
         break;
     }
@@ -155,7 +161,7 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
     for (size_t i=0; i<m_listServer->getItemCount(); ++i)
         if (m_listServer->getListboxItemFromIndex(i)->isSelected())
         {
-            Server *server = static_cast<Server*>(m_listServer->getUserData());
+            Server *server = static_cast<Server*>(m_listServer->getListboxItemFromIndex(i)->getUserData());
             switch (m_type)
             {
                 case LAN:

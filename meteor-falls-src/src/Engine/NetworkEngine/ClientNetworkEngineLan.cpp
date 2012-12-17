@@ -17,6 +17,7 @@ void ClientNetworkEngineLan::sendToAllUdp(const EngineMessage& e)
 void ClientNetworkEngineLan::logingIn()
 {
 	EngineMessage mess(m_manager);
+	mess.message = EngineMessageType::NEW_PLAYER;
 	mess.strings[EngineMessageKey::PSEUDO] = "TEST";
 	mess.strings[EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
 	m_tcp->send(serialize(&mess));

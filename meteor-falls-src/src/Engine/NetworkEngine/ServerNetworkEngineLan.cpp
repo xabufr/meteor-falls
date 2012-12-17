@@ -62,6 +62,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 		client->joueur->setNom(pseudo);
 		client->isConnected=true;
 		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+		std::cout << "New player: " << client->id() << std::endl;
 	}
 	client->tcp()->send(serialize(messageClient));
 	delete messageClient;

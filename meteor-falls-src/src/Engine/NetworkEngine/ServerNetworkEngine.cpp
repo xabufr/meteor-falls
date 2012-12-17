@@ -43,6 +43,7 @@ void ServerNetworkEngine::work()
 				switch(message->message)
 				{
 					case EngineMessageType::NEW_PLAYER:
+						m_addNewPlayer(client.id(), message);
 						break;
 				}
                 std::cout << message->strings[FILE_NAME] << std::endl;
@@ -95,7 +96,12 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             conn->setConnected(true);
             conn->startListen();
 			ServerClient &client(m_clients.back());
-        }
+			client.sel = SHA1(client.tcp()->socket().remote_endpoint().address().to_string());
+			EngineMessage messageSalt(m_manager);
+			messageSalt.message = EngineMessageType::SETSALT;
+			messageSalt.strings[EngineMessageKey::SEL] = client.sel;
+			client.tcp()->send(serialize(&messageSalt));
+		}
         m_startAccept();
     }
 }

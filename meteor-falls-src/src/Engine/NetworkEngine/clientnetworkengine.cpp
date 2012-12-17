@@ -42,6 +42,7 @@ void ClientNetworkEngine::work()
 					m_state = CONNECTED;
 				else
 					m_state=NONE;
+				std::cout << "login-result -> " << m_playerNumber << std::endl;
 				break;
 		}
 		delete message;
