@@ -23,6 +23,7 @@ Console::Console() : m_visible(false), m_lines(""), m_id(0), m_admin(false)
 
     m_console = m_window_mgr.createWindow("OgreTray/MultiLineEditbox", "Console");
     m_console->setSize(CEGUI::UVector2(CEGUI::UDim(1, 0), CEGUI::UDim(0.2, 0)));
+    m_console->setAlwaysOnTop(true);
     m_sheet->addChildWindow(m_console);
 
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
@@ -121,17 +122,6 @@ void Console::m_show_old_command(const OIS::KeyEvent &arg)
         --m_id;
     if (arg.key == OIS::KeyCode::KC_DOWN && m_id < m_old_command.size()-1)
         ++m_id;
-
-    std::ostringstream oss;
-    oss << m_console->getText().size();
-
-    m_console->setProperty("CaratIndex", oss.str());
-}
-
-
-std::string Console::getPettern()
-{
-    return m_pattern;
 }
 
 bool Console::isVisible()
@@ -159,6 +149,7 @@ void Console::show()
     m_lines = m_pattern;
     m_sheet->show();
     m_console->setProperty("CaratIndex", "1");
+    m_console->activate();
     m_visible = true;
 }
 
@@ -202,8 +193,8 @@ bool Console::keyPressed(const OIS::KeyEvent& arg)
         else if (arg.key == OIS::KeyCode::KC_LEFT || arg.key == OIS::KeyCode::KC_RIGHT)
             if (m_console->getProperty("CaratIndex") <= boost::lexical_cast<std::string>(m_lines.find_last_of(m_pattern)))
                 m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_lines.find_last_of(m_pattern)+1));
-        if (!m_old_command.empty())
-            if (arg.key == OIS::KeyCode::KC_UP || arg.key == OIS::KeyCode::KC_DOWN)
+        else if (arg.key == OIS::KeyCode::KC_UP || arg.key == OIS::KeyCode::KC_DOWN)
+            if (!m_old_command.empty())
                 m_show_old_command(arg);
 
         m_lines = std::string(m_console->getText().c_str());
@@ -214,6 +205,8 @@ bool Console::keyPressed(const OIS::KeyEvent& arg)
 
 bool Console::keyReleased(const OIS::KeyEvent& arg)
 {
+    if (arg.key == OIS::KeyCode::KC_UP || arg.key == OIS::KeyCode::KC_DOWN)
+        m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
 
@@ -224,7 +217,7 @@ bool Console::mouseMoved(const OIS::MouseEvent& arg)
 
 bool Console::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
 {
-    if (m_console->getProperty("CaratIndex") <= boost::lexical_cast<std::string>(m_console->getText().find_last_of(m_pattern)))
+    if (boost::lexical_cast<int>(m_console->getProperty("CaratIndex")) <= m_console->getText().find_last_of(m_pattern))
                 m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
