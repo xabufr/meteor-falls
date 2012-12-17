@@ -81,6 +81,7 @@
 		<Unit filename="../GlobalServer/src/Admin.cpp" />
 		<Unit filename="../GlobalServer/src/Player.cpp" />
 		<Unit filename="../GlobalServer/src/Server.cpp" />
+		<Unit filename="../GlobalServer/src/ServerGlobalMessage.h" />
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />

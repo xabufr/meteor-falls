@@ -5,6 +5,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "State/Game/GameState.h"
 #include <boost/regex.hpp>
+#include <boost/lexical_cast.hpp>
 #include <sstream>
 
 Console::~Console()
@@ -13,10 +14,8 @@ Console::~Console()
     delete m_console;
 }
 
-Console::Console() : m_visible(false), m_lines("")
+Console::Console() : m_visible(false), m_lines(""), m_id(0), m_admin(false)
 {
-    m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
-
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "FenetreConsole");
@@ -57,6 +56,8 @@ void Console::start()
                 }
             }
             m_commands[i]->use(line);
+            m_old_command.push_back(line);
+            m_id = m_old_command.size()-1;
         }
     }
     m_console->setText(m_console->getText().substr(0, m_console->getText().size()-1)+m_pattern);
@@ -67,7 +68,7 @@ void Console::start()
     m_console->setProperty("CaratIndex", oss.str());
 }
 
-void Console::autoCompletion()
+void Console::m_auto_completion()
 {
     int debut = m_lines.find_last_of(m_pattern);
     m_lines = std::string(m_console->getText().c_str());
@@ -100,6 +101,34 @@ void Console::autoCompletion()
     m_console->setProperty("CaratIndex", oss.str());
 }
 
+void Console::m_show_old_command(const OIS::KeyEvent &arg)
+{
+    char pattern;
+    pattern = (m_admin)?'#':'$';
+
+    if (arg.key == OIS::KeyCode::KC_UP
+        && m_lines.substr(m_lines.find_last_of(pattern), m_old_command.at(m_id).size()) == m_old_command.at(m_id)
+        && m_id > 0)
+        --m_id;
+    if (arg.key == OIS::KeyCode::KC_DOWN
+        && m_lines.substr(m_lines.find_last_of(pattern), m_old_command.at(m_id).size()) == m_old_command.at(m_id)
+        && m_id < m_old_command.size()-1)
+        ++m_id;
+
+    m_console->setText(m_lines.substr(0, m_lines.find_last_of(pattern))+m_old_command.at(m_id));
+
+    if (arg.key == OIS::KeyCode::KC_UP && m_id > 0)
+        --m_id;
+    if (arg.key == OIS::KeyCode::KC_DOWN && m_id < m_old_command.size()-1)
+        ++m_id;
+
+    std::ostringstream oss;
+    oss << m_console->getText().size();
+
+    m_console->setProperty("CaratIndex", oss.str());
+}
+
+
 std::string Console::getPettern()
 {
     return m_pattern;
@@ -113,7 +142,7 @@ bool Console::isVisible()
 void Console::setAdmin(const bool admin)
 {
     m_admin = admin;
-    m_pattern = (admin)?"#":"$";
+    m_pattern = (m_admin)?"#":"$";
 }
 
 
@@ -128,8 +157,8 @@ void Console::show()
 {
     m_console->setText(m_pattern);
     m_lines = m_pattern;
-    m_console->setProperty("CaratIndex", "1");
     m_sheet->show();
+    m_console->setProperty("CaratIndex", "1");
     m_visible = true;
 }
 
@@ -160,19 +189,22 @@ bool Console::keyPressed(const OIS::KeyEvent& arg)
     {
         if (arg.key == OIS::KeyCode::KC_BACK)
         {
-            if (m_lines.substr(m_lines.size()-2, 1) == "$")
+            if ((m_lines.substr(m_lines.size()-2, 1) == "$") || (m_lines.substr(m_lines.size()-2, 1) == "#"))
             {
                 m_console->setText(m_lines);
-                std::ostringstream oss;
-                oss << m_console->getText().size();
-
-                m_console->setProperty("CaratIndex", oss.str());
+                m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
             }
         }
         else if (arg.key == OIS::KeyCode::KC_TAB)
-            autoCompletion();
+            m_auto_completion();
         else if (arg.key == OIS::KeyCode::KC_RETURN)
             start();
+        else if (arg.key == OIS::KeyCode::KC_LEFT || arg.key == OIS::KeyCode::KC_RIGHT)
+            if (m_console->getProperty("CaratIndex") <= boost::lexical_cast<std::string>(m_lines.find_last_of(m_pattern)))
+                m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_lines.find_last_of(m_pattern)+1));
+        if (!m_old_command.empty())
+            if (arg.key == OIS::KeyCode::KC_UP || arg.key == OIS::KeyCode::KC_DOWN)
+                m_show_old_command(arg);
 
         m_lines = std::string(m_console->getText().c_str());
     }
@@ -184,6 +216,24 @@ bool Console::keyReleased(const OIS::KeyEvent& arg)
 {
     return true;
 }
+
+bool Console::mouseMoved(const OIS::MouseEvent& arg)
+{
+    return true;
+}
+
+bool Console::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
+{
+    if (m_console->getProperty("CaratIndex") <= boost::lexical_cast<std::string>(m_console->getText().find_last_of(m_pattern)))
+                m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
+    return true;
+}
+
+bool Console::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
+{
+    return true;
+}
+
 
 CEGUI::Window *Console::getConsole()
 {

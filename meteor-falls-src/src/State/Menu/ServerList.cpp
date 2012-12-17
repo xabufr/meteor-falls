@@ -1,28 +1,40 @@
 #include "ServerList.h"
 #include "../../Engine/NetworkEngine/NetworkEngine.h"
 #include "../../Engine/NetworkEngine/NetworkIpAdressFinder.h"
+#include "../../../../GlobalServer/src/Server.h"
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 #include <boost/regex.hpp>
+#include <sstream>
 
 ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
     m_service(new boost::asio::io_service),
     m_work(new boost::asio::io_service::work(*m_service)),
-    m_visible(false)
+    m_visible(false),
+    m_type(t)
 {
-    m_connection = UdpConnection::create(m_service);
-    switch (t)
+    m_connection_udp = UdpConnection::create(m_service);
+    m_connection_ssl = SslConnection::create(m_service, SslConnection::Type::CLIENT);
+    switch (m_type)
     {
         case LAN:
         {
-            //m_connection->socket()->open(80);
-            m_connection->socket()->set_option(boost::asio::ip::udp::socket::reuse_address(true));
-            m_connection->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address_v4::any(), 8888));
-            m_connection->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
-            m_connection->startListen();
+            m_connection_udp->socket()->set_option(boost::asio::ip::udp::socket::reuse_address(true));
+            m_connection_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address_v4::any(), 8888));
+            m_connection_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+            m_connection_udp->startListen();
         }
         break;
         case WAN:
         {
-            //m_connection->bind(boost::asio::ip::udp::endpoint(getAddress(*m_service, "178.32.103.114"),));
+            m_connection_ssl->connect(boost::asio::ip::tcp::endpoint(getAddress(*m_service, "178.32.103.114"), 6050));
+            if (m_connection_ssl->isConnected())
+            {
+                ServerGlobalMessage *message = new ServerGlobalMessage();
+                message->type = ServerGlobalMessageType::SERVER_LIST;
+                m_connection_ssl->send(m_serialize(message));
+                delete message;
+            }
         }
         break;
     }
@@ -64,38 +76,86 @@ void ServerList::exit()
 }
 ret_code ServerList::work(unsigned int time)
 {
-    if(!m_connection->isConnected())
-        return CONTINUE;
-    if(m_connection->hasError())
+    switch (m_type)
     {
-        std::cout << std::endl << m_connection->getError().message() << std::endl;
-        return CONTINUE;
-    }
-    EngineMessage *message;
-
-    if(m_connection->hasData())
-    {
-        std::cout << "serveur trouvé" << std::endl;
-		auto data = m_connection->getData();
-		std::cout << data.second << std::endl;
-        message = NetworkEngine::deserialize(data.second, 0);
-		std::cout << "message extrait" << std::endl;
-       /* boost::regex expName("^Server ("+m_connection->getData().first.address().to_string()+")[\w]*$");
-        if (boost::regex_match(std::string(m_listServer->findItemWithText("Server ("+m_connection->getData().first.address().to_string()
-                                                        +")"+message->strings[EngineMessageKey::SERVER_NAME]
-                                                        +" "+message->strings[EngineMessageKey::MAP_NAME]
-                                                        +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
-                                                        +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
-                                                        , NULL)->getText().c_str()), expName))
-            return CONTINUE;
-*/
-        m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+data.first.address().to_string()
-                                                        +")"+message->strings[EngineMessageKey::SERVER_NAME]
-                                                        +" "+message->strings[EngineMessageKey::MAP_NAME]
-                                                        +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
-                                                        +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
-                                                        ));
-        delete message;
+        case LAN:
+        {
+            if(!m_connection_udp->isConnected())
+                return CONTINUE;
+            if(m_connection_udp->hasError())
+            {
+                std::cout << std::endl << m_connection_udp->getError().message() << std::endl;
+                return CONTINUE;
+            }
+            if(!m_connection_udp->hasData())
+               return CONTINUE;
+            EngineMessage *message;
+            auto data = m_connection_udp->getData();
+            message = NetworkEngine::deserialize(data.second, 0);
+           /* boost::regex expName("^Server ("+m_connection->getData().first.address().to_string()+")[\w]*$");
+            if (boost::regex_match(std::string(m_listServer->findItemWithText("Server ("+m_connection->getData().first.address().to_string()
+                                                            +")"+message->strings[EngineMessageKey::SERVER_NAME]
+                                                            +" "+message->strings[EngineMessageKey::MAP_NAME]
+                                                            +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
+                                                            +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
+                                                            , NULL)->getText().c_str()), expName))
+                return CONTINUE;
+        */
+            m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+data.first.address().to_string()
+                                                            +")"+message->strings[EngineMessageKey::SERVER_NAME]
+                                                            +" "+message->strings[EngineMessageKey::MAP_NAME]
+                                                            +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
+                                                            +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
+                                                            ));
+            delete message;
+        }
+        break;
+        case WAN:
+        {
+            if (!m_connection_ssl->isConnected())
+                return CONTINUE;
+            if (m_connection_ssl->hasError())
+            {
+                std::cout << std::endl << m_connection_ssl->getError().message() << std::endl;
+                return CONTINUE;
+            }
+            if (m_connection_ssl->hasData())
+                return CONTINUE;
+            ServerGlobalMessage* message;
+            message = m_deserialize(m_connection_ssl->getData());
+            for (Server s : message->servers)
+            {
+                std::ostringstream joueur_connectes;
+                joueur_connectes << s.nombre_joueurs_connectes;
+                std::ostringstream joueur_max;
+                joueur_max << s.nombre_joueurs_max;
+                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+s.ip
+                                                            +")"+s.nom
+                                                            +" "+s.carte_jouee
+                                                            +" "+joueur_connectes.str()
+                                                            +"/"+joueur_max.str()
+                                                            ));
+            }
+            delete message;
+        }
+        break;
     }
     return CONTINUE;
+}
+
+std::string ServerList::m_serialize(const ServerGlobalMessage *message)
+{
+    std::ostringstream os;
+    boost::archive::text_oarchive archive(os);
+    archive << *message;
+    return os.str();
+}
+
+ServerGlobalMessage* ServerList::m_deserialize(const std::string &data)
+{
+    ServerGlobalMessage *message = new ServerGlobalMessage();
+    std::istringstream iss(data);
+    boost::archive::text_iarchive archive(iss);
+    archive >> *message;
+    return message;
 }
