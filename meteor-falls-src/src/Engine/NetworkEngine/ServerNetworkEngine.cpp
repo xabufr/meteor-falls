@@ -1,6 +1,7 @@
 #include "ServerNetworkEngine.h"
 #include <iostream>
 #include "../EngineMessage/EngineMessage.h"
+#include "../../precompiled/lexical_cast.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -96,7 +97,8 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             conn->setConnected(true);
             conn->startListen();
 			ServerClient &client(m_clients.back());
-			client.sel = SHA1(client.tcp()->socket().remote_endpoint().address().to_string());
+			client.sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
+							client.tcp()->socket().remote_endpoint().address().to_string());
 			EngineMessage messageSalt(m_manager);
 			messageSalt.message = EngineMessageType::SETSALT;
 			messageSalt.strings[EngineMessageKey::SEL] = client.sel;
