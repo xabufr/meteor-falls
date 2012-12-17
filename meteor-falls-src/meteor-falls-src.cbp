@@ -222,6 +222,8 @@
 		<Unit filename="src/State/Console.h" />
 		<Unit filename="src/State/Game/GameState.cpp" />
 		<Unit filename="src/State/Game/GameState.h" />
+		<Unit filename="src/State/Menu/CreditState.cpp" />
+		<Unit filename="src/State/Menu/CreditState.h" />
 		<Unit filename="src/State/Menu/LoginState.cpp" />
 		<Unit filename="src/State/Menu/LoginState.h" />
 		<Unit filename="src/State/Menu/MenuState.cpp" />
