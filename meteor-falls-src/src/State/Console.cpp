@@ -122,6 +122,8 @@ void Console::m_show_old_command(const OIS::KeyEvent &arg)
         --m_id;
     if (arg.key == OIS::KeyCode::KC_DOWN && m_id < m_old_command.size()-1)
         ++m_id;
+
+    m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
 }
 
 bool Console::isVisible()
