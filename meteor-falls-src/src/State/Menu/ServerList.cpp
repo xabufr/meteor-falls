@@ -5,6 +5,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/regex.hpp>
+#include <boost/lexical_cast.hpp>
 #include <sstream>
 
 ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
@@ -43,9 +44,12 @@ ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
     m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("OgreTray/Listbox", "ListServerLan");
-    m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.80, 0)));
-    //m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
-                                         //CEGUI::UDim(0+(m_window->getSize().d_y.d_scale/m_window->getChildCount()), 0)));
+    m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
+    m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
+                                         CEGUI::UDim((m_listServer->getSize().d_y.d_scale
+                                                        /(CEGUI::System::getSingleton().getGUISheet()->getChildCount()+1)), 0)));
+    m_listServer->setMultiselectEnabled(false);
+    m_listServer->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&ServerList::m_item_selected, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_listServer);
     m_listServer->hide();
 }
@@ -92,22 +96,26 @@ ret_code ServerList::work(unsigned int time)
             EngineMessage *message;
             auto data = m_connection_udp->getData();
             message = NetworkEngine::deserialize(data.second, 0);
-           /* boost::regex expName("^Server ("+m_connection->getData().first.address().to_string()+")[\w]*$");
-            if (boost::regex_match(std::string(m_listServer->findItemWithText("Server ("+m_connection->getData().first.address().to_string()
-                                                            +")"+message->strings[EngineMessageKey::SERVER_NAME]
-                                                            +" "+message->strings[EngineMessageKey::MAP_NAME]
-                                                            +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
-                                                            +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
-                                                            , NULL)->getText().c_str()), expName))
-                return CONTINUE;
-        */
-            m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+data.first.address().to_string()
-                                                            +")"+message->strings[EngineMessageKey::SERVER_NAME]
-                                                            +" "+message->strings[EngineMessageKey::MAP_NAME]
-                                                            +" "+message->strings[EngineMessageKey::PLAYER_NUMBER]
-                                                            +"/"+message->strings[EngineMessageKey::MAX_PLAYERS]
-                                                            ));
+
+            m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
+                                                            std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+                                                            std::string(""),
+                                                            message->ints[EngineMessageKey::MAX_PLAYERS],
+                                                            message->ints[EngineMessageKey::PLAYER_NUMBER],
+                                                            false,
+                                                            std::string(message->strings[EngineMessageKey::MAP_NAME]),
+                                                            std::string(""),
+                                                            0.0
+                                                            )));
             delete message;
+            m_listServer->resetList();
+            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it )
+                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
+                                      +") "+(*it).second->nom
+                                      +" "+(*it).second->carte_jouee
+                                      +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
+                                      +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
+                                      +")", m_listServer->getItemCount()+1, static_cast<void *>((*it).second)));
         }
         break;
         case WAN:
@@ -119,29 +127,36 @@ ret_code ServerList::work(unsigned int time)
                 std::cout << std::endl << m_connection_ssl->getError().message() << std::endl;
                 return CONTINUE;
             }
-            if (m_connection_ssl->hasData())
+            if (!m_connection_ssl->hasData())
                 return CONTINUE;
             ServerGlobalMessage* message;
             message = m_deserialize(m_connection_ssl->getData());
             for (Server s : message->servers)
-            {
-                std::ostringstream joueur_connectes;
-                joueur_connectes << s.nombre_joueurs_connectes;
-                std::ostringstream joueur_max;
-                joueur_max << s.nombre_joueurs_max;
-                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+s.ip
-                                                            +")"+s.nom
-                                                            +" "+s.carte_jouee
-                                                            +" "+joueur_connectes.str()
-                                                            +"/"+joueur_max.str()
-                                                            ));
-            }
+                m_servers.insert(std::pair<std::string, Server*>(s.ip, &s));
+
             delete message;
+            m_listServer->resetList();
+            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it )
+                m_listServer->addItem(new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
+                                      +") "+(*it).second->nom
+                                      +" "+(*it).second->carte_jouee
+                                      +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
+                                      +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
+                                      +")", m_listServer->getItemCount()+1, (*it).second));
         }
         break;
     }
     return CONTINUE;
 }
+bool ServerList::m_item_selected(const CEGUI::EventArgs&)
+{
+    for (size_t i=0; i<m_listServer->getItemCount(); ++i)
+        if (m_listServer->getListboxItemFromIndex(i)->isSelected())
+            std::cout << std::string(m_listServer->getListboxItemFromIndex(i)->getText().c_str()) << std::endl;
+    return true;
+}
+
+
 
 std::string ServerList::m_serialize(const ServerGlobalMessage *message)
 {
@@ -158,4 +173,18 @@ ServerGlobalMessage* ServerList::m_deserialize(const std::string &data)
     boost::archive::text_iarchive archive(iss);
     archive >> *message;
     return message;
+}
+bool ServerList::mouseMoved(const OIS::MouseEvent& arg)
+{
+    return true;
+}
+
+bool ServerList::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    return true;
+}
+
+bool ServerList::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    return true;
 }

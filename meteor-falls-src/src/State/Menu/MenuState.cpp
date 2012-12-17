@@ -123,7 +123,7 @@ bool MenuState::startGame()
 bool MenuState::showLanServer()
 {
 
-    m_sousState = new ServerList(ServerList::Type::WAN, m_state_manager);
+    m_sousState = new ServerList(ServerList::Type::LAN, m_state_manager);
     m_sousState->enter();
 
     return true;
@@ -170,8 +170,8 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->yaw(Ogre::Degree(90));
     terreAtmosphere->roll(Ogre::Degree(90));
 
-    m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
-    m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
+    m_nodeTerre->yaw(Ogre::Degree(6.f*float(time)*0.001));
+    m_nodeLune->yaw(Ogre::Degree(6.f*float(time)*0.001));
 
     if (m_sousState==0 || !m_sousState->isVisible())
     {
