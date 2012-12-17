@@ -6,7 +6,6 @@
 #include "TcpConnection.h"
 #include "UdpConnection.h"
 
-
 class NetworkEngine : public Engine
 {
 public:
@@ -22,6 +21,7 @@ public:
     static std::string serialize(const EngineMessage*);
     static EngineMessage* deserialize(const std::string &, EngineManager*);
     EngineMessage* deserialize(const std::string &);
+	static std::string SHA1(const std::string &);
 protected:
     boost::shared_ptr<boost::asio::io_service> m_service;
     boost::shared_ptr<boost::asio::io_service::work> m_work;

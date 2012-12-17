@@ -8,7 +8,7 @@
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
-        ClientNetworkEngine(EngineManager*);
+        ClientNetworkEngine(EngineManager*, const std::string& address, unsigned short port, const std::string& password);
         virtual ~ClientNetworkEngine();
 
         virtual void work();
@@ -19,13 +19,15 @@ class ClientNetworkEngine : public NetworkEngine
 
         void connect(std::string, unsigned short);
         int getState() const;
+		virtual void logingIn();
     protected:
-    private:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
 
         boost::asio::ip::address m_serverAddress;
         unsigned short m_port;
+		std::string m_password, m_salt, m_session;
+		unsigned int m_playerNumber;
 
         enum ClientNetworkEngineState{
             CONNECTING,

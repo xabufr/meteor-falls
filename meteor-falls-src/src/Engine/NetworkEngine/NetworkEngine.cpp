@@ -2,7 +2,7 @@
 #include "../../precompiled/serialization.h"
 #include "../EngineMessage/EngineMessage.h"
 #include <iostream>
-
+#include <boost/uuid/sha1.hpp>
 
 EngineType NetworkEngine::getType()
 {
@@ -36,7 +36,6 @@ EngineMessage* NetworkEngine::deserialize(const std::string& data)
 {
     return deserialize(data, m_manager);
 }
-
 EngineMessage* NetworkEngine::deserialize(const std::string& data, EngineManager* mng)
 {
     EngineMessage *message = new EngineMessage(mng);
@@ -45,9 +44,19 @@ EngineMessage* NetworkEngine::deserialize(const std::string& data, EngineManager
     archive >> *message;
     return message;
 }
-
-
 void NetworkEngine::setEngineManager(EngineManager *mng)
 {
     m_manager=mng;
+}
+std::string NetworkEngine::SHA1(const std::string& chaine)
+{
+	boost::uuids::detail::sha1 sha1; 
+	sha1.process_bytes(chaine.c_str(), chaine.length());
+	unsigned int hash[5];
+	sha1.get_digest(hash);
+	std::ostringstream os;
+	os << std::hex << std::setfill('0') << std::setw(sizeof(int)*2);
+	for(int i=0; i<5;++i)
+		os << hash[i];
+	return os.str();
 }

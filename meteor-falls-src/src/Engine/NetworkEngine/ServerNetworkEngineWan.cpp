@@ -4,6 +4,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include "NetworkIpAdressFinder.h"
 #include "../../Utils/Exception/BasicException.h"
+#include "../EngineMessage/EngineMessage.h"
 
 ServerNetworkEngineWan::ServerNetworkEngineWan(EngineManager* mng, unsigned short port):
 ServerNetworkEngine(mng, port)
@@ -63,4 +64,35 @@ void ServerNetworkEngineWan::work()
 		THROW_BASIC_EXCEPTION(m_connexionServerG->getError().message());	
 	}
 	ServerNetworkEngine::work();
+}
+void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message)
+{
+	std::string password = message->strings[EngineMessageKey::PASSWORD];
+	std::string session = message->strings[EngineMessageKey::SESSION];
+	boost::mutex::scoped_lock(m_mutex_clients);
+	ServerClient* client=nullptr;
+	for(ServerClient &c : m_clients)
+	{
+		if(c.id()==id)
+		{
+        	client=&c;
+		}
+	}
+	if(client==nullptr)
+		return;
+	if(password == SHA1(password+client->sel))
+	{
+		client->session = session;
+	}
+	else
+	{
+		EngineMessage message(m_manager);
+		message.message = EngineMessageType::LOGIN_RESULT;
+		message.ints[EngineMessageKey::PLAYER_NUMBER] = -1;
+		client->tcp()->send(serialize(&message));
+	}
+}
+void ServerNetworkEngineWan::m_recupererSession(ServerClient* sc)
+{
+	
 }

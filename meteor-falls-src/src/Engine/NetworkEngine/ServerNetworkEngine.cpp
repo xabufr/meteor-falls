@@ -40,8 +40,11 @@ void ServerNetworkEngine::work()
             while(client.tcp()->hasData())
             {
                 message = NetworkEngine::deserialize(client.tcp()->getData());
-                messages.push_back(message);
-
+				switch(message->message)
+				{
+					case EngineMessageType::NEW_PLAYER:
+						break;
+				}
                 std::cout << message->strings[FILE_NAME] << std::endl;
             }
             while(client.tcp()->hasError())
@@ -54,7 +57,26 @@ void ServerNetworkEngine::work()
 	{
 			std::cout << m_udpConnexion->getError().message() << std::endl;
 	}
-
+	while(m_udpConnexion->hasData())
+	{
+		auto data = m_udpConnexion->getData();
+		boost::asio::ip::address adr = data.first.address();
+		bool isClient=false;
+		client_id cli_id;
+		for(ServerClient client : clients)
+		{
+			if(client.tcp()->socket().remote_endpoint().address()==adr)
+			{
+				isClient = true;
+				cli_id   = client.id();
+				break;
+			}
+		}
+		if(!isClient)
+			continue;
+		EngineMessage *message = deserialize(data.second);
+		delete message;
+	}
 }
 void ServerNetworkEngine::m_startAccept()
 {
@@ -72,6 +94,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             m_clients.push_back(ServerClient(conn, m_lastClient++));
             conn->setConnected(true);
             conn->startListen();
+			ServerClient &client(m_clients.back());
         }
         m_startAccept();
     }
@@ -117,7 +140,6 @@ void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* mes
             c.tcp()->send(data);
     }
 }
-
 void ServerNetworkEngine::setServerName(const std::string& name)
 {
 	m_server_name=name;	
@@ -130,5 +152,3 @@ void ServerNetworkEngine::setMapName(const std::string& name)
 {
 	m_map_name=name;	
 }
-
-
