@@ -26,8 +26,12 @@ void StateManager::startLoop()
     Playlist *pl;
     if(m_audio)
         pl = Playlist::get();
+
+    size_t time;
     while(!m_end&&!m_states.empty())
     {
+        time = timer.getElapsedTime().asMilliseconds();
+        timer.restart();
         if(m_audio)
             pl->work();
 
@@ -37,7 +41,7 @@ void StateManager::startLoop()
             last = m_states.top();
             m_states.top()->enter();
         }
-        code = m_states.top()->work(timer.getElapsedTime().asMilliseconds());
+        code = m_states.top()->work(time);
         if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
             removeState();
@@ -48,11 +52,10 @@ void StateManager::startLoop()
 
         if(m_graphic&&!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
             exit();
-		if(timer.getElapsedTime().asMilliseconds() < 1000.f/100.f)
+		if(time < 1000.f/100.f)
 		{
-			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - timer.getElapsedTime().asMilliseconds()));
+			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - time));
 		}
-        timer.restart();
     }
 }
 void StateManager::exit()

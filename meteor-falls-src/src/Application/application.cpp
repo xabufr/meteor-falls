@@ -8,6 +8,7 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
 {
     if(!m_params.parametres.server){
         StateManager manager;
+        manager.setAudio(false);
         manager.addState(new MenuState(&manager));
         manager.startLoop();
     }
