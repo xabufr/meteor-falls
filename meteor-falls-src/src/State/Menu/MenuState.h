@@ -21,6 +21,7 @@ class MenuState: public State
         bool quit(const CEGUI::EventArgs &);
         bool startGame();
         bool showLanServer();
+        bool showCredit();
 
     public:
         MenuState(StateManager*);

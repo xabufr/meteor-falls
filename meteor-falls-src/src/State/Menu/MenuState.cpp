@@ -1,6 +1,7 @@
 #include <string>
 #include "MenuState.h"
 #include "LoginState.h"
+#include "CreditState.h"
 #include "State/Console.h"
 #include "State/Command/Connect.h"
 #include "State/Command/MenuState/ExitMenuState.h"
@@ -129,6 +130,15 @@ bool MenuState::showLanServer()
     return true;
 }
 
+bool MenuState::showCredit()
+{
+
+    m_sousState = new CreditState(m_state_manager);
+    m_sousState->enter();
+
+    return true;
+}
+
 void MenuState::enter()
 {
     OgreContextManager::get()->getInputManager()->addKeyboardListener(Console::get());
@@ -207,6 +217,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeSoleil->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showCredit, this);
                 }
             }
             else if(selected==m_eLune)

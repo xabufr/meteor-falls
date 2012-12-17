@@ -16,7 +16,6 @@ class Console : public Singleton<Console>, public OIS::KeyListener, public OIS::
     public:
         void show();
         void hide();
-        std::string getPettern();
         bool isVisible();
         void setAdmin(const bool);
         void clearCommands();
