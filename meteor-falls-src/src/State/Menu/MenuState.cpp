@@ -123,7 +123,7 @@ bool MenuState::startGame()
 bool MenuState::showLanServer()
 {
 
-    m_sousState = new ServerList(ServerList::Type::LAN, m_state_manager);
+    m_sousState = new ServerList(ServerList::Type::WAN, m_state_manager);
     m_sousState->enter();
 
     return true;
@@ -132,6 +132,7 @@ bool MenuState::showLanServer()
 void MenuState::enter()
 {
     OgreContextManager::get()->getInputManager()->addKeyboardListener(Console::get());
+    OgreContextManager::get()->getInputManager()->addMouseListener(Console::get());
 
     //initialisation des commandes
     Console::get()->clearCommands();
