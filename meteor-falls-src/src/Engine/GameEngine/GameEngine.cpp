@@ -23,8 +23,11 @@ void GameEngine::work()
     if(m_map->getLoaded() == true)
     {
         if (m_type == Type::CLIENT)
+        {
             if (m_sous_state == nullptr)
                 m_sous_state = new TeamList(nullptr, this);
+            m_sous_state->work(0);
+        }
         m_map->update();
     }
 }

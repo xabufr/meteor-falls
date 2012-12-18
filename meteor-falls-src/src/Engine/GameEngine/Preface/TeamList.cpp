@@ -1,4 +1,5 @@
 #include "TeamList.h"
+#include "../Factions/Equipe.h"
 
 TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
 m_visible(true),
@@ -40,7 +41,18 @@ void TeamList::exit()
 
 ret_code TeamList::work(unsigned int time)
 {
-
+    if (!m_game_engine->getTeams().empty())
+    {
+        m_list_team->resetList();
+        for (Equipe* e : m_game_engine->getTeams())
+        {
+            CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Team"+e->id());
+                item->setSelected(false);
+                m_list_team->addItem(item);
+				item->setUserData(e);
+        }
+    }
+    return CONTINUE;
 }
 
 bool TeamList::m_item_selected(const CEGUI::EventArgs&)

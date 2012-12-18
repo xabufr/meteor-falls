@@ -8,7 +8,7 @@ class JoueurLan : public Joueur
     public:
         JoueurLan();
         ~JoueurLan();
-        virtual const std::string& getType(){return "LAN";};
+        virtual const Type getType(){return Type::LAN;};
 };
 
 #endif // JOUEURLAN_H_INCLUDED
