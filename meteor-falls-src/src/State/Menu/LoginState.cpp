@@ -153,6 +153,7 @@ bool LoginState::send(const CEGUI::EventArgs &)
         m_message->setText((CEGUI::utf8*)("Connection établie."));
         *m_player = new JoueurWan();
         (*m_player)->setNom(std::string(m_login->getText().c_str()));
+        (*m_player)->setNom(log->getPlayer()->num_session);
         this->exit();
     }
     else
