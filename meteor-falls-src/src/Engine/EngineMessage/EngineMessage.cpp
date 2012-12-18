@@ -23,7 +23,7 @@ void EngineMessage::addTo(Engine* p_to){
 }
 void EngineMessage::addToType(EngineType p_to_type){
     size_t i;
-    for(i=0;i<=m_to_type.size();i++){
+    for(i=0;i<m_to_type.size();i++){
         if(p_to_type == m_to_type[i]){
             return ;
         }

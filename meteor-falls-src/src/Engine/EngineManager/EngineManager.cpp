@@ -38,9 +38,11 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
     m_type(t),
     m_sound(0)
 {
+	if(t==Type::SERVER||t==Type::SERVER_LAN)
+		OgreContextManager::createGraphics = false;
+    m_graphic = new GraphicEngine(this);
     if(t==Type::CLIENT||t==Type::CLIENT_LAN)
     {
-        m_graphic = new GraphicEngine(this);
         OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(this);
     }
 

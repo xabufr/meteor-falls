@@ -45,6 +45,9 @@ void ServerNetworkEngine::work()
 				{
 					case EngineMessageType::NEW_PLAYER:
 						m_addNewPlayer(client.id(), message);
+						EngineMessage *messageMap = m_createMapMessage();
+						client.tcp()->send(serialize(messageMap));
+						delete messageMap;
 						break;
 				}
                 std::cout << message->strings[FILE_NAME] << std::endl;
@@ -159,4 +162,12 @@ void ServerNetworkEngine::setMaxClients(unsigned short number)
 void ServerNetworkEngine::setMapName(const std::string& name)
 {
 	m_map_name=name;	
+}
+EngineMessage* ServerNetworkEngine::m_createMapMessage()
+{
+	EngineMessage* message = new EngineMessage(m_manager);
+	message->message = EngineMessageType::LOAD_MAP;
+	message->strings[EngineMessageKey::MAP_NAME] = m_map_name;
+	message->addToType(EngineType::GameEngineType);
+	return message;
 }

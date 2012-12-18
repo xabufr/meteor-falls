@@ -50,8 +50,6 @@ private:
         GraphicEngine *m_graphic;
         NetworkEngine *m_network;
         GameEngine *m_game;
-
-
 };
 
 #endif // ENGINEMANAGER_H

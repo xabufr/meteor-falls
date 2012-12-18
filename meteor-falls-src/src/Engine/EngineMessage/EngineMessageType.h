@@ -15,7 +15,8 @@ enum EngineMessageType
     TEAM_MESSAGE    = 8,
     GLOBAL_MESSAGE  = 9,
 	SETSALT         = 10,
-	LOGIN_RESULT     = 11
+	LOGIN_RESULT    = 11,
+	LOAD_MAP        = 12
 };
 
 #endif // ENGINEMESSAGETYPE_H

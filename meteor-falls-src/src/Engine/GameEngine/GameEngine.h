@@ -20,6 +20,8 @@ class GameEngine : public Engine
         virtual void work();
         virtual EngineType getType();
 
+		void loadMap(const std::string &);
+
     protected:
 
     private:
