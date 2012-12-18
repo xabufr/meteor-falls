@@ -34,7 +34,7 @@ void EngineManager::work()
 		m_game->work();
     }
 }
-EngineManager::EngineManager(Type t, const std::string& address, const std::string& password):
+EngineManager::EngineManager(Type t, const std::string& address, const std::string& password, Joueur *j):
     m_type(t),
     m_sound(0)
 {

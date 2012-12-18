@@ -3,6 +3,7 @@
 
 #include "Engine/NetworkEngine/SslConnection.h"
 #include "../../../GlobalServer/src/ServerGlobalMessage.h"
+#include "../../../GlobalServer/src/Player.h"
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>
@@ -14,6 +15,7 @@ class ClientLogin
         ClientLogin(unsigned short, std::string, std::string);
         ~ClientLogin();
         bool isLogin();
+        Player *getPlayer();
     protected:
         boost::shared_ptr<boost::asio::io_service> m_service;
         boost::shared_ptr<boost::asio::io_service::work> m_work;
@@ -22,6 +24,7 @@ class ClientLogin
         boost::thread m_service_thread;
         void m_run();
         bool m_login;
+        Player *m_player;
         std::string m_serialize(const ServerGlobalMessage *message);
         ServerGlobalMessage* m_deserialize(const std::string &data);
 };

@@ -9,11 +9,12 @@
 #include <boost/lexical_cast.hpp>
 #include <sstream>
 
-ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
+ServerList::ServerList(Type t, StateManager *mgr, Joueur *j) : State(mgr),
     m_service(new boost::asio::io_service),
     m_work(new boost::asio::io_service::work(*m_service)),
     m_visible(false),
     m_state_mgr(mgr),
+    m_player(j),
     m_type(t)
 {
     m_connection_udp = UdpConnection::create(m_service);
@@ -49,7 +50,7 @@ ServerList::ServerList(Type t, StateManager *mgr) : State(mgr),
     m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
     m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim((m_listServer->getSize().d_y.d_scale
-                                                        /(CEGUI::System::getSingleton().getGUISheet()->getChildCount()+1)), 0)));
+                                                        /2), 0)));
     m_listServer->setMultiselectEnabled(false);
     m_listServer->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&ServerList::m_item_selected, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_listServer);
@@ -118,6 +119,7 @@ ret_code ServerList::work(unsigned int time)
                                       +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
                                       +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
                                       +")", m_listServer->getItemCount()+1, static_cast<void*>((*it).second));
+                item->setSelected(false);
                 m_listServer->addItem(item);
 				item->setUserData(it->second);
 			}
@@ -148,6 +150,7 @@ ret_code ServerList::work(unsigned int time)
                                       +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
                                       +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
                                       +")", m_listServer->getItemCount()+1, (*it).second);
+                item->setSelected(false);
                 m_listServer->addItem(item);
 				item->setUserData(it->second);
 			}
@@ -165,7 +168,7 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
             switch (m_type)
             {
                 case LAN:
-                    m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, server->ip));
+                    m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, server->ip, "", m_player));
                     break;
                 case WAN:
                     break;

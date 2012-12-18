@@ -1,7 +1,5 @@
 #include <string>
 #include "MenuState.h"
-#include "LoginState.h"
-#include "CreditState.h"
 #include "State/Console.h"
 #include "State/Command/Connect.h"
 #include "State/Command/MenuState/ExitMenuState.h"
@@ -93,12 +91,26 @@ MenuState::MenuState(StateManager* mng):
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
 
+    m_state = m_window_mgr.createWindow("OgreTray/StaticText", "TextState");
+    m_state->setSize(CEGUI::UVector2(CEGUI::UDim(0.10, 0), CEGUI::UDim(0.10, 0)));
+    m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
+    m_state->setProperty("HorzFormatting", "WordWrapCentred");
+    m_sheet->addChildWindow(m_state);
+    m_state->hide();
+
     CEGUI::System::getSingleton().setGUISheet(m_sheet);
 
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
-    m_sousState = new LoginState(m_state_manager);
+    m_player = new Joueur();
+
+    m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, m_player);
+    m_credit_state = new CreditState(m_state_manager);
+    m_login_state = new LoginState(m_state_manager, &m_player);
+
+    m_sousState = m_login_state;
+
 
     Playlist::loadFile("data/playlist.xml");
 
@@ -108,6 +120,11 @@ MenuState::~MenuState()
 {
     delete m_background;
     delete m_sousState;
+    delete m_credit_state;
+    delete m_server_list;
+    delete m_login_state;
+    delete m_player;
+    delete m_state;
 }
 
 bool MenuState::quit(const CEGUI::EventArgs &)
@@ -117,14 +134,14 @@ bool MenuState::quit(const CEGUI::EventArgs &)
 }
 bool MenuState::startGame()
 {
-    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
+    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN, "", "", m_player));
     return true;
 }
 
 bool MenuState::showLanServer()
 {
-
-    m_sousState = new ServerList(ServerList::Type::LAN, m_state_manager);
+    m_state->show();
+    m_sousState = m_server_list;
     m_sousState->enter();
 
     return true;
@@ -132,12 +149,20 @@ bool MenuState::showLanServer()
 
 bool MenuState::showCredit()
 {
-
-    m_sousState = new CreditState(m_state_manager);
+    m_state->hide();
+    m_sousState = m_credit_state;
     m_sousState->enter();
 
     return true;
 }
+
+bool MenuState::m_hide_sous_state()
+{
+    m_sousState->exit();
+
+    return true;
+}
+
 
 void MenuState::enter()
 {
@@ -186,6 +211,13 @@ ret_code MenuState::work(unsigned int time)
     if (m_sousState==0 || !m_sousState->isVisible())
     {
         /*Piking*/
+        if (!m_player->getNom().empty())
+        {
+            m_state->setText(m_player->getNom());
+            m_state->setSize(CEGUI::UVector2(CEGUI::UDim((m_state->getText().size()*0.05), 0), CEGUI::UDim(0.10, 0)));
+            m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
+        }
+        m_state->show();
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
                      height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
@@ -240,6 +272,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = Ogre::Vector3(0,0,10);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
                 }
             }
         }

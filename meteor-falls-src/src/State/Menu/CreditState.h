@@ -16,6 +16,7 @@ class CreditState : public State
         virtual ret_code work(unsigned int time);
     private:
         CEGUI::Window *m_credit;
+        int m_nbr_loop;
         bool m_visible;
 };
 #endif // CREDITSTATE_H_INCLUDED

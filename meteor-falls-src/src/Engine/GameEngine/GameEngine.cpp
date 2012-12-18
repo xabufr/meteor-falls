@@ -11,7 +11,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 }
 GameEngine::~GameEngine()
 {
-  //  delete m_map;
+    delete m_map;
 }
 void GameEngine::handleMessage(const EngineMessage&)
 {
@@ -28,7 +28,7 @@ EngineType GameEngine::getType()
 }
 void GameEngine::loadMap(const std::string &map_name)
 {
-	m_map->load(map_name);	
+	m_map->load(map_name);
 }
 const std::vector<Equipe*>& GameEngine::getTeams() const
 {

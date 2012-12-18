@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../EngineType.h"
+#include "../GameEngine/Joueur/Joueur.h"
 #include <OgreFrameListener.h>
 
 class SoundEngine;
@@ -31,7 +32,7 @@ private:
     Type m_type;
 
     public:
-        EngineManager(Type t, const std::string& address = "", const std::string& password = "");
+        EngineManager(Type t, const std::string& address = "", const std::string& password = "", Joueur *j=0);
         ~EngineManager();
         Engine* get(EngineType p_engine_type);
         void work();
