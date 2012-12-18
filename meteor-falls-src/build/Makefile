@@ -594,6 +594,30 @@ src/Engine/GameEngine/Joueur/Joueur.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.s
 .PHONY : src/Engine/GameEngine/Joueur/Joueur.cpp.s
 
+src/Engine/GameEngine/Joueur/JoueurLan.o: src/Engine/GameEngine/Joueur/JoueurLan.cpp.o
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.o
+
+# target to build an object file
+src/Engine/GameEngine/Joueur/JoueurLan.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.cpp.o
+
+src/Engine/GameEngine/Joueur/JoueurLan.i: src/Engine/GameEngine/Joueur/JoueurLan.cpp.i
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Joueur/JoueurLan.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.i
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.cpp.i
+
+src/Engine/GameEngine/Joueur/JoueurLan.s: src/Engine/GameEngine/Joueur/JoueurLan.cpp.s
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Joueur/JoueurLan.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.s
+.PHONY : src/Engine/GameEngine/Joueur/JoueurLan.cpp.s
+
 src/Engine/GameEngine/Joueur/JoueurRPG.o: src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o
 .PHONY : src/Engine/GameEngine/Joueur/JoueurRPG.o
 
@@ -641,6 +665,30 @@ src/Engine/GameEngine/Joueur/JoueurRTS.s: src/Engine/GameEngine/Joueur/JoueurRTS
 src/Engine/GameEngine/Joueur/JoueurRTS.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.s
 .PHONY : src/Engine/GameEngine/Joueur/JoueurRTS.cpp.s
+
+src/Engine/GameEngine/Joueur/JoueurWan.o: src/Engine/GameEngine/Joueur/JoueurWan.cpp.o
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.o
+
+# target to build an object file
+src/Engine/GameEngine/Joueur/JoueurWan.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.cpp.o
+
+src/Engine/GameEngine/Joueur/JoueurWan.i: src/Engine/GameEngine/Joueur/JoueurWan.cpp.i
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Joueur/JoueurWan.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.i
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.cpp.i
+
+src/Engine/GameEngine/Joueur/JoueurWan.s: src/Engine/GameEngine/Joueur/JoueurWan.cpp.s
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Joueur/JoueurWan.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.s
+.PHONY : src/Engine/GameEngine/Joueur/JoueurWan.cpp.s
 
 src/Engine/GameEngine/Map/Map.o: src/Engine/GameEngine/Map/Map.cpp.o
 .PHONY : src/Engine/GameEngine/Map/Map.o
@@ -1794,6 +1842,30 @@ src/State/Game/GameState.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Game/GameState.cpp.s
 .PHONY : src/State/Game/GameState.cpp.s
 
+src/State/Menu/CreditState.o: src/State/Menu/CreditState.cpp.o
+.PHONY : src/State/Menu/CreditState.o
+
+# target to build an object file
+src/State/Menu/CreditState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.o
+.PHONY : src/State/Menu/CreditState.cpp.o
+
+src/State/Menu/CreditState.i: src/State/Menu/CreditState.cpp.i
+.PHONY : src/State/Menu/CreditState.i
+
+# target to preprocess a source file
+src/State/Menu/CreditState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.i
+.PHONY : src/State/Menu/CreditState.cpp.i
+
+src/State/Menu/CreditState.s: src/State/Menu/CreditState.cpp.s
+.PHONY : src/State/Menu/CreditState.s
+
+# target to generate assembly for a file
+src/State/Menu/CreditState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.s
+.PHONY : src/State/Menu/CreditState.cpp.s
+
 src/State/Menu/LoginState.o: src/State/Menu/LoginState.cpp.o
 .PHONY : src/State/Menu/LoginState.o
 
@@ -2223,12 +2295,18 @@ help:
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.o"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.i"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.s"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurLan.o"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurLan.i"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurLan.s"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRPG.o"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRPG.i"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRPG.s"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRTS.o"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRTS.i"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurRTS.s"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.o"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.i"
+	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.s"
 	@echo "... src/Engine/GameEngine/Map/Map.o"
 	@echo "... src/Engine/GameEngine/Map/Map.i"
 	@echo "... src/Engine/GameEngine/Map/Map.s"
@@ -2373,6 +2451,9 @@ help:
 	@echo "... src/State/Game/GameState.o"
 	@echo "... src/State/Game/GameState.i"
 	@echo "... src/State/Game/GameState.s"
+	@echo "... src/State/Menu/CreditState.o"
+	@echo "... src/State/Menu/CreditState.i"
+	@echo "... src/State/Menu/CreditState.s"
 	@echo "... src/State/Menu/LoginState.o"
 	@echo "... src/State/Menu/LoginState.i"
 	@echo "... src/State/Menu/LoginState.s"

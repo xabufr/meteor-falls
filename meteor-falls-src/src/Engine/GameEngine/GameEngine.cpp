@@ -2,16 +2,26 @@
 #include "../EngineManager/EngineManager.h"
 #include "../GraphicEngine/GraphicEngine.h"
 #include "Factions/Equipe.h"
+#include "Factions/FactionManager.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
     m_type(t)
 {
     m_map = new Map(mng->getGraphic()->getSceneManager());
+	if(t==SERVER)
+	{
+		for(int i=1; i<3;++i)
+		{
+			Equipe *e = new Equipe(i);
+			e->setFaction(FactionManager::get()->getFaction(i));
+			addTeam(e);
+		}
+	}
 }
 GameEngine::~GameEngine()
 {
-    delete m_map;
+  //  delete m_map;
 }
 void GameEngine::handleMessage(const EngineMessage&)
 {
@@ -28,7 +38,7 @@ EngineType GameEngine::getType()
 }
 void GameEngine::loadMap(const std::string &map_name)
 {
-	m_map->load(map_name);
+	m_map->load(map_name);	
 }
 const std::vector<Equipe*>& GameEngine::getTeams() const
 {
@@ -51,5 +61,3 @@ Equipe* GameEngine::getEquipe(char id)
 	}
 	return 0;
 }
-
-
