@@ -5,10 +5,11 @@
 #include "../../Engine/NetworkEngine/TcpConnection.h"
 #include "../../Engine/NetworkEngine/UdpConnection.h"
 
+class Joueur;
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
-        ClientNetworkEngine(EngineManager*, const std::string& address, unsigned short port, const std::string& password);
+        ClientNetworkEngine(EngineManager*, const std::string& address, unsigned short port, Joueur*, const std::string& password);
         virtual ~ClientNetworkEngine();
 
         virtual void work();
@@ -28,6 +29,7 @@ class ClientNetworkEngine : public NetworkEngine
         unsigned short m_port;
 		std::string m_password, m_salt, m_session;
 		unsigned int m_playerNumber;
+		Joueur *m_joueur;
 
 	public:
         enum ClientNetworkEngineState{

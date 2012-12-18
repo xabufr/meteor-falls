@@ -4,17 +4,17 @@
 #include "../EngineMessage/EngineMessage.h"
 #include "../../precompiled/serialization.h"
 #include "../GameEngine/GameEngine.h"
+#include "../GameEngine/Joueur/Joueur.h"
 
-ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, const std::string& password):
+ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
 	m_port(port),
-	m_password(password)
+	m_password(password),
+	m_joueur(j)
 {
     m_tcp = TcpConnection::create(m_service);
     m_udp = UdpConnection::create(m_service);
-	bool error;
-	m_serverAddress = boost::asio::ip::address::from_string(address);
-	m_tcp->connect(boost::asio::ip::tcp::endpoint(m_serverAddress, m_port));
+	connect(address, port);
 }
 ClientNetworkEngine::~ClientNetworkEngine()
 {

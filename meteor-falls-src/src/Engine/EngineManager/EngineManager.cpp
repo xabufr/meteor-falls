@@ -49,10 +49,10 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
     switch(t)
     {
     case Type::CLIENT:
-        m_network = new ClientNetworkEngine(this, address, 8888, password);
+        m_network = new ClientNetworkEngine(this, address, 8888, 0, password);
         break;
     case Type::CLIENT_LAN:
-        m_network = new ClientNetworkEngineLan(this, address, 8888, password);
+        m_network = new ClientNetworkEngineLan(this, address, 8888, 0, password);
         break;
     case Type::SERVER:
 	  //  m_network = new ServerNetworkEngineWan(this, 8888);
