@@ -105,7 +105,7 @@ MenuState::MenuState(StateManager* mng):
 
     m_player = new Joueur();
 
-    m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager);
+    m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, m_player);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
 
@@ -134,7 +134,7 @@ bool MenuState::quit(const CEGUI::EventArgs &)
 }
 bool MenuState::startGame()
 {
-    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
+    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN, "", "", m_player));
     return true;
 }
 
