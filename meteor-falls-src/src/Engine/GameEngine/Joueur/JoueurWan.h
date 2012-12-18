@@ -7,7 +7,7 @@ class JoueurWan : public Joueur
     public:
         JoueurWan();
         ~JoueurWan();
-        virtual const std::string& getType(){return "WAN";};
+        virtual const Type getType(){return Type::WAN;};
 };
 
 #endif // JOUEURWAN_H_INCLUDED

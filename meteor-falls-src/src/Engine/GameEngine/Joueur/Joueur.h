@@ -6,9 +6,14 @@
 class Joueur
 {
     public:
+        enum Type{
+            LAN,
+            WAN,
+            NONE
+        };
         Joueur();
         virtual ~Joueur();
-        virtual const std::string& getType(){return "";};
+        virtual const Type getType(){return Type::NONE;};
 		void setNom(const std::string&);
 		const std::string& getNom();
 		void setNumSession(const std::string&);
