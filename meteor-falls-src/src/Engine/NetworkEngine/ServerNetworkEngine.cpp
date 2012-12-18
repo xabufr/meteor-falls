@@ -2,6 +2,11 @@
 #include <iostream>
 #include "../EngineMessage/EngineMessage.h"
 #include "../../precompiled/lexical_cast.h"
+#include "../GameEngine/GameEngine.h"
+#include "../GameEngine/Factions/Equipe.h"
+#include "../GameEngine/Factions/Faction.h"
+#include "../GameEngine/Joueur/JoueurRPG.h"
+#include "../GameEngine/Joueur/Joueur.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -44,10 +49,34 @@ void ServerNetworkEngine::work()
 				switch(message->message)
 				{
 					case EngineMessageType::NEW_PLAYER:
-						m_addNewPlayer(client.id(), message);
-						EngineMessage *messageMap = m_createMapMessage();
-						client.tcp()->send(serialize(messageMap));
-						delete messageMap;
+						{
+							m_addNewPlayer(client.id(), message);
+							EngineMessage *messageMap = m_createMapMessage();
+							client.tcp()->send(serialize(messageMap));
+							delete messageMap;
+						}
+						break;
+					case EngineMessageType::GETTEAMLIST:
+						{
+							const std::vector<Equipe*>& equipes = m_manager->getGame()->getTeams();
+							EngineMessage messageTeams(m_manager);
+							messageTeams.message           = EngineMessageType::ADDTEAM;
+							for(Equipe* e : equipes)
+							{
+								messageTeams.ints[EngineMessageKey::FACTION_ID] = e->faction()->id();
+								messageTeams.ints[EngineMessageKey::TEAM_ID] = e->id();
+								client.tcp()->send(serialize(&messageTeams));
+								const std::vector<JoueurRPG*> &rpgs = e->getRPG();
+								for(JoueurRPG* rpg : rpgs)
+								{
+									EngineMessage *player = new EngineMessage(m_manager);
+									player->message = EngineMessageType::NEW_PLAYER;
+									player->ints[EngineMessageKey::TEAM_ID] = e->id();
+									player->strings[EngineMessageKey::PSEUDO] = rpg->joueur()->getNom();
+									client.tcp()->send(serialize(player));
+								}
+							}
+						}
 						break;
 				}
                 std::cout << message->strings[FILE_NAME] << std::endl;

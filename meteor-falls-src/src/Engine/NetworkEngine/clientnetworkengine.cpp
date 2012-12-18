@@ -5,6 +5,8 @@
 #include "../../precompiled/serialization.h"
 #include "../GameEngine/GameEngine.h"
 #include "../GameEngine/Joueur/Joueur.h"
+#include "../GameEngine/Factions/Equipe.h"
+#include "../GameEngine/Factions/FactionManager.h"
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
@@ -33,19 +35,42 @@ void ClientNetworkEngine::work()
 		switch(message->message)
 		{
 			case EngineMessageType::SETSALT:
-				m_salt  = message->strings[EngineMessageKey::SEL];
-				m_state = AUTHENTIFICATING;
-				logingIn();
+				{
+					m_salt  = message->strings[EngineMessageKey::SEL];
+					m_state = AUTHENTIFICATING;
+					logingIn();
+				}
 				break;
 			case EngineMessageType::LOGIN_RESULT:
-				m_playerNumber = message->ints[EngineMessageKey::PLAYER_NUMBER];
-				if(m_playerNumber!=-1)
-					m_state = CONNECTED;
-				else
-					m_state=NONE;
+				{
+					m_playerNumber = message->ints[EngineMessageKey::PLAYER_NUMBER];
+					if(m_playerNumber!=-1)
+						m_state = CONNECTED;
+					else
+						m_state=NONE;
+					EngineMessage messageTeam(m_manager);
+					messageTeam.message = EngineMessageType::GETTEAMLIST;
+					m_tcp->send(serialize(&messageTeam));
+				}
 				break;
+
 			case EngineMessageType::LOAD_MAP:
-				m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
+					m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
+				break;
+			case EngineMessageType::ADDTEAM:
+				{
+					Equipe* equipe = new Equipe(message->ints[TEAM_ID]);
+					equipe->setFaction(FactionManager::get()->getFaction(message->ints[FACTION_ID]));
+					m_manager->getGame()->addTeam(equipe);
+				}
+				break;
+			case EngineMessageType::NEW_PLAYER:
+				{
+					Equipe* e = m_manager->getGame()->getEquipe(message->ints[TEAM_ID]);
+					Joueur *j = new Joueur;
+					j->setNom(message->strings[PSEUDO]);
+					m_manager->getGame()->addPlayer(j);
+				}
 				break;
 		}
 		delete message;

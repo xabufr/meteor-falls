@@ -14,6 +14,10 @@ enum EngineMessageKey
     SEL           = 6,
     SESSION       = 7,
     PSEUDO        = 8,
+	PLAYER_DATA = 9,
+	LEVEL       = 11,
+	TEAM_ID     = 12,
+	FACTION_ID  = 13,
 };
 
 #endif // ENGINEMESSAGEKEY_H

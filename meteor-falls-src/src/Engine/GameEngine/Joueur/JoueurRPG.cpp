@@ -10,3 +10,7 @@ JoueurRPG::~JoueurRPG()
 {
     //dtor
 }
+Joueur* JoueurRPG::joueur() const
+{
+	return m_joueur;
+}
