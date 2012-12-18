@@ -1794,6 +1794,30 @@ src/State/Game/GameState.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Game/GameState.cpp.s
 .PHONY : src/State/Game/GameState.cpp.s
 
+src/State/Menu/CreditState.o: src/State/Menu/CreditState.cpp.o
+.PHONY : src/State/Menu/CreditState.o
+
+# target to build an object file
+src/State/Menu/CreditState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.o
+.PHONY : src/State/Menu/CreditState.cpp.o
+
+src/State/Menu/CreditState.i: src/State/Menu/CreditState.cpp.i
+.PHONY : src/State/Menu/CreditState.i
+
+# target to preprocess a source file
+src/State/Menu/CreditState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.i
+.PHONY : src/State/Menu/CreditState.cpp.i
+
+src/State/Menu/CreditState.s: src/State/Menu/CreditState.cpp.s
+.PHONY : src/State/Menu/CreditState.s
+
+# target to generate assembly for a file
+src/State/Menu/CreditState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/CreditState.cpp.s
+.PHONY : src/State/Menu/CreditState.cpp.s
+
 src/State/Menu/LoginState.o: src/State/Menu/LoginState.cpp.o
 .PHONY : src/State/Menu/LoginState.o
 
@@ -2373,6 +2397,9 @@ help:
 	@echo "... src/State/Game/GameState.o"
 	@echo "... src/State/Game/GameState.i"
 	@echo "... src/State/Game/GameState.s"
+	@echo "... src/State/Menu/CreditState.o"
+	@echo "... src/State/Menu/CreditState.i"
+	@echo "... src/State/Menu/CreditState.s"
 	@echo "... src/State/Menu/LoginState.o"
 	@echo "... src/State/Menu/LoginState.i"
 	@echo "... src/State/Menu/LoginState.s"

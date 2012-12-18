@@ -5,7 +5,7 @@
 #include <OgreResourceBackgroundQueue.h>
 #include "LoadingScreen.h"
 
-OgreApplication::OgreApplication()
+OgreApplication::OgreApplication(bool createWindow)
 {
     #ifdef RELEASE
     m_root = new Ogre::Root("plugins.cfg", "ogre.cfg", "Ogre.log");
@@ -15,17 +15,23 @@ OgreApplication::OgreApplication()
     m_root = new Ogre::Root();
     #endif // DEBUG
 
-    if(!(m_root->restoreConfig() || m_root->showConfigDialog()))
-    {
-        THROW_BASIC_EXCEPTION("Aucune configuration de rendu");
-    }
+	if(createWindow){
+        if(!(m_root->restoreConfig() || m_root->showConfigDialog()))
+        {
+            THROW_BASIC_EXCEPTION("Aucune configuration de rendu");
+        }
 
-    m_window = m_root->initialise(true, "Meteor-Falls");
-    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-    m_ceguiStarted=false;
-    m_bootstrapCegui();
+   		m_window = m_root->initialise(true, "Meteor-Falls");
+   		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+   		m_ceguiStarted=false;
+   		m_bootstrapCegui();
+	}
+	else
+	{
+		m_root->restoreConfig();
+		m_root->initialise(false);
+	}
 }
-
 OgreApplication::~OgreApplication()
 {
     //dtor
@@ -34,7 +40,6 @@ void OgreApplication::LoadRessources(std::string fileName)
 {
     m_ParcourirRessource(fileName, true);
 }
-
 void OgreApplication::UnloadRessources(std::string fileName)
 {
     m_ParcourirRessource(fileName, false);
@@ -87,12 +92,10 @@ bool OgreApplication::RenderOneFrame()
     Ogre::WindowEventUtilities::messagePump();
     return (!m_window->isClosed()) && m_root->renderOneFrame();
 }
-
 Ogre::RenderWindow* OgreApplication::getWindow()
 {
     return m_window;
 }
-
 Ogre::Root* OgreApplication::getRoot()
 {
     return m_root;

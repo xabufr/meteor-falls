@@ -1,6 +1,7 @@
 #include "ServerNetworkEngine.h"
 #include <iostream>
 #include "../EngineMessage/EngineMessage.h"
+#include "../../precompiled/lexical_cast.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -44,6 +45,9 @@ void ServerNetworkEngine::work()
 				{
 					case EngineMessageType::NEW_PLAYER:
 						m_addNewPlayer(client.id(), message);
+						EngineMessage *messageMap = m_createMapMessage();
+						client.tcp()->send(serialize(messageMap));
+						delete messageMap;
 						break;
 				}
                 std::cout << message->strings[FILE_NAME] << std::endl;
@@ -96,7 +100,8 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             conn->setConnected(true);
             conn->startListen();
 			ServerClient &client(m_clients.back());
-			client.sel = SHA1(client.tcp()->socket().remote_endpoint().address().to_string());
+			client.sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
+							client.tcp()->socket().remote_endpoint().address().to_string());
 			EngineMessage messageSalt(m_manager);
 			messageSalt.message = EngineMessageType::SETSALT;
 			messageSalt.strings[EngineMessageKey::SEL] = client.sel;
@@ -157,4 +162,12 @@ void ServerNetworkEngine::setMaxClients(unsigned short number)
 void ServerNetworkEngine::setMapName(const std::string& name)
 {
 	m_map_name=name;	
+}
+EngineMessage* ServerNetworkEngine::m_createMapMessage()
+{
+	EngineMessage* message = new EngineMessage(m_manager);
+	message->message = EngineMessageType::LOAD_MAP;
+	message->strings[EngineMessageKey::MAP_NAME] = m_map_name;
+	message->addToType(EngineType::GameEngineType);
+	return message;
 }

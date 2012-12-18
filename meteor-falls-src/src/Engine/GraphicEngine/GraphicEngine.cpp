@@ -5,9 +5,8 @@
 GraphicEngine::GraphicEngine(EngineManager* m):
     Engine(m)
 {
-    m_sceneManager = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager("OctreeSceneManager");
+    m_sceneManager = OgreContextManager::get()->getOgreApplication()->getRoot()->createSceneManager(Ogre::ST_EXTERIOR_REAL_FAR);
 }
-
 GraphicEngine::~GraphicEngine()
 {
     //dtor
@@ -20,12 +19,10 @@ void GraphicEngine::handleMessage(const EngineMessage&)
 {
 
 }
-
 void GraphicEngine::work()
 {
 
 }
-
 EngineType GraphicEngine::getType()
 {
     return EngineType::GraphicEngineType;

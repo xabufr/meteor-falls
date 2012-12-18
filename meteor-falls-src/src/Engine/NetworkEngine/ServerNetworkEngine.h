@@ -33,6 +33,7 @@ class ServerNetworkEngine : public NetworkEngine
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);
 		virtual void m_addNewPlayer(client_id, EngineMessage*) = 0;
+		EngineMessage* m_createMapMessage();
 
         std::vector<ServerClient> m_clients;
         boost::asio::ip::tcp::acceptor m_acceptor;
