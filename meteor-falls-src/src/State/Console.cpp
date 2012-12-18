@@ -226,6 +226,8 @@ bool Console::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
 
 bool Console::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
 {
+    if (boost::lexical_cast<int>(m_console->getProperty("CaratIndex")) <= m_console->getText().find_last_of(m_pattern))
+                m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
 

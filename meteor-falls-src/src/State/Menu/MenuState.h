@@ -11,6 +11,9 @@
 #include "../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../State.h"
 #include "ServerList.h"
+#include "LoginState.h"
+#include "CreditState.h"
+#include "../../Engine/GameEngine/Joueur/Joueur.h"
 #include "../../precompiled/sfml_system.h"
 #include <boost/function.hpp>
 
@@ -33,7 +36,9 @@ class MenuState: public State
         virtual ret_code work(unsigned int time);
 
     private:
+        Joueur *m_player;
         CEGUI::Window *m_sheet;
+        CEGUI::Window *m_state;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
         Ogre::SceneManager *m_scene_mgr;
@@ -47,7 +52,11 @@ class MenuState: public State
         Ogre::Entity* m_currentSelected;
         Ogre::RaySceneQuery* m_sceneQuery;
         bool m_visible;
+        bool m_hide_sous_state();
         State *m_sousState;
+        LoginState *m_login_state;
+        CreditState *m_credit_state;
+        ServerList *m_server_list;
         /**
             Les entités qui vont correspondre à des entrées menu
         */

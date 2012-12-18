@@ -1,6 +1,6 @@
 #include "CreditState.h"
 
-CreditState::CreditState(StateManager* mgr) : State(mgr), m_visible(false)
+CreditState::CreditState(StateManager* mgr) : State(mgr), m_visible(false), m_nbr_loop(0)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
@@ -8,7 +8,7 @@ CreditState::CreditState(StateManager* mgr) : State(mgr), m_visible(false)
     m_credit->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
     m_credit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_credit->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim((m_credit->getSize().d_y.d_scale
-                                                        /(CEGUI::System::getSingleton().getGUISheet()->getChildCount()+1)), 0)));
+                                                        /2), 0)));
     m_credit->setText((CEGUI::utf8*)("Crédit:\nProgrammeur:\nThomas Loubiou\nAlexandre Ramel\nBastien Chevriaut\nFabrice Bats"));
     m_credit->setProperty("HorzFormatting", "WordWrapCentred");
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_credit);
@@ -39,5 +39,8 @@ void CreditState::exit()
 
 ret_code CreditState::work(unsigned int time)
 {
+    ++m_nbr_loop;
+    if (m_nbr_loop == 1000)
+        this->exit();
     return CONTINUE;
 }
