@@ -5,6 +5,8 @@
 #include "Map/Map.h"
 #include "../EngineMessage/EngineMessage.h"
 #include "../Engine.h"
+#include "../../State/State.h"
+#include "Preface/TeamList.h"
 
 class Joueur;
 class GameEngine : public Engine
@@ -27,6 +29,7 @@ class GameEngine : public Engine
     private:
         Map *m_map;
         Type m_type;
+        State *m_sous_state;
 		Joueur *m_currentJoueur;
 };
 
