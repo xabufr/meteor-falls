@@ -74,6 +74,7 @@ void ServerNetworkEngine::work()
 									player->ints[EngineMessageKey::TEAM_ID] = e->id();
 									player->strings[EngineMessageKey::PSEUDO] = rpg->joueur()->getNom();
 									client.tcp()->send(serialize(player));
+									delete player;
 								}
 							}
 						}

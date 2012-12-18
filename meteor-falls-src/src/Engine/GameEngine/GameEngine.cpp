@@ -12,10 +12,11 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
     m_map = new Map(mng->getGraphic()->getSceneManager());
 	if(t==SERVER)
 	{
-		for(int i=1; i<3;++i)
+		for(char i=1; i<3;++i)
 		{
 			Equipe *e = new Equipe(i);
 			e->setFaction(FactionManager::get()->getFaction(i));
+			std::cout << FactionManager::get()->getFaction(i) << std::endl;
 			addTeam(e);
 		}
 	}
