@@ -9,6 +9,7 @@
 #include "Preface/TeamList.h"
 
 class Joueur;
+class Equipe;
 class GameEngine : public Engine
 {
     public:
@@ -23,6 +24,10 @@ class GameEngine : public Engine
         virtual EngineType getType();
 
 		void loadMap(const std::string &);
+		const std::vector<Equipe*>& getTeams() const;
+		void addTeam(Equipe*);
+		void addPlayer(Joueur*);
+		Equipe* getEquipe(char);
 
     protected:
 
@@ -31,6 +36,8 @@ class GameEngine : public Engine
         Type m_type;
         State *m_sous_state;
 		Joueur *m_currentJoueur;
+		std::vector<Equipe*> m_teams;
+		std::vector<Joueur*> m_joueurs;
 };
 
 #endif // GAMEENGINE_H
