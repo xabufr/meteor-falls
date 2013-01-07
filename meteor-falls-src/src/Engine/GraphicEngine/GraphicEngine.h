@@ -11,7 +11,7 @@ class GraphicEngine: public Engine
         virtual ~GraphicEngine();
         Ogre::SceneManager* getSceneManager();
 
-        virtual void handleMessage(const EngineMessage&);
+        virtual void handleMessage(EngineMessage&);
         virtual void work();
         virtual EngineType getType();
     protected:

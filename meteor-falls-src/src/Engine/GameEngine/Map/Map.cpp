@@ -32,12 +32,10 @@ Map::Map(Ogre::SceneManager *p_scene_mgr)
     m_scene_mgr = p_scene_mgr;
     m_loaded = false;
 }
-
 Map::~Map()
 {
     //dtor
 }
-
 void Map::load(std::string p_name)
 {
     m_loaded = true;
@@ -78,7 +76,7 @@ void Map::load(std::string p_name)
 			Ogre::Quaternion rotation = getRotation(camNode->first_node("rotation"));
 			std::string camName(camNode->first_attribute("name")->value());
 			m_camera = m_scene_mgr->createCamera(camName);
-			Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
+			Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera, 1);
 
 			m_camera->setPosition(pos.convert<Ogre::Vector3>());
 			m_camera->setNearClipDistance(near);
@@ -226,12 +224,10 @@ void Map::load(std::string p_name)
 		}
 	}
 }
-
 std::string Map::getName()
 {
     return m_name;
 }
-
 void Map::update()
 {
     OIS::Mouse* mouse;
@@ -261,7 +257,6 @@ void Map::update()
         //m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
     }
 }
-
 bool Map::getLoaded()
 {
     return m_loaded;
@@ -315,7 +310,6 @@ Ogre::Quaternion Map::getRotation(rapidxml::xml_node<>* n)
 	Vector3D p = getPosition(n, "q");
 	float w    = boost::lexical_cast<float>(n->first_attribute("qw")->value());
 }
-
 void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 {
 	Ogre::SceneNode *currentNode = parent->createChildSceneNode(n->first_attribute("name")->value());

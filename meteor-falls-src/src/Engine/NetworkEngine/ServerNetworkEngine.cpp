@@ -7,6 +7,7 @@
 #include "../GameEngine/Factions/Faction.h"
 #include "../GameEngine/Joueur/JoueurRPG.h"
 #include "../GameEngine/Joueur/Joueur.h"
+#include "../GameEngine/Factions/Equipe.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -22,7 +23,7 @@ ServerNetworkEngine::~ServerNetworkEngine()
 	m_timer_seed->cancel();
 	delete m_timer_seed;
 }
-void ServerNetworkEngine::handleMessage(const EngineMessage&)
+void ServerNetworkEngine::handleMessage(EngineMessage&)
 {
 
 }
@@ -31,6 +32,13 @@ void ServerNetworkEngine::work()
     std::vector<ServerClient> clients;
     {
         boost::mutex::scoped_lock l(m_mutex_clients);
+		for(auto it=m_clients.begin();it!=m_clients.end();)
+		{
+			if(it->toDel)
+				it = m_clients.erase(it);
+			else
+				++it;
+		}
         clients =  m_clients;
     }
     std::vector<EngineMessage*> messages;
@@ -200,4 +208,19 @@ EngineMessage* ServerNetworkEngine::m_createMapMessage()
 	message->strings[EngineMessageKey::MAP_NAME] = m_map_name;
 	message->addToType(EngineType::GameEngineType);
 	return message;
+}
+void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
+{
+	boost::mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient &c : m_clients)
+	{
+		for(JoueurRPG *j : e->getRPG())
+		{
+			if(j->joueur() == c.joueur)
+			{
+				sendToTcp(c, message);
+				break;
+			}
+		}
+	}
 }

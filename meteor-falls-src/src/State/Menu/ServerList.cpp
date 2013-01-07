@@ -176,9 +176,6 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
         }
     return true;
 }
-
-
-
 std::string ServerList::m_serialize(const ServerGlobalMessage *message)
 {
     std::ostringstream os;
@@ -186,7 +183,6 @@ std::string ServerList::m_serialize(const ServerGlobalMessage *message)
     archive << *message;
     return os.str();
 }
-
 ServerGlobalMessage* ServerList::m_deserialize(const std::string &data)
 {
     ServerGlobalMessage *message = new ServerGlobalMessage();
@@ -199,12 +195,10 @@ bool ServerList::mouseMoved(const OIS::MouseEvent& arg)
 {
     return true;
 }
-
 bool ServerList::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     return true;
 }
-
 bool ServerList::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     return true;

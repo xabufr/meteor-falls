@@ -76,7 +76,7 @@ void ClientNetworkEngine::work()
 		delete message;
     }
 }
-void ClientNetworkEngine::handleMessage(const EngineMessage& e)
+void ClientNetworkEngine::handleMessage(EngineMessage& e)
 {
     sendToAllTcp(e);
 }

@@ -10,6 +10,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 {
     std::cout << "teste 1" << std::endl;
     m_map = new Map(mng->getGraphic()->getSceneManager());
+	m_sous_state = nullptr;
 	if(t==SERVER)
 	{
 		for(char i=1; i<3;++i)
@@ -25,9 +26,25 @@ GameEngine::~GameEngine()
 {
   //  delete m_map;
 }
-void GameEngine::handleMessage(const EngineMessage&)
+void GameEngine::handleMessage(EngineMessage& message)
 {
+	if(message.message==EngineMessageType::CHAT_MESSAGE)
+	{
+		if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
+		{
+			if(m_type==SERVER)
+			{
+			}
+			else
+			{
 
+			}
+		}
+		else
+		{
+
+		}
+	}
 }
 void GameEngine::work()
 {

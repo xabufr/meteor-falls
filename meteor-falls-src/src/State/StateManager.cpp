@@ -44,8 +44,10 @@ void StateManager::startLoop()
         code = m_states.top()->work(time);
         if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
+			delete m_states.top();
             removeState();
             m_states.top()->enter();
+			last = m_states.top();
         }
         else if(code == ret_code::EXIT_PROGRAM)
             exit();

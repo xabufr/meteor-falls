@@ -19,7 +19,7 @@ class GameEngine : public Engine
         };
         GameEngine(EngineManager*, Type);
         virtual ~GameEngine();
-        virtual void handleMessage(const EngineMessage&);
+        virtual void handleMessage(EngineMessage&);
         virtual void work();
         virtual EngineType getType();
 

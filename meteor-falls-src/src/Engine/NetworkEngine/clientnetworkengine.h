@@ -1,9 +1,9 @@
 #ifndef CLIENTNETWORKENGINE_H
 #define CLIENTNETWORKENGINE_H
 
-#include "../../Engine/NetworkEngine/NetworkEngine.h"
-#include "../../Engine/NetworkEngine/TcpConnection.h"
-#include "../../Engine/NetworkEngine/UdpConnection.h"
+#include "NetworkEngine.h"
+#include "TcpConnection.h"
+#include "UdpConnection.h"
 
 class Joueur;
 class ClientNetworkEngine : public NetworkEngine
@@ -13,7 +13,7 @@ class ClientNetworkEngine : public NetworkEngine
         virtual ~ClientNetworkEngine();
 
         virtual void work();
-        virtual void handleMessage(const EngineMessage &e);
+        virtual void handleMessage(EngineMessage &);
 
         virtual void sendToAllTcp(const EngineMessage &e);
         virtual void sendToAllUdp(const EngineMessage &e){};

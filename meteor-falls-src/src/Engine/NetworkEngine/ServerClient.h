@@ -11,7 +11,7 @@ class ServerClient
         virtual ~ServerClient();
         TcpConnection::pointer tcp();
         unsigned int id();
-		bool isConnected;
+		bool isConnected, toDel;
 		Joueur *joueur;
 		std::string sel, session;
     protected:
