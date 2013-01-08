@@ -123,7 +123,7 @@
 1354195676 source:/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp
 	"Admin.h"
 
-1354195676 /home/thomas/meteor-falls/GlobalServer/src/Admin.h
+1355319999 /home/thomas/meteor-falls/GlobalServer/src/Admin.h
 	<string>
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/vector.hpp>
@@ -134,7 +134,7 @@
 	"Server.h"
 	"Creator.h"
 
-1354267207 /home/thomas/meteor-falls/GlobalServer/src/Player.h
+1355753270 /home/thomas/meteor-falls/GlobalServer/src/Player.h
 	<iostream>
 	<map>
 	<string>
@@ -142,30 +142,28 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354226370 /home/thomas/meteor-falls/GlobalServer/src/Server.h
-	<iostream>
-	<map>
+1355321291 /home/thomas/meteor-falls/GlobalServer/src/Server.h
 	<string>
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354267514 /home/thomas/meteor-falls/GlobalServer/src/Creator.h
+1355240530 /home/thomas/meteor-falls/GlobalServer/src/Creator.h
 	<iostream>
 	<map>
 	<string>
 	<vector>
 	<boost/lexical_cast.hpp>
 	<sstream>
-	<mysql.h>
-	<my_global.h>
-	<my_sys.h>
+	<mysql/mysql.h>
+	<mysql/my_global.h>
+	<mysql/my_sys.h>
 	"Admin.h"
 
 1354204013 source:/home/thomas/meteor-falls/GlobalServer/src/main.cpp
 	"GlobalServer.h"
 
-1354195676 /home/thomas/meteor-falls/GlobalServer/src/GlobalServer.h
+1355328988 /home/thomas/meteor-falls/GlobalServer/src/GlobalServer.h
 	"../../meteor-falls-src/src/Engine/NetworkEngine/SslConnection.h"
 	"Server.h"
 	"ServerGlobalMessage.h"
@@ -184,7 +182,7 @@
 	<boost/shared_ptr.hpp>
 	<boost/enable_shared_from_this.hpp>
 
-1354226224 /home/thomas/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
+1355751987 /home/thomas/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
 	"Player.h"
 	"Admin.h"
 	"Server.h"

@@ -6,13 +6,14 @@
 #include <vector>
 #include <boost/asio.hpp>
 
+class Equipe;
 class ServerNetworkEngine : public NetworkEngine
 {
     public:
         ServerNetworkEngine(EngineManager*, unsigned short port);
         virtual ~ServerNetworkEngine();
 
-        void handleMessage(const EngineMessage&);
+        void handleMessage(EngineMessage&);
         virtual void work();
         void removeClient(ServerClient& c);
         void sendToAllTcp(EngineMessage*);
@@ -24,6 +25,8 @@ class ServerNetworkEngine : public NetworkEngine
 
         static void sendToTcp(ServerClient&, EngineMessage*);
         static void sendToTcp(ServerClient&, std::string);
+
+		void sendToTeam(Equipe*, EngineMessage*);
 
 		void setServerName(const std::string&);
 		void setMaxClients(unsigned short);

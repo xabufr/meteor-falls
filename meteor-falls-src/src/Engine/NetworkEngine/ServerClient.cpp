@@ -3,6 +3,7 @@
 ServerClient::ServerClient(TcpConnection::pointer tcp, unsigned int id) : m_tcp(tcp), m_id(id)
 {
 	isConnected=false;
+	toDel=false;
 }
 ServerClient::~ServerClient()
 {

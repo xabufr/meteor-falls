@@ -15,7 +15,7 @@ Ogre::SceneManager* GraphicEngine::getSceneManager()
 {
     return m_sceneManager;
 }
-void GraphicEngine::handleMessage(const EngineMessage&)
+void GraphicEngine::handleMessage(EngineMessage&)
 {
 
 }

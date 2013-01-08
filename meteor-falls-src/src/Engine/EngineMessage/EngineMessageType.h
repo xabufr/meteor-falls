@@ -12,13 +12,13 @@ enum EngineMessageType
     PLAYER_POSITION = 5,
     KEEP_ALIVE      = 6,
     DEL_PLAYER      = 7,
-    TEAM_MESSAGE    = 8,
-    GLOBAL_MESSAGE  = 9,
-	SETSALT         = 10,
-	LOGIN_RESULT    = 11,
-	LOAD_MAP        = 12,
-	GETTEAMLIST = 13,
-	ADDTEAM     = 14,
+	CHAT_MESSAGE    = 8,
+	SETSALT         = 9,
+	LOGIN_RESULT    = 10,
+	LOAD_MAP        = 11,
+	GETTEAMLIST = 12,
+	ADDTEAM     = 13,
+	KICK = 14,
 };
 
 #endif // ENGINEMESSAGETYPE_H

@@ -2,6 +2,7 @@
 #include "../EngineManager/EngineManager.h"
 #include "../GraphicEngine/GraphicEngine.h"
 #include "Factions/Equipe.h"
+#include "Factions/FactionManager.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
@@ -9,14 +10,41 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 {
     std::cout << "teste 1" << std::endl;
     m_map = new Map(mng->getGraphic()->getSceneManager());
+	m_sous_state = nullptr;
+	if(t==SERVER)
+	{
+		for(char i=1; i<3;++i)
+		{
+			Equipe *e = new Equipe(i);
+			e->setFaction(FactionManager::get()->getFaction(i));
+			std::cout << FactionManager::get()->getFaction(i) << std::endl;
+			addTeam(e);
+		}
+	}
 }
 GameEngine::~GameEngine()
 {
-    delete m_map;
+  //  delete m_map;
 }
-void GameEngine::handleMessage(const EngineMessage&)
+void GameEngine::handleMessage(EngineMessage& message)
 {
+	if(message.message==EngineMessageType::CHAT_MESSAGE)
+	{
+		if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
+		{
+			if(m_type==SERVER)
+			{
+			}
+			else
+			{
 
+			}
+		}
+		else
+		{
+
+		}
+	}
 }
 void GameEngine::work()
 {
@@ -37,7 +65,7 @@ EngineType GameEngine::getType()
 }
 void GameEngine::loadMap(const std::string &map_name)
 {
-	m_map->load(map_name);
+	m_map->load(map_name);	
 }
 const std::vector<Equipe*>& GameEngine::getTeams() const
 {
@@ -60,5 +88,3 @@ Equipe* GameEngine::getEquipe(char id)
 	}
 	return 0;
 }
-
-

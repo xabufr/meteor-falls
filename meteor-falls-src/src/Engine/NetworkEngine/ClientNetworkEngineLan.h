@@ -1,6 +1,6 @@
 #ifndef CLIENTNETWORKENGINELAN_H
 #define CLIENTNETWORKENGINELAN_H
-#include "../../Engine/NetworkEngine/clientnetworkengine.h"
+#include "clientnetworkengine.h"
 
 class Joueur;
 class ClientNetworkEngineLan : public ClientNetworkEngine

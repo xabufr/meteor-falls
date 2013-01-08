@@ -115,7 +115,6 @@ MenuState::MenuState(StateManager* mng):
     Playlist::loadFile("data/playlist.xml");
 
 }
-
 MenuState::~MenuState()
 {
     delete m_background;
@@ -126,7 +125,6 @@ MenuState::~MenuState()
     delete m_player;
     delete m_state;
 }
-
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
     OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
@@ -137,7 +135,6 @@ bool MenuState::startGame()
     m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN, "", "", m_player));
     return true;
 }
-
 bool MenuState::showLanServer()
 {
     m_state->show();
@@ -146,7 +143,6 @@ bool MenuState::showLanServer()
 
     return true;
 }
-
 bool MenuState::showCredit()
 {
     m_state->hide();
@@ -155,15 +151,12 @@ bool MenuState::showCredit()
 
     return true;
 }
-
 bool MenuState::m_hide_sous_state()
 {
     m_sousState->exit();
 
     return true;
 }
-
-
 void MenuState::enter()
 {
     OgreContextManager::get()->getInputManager()->addKeyboardListener(Console::get());
@@ -182,17 +175,15 @@ void MenuState::enter()
     m_visible = true;
 
 }
-
 void MenuState::exit()
 {
     if(m_sousState)
         m_sousState->exit();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
-    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
-    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
+//    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
+//    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
     m_visible = false;
 }
-
 ret_code MenuState::work(unsigned int time)
 {
     Ogre::Vector3      cam_to_obj = terreAtmosphere->getPosition() - m_camera->getPosition();
@@ -298,14 +289,12 @@ ret_code MenuState::work(unsigned int time)
         m_sousState->work(time);
     }
 
-    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-        return ret_code::EXIT_PROGRAM;
+//    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+//        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }
-
 bool MenuState::isVisible()
 {
     return m_visible;
 }
-

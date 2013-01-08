@@ -14,7 +14,7 @@ public:
     NetworkEngine(EngineManager*);
     ~NetworkEngine();
     virtual void setEngineManager(EngineManager*);
-    virtual void handleMessage(const EngineMessage&) = 0;
+    virtual void handleMessage(EngineMessage&) = 0;
     virtual void work() = 0;
     virtual EngineType getType();
 

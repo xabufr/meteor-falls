@@ -94,7 +94,14 @@ void ServerNetworkEngineWan::work()
 				EngineMessage messageLogin(m_manager);
 				messageLogin.message = EngineMessageType::NEW_PLAYER;
 				messageLogin.ints[EngineMessageKey::PLAYER_NUMBER] = cli->id();
-				cli->tcp()->send(serialize(&messageLogin));
+				messageLogin.strings[EngineMessageKey::PSEUDO] = cli->joueur->getNom();
+				sendToAllTcp(&messageLogin);
+			}
+			else //Le client n'est pas qui il prétend
+			{
+				EngineMessage messageQuit(m_manager);
+				messageQuit.message = EngineMessageType::KICK;
+				sendToTcp(*cli, &messageQuit);
 			}
 		}
 	}
@@ -118,6 +125,7 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
 	if(password == SHA1(password+client->sel))
 	{
 		client->session = session;
+		m_recupererSession(client);
 	}
 	else
 	{

@@ -15,7 +15,7 @@ FactionManager::FactionManager()
     for(faction_node=factions_node->first_node("faction");
         faction_node;faction_node=faction_node->next_sibling("faction"))
     {
-        FactionId id = boost::lexical_cast<FactionId>(faction_node->first_attribute("id")->value());
+        FactionId id = boost::lexical_cast<unsigned int>(faction_node->first_attribute("id")->value());
         std::string nom = faction_node->first_attribute("nom")->value();
         bool jouable = boost::lexical_cast<bool>(faction_node->first_attribute("jouable")->value());
 
@@ -43,7 +43,7 @@ Faction* FactionManager::getFaction(FactionId id)
 {
     for(Faction* fac : m_factions)
     {
-        if(fac->id()==id)
+        if(int(fac->id())==(int) id)
             return fac;
     }
     return 0;
