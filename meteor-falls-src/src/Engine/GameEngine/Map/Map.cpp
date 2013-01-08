@@ -85,6 +85,7 @@ void Map::load(std::string p_name)
 			Ogre::Quaternion rotation = getRotation(camNode->first_node("rotation"));
 			std::string camName(camNode->first_attribute("name")->value());
 			m_camera = m_scene_mgr->createCamera(camName);
+			OgreContextManager::get()->getOgreApplication()->getWindow()->removeViewport(1);
 			Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera, 1);
 
 			m_camera->setPosition(pos.convert<Ogre::Vector3>());

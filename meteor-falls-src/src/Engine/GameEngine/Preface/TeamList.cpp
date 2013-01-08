@@ -19,8 +19,7 @@ m_game_engine(engine)
 TeamList::~TeamList()
 {
 	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_list_team);
-	std::cout << "deletor" << std::endl;
-    delete m_list_team;
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_list_team);
 }
 bool TeamList::isVisible()
 {
