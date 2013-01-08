@@ -6,6 +6,7 @@
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/Faction.h"
 #include "../GameEngine/Joueur/JoueurRPG.h"
+#include "../GameEngine/Joueur/JoueurRTS.h"
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 
@@ -87,8 +88,16 @@ void ServerNetworkEngine::work()
 							}
 						}
 						break;
+					case EngineMessageType::CHAT_MESSAGE:
+						{
+							EngineMessage *messageGameEngine = EngineMessage::clone(message);
+							messageGameEngine->clearTo();
+							messageGameEngine->addToType(EngineType::GameEngineType);
+							m_manager->addMessage(messageGameEngine);
+						}
+						break;
 				}
-                std::cout << message->strings[FILE_NAME] << std::endl;
+				delete message;
             }
             while(client.tcp()->hasError())
             {
@@ -214,6 +223,11 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 	boost::mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
+		if(e->getRTS()->joueur()== c.joueur)
+		{
+			sendToTcp(c, message);
+			continue;
+		}
 		for(JoueurRPG *j : e->getRPG())
 		{
 			if(j->joueur() == c.joueur)

@@ -1,5 +1,5 @@
 #include "Map.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "precompiled/lexical_cast.h"
 
 #include <OgreSceneManager.h>
@@ -12,9 +12,9 @@
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
 #include <OIS/OIS.h>
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../GraphicEngine/Ogre/OgreApplication.h"
+#include "../../GraphicEngine/Ogre/OgreWindowInputManager.h"
 
 #include <Hydrax/Noise/Perlin/Perlin.h>
 #include <Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
@@ -31,10 +31,19 @@ Map::Map(Ogre::SceneManager *p_scene_mgr)
 {
     m_scene_mgr = p_scene_mgr;
     m_loaded = false;
+	m_hydrax = nullptr;
+	m_skyx   = nullptr;
 }
 Map::~Map()
 {
-    //dtor
+	if(m_hydrax != nullptr)
+		delete m_hydrax;
+	if(m_skyx != nullptr)
+	{
+		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
+		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
+		delete m_skyx;
+	}
 }
 void Map::load(std::string p_name)
 {

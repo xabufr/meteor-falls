@@ -1,6 +1,6 @@
 #include "GraphicEngine.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "Ogre/OgreApplication.h"
+#include "Ogre/ogrecontextmanager.h"
 
 GraphicEngine::GraphicEngine(EngineManager* m):
     Engine(m)
@@ -9,7 +9,7 @@ GraphicEngine::GraphicEngine(EngineManager* m):
 }
 GraphicEngine::~GraphicEngine()
 {
-    //dtor
+	OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_sceneManager);
 }
 Ogre::SceneManager* GraphicEngine::getSceneManager()
 {

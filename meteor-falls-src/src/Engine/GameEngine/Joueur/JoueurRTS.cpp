@@ -9,3 +9,7 @@ JoueurRTS::~JoueurRTS()
 {
     //dtor
 }
+Joueur* JoueurRTS::joueur()
+{
+	return m_joueur;
+}

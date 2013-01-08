@@ -153,8 +153,8 @@ bool MenuState::showCredit()
 }
 bool MenuState::m_hide_sous_state()
 {
-    m_sousState->exit();
-
+	if(m_sousState!=0)
+	    m_sousState->exit();
     return true;
 }
 void MenuState::enter()
@@ -219,6 +219,8 @@ ret_code MenuState::work(unsigned int time)
         bool click = m_mouse->getMouseState().buttonDown(OIS::MouseButtonID::MB_Left);
         if(!m_transitionning)
         {
+			if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+				return ret_code::EXIT_PROGRAM;
             if(selected==m_eTerre||selected==m_eAtmoTerre)
             {
                 if(click)
@@ -287,6 +289,17 @@ ret_code MenuState::work(unsigned int time)
     else
     {
         m_sousState->work(time);
+		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+		{
+			m_sousState->exit();
+			m_sousState=0;
+			m_transitionning=true;
+            m_timerTranslation.restart();
+            m_transitionParams.from=m_camera->getPosition();
+            m_transitionParams.to = Ogre::Vector3(0,0,10);
+            m_transitionParams.duration=2.5;
+            m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
+		}
     }
 
 //    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))

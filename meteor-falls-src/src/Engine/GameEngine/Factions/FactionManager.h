@@ -1,7 +1,7 @@
 #ifndef FACTIONMANAGER_H
 #define FACTIONMANAGER_H
 
-#include "Utils/singleton.h"
+#include "../../../Utils/singleton.h"
 #include <vector>
 
 typedef unsigned char FactionId;

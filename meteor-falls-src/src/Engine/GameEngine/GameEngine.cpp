@@ -3,6 +3,7 @@
 #include "../GraphicEngine/GraphicEngine.h"
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
+#include "../NetworkEngine/ServerNetworkEngine.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
@@ -24,25 +25,40 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 }
 GameEngine::~GameEngine()
 {
-  //  delete m_map;
+    delete m_map;
+	if(m_sous_state != nullptr)
+		delete m_sous_state;
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
-		if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
-		{
-			if(m_type==SERVER)
-			{
-			}
-			else
-			{
 
-			}
+		if(m_type==SERVER)
+		{
+			ServerNetworkEngine *net = (ServerNetworkEngine*) m_manager->getNetwork();
+			if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
+		   	{
+			   	Equipe *equipe = nullptr;
+			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
+			   	for(Joueur *j : m_joueurs)
+			   	{
+			   		if(j->id == playerId)
+			   		{
+			   			equipe = j->equipe;
+			   		}
+			   	}
+			   	if(equipe==nullptr)
+			   			return;
+			   	net->sendToTeam(equipe, &message);
+		   	}
+		   	else if(message.ints[EngineMessageKey::RANGE] == EngineMessageKey::GLOBAL_RANGE)
+		   	{
+		   		net->sendToAllTcp(&message);
+		   	}
 		}
 		else
 		{
-
 		}
 	}
 }

@@ -9,6 +9,7 @@
 #include "../GameEngine/GameEngine.h"
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreApplication.h"
+#include "../EngineMessage/EngineMessage.h"
 
 Engine* EngineManager::get(EngineType p_engine_type){
     switch(p_engine_type)
@@ -33,6 +34,15 @@ void EngineManager::work()
 		m_network->work();
 		m_game->work();
     }
+	for(EngineMessage *message : m_messages)
+	{
+		for(Engine *e : message->getTo())
+		{
+			e->handleMessage(*message);
+		}
+		delete message;
+	}
+	m_messages.clear();
 }
 EngineManager::EngineManager(Type t, const std::string& address, const std::string& password, Joueur *j):
     m_type(t),
@@ -65,12 +75,12 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
 }
 EngineManager::~EngineManager()
 {
+    delete m_game;
     if(m_type==Type::CLIENT||m_type==Type::CLIENT_LAN)
     {
         delete m_graphic;
         OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(this);
     }
-    delete m_game;
     delete m_network;
 }
 SoundEngine* EngineManager::getSound()
@@ -104,3 +114,8 @@ bool EngineManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
         m_sound->work();
     return true;
 }
+void EngineManager::addMessage(EngineMessage* message)
+{
+	m_messages.push_back(message);
+}
+ 

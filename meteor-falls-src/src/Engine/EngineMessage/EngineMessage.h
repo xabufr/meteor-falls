@@ -28,7 +28,9 @@ class EngineMessage{
         EngineType getFromType();
         std::vector<Engine*> getTo();
         std::vector<EngineType> getToType();
+		void clearTo();
 
+		static EngineMessage* clone(EngineMessage*);
     protected:
 
     private:

@@ -7,6 +7,7 @@
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/FactionManager.h"
+#include "../EngineMessage/EngineMessage.h"
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
@@ -51,6 +52,7 @@ void ClientNetworkEngine::work()
 					EngineMessage messageTeam(m_manager);
 					messageTeam.message = EngineMessageType::GETTEAMLIST;
 					m_tcp->send(serialize(&messageTeam));
+					m_joueur->id = m_playerNumber;
 				}
 				break;
 
@@ -110,4 +112,13 @@ void ClientNetworkEngine::logingIn()
 	mess.strings[EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
 	mess.strings[EngineMessageKey::SESSION] = m_session;
 	m_tcp->send(serialize(&mess));
+}
+void ClientNetworkEngine::sendChatMessage(std::string mes, int porte)
+{
+	EngineMessage message(m_manager);
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.message = EngineMessageType::CHAT_MESSAGE;
+	message.strings[EngineMessageKey::MESSAGE] = mes;
+	message.ints[EngineMessageKey::RANGE] = porte;
+	m_tcp->send(serialize(&message));
 }

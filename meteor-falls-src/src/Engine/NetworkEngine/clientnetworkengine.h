@@ -21,6 +21,9 @@ class ClientNetworkEngine : public NetworkEngine
         void connect(std::string, unsigned short);
         int getState() const;
 		virtual void logingIn();
+
+		void sendChatMessage(std::string message, int porte);
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;

@@ -21,6 +21,7 @@ enum EngineMessageKey
 	TEAM_RANGE   = 14,
 	GLOBAL_RANGE = 15,
 	RANGE        = 16,
+	MESSAGE      = 17,
 };
 
 #endif // ENGINEMESSAGEKEY_H
