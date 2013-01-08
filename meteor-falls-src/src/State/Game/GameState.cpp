@@ -11,7 +11,6 @@ GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::
     m_player(j),
     m_type(t)
 {
-    std::cout << "teste 2" << std::endl;
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 }
 GameState::~GameState()
@@ -31,7 +30,6 @@ bool GameState::isVisible()
 }
 void GameState::enter()
 {
-    std::cout << "teste 3" << std::endl;
     m_engineManager = new EngineManager(m_type, m_address, m_password, m_player);
     m_visible = true;
 }

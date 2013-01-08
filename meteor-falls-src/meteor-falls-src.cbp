@@ -139,6 +139,10 @@
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectManager.h" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.h" />
+		<Unit filename="src/Engine/GameEngine/Preface/ChoixState.cpp" />
+		<Unit filename="src/Engine/GameEngine/Preface/ChoixState.h" />
+		<Unit filename="src/Engine/GameEngine/Preface/TeamList.cpp" />
+		<Unit filename="src/Engine/GameEngine/Preface/TeamList.h" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.cpp" />
 		<Unit filename="src/Engine/GameEngine/Recherches/Recherche.h" />
 		<Unit filename="src/Engine/GameEngine/Ressources/Ressources.cpp" />

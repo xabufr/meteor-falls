@@ -46,7 +46,7 @@ ret_code TeamList::work(unsigned int time)
         m_list_team->resetList();
         for (Equipe* e : m_game_engine->getTeams())
         {
-            CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Team"+e->id());
+            CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Team "+e->id());
                 item->setSelected(false);
                 m_list_team->addItem(item);
 				item->setUserData(e);
