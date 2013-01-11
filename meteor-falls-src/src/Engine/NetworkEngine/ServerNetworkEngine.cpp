@@ -110,6 +110,12 @@ void ServerNetworkEngine::work()
 							{
 								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
 								sendToAllTcp(&messageTeam);
+								Equipe *equ         = m_manager->getGame()->getEquipe(teamId);
+								int rtsDisp         = equ->getRTS() == nullptr ? 1 : 0;
+								messageTeam.message = EngineMessageType::SET_RTS_DISP;
+								messageTeam.ints.clear();
+								messageTeam.ints[EngineMessageKey::RESULT] = rtsDisp;
+								sendToTcp(*client, &messageTeam);
 							}
 							else
 							{

@@ -26,6 +26,8 @@ class ClientNetworkEngine : public NetworkEngine
 
 		void trySelectTeam(char);
 
+		bool isRtsDispo() const;
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
@@ -36,6 +38,7 @@ class ClientNetworkEngine : public NetworkEngine
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
 		char m_teamId;
+		bool m_rtsDispo;
 
 	public:
         enum ClientNetworkEngineState{

@@ -21,6 +21,7 @@ enum EngineMessageType
 	KICK            = 14,
 	SELECT_TEAM     = 15,
 	SELECT_GAMEPLAY = 16,
+	SET_RTS_DISP    = 17,
 };
 
 #endif // ENGINEMESSAGETYPE_H
