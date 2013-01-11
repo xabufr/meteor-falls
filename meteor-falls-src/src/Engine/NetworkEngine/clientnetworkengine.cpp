@@ -85,6 +85,13 @@ void ClientNetworkEngine::work()
 					m_rtsDispo = message->ints[EngineMessageKey::RESULT] == 1;
 				}	
 				break;
+			case EngineMessageType::SELECT_GAMEPLAY:
+				{
+					EngineMessage *messageGameplay = EngineMessage::clone(message);
+					messageGameplay->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageGameplay);
+				}
+				break;
 		}
 		delete message;
     }
@@ -145,4 +152,12 @@ void ClientNetworkEngine::trySelectTeam(char id)
 bool ClientNetworkEngine::isRtsDispo() const
 {
 	return m_rtsDispo;
+}
+void ClientNetworkEngine::trySelectGameplay(int gameplay)
+{
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SELECT_GAMEPLAY;
+	message.ints[EngineMessageKey::GAMEPLAY_TYPE] = gameplay;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	m_tcp->send(serialize(&message));
 }

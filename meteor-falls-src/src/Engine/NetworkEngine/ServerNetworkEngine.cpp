@@ -126,6 +126,24 @@ void ServerNetworkEngine::work()
 						}
 						break;
 					case EngineMessageType::SELECT_GAMEPLAY:
+						{
+							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+							EngineMessage messageRep(m_manager);
+							messageRep.message = EngineMessageType::SELECT_GAMEPLAY;
+							messageRep.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
+							{
+								messageRep.ints[EngineMessageKey::RESULT] = client->joueur->equipe->getRTS() != nullptr ? 0 : 1;
+								client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
+							}
+							else
+							{
+								messageRep.ints[EngineMessageKey::RESULT] = 1;
+								client->joueur->equipe->addRPG(new JoueurRPG(client->joueur));
+							}							
+							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
+							sendToAllTcp(&messageRep);
+						}
 						break;
 				}
 				delete message;

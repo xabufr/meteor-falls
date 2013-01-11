@@ -273,7 +273,7 @@ bool Map::getLoaded()
 }
 float Map::getHeightAt(float x, float z)
 {
- //   m_terrain->getHeightAtWorldPosition(x,0,z);
+	return m_terrainGroup->getHeightAtWorldPosition(x,0.f,z);
 }
 Vector3D Map::getNormalAt(float x, float z)
 {

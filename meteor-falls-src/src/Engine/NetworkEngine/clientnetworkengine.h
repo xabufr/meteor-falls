@@ -25,6 +25,7 @@ class ClientNetworkEngine : public NetworkEngine
 		void sendChatMessage(std::string message, int porte);
 
 		void trySelectTeam(char);
+		void trySelectGameplay(int);
 
 		bool isRtsDispo() const;
 
@@ -39,7 +40,6 @@ class ClientNetworkEngine : public NetworkEngine
 		Joueur *m_joueur;
 		char m_teamId;
 		bool m_rtsDispo;
-
 	public:
         enum ClientNetworkEngineState{
             CONNECTING,
