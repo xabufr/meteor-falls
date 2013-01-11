@@ -55,7 +55,6 @@ void ClientNetworkEngine::work()
 					m_joueur->id = m_playerNumber;
 				}
 				break;
-
 			case EngineMessageType::LOAD_MAP:
 					m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
 				break;
@@ -72,6 +71,13 @@ void ClientNetworkEngine::work()
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
 					m_manager->getGame()->addPlayer(j);
+				}
+				break;
+			case EngineMessageType::SELECT_TEAM:
+				{
+					EngineMessage *messageGame = EngineMessage::clone(message);
+					messageGame->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageGame);
 				}
 				break;
 		}
@@ -120,5 +126,14 @@ void ClientNetworkEngine::sendChatMessage(std::string mes, int porte)
 	message.message = EngineMessageType::CHAT_MESSAGE;
 	message.strings[EngineMessageKey::MESSAGE] = mes;
 	message.ints[EngineMessageKey::RANGE] = porte;
+	m_tcp->send(serialize(&message));
+}
+void ClientNetworkEngine::trySelectTeam(char id)
+{
+	m_teamId = id;
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SELECT_TEAM;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
 	m_tcp->send(serialize(&message));
 }

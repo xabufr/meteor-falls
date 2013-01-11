@@ -6,6 +6,7 @@
 class Faction;
 class JoueurRPG;
 class JoueurRTS;
+class Joueur;
 
 class Equipe
 {
@@ -20,11 +21,19 @@ class Equipe
 		JoueurRTS* getRTS() const;
 		char id() const;
 
+		void addRPG(JoueurRPG*);
+		void removeRPG(JoueurRPG*);
+
+		void addJoueur(Joueur*);
+		void removeJoueur(Joueur*);
+		const std::vector<Joueur*> joueurs() const;
+
     protected:
     private:
         Faction *m_faction;
 		std::vector<JoueurRPG*> m_joueursRPS;
 		JoueurRTS *m_joueurRTS;
+		std::vector<Joueur*> m_joueurs;
 		char m_id;
 };
 

@@ -96,6 +96,31 @@ void ServerNetworkEngine::work()
 							m_manager->addMessage(messageGameEngine);
 						}
 						break;
+					case EngineMessageType::SELECT_TEAM:
+						{
+							char teamId  = message->ints[EngineMessageKey::TEAM_ID];
+							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+							if(client==nullptr)
+									break;
+							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
+							EngineMessage messageTeam(m_manager);
+							messageTeam.message = EngineMessageType::SELECT_TEAM;
+							messageTeam.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+							if(canJoin)
+							{
+								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
+								sendToAllTcp(&messageTeam);
+							}
+							else
+							{
+								messageTeam.ints[EngineMessageKey::TEAM_ID] = -1;
+								sendToTcp(*client, &messageTeam);
+							}
+
+						}
+						break;
+					case EngineMessageType::SELECT_GAMEPLAY:
+						break;
 				}
 				delete message;
             }
@@ -237,4 +262,14 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 			}
 		}
 	}
+}
+ServerClient* ServerNetworkEngine::findClient(client_id id)
+{
+	boost::mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient &c : m_clients)
+	{
+		if(c.id() == id)
+				return &c;
+	}
+	return nullptr;	
 }

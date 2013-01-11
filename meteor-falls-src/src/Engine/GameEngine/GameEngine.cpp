@@ -9,7 +9,6 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
     m_type(t)
 {
-    std::cout << "teste 1" << std::endl;
     m_map = new Map(mng->getGraphic()->getSceneManager());
 	m_sous_state = nullptr;
 	if(t==SERVER)
@@ -68,9 +67,9 @@ void GameEngine::work()
     {
         if (m_type == Type::CLIENT)
         {
-            if (m_sous_state == nullptr)
-                m_sous_state = new TeamList(nullptr, this);
-            m_sous_state->work(0);
+           // if (m_sous_state == nullptr)
+             //   m_sous_state = new TeamList(nullptr, this);
+           // m_sous_state->work(0);
         }
         m_map->update();
     }
@@ -103,4 +102,32 @@ Equipe* GameEngine::getEquipe(char id)
 				return e;
 	}
 	return 0;
+}
+bool GameEngine::tryJoinTeam(char id, Joueur* j)
+{
+	int nb_min=999, nb_cur = 9999;
+	Equipe *eJoueur;
+	for(Equipe *e : m_teams)
+	{
+		int nb = e->joueurs().size();
+		if(nb<nb_min)
+			nb_min=nb;
+		if(id==e->id())
+		{
+			nb_cur = nb;
+			eJoueur = e;
+		}
+	}
+	if(nb_cur >= nb_min+3)
+		return false;
+	j->equipe=eJoueur;
+	eJoueur->addJoueur(j);
+	return true;
+}
+Joueur* GameEngine::findJoueur(int id)
+{
+	for(Joueur *j : m_joueurs)
+		if(j->id==id)
+				return j;
+	return nullptr;
 }

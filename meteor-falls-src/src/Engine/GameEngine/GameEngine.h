@@ -28,6 +28,8 @@ class GameEngine : public Engine
 		void addTeam(Equipe*);
 		void addPlayer(Joueur*);
 		Equipe* getEquipe(char);
+		bool tryJoinTeam(char, Joueur*);
+		Joueur* findJoueur(int);
 
     protected:
 

@@ -24,6 +24,8 @@ class ClientNetworkEngine : public NetworkEngine
 
 		void sendChatMessage(std::string message, int porte);
 
+		void trySelectTeam(char);
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
@@ -33,6 +35,7 @@ class ClientNetworkEngine : public NetworkEngine
 		std::string m_password, m_salt, m_session;
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
+		char m_teamId;
 
 	public:
         enum ClientNetworkEngineState{

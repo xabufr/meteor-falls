@@ -32,6 +32,8 @@ class ServerNetworkEngine : public NetworkEngine
 		void setMaxClients(unsigned short);
 		void setMapName(const std::string&);
 
+		ServerClient* findClient(client_id);
+
     protected:
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);
