@@ -21,7 +21,6 @@ ret_code GameState::work(unsigned int time)
     m_engineManager->work();
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
 	{
-		std::cout << "term" << std::endl;
         return ret_code::FINISHED;
 	}
     return ret_code::CONTINUE;

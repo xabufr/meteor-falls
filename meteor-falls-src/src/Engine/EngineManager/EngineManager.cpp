@@ -71,7 +71,8 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
         m_network = new ServerNetworkEngineLan(this, 8888);
         break;
     }
-    m_game = new GameEngine(this, (t==CLIENT||t==CLIENT_LAN)?GameEngine::Type::CLIENT : GameEngine::Type::SERVER);
+    m_game = (t==CLIENT||t==CLIENT_LAN)?new GameEngine(this, GameEngine::Type::CLIENT, j)
+                                      : new GameEngine(this, GameEngine::Type::SERVER);
 }
 EngineManager::~EngineManager()
 {
@@ -118,4 +119,4 @@ void EngineManager::addMessage(EngineMessage* message)
 {
 	m_messages.push_back(message);
 }
- 
+

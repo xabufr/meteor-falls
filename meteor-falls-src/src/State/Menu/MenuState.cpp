@@ -179,6 +179,8 @@ void MenuState::exit()
 {
     if(m_sousState)
         m_sousState->exit();
+    if(m_state)
+        m_state->hide();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
 //    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
 //    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);

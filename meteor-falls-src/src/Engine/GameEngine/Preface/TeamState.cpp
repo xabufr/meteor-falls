@@ -59,8 +59,8 @@ bool TeamState::m_send_message(const CEGUI::EventArgs&)
     if (m_keyboard->isKeyDown(OIS::KeyCode::KC_RETURN))
     {
         ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+        net->sendChatMessage(std::string(m_edit->getText().c_str()), 15);
         m_edit->setText("");
-        net->sendChatMessage(std::string(m_edit->getText().c_str()), 14);
     }
     return true;
 }

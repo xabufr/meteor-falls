@@ -21,7 +21,7 @@ class GameEngine : public Engine
             CLIENT,
             SERVER
         };
-        GameEngine(EngineManager*, Type);
+        GameEngine(EngineManager*, Type, Joueur* j=0);
         virtual ~GameEngine();
         virtual void handleMessage(EngineMessage&);
         virtual void work();
@@ -33,6 +33,7 @@ class GameEngine : public Engine
 		void addPlayer(Joueur*);
 		void setSousStateType(TypeState);
 		Equipe* getEquipe(char);
+		Joueur* getCurrentJoueur();
 		bool tryJoinTeam(char, Joueur*);
 		Joueur* findJoueur(int);
 
@@ -43,7 +44,7 @@ class GameEngine : public Engine
         Type m_type;
         TypeState m_type_sous_state;
         State *m_sous_state;
-		Joueur *m_currentJoueur;
+		Joueur *m_current_joueur;
 		std::vector<Equipe*> m_teams;
 		std::vector<Joueur*> m_joueurs;
 		bool m_change_sous_state;

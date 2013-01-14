@@ -56,7 +56,7 @@ bool TeamList::m_item_selected(const CEGUI::EventArgs&)
     for (size_t i=0; i<m_list_team->getItemCount(); ++i)
         if (m_list_team->getListboxItemFromIndex(i)->isSelected())
         {
-            m_game_engine->addTeam(static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData()));
+            m_game_engine->tryJoinTeam(static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData())->id(), m_game_engine->getCurrentJoueur());
             m_game_engine->setSousStateType(GameEngine::TypeState::TEAM_STATE);
         }
 
