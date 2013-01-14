@@ -64,6 +64,9 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
+		    std::cout << "test1" << std::endl;
+            TeamState *team_state = (TeamState*)m_sous_state;
+            team_state->setMessage("["+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"]:"+message.strings[EngineMessageKey::MESSAGE]);
 		}
 	}
 }

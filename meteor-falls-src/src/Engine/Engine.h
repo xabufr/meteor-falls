@@ -14,6 +14,7 @@ public:
     virtual EngineType getType() = 0;
 
     Engine(EngineManager *manager):m_manager(manager){};
+    EngineManager* getManager(){return m_manager;};
 protected:
     EngineManager *m_manager;
 };
