@@ -6,6 +6,7 @@
 #include "../GameEngine.h"
 #include <vector>
 #include <CEGUI.h>
+#include <OIS/OIS.h>
 
 class JoueurRPG;
 
@@ -18,14 +19,17 @@ public:
     virtual void enter();
     virtual void exit();
     virtual ret_code work(unsigned int);
+    void setMessage(const std::string message);
 private:
+    bool m_send_message(const CEGUI::EventArgs &);
     bool m_visible;
+    OIS::Keyboard *m_keyboard;
     GameEngine *m_game_engine;
     CEGUI::TabButton *m_window;
     CEGUI::PushButton *m_rts;
     CEGUI::PushButton *m_rpg;
-    //CEGUI::MultiLineEditbox *m_chat;
-    //CEGUI::Editbox *m_edit;
+    CEGUI::Listbox *m_chat;
+    CEGUI::Editbox *m_edit;
 };
 
 #endif // CHOIXSTATE_H_INCLUDED
