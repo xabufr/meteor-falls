@@ -1,5 +1,6 @@
 #include "TeamList.h"
 #include "../Factions/Equipe.h"
+#include <boost/lexical_cast.hpp>
 
 TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
 m_visible(true),
@@ -14,7 +15,7 @@ m_game_engine(engine)
     m_list_team->setMultiselectEnabled(false);
     m_list_team->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&TeamList::m_item_selected, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_list_team);
-    m_list_team->show();
+    m_list_team->hide();
 }
 
 TeamList::~TeamList()
@@ -46,10 +47,10 @@ ret_code TeamList::work(unsigned int time)
         m_list_team->resetList();
         for (Equipe* e : m_game_engine->getTeams())
         {
-            CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Team "+e->id());
-                item->setSelected(false);
-                m_list_team->addItem(item);
-				item->setUserData(e);
+            CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Team "+boost::lexical_cast<std::string>((int)e->id()));
+            item->setSelected(false);
+            m_list_team->addItem(item);
+            item->setUserData(e);
         }
     }
     return CONTINUE;
@@ -59,7 +60,10 @@ bool TeamList::m_item_selected(const CEGUI::EventArgs&)
 {
     for (size_t i=0; i<m_list_team->getItemCount(); ++i)
         if (m_list_team->getListboxItemFromIndex(i)->isSelected())
-           std::cout << m_list_team->getListboxItemFromIndex(i)->getText() << std::endl;
+        {
+            m_game_engine->addTeam(static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData()));
+            m_game_engine->setSousStateType(GameEngine::TypeState::TEAM_STATE);
+        }
 
     return true;
 }
