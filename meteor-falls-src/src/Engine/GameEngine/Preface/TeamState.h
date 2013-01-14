@@ -22,6 +22,7 @@ public:
     void setMessage(const std::string message);
 private:
     bool m_send_message(const CEGUI::EventArgs &);
+    bool m_choix_mode(const CEGUI::EventArgs &);
     bool m_visible;
     OIS::Keyboard *m_keyboard;
     GameEngine *m_game_engine;
