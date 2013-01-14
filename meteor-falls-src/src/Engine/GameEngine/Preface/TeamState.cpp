@@ -46,7 +46,7 @@ m_game_engine(engine)
     m_edit->setSize(CEGUI::UVector2(CEGUI::UDim(0.25, 0), CEGUI::UDim(0.05, 0)));
     m_edit->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim((1-m_edit->getSize().d_y.d_scale), 0)));
-
+    m_edit->activate();
     m_chat->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim((1-m_chat->getSize().d_y.d_scale-m_edit->getSize().d_y.d_scale), 0)));
     m_edit->subscribeEvent(CEGUI::Editbox::EventKeyDown, CEGUI::Event::Subscriber(&TeamState::m_send_message, this));
@@ -59,8 +59,8 @@ bool TeamState::m_send_message(const CEGUI::EventArgs&)
     if (m_keyboard->isKeyDown(OIS::KeyCode::KC_RETURN))
     {
         ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-        net->sendChatMessage(std::string(m_edit->getText().c_str()), 14);
         m_edit->setText("");
+        net->sendChatMessage(std::string(m_edit->getText().c_str()), 14);
     }
     return true;
 }

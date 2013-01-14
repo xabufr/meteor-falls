@@ -37,7 +37,7 @@ void getFiles(const std::string& path, const std::string& pattern, bool recurse,
     patterns.push_back(pattern);
     getFiles(path, patterns, recurse, liste);
 }
-void getFiles(const std::string& path, const std::list<std::string> pattern, bool recurse, std::list<std::string>& liste)
+void getFiles(const std::string& path, const std::list<std::string> &pattern, bool recurse, std::list<std::string>& liste)
 {
     filesystem::path dir(path);
     if(exists(dir)&&is_directory(dir))

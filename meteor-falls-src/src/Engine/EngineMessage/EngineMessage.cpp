@@ -13,7 +13,7 @@ void EngineMessage::setFromType(EngineType p_from_type){
     m_from = m_engine_manager->get(p_from_type);
 }
 void EngineMessage::addTo(Engine* p_to){
-    for(unsigned int i=0;i<=m_to.size();i++){
+    for(unsigned int i=0;i<m_to.size();i++){
         if(p_to == m_to[i]){
             return ;
         }
@@ -51,6 +51,7 @@ EngineMessage* EngineMessage::clone(EngineMessage* mes)
 	message->time          = mes->time;
 	message->doubles       = mes->doubles;
 	message->setFrom(mes->getFrom());
+	message->message = mes->message;
 	for(Engine* e : mes->m_to)
 		message->addTo(e);
 	return message;

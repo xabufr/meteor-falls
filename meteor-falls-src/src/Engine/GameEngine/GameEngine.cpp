@@ -38,10 +38,10 @@ void GameEngine::handleMessage(EngineMessage& message)
 {
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
-
 		if(m_type==SERVER)
 		{
 			ServerNetworkEngine *net = (ServerNetworkEngine*) m_manager->getNetwork();
+			std::cout << "message: " << message.strings[EngineMessageKey::MESSAGE] << std::endl;
 			if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
 		   	{
 			   	Equipe *equipe = nullptr;
@@ -64,7 +64,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-		    std::cout << "test1" << std::endl;
             TeamState *team_state = (TeamState*)m_sous_state;
             team_state->setMessage("["+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"]:"+message.strings[EngineMessageKey::MESSAGE]);
 		}

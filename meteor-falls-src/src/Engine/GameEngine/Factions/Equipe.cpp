@@ -62,7 +62,10 @@ void Equipe::removeJoueur(Joueur* j)
 	for(auto it=m_joueurs.begin();it!=m_joueurs.end();)
 	{
 		if(*it==j)
+		{
 			m_joueurs.erase(it);
+			return;
+		}
 	}
 }
 const std::vector<Joueur*> Equipe::joueurs() const
