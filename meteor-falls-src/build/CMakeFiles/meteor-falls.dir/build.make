@@ -926,9 +926,32 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o.pro
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o
 
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o: ../src/Engine/GameEngine/Preface/TeamState.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_39)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp > CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.i
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.s
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.requires:
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.requires
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.provides: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.requires
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.provides.build
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.provides
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o
+
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o: ../src/Engine/GameEngine/Preface/TeamList.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_40)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
 
@@ -948,29 +971,6 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o.provide
 .PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o: ../src/Engine/GameEngine/Preface/ChoixState.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_40)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/ChoixState.cpp
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/ChoixState.cpp > CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.i
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/ChoixState.cpp -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.s
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.requires:
-.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.requires
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.provides: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.requires
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.provides.build
-.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.provides
-
-CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o: ../src/Engine/GameEngine/Degats/Degat.cpp
@@ -2162,8 +2162,8 @@ meteor__falls_OBJECTS = \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o" \
+"CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o" \
-"CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o" \
@@ -2256,8 +2256,8 @@ meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o
+meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o
-meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o
@@ -2355,8 +2355,8 @@ CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/Gam
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o.requires
+CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o.requires
-CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o.requires

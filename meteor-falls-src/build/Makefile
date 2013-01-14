@@ -810,30 +810,6 @@ src/Engine/GameEngine/Map/WorldObjectType.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.s
 .PHONY : src/Engine/GameEngine/Map/WorldObjectType.cpp.s
 
-src/Engine/GameEngine/Preface/ChoixState.o: src/Engine/GameEngine/Preface/ChoixState.cpp.o
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.o
-
-# target to build an object file
-src/Engine/GameEngine/Preface/ChoixState.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.o
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.cpp.o
-
-src/Engine/GameEngine/Preface/ChoixState.i: src/Engine/GameEngine/Preface/ChoixState.cpp.i
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.i
-
-# target to preprocess a source file
-src/Engine/GameEngine/Preface/ChoixState.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.i
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.cpp.i
-
-src/Engine/GameEngine/Preface/ChoixState.s: src/Engine/GameEngine/Preface/ChoixState.cpp.s
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.s
-
-# target to generate assembly for a file
-src/Engine/GameEngine/Preface/ChoixState.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/ChoixState.cpp.s
-.PHONY : src/Engine/GameEngine/Preface/ChoixState.cpp.s
-
 src/Engine/GameEngine/Preface/TeamList.o: src/Engine/GameEngine/Preface/TeamList.cpp.o
 .PHONY : src/Engine/GameEngine/Preface/TeamList.o
 
@@ -857,6 +833,30 @@ src/Engine/GameEngine/Preface/TeamList.s: src/Engine/GameEngine/Preface/TeamList
 src/Engine/GameEngine/Preface/TeamList.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.s
 .PHONY : src/Engine/GameEngine/Preface/TeamList.cpp.s
+
+src/Engine/GameEngine/Preface/TeamState.o: src/Engine/GameEngine/Preface/TeamState.cpp.o
+.PHONY : src/Engine/GameEngine/Preface/TeamState.o
+
+# target to build an object file
+src/Engine/GameEngine/Preface/TeamState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o
+.PHONY : src/Engine/GameEngine/Preface/TeamState.cpp.o
+
+src/Engine/GameEngine/Preface/TeamState.i: src/Engine/GameEngine/Preface/TeamState.cpp.i
+.PHONY : src/Engine/GameEngine/Preface/TeamState.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Preface/TeamState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.i
+.PHONY : src/Engine/GameEngine/Preface/TeamState.cpp.i
+
+src/Engine/GameEngine/Preface/TeamState.s: src/Engine/GameEngine/Preface/TeamState.cpp.s
+.PHONY : src/Engine/GameEngine/Preface/TeamState.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Preface/TeamState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.s
+.PHONY : src/Engine/GameEngine/Preface/TeamState.cpp.s
 
 src/Engine/GameEngine/Recherches/Recherche.o: src/Engine/GameEngine/Recherches/Recherche.cpp.o
 .PHONY : src/Engine/GameEngine/Recherches/Recherche.o
@@ -2370,12 +2370,12 @@ help:
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.o"
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.i"
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.s"
-	@echo "... src/Engine/GameEngine/Preface/ChoixState.o"
-	@echo "... src/Engine/GameEngine/Preface/ChoixState.i"
-	@echo "... src/Engine/GameEngine/Preface/ChoixState.s"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.o"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.i"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.s"
+	@echo "... src/Engine/GameEngine/Preface/TeamState.o"
+	@echo "... src/Engine/GameEngine/Preface/TeamState.i"
+	@echo "... src/Engine/GameEngine/Preface/TeamState.s"
 	@echo "... src/Engine/GameEngine/Recherches/Recherche.o"
 	@echo "... src/Engine/GameEngine/Recherches/Recherche.i"
 	@echo "... src/Engine/GameEngine/Recherches/Recherche.s"

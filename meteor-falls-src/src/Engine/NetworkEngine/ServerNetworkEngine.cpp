@@ -90,6 +90,7 @@ void ServerNetworkEngine::work()
 						break;
 					case EngineMessageType::CHAT_MESSAGE:
 						{
+							message->setFrom(this);
 							EngineMessage *messageGameEngine = EngineMessage::clone(message);
 							messageGameEngine->clearTo();
 							messageGameEngine->addToType(EngineType::GameEngineType);

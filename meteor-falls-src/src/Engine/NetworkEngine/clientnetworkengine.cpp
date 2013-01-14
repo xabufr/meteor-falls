@@ -9,6 +9,8 @@
 #include "../GameEngine/Factions/FactionManager.h"
 #include "../EngineMessage/EngineMessage.h"
 
+#include <iostream>
+
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
 	m_port(port),
@@ -90,6 +92,15 @@ void ClientNetworkEngine::work()
 					EngineMessage *messageGameplay = EngineMessage::clone(message);
 					messageGameplay->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGameplay);
+				}
+				break;
+			case EngineMessageType::CHAT_MESSAGE:
+				{
+					message->setFrom(this);
+					EngineMessage *messageGame = EngineMessage::clone(message);
+					messageGame->clearTo();
+					messageGame->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageGame);
 				}
 				break;
 		}

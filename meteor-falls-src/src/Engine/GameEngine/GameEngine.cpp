@@ -38,10 +38,10 @@ void GameEngine::handleMessage(EngineMessage& message)
 {
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
-
 		if(m_type==SERVER)
 		{
 			ServerNetworkEngine *net = (ServerNetworkEngine*) m_manager->getNetwork();
+			std::cout << "message: " << message.strings[EngineMessageKey::MESSAGE] << std::endl;
 			if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
 		   	{
 			   	Equipe *equipe = nullptr;

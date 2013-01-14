@@ -51,6 +51,7 @@ EngineMessage* EngineMessage::clone(EngineMessage* mes)
 	message->time          = mes->time;
 	message->doubles       = mes->doubles;
 	message->setFrom(mes->getFrom());
+	message->message = mes->message;
 	for(Engine* e : mes->m_to)
 		message->addTo(e);
 	return message;
