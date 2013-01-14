@@ -9,6 +9,7 @@ class GameState : public State
     public:
         GameState(StateManager*);
         virtual ~GameState();
+        virtual bool isVisible();
         virtual ret_code work(unsigned int);
         virtual void enter();
         virtual void exit();
@@ -17,6 +18,7 @@ class GameState : public State
     private:
         OIS::Keyboard *m_keyboard;
         EngineManager *m_engineManager;
+        bool m_visible;
 };
 
 #endif // GAMESTATE_H

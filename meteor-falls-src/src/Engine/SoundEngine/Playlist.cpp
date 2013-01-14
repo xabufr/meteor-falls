@@ -1,12 +1,12 @@
 #include "Playlist.h"
 #include "../ScriptEngine/XmlDocumentManager.h"
-#include "../../Utils/File.h"
+#include "Utils/File.h"
 
 Playlist::Playlist()
 {
     m_stop = true;
     m_pause = false;
-    m_volume = 100;
+    m_volume = 0;
     m_music = new sf::Music;
     m_loop = true;
     m_temps_ecoule.restart();

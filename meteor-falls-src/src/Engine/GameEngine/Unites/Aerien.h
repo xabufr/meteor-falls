@@ -6,7 +6,7 @@
 class Aerien : public Mobile
 {
     public:
-        Aerien();
+        Aerien(Ogre::SceneManager*);
         virtual ~Aerien();
     protected:
     private:

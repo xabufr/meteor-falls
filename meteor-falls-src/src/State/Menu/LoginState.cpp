@@ -1,4 +1,5 @@
 #include "LoginState.h"
+#include "State/Console.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
@@ -10,7 +11,7 @@
 
 }
 
- LoginState::LoginState(StateManager *mgr) : State(mgr)
+ LoginState::LoginState(StateManager *mgr) : State(mgr), m_visible(false)
 {
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
@@ -37,7 +38,7 @@
     m_playOnline->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_playOnline->getSize().d_x.d_scale/2), 0),
                                            CEGUI::UDim(0.12+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
 
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
     m_sheet->hide();
 }
 
@@ -147,13 +148,20 @@ bool LoginState::send(const CEGUI::EventArgs &)
     return true;
 }
 
+bool LoginState::isVisible()
+{
+    return m_visible;
+}
+
 void LoginState::exit()
 {
     m_sheet->hide();
+    m_visible = false;
 }
 
 void LoginState::enter()
 {
     m_sheet->show();
+    m_visible = true;
 }
 

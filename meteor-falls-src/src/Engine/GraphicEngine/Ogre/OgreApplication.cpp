@@ -116,3 +116,15 @@ void OgreApplication::m_bootstrapCegui()
     CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
     m_ceguiStarted = true;
 }
+/*
+ * First param -> path
+ * Second param -> type
+ * */
+void OgreApplication::AddResourceLocation(std::vector<std::pair<std::string, std::string>> locations)
+{
+	for(auto location : locations){
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location.first, location.second, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,true);
+        std::cout << "adding :" << location.first << std::endl;
+	}
+	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+}

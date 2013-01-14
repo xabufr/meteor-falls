@@ -1,6 +1,9 @@
 #include <string>
 #include "MenuState.h"
 #include "LoginState.h"
+#include "State/Console.h"
+#include "State/Command/MenuState/ExitMenuState.h"
+#include "State/Command/MenuState/LoginMenuState.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -10,7 +13,7 @@
 #include "../../Engine/SoundEngine/Playlist.h"
 
 MenuState::MenuState(StateManager* mng):
-    State(mng)
+    State(mng), m_visible(false)
 {
     m_transitionning=false;
     m_currentSelected = 0;
@@ -84,6 +87,12 @@ MenuState::MenuState(StateManager* mng):
     CEGUI::System::getSingleton().setDefaultMouseCursor("Interface", "MouseArrow");
     CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
 
+    CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
+
+    m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
+
+    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
@@ -111,10 +120,16 @@ bool MenuState::startGame()
 
 void MenuState::enter()
 {
+    //initialisation des commandes
+    Console::get()->clearCommands();
+    Console::get()->addCommand(new ExitMenuState());
+    Console::get()->addCommand(new LoginMenuState(m_sousState, m_state_manager));
+
     if(m_sousState)
         m_sousState->enter();
     m_scene_mgr->getRootSceneNode()->setVisible(true);
     Playlist::get()->select_group("menu");
+    m_visible = true;
 
 }
 
@@ -125,6 +140,7 @@ void MenuState::exit()
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
     OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
+    m_visible = false;
 }
 
 ret_code MenuState::work(unsigned int time)
@@ -142,7 +158,7 @@ ret_code MenuState::work(unsigned int time)
     m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
     m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
 
-    if (m_sousState==0)
+    if (m_sousState==0 || !m_sousState->isVisible())
     {
         /*Piking*/
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
@@ -216,21 +232,34 @@ ret_code MenuState::work(unsigned int time)
                 m_transitionParams.function();
             }
         }
-
     }
     else
     {
         m_sousState->work(time);
     }
-    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-        return ret_code::EXIT_PROGRAM;
-    else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
+
+    if (!Console::get()->isVisible())
     {
-        m_sousState->exit();
+        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+            return ret_code::EXIT_PROGRAM;
+        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
+            Console::get()->show();
+    }
+    else
+    {
+        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+            return ret_code::EXIT_PROGRAM;
+        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
+            Console::get()->hide();
+        else if (m_keyboard->isKeyDown(OIS::KC_RETURN))
+            Console::get()->start();
     }
 
     return CONTINUE;
 }
 
-
+bool MenuState::isVisible()
+{
+    return m_visible;
+}
 

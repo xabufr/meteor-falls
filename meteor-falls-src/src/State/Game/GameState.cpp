@@ -22,12 +22,19 @@ ret_code GameState::work(unsigned int time)
     return ret_code::CONTINUE;
 }
 
+bool GameState::isVisible()
+{
+    return m_visible;
+}
+
 void GameState::enter()
 {
     m_engineManager = new EngineManager(EngineManager::Type::CLIENT);
+    m_visible = true;
 }
 
 void GameState::exit()
 {
     delete m_engineManager;
+    m_visible = false;
 }

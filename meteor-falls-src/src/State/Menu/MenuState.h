@@ -24,11 +24,13 @@ class MenuState: public State
         MenuState(StateManager*);
         ~MenuState();
 
+        virtual bool isVisible();
         virtual void enter();
         virtual void exit();
         virtual ret_code work(unsigned int time);
 
     private:
+        CEGUI::Window *m_sheet;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
         Ogre::SceneManager *m_scene_mgr;
@@ -41,7 +43,7 @@ class MenuState: public State
         Ogre::SceneNode* terreAtmosphere;
         Ogre::Entity* m_currentSelected;
         Ogre::RaySceneQuery* m_sceneQuery;
-
+        bool m_visible;
         State *m_sousState;
 
         /**

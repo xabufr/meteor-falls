@@ -11,6 +11,7 @@ class LoginState : public State
   public:
         LoginState(StateManager *mgr);
         ~LoginState();
+        virtual bool isVisible();
         virtual void enter();
         virtual void exit();
         virtual ret_code work(unsigned int time);
@@ -26,6 +27,7 @@ class LoginState : public State
         CEGUI::Window *m_message;
         OIS::Mouse *m_mouse;
         OIS::Keyboard *m_keyboard;
+        bool m_visible;
         void m_state_element(const bool);
         bool m_connection(const CEGUI::EventArgs &);
         bool send(const CEGUI::EventArgs &);

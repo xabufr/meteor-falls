@@ -2505,8 +2505,8 @@
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"State/Menu/MenuState.h"
 
-1352818978 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/application.h
-	"Application/applicationparameters.h"
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/application.h
+	"applicationparameters.h"
 
 1352845664 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/applicationparameters.h
 	<unordered_map>
@@ -2518,7 +2518,7 @@
 
 1353340741 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/singleton.h
 
-1354195676 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
 	<OgreRectangle2D.h>
 	<OgreSceneNode.h>
 	<OgreCamera.h>
@@ -3350,7 +3350,7 @@
 	<windows.h>
 	<Carbon/Carbon.h>
 
-1353933479 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/State.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/State.h
 	"StateManager.h"
 	<vector>
 
@@ -3631,15 +3631,19 @@
 	"../EngineMessage/EngineMessage.h"
 	"../Engine.h"
 
-1354626944 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
+1355737653 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
 	<OgreSceneManager.h>
 	<OgreCamera.h>
-	<Hydrax.h>
+	<Hydrax/Hydrax.h>
 	<string>
 	<iostream>
 	"../Camera/CameraLibre.h"
-	"../../../../SkyX/Include/SkyX.h"
-	<Terrain/OgreTerrain.h>
+	<SkyX/SkyX.h>
+	<vector>
+	"../../../Utils/Vector3D.h"
+	"../Unites/Hero.h"
+	<Terrain/OgreTerrainGroup.h>
+	"Engine/ScriptEngine/XmlDocumentManager.h"
 
 1354537848 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraLibre.h
 	<Ogre.h>
@@ -4262,7 +4266,7 @@
 	"../Engine.h"
 	"precompiled/serialization.h"
 
-1354184589 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
 	"precompiled/serialization.h"
 	<SFML/System/Vector3.hpp>
 	<OgreVector3.h>
@@ -4280,7 +4284,7 @@
 
 1352821093 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
 
-1354282446 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
 	<OgreRenderWindow.h>
 	<OgreRoot.h>
 	<CEGUI.h>
@@ -4299,7 +4303,7 @@
 	"../EngineManager/EngineManager.h"
 	"../GraphicEngine/GraphicEngine.h"
 
-1353333190 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 	"GraphicEngine.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -4405,14 +4409,14 @@
 	"soundbuffermanager.h"
 	"Utils/Exception/BasicException.h"
 
-1353933526 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Game/GameState.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Game/GameState.cpp
 	"GameState.h"
 	"../StateManager.h"
 	"Engine/EngineManager/EngineManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-1353933501 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Game/GameState.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Game/GameState.h
 	"../State.h"
 	<OIS/OIS.h>
 
@@ -4533,7 +4537,7 @@
 	"../MaterialManager.h"
 	"../GPUNormalMapManager.h"
 
-1354555836 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
 	"Utils/Exception/BasicException.h"
 	<OgreConfigFile.h>
@@ -4564,10 +4568,10 @@
 	"precompiled/shared_ptr.h"
 	"Connection.h"
 
-1354532409 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
+1355133471 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
 	"Playlist.h"
 	"../ScriptEngine/XmlDocumentManager.h"
-	"../../Utils/File.h"
+	"Utils/File.h"
 
 1354523422 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.h
 	<string.h>
@@ -4582,15 +4586,16 @@
 	<list>
 	<string>
 
-1354537848 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
 	"LoginState.h"
+	"State/Console.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/NetworkEngine/ClientLogin.h"
 	"State/Game/GameState.h"
 
-1354537848 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.h
 	"State/State.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	<CEGUI.h>
@@ -4635,10 +4640,13 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354539049 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"LoginState.h"
+	"State/Console.h"
+	"State/Command/MenuState/ExitMenuState.h"
+	"State/Command/MenuState/LoginMenuState.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -5022,10 +5030,13 @@
 1354005479 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRTS.h
 	"Joueur.h"
 
-1353400966 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
 	"ObjetTerrain.h"
+	<OgreSceneNode.h>
+	<OgreSceneManager.h>
 
-1353400994 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.h
+	"../../../Utils/Vector3D.h"
 
 1354050374 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Recherches/Recherche.cpp
 	"Recherche.h"
@@ -5033,43 +5044,52 @@
 1354030064 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.cpp
 	"Ressources.h"
 
-1354004295 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
 	"Aerien.h"
 
-1354004364 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
 	"Mobile.h"
 
-1354003969 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
 	"Unite.h"
 
-1354037776 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
 	"../Map/ObjetTerrain.h"
 
-1354003730 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
 	"Batiment.h"
 
-1354003915 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
 	"Unite.h"
 
-1354003780 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
+1357894489 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
 
-1354004014 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
+1357895260 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
 	"Terrestre.h"
+	"Engine/GameEngine/Degats/Armure.h"
+	"Engine/GameEngine/Degats/Degat.h"
+	<OgreSceneManager.h>
+	<string>
+	<iostream>
+	<vector>
+	"../../../Utils/Vector3D.h"
+	"Engine/ScriptEngine/XmlDocumentManager.h"
+	<boost/lexical_cast.hpp>
 
-1354003981 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
 	"Mobile.h"
 
-1354003746 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
 	"Mobile.h"
 
-1354003762 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
 	"Terrestre.h"
 
 1354094061 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
 	"TypeUnite.h"
 
-1354003514 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
+1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 	"Unite.h"
 
 1354110345 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
@@ -5077,22 +5097,303 @@
 	"../Factions/Faction.h"
 	"TypeUnite.h"
 
-1354634960 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
+1355738803 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
 	"Map.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	"precompiled/lexical_cast.h"
 	<OgreSceneManager.h>
 	<OgreCamera.h>
+	<OgreQuaternion.h>
+	<OgreSceneNode.h>
+	<OgreEntity.h>
+	<Terrain/OgreTerrainMaterialGeneratorA.h>
 	<Terrain/OgreTerrainLayerBlendMap.h>
 	<OIS/OIS.h>
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
-	<Noise/Perlin/Perlin.h>
-	<Modules/ProjectedGrid/ProjectedGrid.h>
+	<Hydrax/Noise/Perlin/Perlin.h>
+	<Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
+	"WorldObject.h"
+	"WorldObjectManager.h"
+	"../../../Utils/Random.h"
+	"../../../precompiled/lexical_cast.h"
+	"WorldObjectType.h"
 
 1354532514 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/File.cpp
 	"File.h"
 	<boost/filesystem.hpp>
 	<boost/algorithm/string/predicate.hpp>
+
+1337975324 /usr/local/include/OGRE/Terrain/OgreTerrainGroup.h
+	"OgreTerrainPrerequisites.h"
+	"OgreTerrain.h"
+	"OgreWorkQueue.h"
+	"OgreIteratorWrappers.h"
+
+1355130427 /usr/local/include/Hydrax/Hydrax.h
+	"Prerequisites.h"
+	"Enums.h"
+	"Help.h"
+	"Mesh.h"
+	"Image.h"
+	"MaterialManager.h"
+	"RttManager.h"
+	"TextureManager.h"
+	"GodRaysManager.h"
+	"DecalsManager.h"
+	"GPUNormalMapManager.h"
+	"CfgFileManager.h"
+	"Modules/Module.h"
+
+1355130427 /usr/local/include/Hydrax/Prerequisites.h
+	<Ogre.h>
+
+1355130427 /usr/local/include/Hydrax/Enums.h
+	"Prerequisites.h"
+
+1355130427 /usr/local/include/Hydrax/Help.h
+	"Prerequisites.h"
+
+1355130427 /usr/local/include/Hydrax/Mesh.h
+	"Prerequisites.h"
+	"Help.h"
+	"Image.h"
+
+1355130427 /usr/local/include/Hydrax/Image.h
+	"Prerequisites.h"
+	"Help.h"
+
+1355130427 /usr/local/include/Hydrax/MaterialManager.h
+	"Prerequisites.h"
+	"Enums.h"
+
+1355130427 /usr/local/include/Hydrax/RttManager.h
+	"Prerequisites.h"
+	"Enums.h"
+	"Help.h"
+
+1355130427 /usr/local/include/Hydrax/TextureManager.h
+	"Prerequisites.h"
+	"Enums.h"
+	"Image.h"
+
+1355130427 /usr/local/include/Hydrax/GodRaysManager.h
+	"Prerequisites.h"
+	"Noise/Perlin/Perlin.h"
+	"Enums.h"
+
+1355130427 /usr/local/include/Hydrax/Noise/Perlin/Perlin.h
+	"../../Prerequisites.h"
+	"../Noise.h"
+
+1355130427 /usr/local/include/Hydrax/Noise/Noise.h
+	"../Prerequisites.h"
+	"../GPUNormalMapManager.h"
+
+1355130427 /usr/local/include/Hydrax/GPUNormalMapManager.h
+	"Prerequisites.h"
+	"Enums.h"
+	"RttManager.h"
+
+1355130427 /usr/local/include/Hydrax/DecalsManager.h
+	"Prerequisites.h"
+
+1355130427 /usr/local/include/Hydrax/CfgFileManager.h
+	"Prerequisites.h"
+	"Help.h"
+
+1355130427 /usr/local/include/Hydrax/Modules/Module.h
+	"../Prerequisites.h"
+	"../Noise/Noise.h"
+	"../Mesh.h"
+	"../MaterialManager.h"
+	"../GPUNormalMapManager.h"
+
+1355129847 /usr/local/include/SkyX/SkyX.h
+	"Prerequisites.h"
+	"MeshManager.h"
+	"AtmosphereManager.h"
+	"GPUManager.h"
+	"MoonManager.h"
+	"CloudsManager.h"
+	"ColorGradient.h"
+	"Controller.h"
+	"BasicController.h"
+	"VCloudsManager.h"
+	"VClouds/VClouds.h"
+	"VClouds/GeometryManager.h"
+	"VClouds/GeometryBlock.h"
+	"VClouds/FastFakeRandom.h"
+	"VClouds/Ellipsoid.h"
+	"VClouds/DataManager.h"
+
+1355129847 /usr/local/include/SkyX/Prerequisites.h
+	<OGRE/Ogre.h>
+
+1355129847 /usr/local/include/SkyX/MeshManager.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/AtmosphereManager.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/GPUManager.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/MoonManager.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/CloudsManager.h
+	"Prerequisites.h"
+	"ColorGradient.h"
+
+1355129847 /usr/local/include/SkyX/ColorGradient.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/Controller.h
+	"Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/BasicController.h
+	"Prerequisites.h"
+	"Controller.h"
+
+1355129847 /usr/local/include/SkyX/VCloudsManager.h
+	"Prerequisites.h"
+	"VClouds/VClouds.h"
+	"ColorGradient.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/VClouds.h
+	"../Prerequisites.h"
+	"DataManager.h"
+	"GeometryManager.h"
+	"LightningManager.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/DataManager.h
+	"../Prerequisites.h"
+	"FastFakeRandom.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/FastFakeRandom.h
+	"../Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/GeometryManager.h
+	"../Prerequisites.h"
+	"GeometryBlock.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/GeometryBlock.h
+	"../Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/LightningManager.h
+	"../Prerequisites.h"
+	"Lightning.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/Lightning.h
+	"../Prerequisites.h"
+
+1355129847 /usr/local/include/SkyX/VClouds/Ellipsoid.h
+	"../Prerequisites.h"
+	"DataManager.h"
+
+1337975324 /usr/local/include/OGRE/Terrain/OgreTerrainMaterialGeneratorA.h
+	"OgreTerrainPrerequisites.h"
+	"OgreTerrainMaterialGenerator.h"
+	"OgreGpuProgramParams.h"
+
+1355130427 /usr/local/include/Hydrax/Modules/ProjectedGrid/ProjectedGrid.h
+	"../../Prerequisites.h"
+	"../../Hydrax.h"
+	"../../Mesh.h"
+	"../Module.h"
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.h
+	"ObjetTerrain.h"
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectManager.h
+	"../../../Utils/singleton.h"
+	<unordered_map>
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Random.h
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.h
+	<string>
+	<OgreQuaternion.h>
+	"../../../Utils/Vector3D.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.cpp
+	"WorldObject.h"
+	"WorldObjectType.h"
+	"OgreSceneManager.h"
+	"OgreSceneNode.h"
+	"OgreEntity.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectManager.cpp
+	"WorldObjectManager.h"
+	"../../ScriptEngine/XmlDocumentManager.h"
+	"WorldObjectType.h"
+	"../../../precompiled/lexical_cast.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.cpp
+	"WorldObjectType.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/Command.cpp
+	"Command.h"
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/Command.h
+	<string>
+	<vector>
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/MenuState/ExitMenuState.cpp
+	"ExitMenuState.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	<string>
+	<vector>
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/MenuState/ExitMenuState.h
+	"../../Menu/MenuState.h"
+	"../Command.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/MenuState/LoginMenuState.cpp
+	"LoginMenuState.h"
+	"State/Menu/LoginState.h"
+	<iostream>
+
+1355129838 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Command/MenuState/LoginMenuState.h
+	"State/Command/Command.h"
+	"State/State.h"
+	"State/StateManager.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Console.cpp
+	"State/Console.h"
+	"Engine/ScriptEngine/XmlDocumentManager.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"State/Game/GameState.h"
+	<boost/regex.hpp>
+
+1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Console.h
+	<string>
+	<vector>
+	<iostream>
+	"Utils/singleton.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	<CEGUI.h>
+	<OIS/OIS.h>
+	"Command/Command.h"
+
+1355129838 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Random.cpp
+	"Random.h"
+	<cstdlib>
+	<ctime>
+	<iostream>
+
+1355846487 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.cpp
+	"Hero_State.h"
+
+1355846486 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.h
+	"Engine/GameEngine/Unites/Hero.h"
+	<OgreSceneManager.h>
+
+1355828464 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/src/Hero_State.cpp
+	"Engine/GameEngine/Unites/Hero_State.h"
 

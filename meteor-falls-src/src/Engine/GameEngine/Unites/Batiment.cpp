@@ -1,6 +1,6 @@
 #include "Batiment.h"
 
-Batiment::Batiment()
+Batiment::Batiment(Ogre::SceneManager* mng) : Unite(mng)
 {
     //ctor
 }

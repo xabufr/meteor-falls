@@ -6,7 +6,7 @@
 class Batiment: public Unite
 {
     public:
-        Batiment();
+        Batiment(Ogre::SceneManager*);
         virtual ~Batiment();
     protected:
     private:
