@@ -33,6 +33,8 @@ class GameEngine : public Engine
 		void addPlayer(Joueur*);
 		void setSousStateType(TypeState);
 		Equipe* getEquipe(char);
+		bool tryJoinTeam(char, Joueur*);
+		Joueur* findJoueur(int);
 
     protected:
 

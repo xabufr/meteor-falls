@@ -6,6 +6,7 @@
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/Faction.h"
 #include "../GameEngine/Joueur/JoueurRPG.h"
+#include "../GameEngine/Joueur/JoueurRTS.h"
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 
@@ -87,8 +88,65 @@ void ServerNetworkEngine::work()
 							}
 						}
 						break;
+					case EngineMessageType::CHAT_MESSAGE:
+						{
+							EngineMessage *messageGameEngine = EngineMessage::clone(message);
+							messageGameEngine->clearTo();
+							messageGameEngine->addToType(EngineType::GameEngineType);
+							m_manager->addMessage(messageGameEngine);
+						}
+						break;
+					case EngineMessageType::SELECT_TEAM:
+						{
+							char teamId  = message->ints[EngineMessageKey::TEAM_ID];
+							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+							if(client==nullptr)
+									break;
+							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
+							EngineMessage messageTeam(m_manager);
+							messageTeam.message = EngineMessageType::SELECT_TEAM;
+							messageTeam.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+							if(canJoin)
+							{
+								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
+								sendToAllTcp(&messageTeam);
+								Equipe *equ         = m_manager->getGame()->getEquipe(teamId);
+								int rtsDisp         = equ->getRTS() == nullptr ? 1 : 0;
+								messageTeam.message = EngineMessageType::SET_RTS_DISP;
+								messageTeam.ints.clear();
+								messageTeam.ints[EngineMessageKey::RESULT] = rtsDisp;
+								sendToTcp(*client, &messageTeam);
+							}
+							else
+							{
+								messageTeam.ints[EngineMessageKey::TEAM_ID] = -1;
+								sendToTcp(*client, &messageTeam);
+							}
+
+						}
+						break;
+					case EngineMessageType::SELECT_GAMEPLAY:
+						{
+							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+							EngineMessage messageRep(m_manager);
+							messageRep.message = EngineMessageType::SELECT_GAMEPLAY;
+							messageRep.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
+							{
+								messageRep.ints[EngineMessageKey::RESULT] = client->joueur->equipe->getRTS() != nullptr ? 0 : 1;
+								client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
+							}
+							else
+							{
+								messageRep.ints[EngineMessageKey::RESULT] = 1;
+								client->joueur->equipe->addRPG(new JoueurRPG(client->joueur));
+							}							
+							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
+							sendToAllTcp(&messageRep);
+						}
+						break;
 				}
-                std::cout << message->strings[FILE_NAME] << std::endl;
+				delete message;
             }
             while(client.tcp()->hasError())
             {
@@ -214,6 +272,11 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 	boost::mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
+		if(e->getRTS()->joueur()== c.joueur)
+		{
+			sendToTcp(c, message);
+			continue;
+		}
 		for(JoueurRPG *j : e->getRPG())
 		{
 			if(j->joueur() == c.joueur)
@@ -223,4 +286,14 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 			}
 		}
 	}
+}
+ServerClient* ServerNetworkEngine::findClient(client_id id)
+{
+	boost::mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient &c : m_clients)
+	{
+		if(c.id() == id)
+				return &c;
+	}
+	return nullptr;	
 }

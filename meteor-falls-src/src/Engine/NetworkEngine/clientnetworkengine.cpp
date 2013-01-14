@@ -7,6 +7,7 @@
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/FactionManager.h"
+#include "../EngineMessage/EngineMessage.h"
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
@@ -51,9 +52,9 @@ void ClientNetworkEngine::work()
 					EngineMessage messageTeam(m_manager);
 					messageTeam.message = EngineMessageType::GETTEAMLIST;
 					m_tcp->send(serialize(&messageTeam));
+					m_joueur->id = m_playerNumber;
 				}
 				break;
-
 			case EngineMessageType::LOAD_MAP:
 					m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
 				break;
@@ -70,6 +71,25 @@ void ClientNetworkEngine::work()
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
 					m_manager->getGame()->addPlayer(j);
+				}
+				break;
+			case EngineMessageType::SELECT_TEAM:
+				{
+					EngineMessage *messageGame = EngineMessage::clone(message);
+					messageGame->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageGame);
+				}
+				break;
+			case EngineMessageType::SET_RTS_DISP:
+				{
+					m_rtsDispo = message->ints[EngineMessageKey::RESULT] == 1;
+				}	
+				break;
+			case EngineMessageType::SELECT_GAMEPLAY:
+				{
+					EngineMessage *messageGameplay = EngineMessage::clone(message);
+					messageGameplay->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageGameplay);
 				}
 				break;
 		}
@@ -110,4 +130,34 @@ void ClientNetworkEngine::logingIn()
 	mess.strings[EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
 	mess.strings[EngineMessageKey::SESSION] = m_session;
 	m_tcp->send(serialize(&mess));
+}
+void ClientNetworkEngine::sendChatMessage(std::string mes, int porte)
+{
+	EngineMessage message(m_manager);
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.message = EngineMessageType::CHAT_MESSAGE;
+	message.strings[EngineMessageKey::MESSAGE] = mes;
+	message.ints[EngineMessageKey::RANGE] = porte;
+	m_tcp->send(serialize(&message));
+}
+void ClientNetworkEngine::trySelectTeam(char id)
+{
+	m_teamId = id;
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SELECT_TEAM;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
+	m_tcp->send(serialize(&message));
+}
+bool ClientNetworkEngine::isRtsDispo() const
+{
+	return m_rtsDispo;
+}
+void ClientNetworkEngine::trySelectGameplay(int gameplay)
+{
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SELECT_GAMEPLAY;
+	message.ints[EngineMessageKey::GAMEPLAY_TYPE] = gameplay;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	m_tcp->send(serialize(&message));
 }

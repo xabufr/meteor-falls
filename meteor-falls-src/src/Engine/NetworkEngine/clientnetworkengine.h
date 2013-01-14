@@ -21,6 +21,14 @@ class ClientNetworkEngine : public NetworkEngine
         void connect(std::string, unsigned short);
         int getState() const;
 		virtual void logingIn();
+
+		void sendChatMessage(std::string message, int porte);
+
+		void trySelectTeam(char);
+		void trySelectGameplay(int);
+
+		bool isRtsDispo() const;
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
@@ -30,7 +38,8 @@ class ClientNetworkEngine : public NetworkEngine
 		std::string m_password, m_salt, m_session;
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
-
+		char m_teamId;
+		bool m_rtsDispo;
 	public:
         enum ClientNetworkEngineState{
             CONNECTING,

@@ -5,7 +5,6 @@ JoueurRPG::JoueurRPG(Joueur *j): m_joueur(j)
 {
     //ctor
 }
-
 JoueurRPG::~JoueurRPG()
 {
     //dtor

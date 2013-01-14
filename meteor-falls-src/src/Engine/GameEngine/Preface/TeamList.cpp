@@ -17,29 +17,25 @@ m_game_engine(engine)
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_list_team);
     m_list_team->hide();
 }
-
 TeamList::~TeamList()
 {
-    delete m_list_team;
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_list_team);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_list_team);
 }
-
 bool TeamList::isVisible()
 {
     return m_visible;
 }
-
 void TeamList::enter()
 {
     m_list_team->show();
     m_visible = true;
 }
-
 void TeamList::exit()
 {
     m_list_team->hide();
     m_visible = false;
 }
-
 ret_code TeamList::work(unsigned int time)
 {
     if (!m_game_engine->getTeams().empty())
@@ -55,7 +51,6 @@ ret_code TeamList::work(unsigned int time)
     }
     return CONTINUE;
 }
-
 bool TeamList::m_item_selected(const CEGUI::EventArgs&)
 {
     for (size_t i=0; i<m_list_team->getItemCount(); ++i)

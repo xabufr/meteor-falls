@@ -2,7 +2,7 @@
 #define JOUEUR_H
 #include <string>
 
-
+class Equipe;
 class Joueur
 {
     public:
@@ -20,6 +20,8 @@ class Joueur
 		const std::string& getNumSession();
 		void setLevel(const int&);
 		const int& getLevel();
+		Equipe *equipe;
+		int id;
     protected:
     private:
 		std::string m_nom;

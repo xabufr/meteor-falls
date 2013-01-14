@@ -43,3 +43,20 @@ std::vector<Engine*> EngineMessage::getTo(){
 std::vector<EngineType> EngineMessage::getToType(){
     return m_to_type;
 }
+EngineMessage* EngineMessage::clone(EngineMessage* mes)
+{
+	EngineMessage *message = new EngineMessage(mes->m_engine_manager);
+	message->ints          = mes->ints;
+	message->strings       = mes->strings;
+	message->time          = mes->time;
+	message->doubles       = mes->doubles;
+	message->setFrom(mes->getFrom());
+	for(Engine* e : mes->m_to)
+		message->addTo(e);
+	return message;
+}
+void EngineMessage::clearTo()
+{
+	m_to.clear();
+	m_to_type.clear();
+}

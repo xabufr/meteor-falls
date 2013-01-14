@@ -4,6 +4,7 @@
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
 #include "Preface/TeamState.h"
+#include "../NetworkEngine/ServerNetworkEngine.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
@@ -37,19 +38,32 @@ void GameEngine::handleMessage(EngineMessage& message)
 {
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
-		if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
-		{
-			if(m_type==SERVER)
-			{
-			}
-			else
-			{
 
-			}
+		if(m_type==SERVER)
+		{
+			ServerNetworkEngine *net = (ServerNetworkEngine*) m_manager->getNetwork();
+			if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
+		   	{
+			   	Equipe *equipe = nullptr;
+			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
+			   	for(Joueur *j : m_joueurs)
+			   	{
+			   		if(j->id == playerId)
+			   		{
+			   			equipe = j->equipe;
+			   		}
+			   	}
+			   	if(equipe==nullptr)
+			   			return;
+			   	net->sendToTeam(equipe, &message);
+		   	}
+		   	else if(message.ints[EngineMessageKey::RANGE] == EngineMessageKey::GLOBAL_RANGE)
+		   	{
+		   		net->sendToAllTcp(&message);
+		   	}
 		}
 		else
 		{
-
 		}
 	}
 }
@@ -121,4 +135,32 @@ void GameEngine::setSousStateType(TypeState t)
 {
     m_type_sous_state = t;
     m_change_sous_state = true;
+}
+bool GameEngine::tryJoinTeam(char id, Joueur* j)
+{
+	int nb_min=999, nb_cur = 9999;
+	Equipe *eJoueur;
+	for(Equipe *e : m_teams)
+	{
+		int nb = e->joueurs().size();
+		if(nb<nb_min)
+			nb_min=nb;
+		if(id==e->id())
+		{
+			nb_cur = nb;
+			eJoueur = e;
+		}
+	}
+	if(nb_cur >= nb_min+3)
+		return false;
+	j->equipe=eJoueur;
+	eJoueur->addJoueur(j);
+	return true;
+}
+Joueur* GameEngine::findJoueur(int id)
+{
+	for(Joueur *j : m_joueurs)
+		if(j->id==id)
+				return j;
+	return nullptr;
 }

@@ -15,7 +15,6 @@ GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::
 }
 GameState::~GameState()
 {
-    delete m_player;
 }
 ret_code GameState::work(unsigned int time)
 {

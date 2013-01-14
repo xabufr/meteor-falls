@@ -16,9 +16,12 @@ enum EngineMessageType
 	SETSALT         = 9,
 	LOGIN_RESULT    = 10,
 	LOAD_MAP        = 11,
-	GETTEAMLIST = 12,
-	ADDTEAM     = 13,
-	KICK = 14,
+	GETTEAMLIST     = 12,
+	ADDTEAM         = 13,
+	KICK            = 14,
+	SELECT_TEAM     = 15,
+	SELECT_GAMEPLAY = 16,
+	SET_RTS_DISP    = 17,
 };
 
 #endif // ENGINEMESSAGETYPE_H

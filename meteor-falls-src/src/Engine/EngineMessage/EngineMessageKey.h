@@ -18,9 +18,14 @@ enum EngineMessageKey
 	LEVEL         = 11,
 	TEAM_ID       = 12,
 	FACTION_ID    = 13,
-	TEAM_RANGE   = 14,
-	GLOBAL_RANGE = 15,
-	RANGE        = 16,
+	TEAM_RANGE    = 14,
+	GLOBAL_RANGE  = 15,
+	RANGE         = 16,
+	MESSAGE       = 17,
+	RPG_GAMEPLAY  = 18,
+	RTS_GAMEPLAY  = 19,
+	GAMEPLAY_TYPE = 20,
+	RESULT        = 21,
 };
 
 #endif // ENGINEMESSAGEKEY_H

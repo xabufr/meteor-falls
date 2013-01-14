@@ -7,6 +7,7 @@ class JoueurRTS
     public:
         JoueurRTS(Joueur*);
         virtual ~JoueurRTS();
+		Joueur* joueur();
     protected:
     private:
 		Joueur *m_joueur;

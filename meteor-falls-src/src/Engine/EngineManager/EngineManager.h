@@ -1,7 +1,7 @@
 #ifndef ENGINEMANAGER_H
 #define ENGINEMANAGER_H
 
-#include <vector>
+#include <list>
 #include "../EngineType.h"
 #include "../GameEngine/Joueur/Joueur.h"
 #include <OgreFrameListener.h>
@@ -11,6 +11,7 @@ class GraphicEngine;
 class NetworkEngine;
 class GameEngine;
 class Engine;
+class EngineMessage;
 class EngineManager: public Ogre::FrameListener
 {
 private:
@@ -42,6 +43,8 @@ private:
         NetworkEngine *getNetwork();
         GameEngine *getGame();
 
+		void addMessage(EngineMessage*);
+
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
     protected:
@@ -51,6 +54,7 @@ private:
         GraphicEngine *m_graphic;
         NetworkEngine *m_network;
         GameEngine *m_game;
+		std::list<EngineMessage*> m_messages;
 };
 
 #endif // ENGINEMANAGER_H
