@@ -3,14 +3,17 @@
 #include "../GraphicEngine/GraphicEngine.h"
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
+#include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t):
     Engine(mng),
-    m_type(t)
+    m_type(t),
+    m_change_sous_state(false)
 {
     m_map = new Map(mng->getGraphic()->getSceneManager());
 	m_sous_state = nullptr;
+	m_type_sous_state = TypeState::TEAM_LIST;
 	if(t==SERVER)
 	{
 		for(char i=1; i<3;++i)
@@ -24,9 +27,12 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 }
 GameEngine::~GameEngine()
 {
-    delete m_map;
-	if(m_sous_state != nullptr)
-		delete m_sous_state;
+    if (m_sous_state != nullptr)
+    {
+        m_sous_state->exit();
+        delete m_sous_state;
+    }
+  //  delete m_map;
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
@@ -67,9 +73,31 @@ void GameEngine::work()
     {
         if (m_type == Type::CLIENT)
         {
-           // if (m_sous_state == nullptr)
-             //   m_sous_state = new TeamList(nullptr, this);
-           // m_sous_state->work(0);
+            if (m_sous_state == nullptr)
+            {
+                m_sous_state = new TeamList(nullptr, this);
+                m_sous_state->enter();
+            }
+            if (m_change_sous_state)
+            {
+                if (m_sous_state != nullptr)
+                {
+                    m_sous_state->exit();
+                    delete m_sous_state;
+                }
+                switch (m_type_sous_state)
+                {
+                    case TypeState::TEAM_LIST:
+                        m_sous_state = new TeamList(nullptr, this);
+                        break;
+                    case TypeState::TEAM_STATE:
+                        m_sous_state = new TeamState(nullptr, this);
+                        break;
+                }
+                m_sous_state->enter();
+                m_change_sous_state = false;
+            }
+            m_sous_state->work(0);
         }
         m_map->update();
     }
@@ -80,7 +108,7 @@ EngineType GameEngine::getType()
 }
 void GameEngine::loadMap(const std::string &map_name)
 {
-	m_map->load(map_name);	
+	m_map->load(map_name);
 }
 const std::vector<Equipe*>& GameEngine::getTeams() const
 {
@@ -102,6 +130,11 @@ Equipe* GameEngine::getEquipe(char id)
 				return e;
 	}
 	return 0;
+}
+void GameEngine::setSousStateType(TypeState t)
+{
+    m_type_sous_state = t;
+    m_change_sous_state = true;
 }
 bool GameEngine::tryJoinTeam(char id, Joueur* j)
 {

@@ -11,7 +11,6 @@ GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::
     m_player(j),
     m_type(t)
 {
-    std::cout << "teste 2" << std::endl;
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 }
 GameState::~GameState()
