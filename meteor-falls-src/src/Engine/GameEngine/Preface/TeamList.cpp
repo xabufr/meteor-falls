@@ -1,6 +1,7 @@
 #include "TeamList.h"
 #include "../Factions/Equipe.h"
 #include <boost/lexical_cast.hpp>
+#include "../../NetworkEngine/clientnetworkengine.h"
 
 TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
 m_visible(true),
@@ -49,15 +50,26 @@ ret_code TeamList::work(unsigned int time)
             item->setUserData(e);
         }
     }
+	if(m_isSelectingTeam)
+	{
+		ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+		if(m_equipe->id() == net->teamId())
+		{
+    		m_game_engine->setSousStateType(GameEngine::TypeState::TEAM_STATE);
+		}
+	}
     return CONTINUE;
 }
 bool TeamList::m_item_selected(const CEGUI::EventArgs&)
 {
+	ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
     for (size_t i=0; i<m_list_team->getItemCount(); ++i)
         if (m_list_team->getListboxItemFromIndex(i)->isSelected())
         {
             m_game_engine->addTeam(static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData()));
-            m_game_engine->setSousStateType(GameEngine::TypeState::TEAM_STATE);
+			m_isSelectingTeam = true;
+			m_equipe          = static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData());
+			net->trySelectTeam(m_equipe->id());
         }
 
     return true;

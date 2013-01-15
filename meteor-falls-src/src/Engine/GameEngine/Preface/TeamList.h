@@ -5,6 +5,7 @@
 #include "../GameEngine.h"
 #include <CEGUI.h>
 
+class Equipe;
 class TeamList : public State
 {
     public:
@@ -19,5 +20,7 @@ class TeamList : public State
         CEGUI::Listbox *m_list_team;
         bool m_visible;
         bool m_item_selected(const CEGUI::EventArgs &);
+		bool m_isSelectingTeam;
+		Equipe *m_equipe;
 };
 #endif // TEAMLIST_H_INCLUDED

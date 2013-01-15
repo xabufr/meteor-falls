@@ -19,6 +19,7 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& 
 {
     m_tcp = TcpConnection::create(m_service);
     m_udp = UdpConnection::create(m_service);
+	m_teamId = -1;
 	connect(address, port);
 }
 ClientNetworkEngine::~ClientNetworkEngine()
@@ -77,6 +78,7 @@ void ClientNetworkEngine::work()
 				break;
 			case EngineMessageType::SELECT_TEAM:
 				{
+					message->setFrom(this);
 					EngineMessage *messageGame = EngineMessage::clone(message);
 					messageGame->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGame);
@@ -171,4 +173,8 @@ void ClientNetworkEngine::trySelectGameplay(int gameplay)
 	message.ints[EngineMessageKey::GAMEPLAY_TYPE] = gameplay;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	m_tcp->send(serialize(&message));
+}
+char ClientNetworkEngine::teamId() const
+{
+	return m_teamId; 
 }

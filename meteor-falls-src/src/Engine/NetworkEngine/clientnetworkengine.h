@@ -28,6 +28,7 @@ class ClientNetworkEngine : public NetworkEngine
 		void trySelectGameplay(int);
 
 		bool isRtsDispo() const;
+		char teamId() const;
 
     protected:
         TcpConnection::pointer m_tcp;
