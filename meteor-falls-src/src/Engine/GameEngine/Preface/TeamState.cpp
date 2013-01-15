@@ -3,6 +3,7 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/NetworkEngine/clientnetworkengine.h"
+#include "Engine/GameEngine/Factions/Equipe.h"
 #include <string>
 
 TeamState::TeamState(StateManager* mgr, GameEngine* engine):State(mgr),
@@ -27,6 +28,9 @@ m_game_engine(engine)
     m_rts->setText("RTS");
     m_rts->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rts);
+    for (Joueur* j:m_game_engine->getCurrentJoueur()->equipe->joueurs())
+        if (j->getTypeGameplay() == Joueur::TypeGameplay::RTS)
+            m_rts->disable();
 
     m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRPG");
     m_rpg->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
@@ -63,17 +67,16 @@ bool TeamState::m_send_message(const CEGUI::EventArgs&)
     }
     return true;
 }
-void TeamState::setMessage(const std::string message)
+void TeamState::setMessage(const CEGUI::String message)
 {
     CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(message);
     m_chat->addItem(item);
 }
 bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 {
-    if (m_rts->isPushed())
-        std::cout << "RTS choise" << std::endl;
-    else
-        std::cout << "RPG choise" << std::endl;
+    ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+    net->trySelectGameplay((m_rts->isPushed())?EngineMessageKey::RTS_GAMEPLAY:EngineMessageKey::RPG_GAMEPLAY);
+    m_game_engine->getCurrentJoueur()->setTypeGamplay((m_rts->isPushed())?Joueur::TypeGameplay::RTS:Joueur::TypeGameplay::RPG);
     return true;
 }
 TeamState::~TeamState()

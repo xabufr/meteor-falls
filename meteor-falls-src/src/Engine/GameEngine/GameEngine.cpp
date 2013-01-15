@@ -68,13 +68,27 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-			std::string nom =  findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"}:"+message.strings[EngineMessageKey::MESSAGE];
-			nom = "{" + nom;
+			CEGUI::String nom = "{ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" }:"+message.strings[EngineMessageKey::MESSAGE];
             TeamState *team_state = (TeamState*)m_sous_state;
-            //team_state->setMessage(std::string("[")+nom+"]:"+message.strings[EngineMessageKey::MESSAGE]);
             team_state->setMessage(nom);
 		}
 	}
+	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)
+    {
+        if (message.ints[EngineMessageKey::RESULT] == 1)
+        {
+            std::cout << message.ints[EngineMessageKey::RESULT] << std::endl;
+            switch (m_current_joueur->getTypeGameplay())
+            {
+                case Joueur::TypeGameplay::RTS:
+                    m_current_joueur->setRTS(new JoueurRTS(m_current_joueur));
+                break;
+                case Joueur::TypeGameplay::RPG:
+                    m_current_joueur->setRPG(new JoueurRPG(m_current_joueur));
+                break;
+            }
+        }
+    }
 }
 void GameEngine::work()
 {

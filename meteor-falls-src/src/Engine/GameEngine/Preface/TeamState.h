@@ -19,7 +19,7 @@ public:
     virtual void enter();
     virtual void exit();
     virtual ret_code work(unsigned int);
-    void setMessage(const std::string message);
+    void setMessage(const CEGUI::String message);
 private:
     bool m_send_message(const CEGUI::EventArgs &);
     bool m_choix_mode(const CEGUI::EventArgs &);
