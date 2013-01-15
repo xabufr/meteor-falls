@@ -51,24 +51,20 @@ m_game_engine(engine)
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_edit);
     m_window->hide();
 }
-
 bool TeamState::m_send_message(const CEGUI::EventArgs&)
 {
     if (m_keyboard->isKeyDown(OIS::KeyCode::KC_RETURN))
     {
         ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-        net->sendChatMessage(std::string(m_edit->getText().c_str()), 15);
+        net->sendChatMessage(std::string(m_edit->getText().c_str()), EngineMessageKey::TEAM_RANGE);
     }
     return true;
 }
-
 void TeamState::setMessage(const std::string message)
 {
     CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(message);
     m_chat->addItem(item);
 }
-
-
 TeamState::~TeamState()
 {
     delete m_window;
@@ -77,28 +73,23 @@ TeamState::~TeamState()
     delete m_chat;
     delete m_edit;
 }
-
 bool TeamState::isVisible()
 {
     return m_visible;
 }
-
 void TeamState::enter()
 {
     m_window->show();
     //m_chat->show();
     m_visible = true;
 }
-
 void TeamState::exit()
 {
     m_window->hide();
     //m_chat->hide();
     m_visible = false;
 }
-
 ret_code TeamState::work(unsigned int time)
 {
     return CONTINUE;
 }
-

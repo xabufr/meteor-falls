@@ -41,7 +41,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 		if(m_type==SERVER)
 		{
 			ServerNetworkEngine *net = (ServerNetworkEngine*) m_manager->getNetwork();
-			std::cout << "message: " << message.strings[EngineMessageKey::MESSAGE] << std::endl;
 			if(message.ints[EngineMessageKey::RANGE]==EngineMessageKey::TEAM_RANGE)
 		   	{
 			   	Equipe *equipe = nullptr;
@@ -56,6 +55,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	if(equipe==nullptr)
 			   			return;
 			   	net->sendToTeam(equipe, &message);
+				std::cout << "sending to team" << std::endl;
 		   	}
 		   	else if(message.ints[EngineMessageKey::RANGE] == EngineMessageKey::GLOBAL_RANGE)
 		   	{

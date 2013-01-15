@@ -273,14 +273,9 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 	boost::mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
-		if(e->getRTS()->joueur()== c.joueur)
+		for(Joueur *j : e->joueurs())
 		{
-			sendToTcp(c, message);
-			continue;
-		}
-		for(JoueurRPG *j : e->getRPG())
-		{
-			if(j->joueur() == c.joueur)
+			if(j = c.joueur)
 			{
 				sendToTcp(c, message);
 				break;
