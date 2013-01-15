@@ -74,6 +74,10 @@ void GameEngine::handleMessage(EngineMessage& message)
             team_state->setMessage(nom);
 		}
 	}
+	if(message.message==EngineMessageType::SELECT_GAMEPLAY)
+	{
+		
+	}
 }
 void GameEngine::work()
 {

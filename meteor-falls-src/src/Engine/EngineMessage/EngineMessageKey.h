@@ -24,8 +24,9 @@ enum EngineMessageKey
 	MESSAGE       = 17,
 	RPG_GAMEPLAY  = 18,
 	RTS_GAMEPLAY  = 19,
-	GAMEPLAY_TYPE = 20,
-	RESULT        = 21,
+	NONE_GAMEPLAY = 20,
+	GAMEPLAY_TYPE = 21,
+	RESULT        = 22,
 };
 
 #endif // ENGINEMESSAGEKEY_H

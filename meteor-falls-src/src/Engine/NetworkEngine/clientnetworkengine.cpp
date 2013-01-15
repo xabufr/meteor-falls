@@ -78,7 +78,12 @@ void ClientNetworkEngine::work()
 					Equipe* e = m_manager->getGame()->getEquipe(message->ints[TEAM_ID]);
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
+					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
 					m_manager->getGame()->addPlayer(j);
+					if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] != EngineMessageKey::NONE_GAMEPLAY)
+					{
+
+					}
 				}
 				break;
 			case EngineMessageType::SELECT_TEAM:
