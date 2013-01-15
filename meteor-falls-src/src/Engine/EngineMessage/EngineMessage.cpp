@@ -10,7 +10,10 @@ EngineMessage::EngineMessage(EngineManager* p_engine_manager)
 void EngineMessage::setFrom(Engine* p_from)
 {
     m_from = p_from;
-   	m_from_type = p_from->getType();
+	if(m_from!=nullptr)
+	   	m_from_type = p_from->getType();
+	else
+		m_from_type = EngineType::NoneEngineType;
 }
 void EngineMessage::setFromType(EngineType p_from_type)
 {
