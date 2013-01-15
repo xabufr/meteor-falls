@@ -44,7 +44,6 @@
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
     m_sheet->hide();
 }
-
 bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
@@ -98,16 +97,14 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
 
     return true;
 }
-
 bool LoginState::m_connection_lan(const CEGUI::EventArgs&)
 {
+	delete *m_player;
     *m_player = new JoueurLan();
     (*m_player)->setNom("Test");
     this->exit();
     return true;
 }
-
-
 ret_code LoginState::work(unsigned int time)
 {
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
@@ -116,16 +113,12 @@ ret_code LoginState::work(unsigned int time)
         m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
     return CONTINUE;
 }
-
 void LoginState::m_state_element(const bool actif)
 {
     m_login->setEnabled(actif);
     m_passwd->setEnabled(actif);
     m_connect->setEnabled(actif);
 }
-
-
-
 bool LoginState::send(const CEGUI::EventArgs &)
 {
     m_state_element(false);
@@ -165,22 +158,17 @@ bool LoginState::send(const CEGUI::EventArgs &)
 
     return true;
 }
-
 bool LoginState::isVisible()
 {
     return m_visible;
 }
-
 void LoginState::exit()
 {
-
     m_sheet->hide();
     m_visible = false;
 }
-
 void LoginState::enter()
 {
     m_sheet->show();
     m_visible = true;
 }
-

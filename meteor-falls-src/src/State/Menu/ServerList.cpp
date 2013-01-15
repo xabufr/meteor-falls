@@ -9,7 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include <sstream>
 
-ServerList::ServerList(Type t, StateManager *mgr, Joueur *j) : State(mgr),
+ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
     m_service(new boost::asio::io_service),
     m_work(new boost::asio::io_service::work(*m_service)),
     m_visible(false),
@@ -168,7 +168,7 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
             switch (m_type)
             {
                 case LAN:
-                    m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, server->ip, "", m_player));
+                    m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, server->ip, "", *m_player));
                     break;
                 case WAN:
                     break;

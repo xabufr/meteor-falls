@@ -22,7 +22,7 @@ class ServerList : public State, public OIS::MouseListener
             LAN,
             WAN
         };
-        ServerList(Type, StateManager*, Joueur *j);
+        ServerList(Type, StateManager*, Joueur **j);
         ~ServerList();
         virtual bool isVisible();
         virtual void enter();
@@ -32,7 +32,7 @@ class ServerList : public State, public OIS::MouseListener
 		virtual bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 		virtual bool mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id );
     private:
-        Joueur *m_player;
+        Joueur **m_player;
         UdpConnection::pointer m_connection_udp;
         SslConnection::pointer m_connection_ssl;
         CEGUI::Listbox *m_listServer;

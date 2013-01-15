@@ -25,7 +25,10 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 		}
 	}
 	else
+	{
         m_current_joueur = j;
+		addPlayer(j);
+	}
 }
 GameEngine::~GameEngine()
 {
@@ -65,8 +68,11 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
+			std::string nom =  findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"}:"+message.strings[EngineMessageKey::MESSAGE];
+			nom = "{" + nom;
             TeamState *team_state = (TeamState*)m_sous_state;
-            team_state->setMessage(std::string("["+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"]:"+message.strings[EngineMessageKey::MESSAGE]));
+            //team_state->setMessage(std::string("[")+nom+"]:"+message.strings[EngineMessageKey::MESSAGE]);
+            team_state->setMessage(nom);
 		}
 	}
 }
@@ -113,7 +119,6 @@ Joueur* GameEngine::getCurrentJoueur()
 {
     return m_current_joueur;
 }
-
 void GameEngine::loadMap(const std::string &map_name)
 {
 	m_map->load(map_name);

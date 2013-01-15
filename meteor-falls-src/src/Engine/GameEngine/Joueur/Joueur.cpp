@@ -1,8 +1,8 @@
 #include "Joueur.h"
+#include <iostream>
 
 Joueur::Joueur()
 {
-    //ctor
 }
 Joueur::~Joueur()
 {
@@ -13,7 +13,7 @@ void Joueur::setNom(const std::string& nom)
 }
 const std::string& Joueur::getNom()
 {
-		return m_nom;
+	return m_nom;
 }
 void Joueur::setNumSession(const std::string& num)
 {

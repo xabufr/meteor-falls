@@ -55,7 +55,6 @@ void ClientNetworkEngine::work()
 						messageTeam.message = EngineMessageType::GETTEAMLIST;
 						m_tcp->send(serialize(&messageTeam));
 						m_joueur->id = m_playerNumber;
-						m_manager->getGame()->addPlayer(m_joueur);
 					}
 					else
 						m_state=NONE;
