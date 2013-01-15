@@ -135,7 +135,8 @@ void ServerNetworkEngine::work()
 							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
 							{
 								messageRep.ints[EngineMessageKey::RESULT] = client->joueur->equipe->getRTS() != nullptr ? 0 : 1;
-								client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
+								if(client->joueur->equipe->getRTS() == nullptr)
+									client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
 							}
 							else
 							{

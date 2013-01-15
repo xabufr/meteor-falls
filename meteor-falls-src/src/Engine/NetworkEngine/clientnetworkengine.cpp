@@ -27,13 +27,16 @@ ClientNetworkEngine::~ClientNetworkEngine()
 }
 void ClientNetworkEngine::work()
 {
-	if(m_state==CONNECTED && !m_tcp->isConnected()){
+	if(m_state==CONNECTED && !m_tcp->isConnected())
+	{
         m_state = NONE;
     }
-    while(m_tcp->hasError()){
+    while(m_tcp->hasError())
+	{
         std::cout << m_tcp->getError().message()<<std::endl;
     }
-    while(m_tcp->hasData()){
+    while(m_tcp->hasData())
+	{
         std::string data = m_tcp->getData();
 		EngineMessage *message = this->deserialize(data);
 		switch(message->message)

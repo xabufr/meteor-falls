@@ -8,7 +8,8 @@ enum EngineType
     GameEngineType = 2,
     SoundEngineType = 3,
     PhysicalEngineType = 4,
-    ScriptEngineType = 5
+    ScriptEngineType = 5,
+	NoneEngineType = 6
 };
 
 #endif // ENGINETYPE_H_INCLUDED

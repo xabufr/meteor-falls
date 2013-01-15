@@ -71,7 +71,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 			std::string nom =  findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"}:"+message.strings[EngineMessageKey::MESSAGE];
 			nom = "{" + nom;
             TeamState *team_state = (TeamState*)m_sous_state;
-            //team_state->setMessage(std::string("[")+nom+"]:"+message.strings[EngineMessageKey::MESSAGE]);
             team_state->setMessage(nom);
 		}
 	}
