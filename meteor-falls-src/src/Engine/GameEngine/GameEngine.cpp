@@ -75,9 +75,9 @@ void GameEngine::handleMessage(EngineMessage& message)
 	}
 	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)
     {
+        std::cout << "test1" << std::endl;
         if (message.ints[EngineMessageKey::RESULT] == 1)
         {
-            std::cout << message.ints[EngineMessageKey::RESULT] << std::endl;
             switch (m_current_joueur->getTypeGameplay())
             {
                 case Joueur::TypeGameplay::RTS:

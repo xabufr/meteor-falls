@@ -5,7 +5,8 @@
 
 TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
 m_visible(true),
-m_game_engine(engine)
+m_game_engine(engine),
+m_isSelectingTeam(false)
 {
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     m_list_team = (CEGUI::Listbox*)m_window_manager.createWindow("OgreTray/Listbox", "ListTeam");
