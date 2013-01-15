@@ -27,13 +27,16 @@ ClientNetworkEngine::~ClientNetworkEngine()
 }
 void ClientNetworkEngine::work()
 {
-	if(m_state==CONNECTED && !m_tcp->isConnected()){
+	if(m_state==CONNECTED && !m_tcp->isConnected())
+	{
         m_state = NONE;
     }
-    while(m_tcp->hasError()){
+    while(m_tcp->hasError())
+	{
         std::cout << m_tcp->getError().message()<<std::endl;
     }
-    while(m_tcp->hasData()){
+    while(m_tcp->hasData())
+	{
         std::string data = m_tcp->getData();
 		EngineMessage *message = this->deserialize(data);
 		switch(message->message)
@@ -75,7 +78,12 @@ void ClientNetworkEngine::work()
 					Equipe* e = m_manager->getGame()->getEquipe(message->ints[TEAM_ID]);
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
+					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
 					m_manager->getGame()->addPlayer(j);
+					if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] != EngineMessageKey::NONE_GAMEPLAY)
+					{
+
+					}
 				}
 				break;
 			case EngineMessageType::SELECT_TEAM:

@@ -75,13 +75,14 @@ void ServerNetworkEngine::work()
 								messageTeams.ints[EngineMessageKey::FACTION_ID] = e->faction()->id();
 								messageTeams.ints[EngineMessageKey::TEAM_ID] = e->id();
 								client.tcp()->send(serialize(&messageTeams));
-								const std::vector<JoueurRPG*> &rpgs = e->getRPG();
-								for(JoueurRPG* rpg : rpgs)
+								for(Joueur *j : e->joueurs())
 								{
 									EngineMessage *player = new EngineMessage(m_manager);
 									player->message = EngineMessageType::NEW_PLAYER;
 									player->ints[EngineMessageKey::TEAM_ID] = e->id();
-									player->strings[EngineMessageKey::PSEUDO] = rpg->joueur()->getNom();
+									player->ints[EngineMessageKey::PLAYER_NUMBER] = j->id;
+									player->strings[EngineMessageKey::PSEUDO] = j->getNom();
+//									player->ints[EngineMessageKey::GAMEPLAY_TYPE] = ;
 									client.tcp()->send(serialize(player));
 									delete player;
 								}
@@ -117,6 +118,7 @@ void ServerNetworkEngine::work()
 								messageTeam.ints.clear();
 								messageTeam.ints[EngineMessageKey::RESULT] = rtsDisp;
 								sendToTcp(*client, &messageTeam);
+								announcePlayerConnectionTeam(*client);
 							}
 							else
 							{
@@ -135,7 +137,8 @@ void ServerNetworkEngine::work()
 							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
 							{
 								messageRep.ints[EngineMessageKey::RESULT] = client->joueur->equipe->getRTS() != nullptr ? 0 : 1;
-								client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
+								if(client->joueur->equipe->getRTS() == nullptr)
+									client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
 							}
 							else
 							{
@@ -292,4 +295,13 @@ ServerClient* ServerNetworkEngine::findClient(client_id id)
 				return &c;
 	}
 	return nullptr;	
+}
+void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
+{
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::NEW_PLAYER;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.id();
+	message.strings[EngineMessageKey::PSEUDO] = c.joueur->getNom();
+	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe->id();
+	sendToAllExcluding(c.id(), &message);
 }

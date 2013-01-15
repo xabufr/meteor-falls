@@ -11,7 +11,8 @@
 #include "../GraphicEngine/Ogre/OgreApplication.h"
 #include "../EngineMessage/EngineMessage.h"
 
-Engine* EngineManager::get(EngineType p_engine_type){
+Engine* EngineManager::get(EngineType p_engine_type)
+{
     switch(p_engine_type)
     {
     case EngineType::GameEngineType:
@@ -25,7 +26,7 @@ Engine* EngineManager::get(EngineType p_engine_type){
     case EngineType::SoundEngineType:
         return m_sound;
     }
-    return 0;
+    return nullptr;
 }
 void EngineManager::work()
 {
@@ -119,4 +120,3 @@ void EngineManager::addMessage(EngineMessage* message)
 {
 	m_messages.push_back(message);
 }
-

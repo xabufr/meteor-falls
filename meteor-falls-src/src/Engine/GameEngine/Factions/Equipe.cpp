@@ -1,4 +1,5 @@
 #include "Equipe.h"
+#include "../Joueur/JoueurRPG.h"
 
 Equipe::Equipe(char i): m_id(i)
 {
@@ -46,7 +47,7 @@ void Equipe::removeRPG(JoueurRPG* j)
 void Equipe::addRPG(JoueurRPG* j)
 {
 	for(JoueurRPG *jt : m_joueursRPS)
-		if(jt==j)
+		if(jt->joueur()==j->joueur())
 			return;
 	m_joueursRPS.push_back(j);
 }
