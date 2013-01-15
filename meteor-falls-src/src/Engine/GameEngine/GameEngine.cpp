@@ -55,7 +55,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	if(equipe==nullptr)
 			   			return;
 			   	net->sendToTeam(equipe, &message);
-				std::cout << "sending to team" << std::endl;
 		   	}
 		   	else if(message.ints[EngineMessageKey::RANGE] == EngineMessageKey::GLOBAL_RANGE)
 		   	{

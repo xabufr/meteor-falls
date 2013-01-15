@@ -49,13 +49,16 @@ void ClientNetworkEngine::work()
 				{
 					m_playerNumber = message->ints[EngineMessageKey::PLAYER_NUMBER];
 					if(m_playerNumber!=-1)
+					{
 						m_state = CONNECTED;
+						EngineMessage messageTeam(m_manager);
+						messageTeam.message = EngineMessageType::GETTEAMLIST;
+						m_tcp->send(serialize(&messageTeam));
+						m_joueur->id = m_playerNumber;
+						m_manager->getGame()->addPlayer(m_joueur);
+					}
 					else
 						m_state=NONE;
-					EngineMessage messageTeam(m_manager);
-					messageTeam.message = EngineMessageType::GETTEAMLIST;
-					m_tcp->send(serialize(&messageTeam));
-					m_joueur->id = m_playerNumber;
 				}
 				break;
 			case EngineMessageType::LOAD_MAP:
