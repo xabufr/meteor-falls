@@ -102,8 +102,10 @@ void ClientNetworkEngine::work()
 			case EngineMessageType::SELECT_GAMEPLAY:
 				{
 					EngineMessage *messageGameplay = EngineMessage::clone(message);
+					messageGameplay->clearTo();
 					messageGameplay->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGameplay);
+					std::cout << "gameplay ok" << std::endl;
 				}
 				break;
 			case EngineMessageType::CHAT_MESSAGE:

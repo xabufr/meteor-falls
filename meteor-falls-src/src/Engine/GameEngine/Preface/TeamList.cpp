@@ -17,6 +17,7 @@ m_game_engine(engine)
     m_list_team->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&TeamList::m_item_selected, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_list_team);
     m_list_team->hide();
+	m_isSelectingTeam = false;
 }
 TeamList::~TeamList()
 {

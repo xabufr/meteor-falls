@@ -140,10 +140,12 @@ void ServerNetworkEngine::work()
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
 									client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
+									std::cout << "RTS OK" << std::endl;
 								}
 								else 
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 0;
+									std::cout << "RTS PAS OK" << std::endl;
 								}
 							}
 							else
