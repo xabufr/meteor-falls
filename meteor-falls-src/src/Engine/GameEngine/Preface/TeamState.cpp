@@ -13,7 +13,7 @@ m_game_engine(engine)
 
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     m_window = (CEGUI::TabButton*)m_window_manager.createWindow("OgreTray/TabButtonPane", "TeamState");
-    m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.20, 0)));
+    m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.20, 0)));
     m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_window->getSize().d_y.d_scale
                                                         /2), 0)));
@@ -25,6 +25,7 @@ m_game_engine(engine)
                                          CEGUI::UDim(0.50-(m_rts->getSize().d_y.d_scale
                                                         /2), 0)));
     m_rts->setText("RTS");
+    m_rts->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rts);
 
     m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRPG");
@@ -33,6 +34,7 @@ m_game_engine(engine)
                                          CEGUI::UDim(0.50-(m_rpg->getSize().d_y.d_scale
                                                         /2), 0)));
     m_rpg->setText("RPG");
+    m_rpg->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rpg);
 
     m_chat = (CEGUI::Listbox*)(m_window_manager.createWindow("OgreTray/Listbox", "Chat"));
@@ -44,7 +46,7 @@ m_game_engine(engine)
     m_edit->setSize(CEGUI::UVector2(CEGUI::UDim(0.25, 0), CEGUI::UDim(0.05, 0)));
     m_edit->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim((1-m_edit->getSize().d_y.d_scale), 0)));
-
+    m_edit->activate();
     m_chat->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim((1-m_chat->getSize().d_y.d_scale-m_edit->getSize().d_y.d_scale), 0)));
     m_edit->subscribeEvent(CEGUI::Editbox::EventKeyDown, CEGUI::Event::Subscriber(&TeamState::m_send_message, this));
@@ -57,6 +59,7 @@ bool TeamState::m_send_message(const CEGUI::EventArgs&)
     {
         ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
         net->sendChatMessage(std::string(m_edit->getText().c_str()), EngineMessageKey::TEAM_RANGE);
+        m_edit->setText("");
     }
     return true;
 }
@@ -64,6 +67,14 @@ void TeamState::setMessage(const std::string message)
 {
     CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(message);
     m_chat->addItem(item);
+}
+bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
+{
+    if (m_rts->isPushed())
+        std::cout << "RTS choise" << std::endl;
+    else
+        std::cout << "RPG choise" << std::endl;
+    return true;
 }
 TeamState::~TeamState()
 {

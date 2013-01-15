@@ -6,7 +6,7 @@
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
 
-GameEngine::GameEngine(EngineManager* mng, Type t):
+GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),
     m_type(t),
     m_change_sous_state(false)
@@ -24,6 +24,8 @@ GameEngine::GameEngine(EngineManager* mng, Type t):
 			addTeam(e);
 		}
 	}
+	else
+        m_current_joueur = j;
 }
 GameEngine::~GameEngine()
 {
@@ -63,9 +65,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-		    std::cout << "test1" << std::endl;
             TeamState *team_state = (TeamState*)m_sous_state;
-            team_state->setMessage("["+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"]:"+message.strings[EngineMessageKey::MESSAGE]);
+            team_state->setMessage(std::string("["+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+"]:"+message.strings[EngineMessageKey::MESSAGE]));
 		}
 	}
 }
@@ -108,6 +109,11 @@ EngineType GameEngine::getType()
 {
     return EngineType::GameEngineType;
 }
+Joueur* GameEngine::getCurrentJoueur()
+{
+    return m_current_joueur;
+}
+
 void GameEngine::loadMap(const std::string &map_name)
 {
 	m_map->load(map_name);
@@ -157,12 +163,17 @@ bool GameEngine::tryJoinTeam(char id, Joueur* j)
 		return false;
 	j->equipe=eJoueur;
 	eJoueur->addJoueur(j);
+	m_joueurs = eJoueur->joueurs();
 	return true;
 }
 Joueur* GameEngine::findJoueur(int id)
 {
+    if (m_current_joueur->id == id)
+        return m_current_joueur;
 	for(Joueur *j : m_joueurs)
+    {
 		if(j->id==id)
 				return j;
+    }
 	return nullptr;
 }
