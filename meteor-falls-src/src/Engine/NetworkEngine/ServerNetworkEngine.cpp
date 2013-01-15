@@ -82,7 +82,14 @@ void ServerNetworkEngine::work()
 									player->ints[EngineMessageKey::TEAM_ID] = e->id();
 									player->ints[EngineMessageKey::PLAYER_NUMBER] = j->id;
 									player->strings[EngineMessageKey::PSEUDO] = j->getNom();
-//									player->ints[EngineMessageKey::GAMEPLAY_TYPE] = ;
+									player->ints[EngineMessageKey::GAMEPLAY_TYPE] = j->getTypeGameplay();
+									if(j->getTypeGameplay() == Joueur::RPG)
+										player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RPG_GAMEPLAY;
+									else if(j->getTypeGameplay() == Joueur::RTS)
+										player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RTS_GAMEPLAY;
+									else
+										player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
+	
 									client.tcp()->send(serialize(player));
 									delete player;
 								}
@@ -140,18 +147,18 @@ void ServerNetworkEngine::work()
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
 									client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
-									std::cout << "RTS OK" << std::endl;
+									client->joueur->setTypeGamplay(Joueur::TypeGameplay::RTS);
 								}
 								else 
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 0;
-									std::cout << "RTS PAS OK" << std::endl;
 								}
 							}
 							else
 							{
 								messageRep.ints[EngineMessageKey::RESULT] = 1;
 								client->joueur->equipe->addRPG(new JoueurRPG(client->joueur));
+								client->joueur->setTypeGamplay(Joueur::TypeGameplay::RPG);
 							}							
 							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
 							sendToAllTcp(&messageRep);
@@ -311,5 +318,11 @@ void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.id();
 	message.strings[EngineMessageKey::PSEUDO] = c.joueur->getNom();
 	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe->id();
+	if(c.joueur->getTypeGameplay() == Joueur::RPG)
+		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RPG_GAMEPLAY;
+	else if(c.joueur->getTypeGameplay() == Joueur::RTS)
+		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RTS_GAMEPLAY;
+	else
+		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
 	sendToAllExcluding(c.id(), &message);
 }
