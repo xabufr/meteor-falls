@@ -41,6 +41,7 @@ GameEngine::~GameEngine()
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
+	std::cout << message.message << std::endl;
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
 		if(m_type==SERVER)
@@ -71,15 +72,6 @@ void GameEngine::handleMessage(EngineMessage& message)
     {
         if (message.ints[EngineMessageKey::RESULT] == 1)
         {
-            switch (m_current_joueur->getTypeGameplay())
-            {
-                case Joueur::TypeGameplay::RTS:
-                    m_current_joueur->setRTS(new JoueurRTS(m_current_joueur));
-                break;
-                case Joueur::TypeGameplay::RPG:
-                    m_current_joueur->setRPG(new JoueurRPG(m_current_joueur));
-                break;
-            }
 			Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 			if(joueur==nullptr)
 				return;

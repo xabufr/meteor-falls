@@ -1962,6 +1962,30 @@ src/State/Menu/MenuState.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/MenuState.cpp.s
 .PHONY : src/State/Menu/MenuState.cpp.s
 
+src/State/Menu/OptionState.o: src/State/Menu/OptionState.cpp.o
+.PHONY : src/State/Menu/OptionState.o
+
+# target to build an object file
+src/State/Menu/OptionState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.o
+.PHONY : src/State/Menu/OptionState.cpp.o
+
+src/State/Menu/OptionState.i: src/State/Menu/OptionState.cpp.i
+.PHONY : src/State/Menu/OptionState.i
+
+# target to preprocess a source file
+src/State/Menu/OptionState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.i
+.PHONY : src/State/Menu/OptionState.cpp.i
+
+src/State/Menu/OptionState.s: src/State/Menu/OptionState.cpp.s
+.PHONY : src/State/Menu/OptionState.s
+
+# target to generate assembly for a file
+src/State/Menu/OptionState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.s
+.PHONY : src/State/Menu/OptionState.cpp.s
+
 src/State/Menu/ServerList.o: src/State/Menu/ServerList.cpp.o
 .PHONY : src/State/Menu/ServerList.o
 
@@ -1985,6 +2009,30 @@ src/State/Menu/ServerList.s: src/State/Menu/ServerList.cpp.s
 src/State/Menu/ServerList.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.s
 .PHONY : src/State/Menu/ServerList.cpp.s
+
+src/State/Option/SoundSetting.o: src/State/Option/SoundSetting.cpp.o
+.PHONY : src/State/Option/SoundSetting.o
+
+# target to build an object file
+src/State/Option/SoundSetting.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.o
+.PHONY : src/State/Option/SoundSetting.cpp.o
+
+src/State/Option/SoundSetting.i: src/State/Option/SoundSetting.cpp.i
+.PHONY : src/State/Option/SoundSetting.i
+
+# target to preprocess a source file
+src/State/Option/SoundSetting.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.i
+.PHONY : src/State/Option/SoundSetting.cpp.i
+
+src/State/Option/SoundSetting.s: src/State/Option/SoundSetting.cpp.s
+.PHONY : src/State/Option/SoundSetting.s
+
+# target to generate assembly for a file
+src/State/Option/SoundSetting.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.s
+.PHONY : src/State/Option/SoundSetting.cpp.s
 
 src/State/ServerState/ServerState.o: src/State/ServerState/ServerState.cpp.o
 .PHONY : src/State/ServerState/ServerState.o
@@ -2514,9 +2562,15 @@ help:
 	@echo "... src/State/Menu/MenuState.o"
 	@echo "... src/State/Menu/MenuState.i"
 	@echo "... src/State/Menu/MenuState.s"
+	@echo "... src/State/Menu/OptionState.o"
+	@echo "... src/State/Menu/OptionState.i"
+	@echo "... src/State/Menu/OptionState.s"
 	@echo "... src/State/Menu/ServerList.o"
 	@echo "... src/State/Menu/ServerList.i"
 	@echo "... src/State/Menu/ServerList.s"
+	@echo "... src/State/Option/SoundSetting.o"
+	@echo "... src/State/Option/SoundSetting.i"
+	@echo "... src/State/Option/SoundSetting.s"
 	@echo "... src/State/ServerState/ServerState.o"
 	@echo "... src/State/ServerState/ServerState.i"
 	@echo "... src/State/ServerState/ServerState.s"
