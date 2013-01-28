@@ -1,7 +1,7 @@
 #include "Batiment.h"
 
-Batiment::Batiment(Ogre::SceneManager* mng, int p_id, std::string p_nom)
-    : Unite(mng)
+Batiment::Batiment(Ogre::SceneManager* mng, int p_id, std::string p_nom, TypeUnite* type, int id)
+    : Unite(mng, type, id)
 {
 
     m_timer.reset();

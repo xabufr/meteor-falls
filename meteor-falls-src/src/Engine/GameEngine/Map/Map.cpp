@@ -42,8 +42,8 @@ Map::~Map()
 
 void Map::load(std::string p_name)
 {
-    Hero MyHero(m_scene_mgr);
-   // MyHero = new Hero(m_scene_mgr);
+    Hero MyHero(m_scene_mgr, nullptr, 5);
+
     MyHero.InsertHero("x","x");
 
     m_loaded = true;

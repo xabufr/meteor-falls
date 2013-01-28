@@ -4965,12 +4965,16 @@
 	"Utils/singleton.h"
 	<unordered_map>
 
-1354005839 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
+1359377803 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
 	"Equipe.h"
+	"../Unites/TypeUnite.h"
+	"../Unites/Unite.h"
 
-1354005819 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
+1359372376 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
+	<string>
+	<vector>
 
-1354184793 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
+1359363493 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
 	"Faction.h"
 	"../Unites/UniteFactory.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
@@ -4981,7 +4985,7 @@
 	"../Recherches/Recherche.h"
 	"Utils/Exception/FileNotFound.h"
 
-1354093068 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
+1359363476 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -4992,7 +4996,7 @@
 1354037881 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
 	"typedefs.h"
 
-1354093611 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
+1359361914 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
 	"typedefs.h"
 	"../Ressources/Ressources.h"
 	<string>
@@ -5042,29 +5046,34 @@
 1354030064 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.cpp
 	"Ressources.h"
 
-1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
+1359379188 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
 	"Aerien.h"
 
-1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
+1359379197 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
 	"Mobile.h"
 
-1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
+1359379155 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
 	"Unite.h"
 
-1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
+1359378260 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
 	"../Map/ObjetTerrain.h"
+	"TypeUnite.h"
 
-1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
+1359379155 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
 	"Batiment.h"
 
-1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
+1359379155 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
 	"Unite.h"
+	<string>
+	<iostream>
+	<OgreSceneManager.h>
+	"../../../Utils/Vector3D.h"
 
-1357895521 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
+1359379269 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
 	<assert.h>
 
-1357895260 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
+1359379269 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
 	"Terrestre.h"
 	"Engine/GameEngine/Degats/Armure.h"
 	"Engine/GameEngine/Degats/Degat.h"
@@ -5076,19 +5085,19 @@
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
 
-1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
+1359379225 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
 	"Mobile.h"
 
-1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
+1359379155 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
 	"Mobile.h"
 
-1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
+1359379225 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
 	"Terrestre.h"
 
-1354094061 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
+1359360515 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
 	"TypeUnite.h"
 
-1355129847 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
+1359378260 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 	"Unite.h"
 
 1354110345 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
@@ -5386,10 +5395,10 @@
 	<ctime>
 	<iostream>
 
-1355846487 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.cpp
+1359379390 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.cpp
 	"Hero_State.h"
 
-1355846486 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.h
+1359379390 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.h
 	"Engine/GameEngine/Unites/Hero.h"
 	<OgreSceneManager.h>
 

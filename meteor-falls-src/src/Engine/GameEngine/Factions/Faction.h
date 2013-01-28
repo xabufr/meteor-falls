@@ -21,6 +21,7 @@ class Faction
         UniteFactory* factory() const;
         void addConfigFile(std::string path);
 
+
         /** \brief Charge tous les fichiers passés via addConfigFile()
          */
         void load();
@@ -34,6 +35,9 @@ class Faction
         std::unordered_map<UnitId, TypeUnite*> m_typesUnites;
         std::unordered_map<RechercheId, Recherche*> m_recherches;
         std::vector<std::string> m_paths;
+        std::vector<std::string> m_batiments;
+        std::vector<std::string> m_terrestre;
+        std::vector<std::string> m_aerien;
 };
 
 #endif // FACTION_H

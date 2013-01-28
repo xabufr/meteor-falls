@@ -4,12 +4,13 @@
 #include "Unite.h"
 #include <string>
 #include <iostream>
+#include <OgreSceneManager.h>
 #include "../../../Utils/Vector3D.h"
 
 class Batiment: public Unite
 {
     public:
-        Batiment(Ogre::SceneManager*, int p_id, std::string p_nom);
+        Batiment(Ogre::SceneManager*, int p_id, std::string p_nom, TypeUnite* type, int id);
         void SetPosition(Vector3D p_position);
 
         bool Is_Constructed();

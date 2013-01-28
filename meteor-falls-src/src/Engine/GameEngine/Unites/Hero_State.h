@@ -44,7 +44,7 @@ class Hero_State : public Hero
 {
 
     public:
-        Hero_State(Ogre::SceneManager* mng);
+        Hero_State(Ogre::SceneManager* mng, TypeUnite* type, int id);
 
     private:
         float m_Animation_Get_Duration();
