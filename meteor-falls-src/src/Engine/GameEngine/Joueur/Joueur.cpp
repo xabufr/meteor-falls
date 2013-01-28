@@ -3,6 +3,7 @@
 
 Joueur::Joueur()
 {
+	m_type_gamplay = TypeGameplay::NONE_GAMEPLAY;
 }
 Joueur::~Joueur()
 {

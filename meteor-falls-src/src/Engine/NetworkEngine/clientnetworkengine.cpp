@@ -79,10 +79,22 @@ void ClientNetworkEngine::work()
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
 					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
+					j->equipe = e;
+					e->addJoueur(j);
 					m_manager->getGame()->addPlayer(j);
+					j->setTypeGamplay(Joueur::TypeGameplay::NONE_GAMEPLAY);
 					if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] != EngineMessageKey::NONE_GAMEPLAY)
 					{
-
+						if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RPG_GAMEPLAY)
+						{
+							e->addRPG(new JoueurRPG(j));
+							j->setTypeGamplay(Joueur::TypeGameplay::RPG);
+						}
+						else
+						{
+							e->setJoueurRTS(new JoueurRTS(j));
+							j->setTypeGamplay(Joueur::TypeGameplay::RTS);
+						}
 					}
 				}
 				break;
@@ -105,7 +117,6 @@ void ClientNetworkEngine::work()
 					messageGameplay->clearTo();
 					messageGameplay->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGameplay);
-					std::cout << "gameplay ok" << std::endl;
 				}
 				break;
 			case EngineMessageType::CHAT_MESSAGE:
