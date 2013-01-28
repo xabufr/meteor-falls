@@ -108,6 +108,7 @@ MenuState::MenuState(StateManager* mng):
     m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, &m_player);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
+    m_option_state = new OptionState(m_state_manager);
 
     m_sousState = m_login_state;
 
@@ -150,6 +151,12 @@ bool MenuState::showCredit()
     m_sousState->enter();
 
     return true;
+}
+bool MenuState::showOption()
+{
+    m_state->hide();
+    m_sousState = m_option_state;
+    m_sousState->enter();
 }
 bool MenuState::m_hide_sous_state()
 {
@@ -256,6 +263,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeLune->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showOption, this);
                 }
             }
             else

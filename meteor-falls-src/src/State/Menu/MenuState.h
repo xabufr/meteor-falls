@@ -13,6 +13,7 @@
 #include "ServerList.h"
 #include "LoginState.h"
 #include "CreditState.h"
+#include "OptionState.h"
 #include "../../Engine/GameEngine/Joueur/Joueur.h"
 #include "../../precompiled/sfml_system.h"
 #include <boost/function.hpp>
@@ -25,6 +26,7 @@ class MenuState: public State
         bool startGame();
         bool showLanServer();
         bool showCredit();
+        bool showOption();
 
     public:
         MenuState(StateManager*);
@@ -57,6 +59,7 @@ class MenuState: public State
         LoginState *m_login_state;
         CreditState *m_credit_state;
         ServerList *m_server_list;
+        OptionState *m_option_state;
         /**
             Les entités qui vont correspondre à des entrées menu
         */

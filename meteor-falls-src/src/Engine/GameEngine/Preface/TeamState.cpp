@@ -28,9 +28,6 @@ m_game_engine(engine)
     m_rts->setText("RTS");
     m_rts->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rts);
-    for (Joueur* j:m_game_engine->getCurrentJoueur()->equipe->joueurs())
-        if (!j->getRTS())
-            m_rts->disable();
     m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRPG");
     m_rpg->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
     m_rpg->setPosition(CEGUI::UVector2(CEGUI::UDim(0.75-(m_rpg->getSize().d_x.d_scale/2), 0),
@@ -104,5 +101,7 @@ void TeamState::exit()
 }
 ret_code TeamState::work(unsigned int time)
 {
+    if (m_game_engine->getCurrentJoueur()->equipe->getRTS() != nullptr)
+            m_rts->disable();
     return CONTINUE;
 }
