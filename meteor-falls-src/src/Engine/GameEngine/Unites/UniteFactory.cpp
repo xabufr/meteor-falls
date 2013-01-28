@@ -6,12 +6,10 @@ UniteFactory::UniteFactory(Faction* f)
 {
 
 }
-
 UniteFactory::~UniteFactory()
 {
 
 }
-
 Unite* UniteFactory::create(UnitId id)
 {
     TypeUnite *type = m_faction->getType(id);

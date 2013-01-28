@@ -36,6 +36,7 @@ class GameEngine : public Engine
 		Joueur* getCurrentJoueur();
 		bool tryJoinTeam(char, Joueur*);
 		Joueur* findJoueur(int);
+		void deleteJoueur(int);
 
     protected:
 
