@@ -21,7 +21,6 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 			m_current_joueur=nullptr;
 			Equipe *e = new Equipe(i);
 			e->setFaction(FactionManager::get()->getFaction(i));
-			std::cout << FactionManager::get()->getFaction(i) << std::endl;
 			addTeam(e);
 		}
 	}
@@ -111,11 +110,21 @@ void GameEngine::handleMessage(EngineMessage& message)
 					joueur->equipe->addRPG(joueur->getRPG());
 					break;
 			}
+
         }
     }
 	else if (message.message==EngineMessageType::DEL_PLAYER)
 	{
 		deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+	}
+	else if (message.message==EngineMessageType::SELECT_TEAM) 
+	{
+		Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+		Equipe *equ = getEquipe(message.ints[EngineMessageKey::TEAM_ID]);
+		if(joueur==nullptr || equ == nullptr)
+				return;
+		joueur->equipe = equ;
+		equ->addJoueur(joueur);
 	}
 }
 void GameEngine::work()
@@ -184,7 +193,7 @@ Equipe* GameEngine::getEquipe(char id)
 		if(e->id() == id)
 				return e;
 	}
-	return 0;
+	return nullptr;
 }
 void GameEngine::setSousStateType(TypeState t)
 {
