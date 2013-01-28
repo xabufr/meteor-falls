@@ -146,8 +146,6 @@ void ServerNetworkEngine::work()
 								if(client->joueur->equipe->getRTS() == nullptr)
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
-									client->joueur->equipe->setJoueurRTS(new JoueurRTS(client->joueur));
-									client->joueur->setTypeGamplay(Joueur::TypeGameplay::RTS);
 								}
 								else 
 								{
@@ -157,11 +155,11 @@ void ServerNetworkEngine::work()
 							else
 							{
 								messageRep.ints[EngineMessageKey::RESULT] = 1;
-								client->joueur->equipe->addRPG(new JoueurRPG(client->joueur));
-								client->joueur->setTypeGamplay(Joueur::TypeGameplay::RPG);
 							}							
 							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
 							sendToAllTcp(&messageRep);
+							messageRep.addToType(EngineType::GameEngineType);
+							m_manager->addMessage(EngineMessage::clone(&messageRep));
 						}
 						break;
 				}

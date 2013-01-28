@@ -76,7 +76,6 @@ bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 {
     ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
     net->trySelectGameplay((m_rts->isPushed())?EngineMessageKey::RTS_GAMEPLAY:EngineMessageKey::RPG_GAMEPLAY);
-    m_game_engine->getCurrentJoueur()->setTypeGamplay((m_rts->isPushed())?Joueur::TypeGameplay::RTS:Joueur::TypeGameplay::RPG);
     return true;
 }
 TeamState::~TeamState()
