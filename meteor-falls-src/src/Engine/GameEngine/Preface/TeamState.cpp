@@ -30,7 +30,7 @@ m_game_engine(engine)
     m_window->addChildWindow(m_rts);
     for (Joueur* j:m_game_engine->getCurrentJoueur()->equipe->joueurs())
         if (j->getTypeGameplay() == Joueur::TypeGameplay::RTS)
-            m_rts->disable();
+            std::cout << "perso rts trouve" << std::endl;
 
     m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRPG");
     m_rpg->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
