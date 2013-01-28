@@ -22,6 +22,7 @@ enum EngineMessageType
 	SELECT_TEAM     = 15,
 	SELECT_GAMEPLAY = 16,
 	SET_RTS_DISP    = 17,
+	SET_TIME = 18,
 };
 
 #endif // ENGINEMESSAGETYPE_H

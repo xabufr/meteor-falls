@@ -27,6 +27,7 @@ enum EngineMessageKey
 	NONE_GAMEPLAY = 20,
 	GAMEPLAY_TYPE = 21,
 	RESULT        = 22,
+	TIME          = 23,
 };
 
 #endif // ENGINEMESSAGEKEY_H

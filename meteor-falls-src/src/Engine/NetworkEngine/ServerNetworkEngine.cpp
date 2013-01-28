@@ -227,15 +227,21 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
 }
 void ServerNetworkEngine::removeClient(ServerClient& c)
 {
-    boost::mutex::scoped_lock l(m_mutex_clients);
-    for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
-    {
-        if(it->tcp()==c.tcp())
-        {
-            m_clients.erase(it);
-            return;
-        }
-    }
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::DEL_PLAYER;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
+	{
+		boost::mutex::scoped_lock l(m_mutex_clients);
+    	for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
+    	{
+    	    if(it->tcp()==c.tcp())
+    	    {
+    	        m_clients.erase(it);
+    	        break;
+    	    }
+    	}
+	}
+	sendToAllTcp(&message);
 }
 void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {
@@ -293,7 +299,7 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 	{
 		for(Joueur *j : e->joueurs())
 		{
-			if(j = c.joueur)
+			if(j == c.joueur)
 			{
 				sendToTcp(c, message);
 				break;
