@@ -103,5 +103,6 @@ ret_code TeamState::work(unsigned int time)
 {
     if (m_game_engine->getCurrentJoueur()->equipe->getRTS() != nullptr)
             m_rts->disable();
+
     return CONTINUE;
 }
