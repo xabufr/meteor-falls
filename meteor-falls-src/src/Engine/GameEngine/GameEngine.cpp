@@ -87,8 +87,28 @@ void GameEngine::handleMessage(EngineMessage& message)
 			switch(message.ints[EngineMessageKey::GAMEPLAY_TYPE])
 			{
 				case EngineMessageKey::RTS_GAMEPLAY:
+					if(joueur->getTypeGameplay()==Joueur::TypeGameplay::RTS)
+						break;
+					else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG) 
+					{
+						joueur->equipe->removeRPG(joueur->getRPG());
+						delete joueur->getRPG();
+					}
+					joueur->setTypeGamplay(Joueur::TypeGameplay::RTS);
+					joueur->setRTS(new JoueurRTS(joueur));
+					joueur->equipe->setJoueurRTS(joueur->getRTS());
 					break;
 				case EngineMessageKey::RPG_GAMEPLAY:
+					if(joueur->getTypeGameplay()==Joueur::TypeGameplay::RPG)
+						break;
+					else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
+					{
+						joueur->equipe->setJoueurRTS(nullptr);
+						delete joueur->getRTS();
+					}
+					joueur->setTypeGamplay(Joueur::TypeGameplay::RPG);
+					joueur->setRPG(new JoueurRPG(joueur));
+					joueur->equipe->addRPG(joueur->getRPG());
 					break;
 			}
         }
