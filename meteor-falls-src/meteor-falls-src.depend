@@ -4632,9 +4632,7 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1354226370 /home/bastien/Bureau/Projet_CSII1/meteor-falls/GlobalServer/src/Server.h
-	<iostream>
-	<map>
+1358161129 /home/bastien/Bureau/Projet_CSII1/meteor-falls/GlobalServer/src/Server.h
 	<string>
 	<boost/serialization/serialization.hpp>
 	<boost/serialization/vector.hpp>
@@ -4692,7 +4690,7 @@
 1354537848 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/GlobalServer/src/Player.cpp
 	"Player.h"
 
-1354223191 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/GlobalServer/src/Server.cpp
+1358161129 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/GlobalServer/src/Server.cpp
 	"Server.h"
 
 1351301498 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/Hydrax/src/CfgFileManager.cpp
@@ -5062,8 +5060,9 @@
 1355129847 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
 	"Unite.h"
 
-1357894489 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
+1357895521 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
+	<assert.h>
 
 1357895260 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
 	"Terrestre.h"
