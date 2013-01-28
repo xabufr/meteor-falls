@@ -28,9 +28,9 @@ class Joueur
 		void setLevel(const int&);
 		const int& getLevel();
 		void setRTS(JoueurRTS* rts){m_rts=rts;}
-		const JoueurRTS* getRTS(){return m_rts;}
+		JoueurRTS* getRTS(){return m_rts;}
 		void setRPG(JoueurRPG* rpg){m_rpg=rpg;}
-		const JoueurRPG* getRPG(){return m_rpg;}
+		JoueurRPG* getRPG(){return m_rpg;}
 		void setTypeGamplay(const TypeGameplay t){m_type_gamplay=t;}
 		const TypeGameplay getTypeGameplay(){return m_type_gamplay;}
 		Equipe *equipe;

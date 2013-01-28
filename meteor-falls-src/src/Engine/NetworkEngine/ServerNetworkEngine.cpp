@@ -241,7 +241,10 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
     	    }
     	}
 	}
+	message.addToType(EngineType::GameEngineType);
 	sendToAllTcp(&message);
+	EngineMessage *clone = EngineMessage::clone(&message);
+	m_manager->addMessage(clone);
 }
 void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {

@@ -128,6 +128,12 @@ void ClientNetworkEngine::work()
 					m_manager->addMessage(messageGame);
 				}
 				break;
+			case EngineMessageType::DEL_PLAYER:
+				{
+					EngineMessage *clone = EngineMessage::clone(message);
+					m_manager->addMessage(clone);
+				}
+				break;
 		}
 		delete message;
     }

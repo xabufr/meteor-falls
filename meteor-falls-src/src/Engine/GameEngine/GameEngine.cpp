@@ -18,6 +18,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	{
 		for(char i=1; i<3;++i)
 		{
+			m_current_joueur=nullptr;
 			Equipe *e = new Equipe(i);
 			e->setFaction(FactionManager::get()->getFaction(i));
 			std::cout << FactionManager::get()->getFaction(i) << std::endl;
@@ -77,18 +78,22 @@ void GameEngine::handleMessage(EngineMessage& message)
     {
         if (message.ints[EngineMessageKey::RESULT] == 1)
         {
-            std::cout << message.ints[EngineMessageKey::RESULT] << std::endl;
-            switch (m_current_joueur->getTypeGameplay())
-            {
-                case Joueur::TypeGameplay::RTS:
-                    m_current_joueur->setRTS(new JoueurRTS(m_current_joueur));
-                break;
-                case Joueur::TypeGameplay::RPG:
-                    m_current_joueur->setRPG(new JoueurRPG(m_current_joueur));
-                break;
-            }
+			Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+			if(joueur==nullptr)
+				return;
+			switch(message.ints[EngineMessageKey::GAMEPLAY_TYPE])
+			{
+				case EngineMessageKey::RTS_GAMEPLAY:
+					break;
+				case EngineMessageKey::RPG_GAMEPLAY:
+					break;
+			}
         }
     }
+	else if (message.message==EngineMessageType::DEL_PLAYER)
+	{
+		deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+	}
 }
 void GameEngine::work()
 {
@@ -187,7 +192,7 @@ bool GameEngine::tryJoinTeam(char id, Joueur* j)
 }
 Joueur* GameEngine::findJoueur(int id)
 {
-    if (m_current_joueur->id == id)
+    if (m_current_joueur!=nullptr && m_current_joueur->id == id)
         return m_current_joueur;
 	for(Joueur *j : m_joueurs)
     {
@@ -195,4 +200,32 @@ Joueur* GameEngine::findJoueur(int id)
 				return j;
     }
 	return nullptr;
+}
+void GameEngine::deleteJoueur(int id)
+{
+	Joueur *joueur = findJoueur(id);
+	if(joueur==nullptr)
+		return;
+	joueur->equipe->removeJoueur(joueur);
+	switch(joueur->getTypeGameplay())
+	{
+		case Joueur::TypeGameplay::RTS:
+			delete joueur->getRTS();
+			joueur->equipe->setJoueurRTS(nullptr);
+			break;
+		case Joueur::TypeGameplay::RPG:
+			joueur->equipe->removeRPG(joueur->getRPG());
+			delete joueur->getRPG();
+			break;
+	}
+	joueur->equipe->removeJoueur(joueur);
+	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
+	{
+		if(*it==joueur)
+		{
+			m_joueurs.erase(it);
+			break;
+		}
+	}
+	delete joueur;
 }
