@@ -3,7 +3,8 @@
 
 JoueurRPG::JoueurRPG(Joueur *j): m_joueur(j)
 {
-    //ctor
+	m_joueur->setRPG(this);
+	m_joueur->setTypeGamplay(Joueur::TypeGameplay::RPG);
 }
 JoueurRPG::~JoueurRPG()
 {
