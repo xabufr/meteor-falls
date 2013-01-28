@@ -51,20 +51,14 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	Equipe *equipe = nullptr;
 			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
 			   	for(Joueur *j : m_joueurs)
-			   	{
 			   		if(j->id == playerId)
-			   		{
 			   			equipe = j->equipe;
-			   		}
-			   	}
 			   	if(equipe==nullptr)
 			   			return;
 			   	net->sendToTeam(equipe, &message);
 		   	}
 		   	else if(message.ints[EngineMessageKey::RANGE] == EngineMessageKey::GLOBAL_RANGE)
-		   	{
 		   		net->sendToAllTcp(&message);
-		   	}
 		}
 		else
 		{
