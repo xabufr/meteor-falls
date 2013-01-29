@@ -17,6 +17,7 @@
 #include "../../Engine/GameEngine/Joueur/Joueur.h"
 #include "../../precompiled/sfml_system.h"
 #include <boost/function.hpp>
+#include "Engine/GameEngine/Layout/layoutRTS.h"
 
 
 class MenuState: public State
@@ -57,6 +58,7 @@ class MenuState: public State
         bool m_hide_sous_state();
         State *m_sousState;
         LoginState *m_login_state;
+        LayoutRTS *m_layout_state;
         CreditState *m_credit_state;
         ServerList *m_server_list;
         OptionState *m_option_state;

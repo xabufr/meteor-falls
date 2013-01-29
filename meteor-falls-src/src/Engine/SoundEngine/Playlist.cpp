@@ -6,7 +6,7 @@ Playlist::Playlist()
 {
     m_stop = true;
     m_pause = false;
-    m_volume = 100;
+    m_volume = 0;
     m_music = new sf::Music;
     m_loop = true;
     m_temps_ecoule.restart();
@@ -69,8 +69,10 @@ void Playlist::set_Volume(int type_son, int new_volume)
 int Playlist::get_Audio_State() // stop / pause / read
 {
     if (m_stop == true)
+    {
         m_music_playing[m_groupe_courant] = 0; // debut de la liste de lecture
-    return 3;
+        return 3;
+    }
 
     if (m_pause == true)
         return 2;

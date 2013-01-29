@@ -9,7 +9,7 @@
 # Install prefix (default = /usr)
 # ----------------------------------------
 ifndef PREFIX
-	PREFIX =/usr
+	PREFIX =/usr/local
 endif
 
 # ----------------------------------------

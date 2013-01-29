@@ -1,15 +1,17 @@
 #ifndef UNITE_H
 #define UNITE_H
-
 #include "../Map/ObjetTerrain.h"
+#include "TypeUnite.h"
 
 class Unite : public ObjetTerrain
 {
     public:
-        Unite(Ogre::SceneManager*);
+        Unite(Ogre::SceneManager*, TypeUnite* type, int id);
+        TypeUnite* GetType();
         virtual ~Unite();
-    protected:
+
     private:
+        TypeUnite* m_Type;
 };
 
 #endif // UNITE_H

@@ -68,6 +68,7 @@ void Faction::load()
         //Chargement des unités
         for(nodeUnit=root->first_node("unite");nodeUnit;nodeUnit=nodeUnit->next_sibling("unite"))
         {
+
             TypeUnite *unite;
             TypeUnite::Type type = TypeUnite::typeFromString(nodeUnit->first_node("type")->value());
             UnitId id = boost::lexical_cast<UnitId>(nodeUnit->first_node("id")->value());
@@ -106,6 +107,24 @@ void Faction::load()
                 if(nodeCouts->first_node("pop"))
                     unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
             }
+
+
+            switch(type)
+            {
+                case TypeUnite::Type::BATIMENT:
+                    m_batiments.push_back(m_nom);
+                break;
+
+                case TypeUnite::Type::AERIEN:
+                    m_aerien.push_back(m_nom);
+                break;
+
+                case TypeUnite::Type::TERRESTE:
+                    m_terrestre.push_back(m_nom);
+                break;
+            }
+
+
         }
     }
     //Seconde passe, pour édition de liens
@@ -201,3 +220,4 @@ TypeUnite* Faction::getType(UnitId id)
         return it->second;
     return 0;
 }
+
