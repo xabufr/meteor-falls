@@ -1,8 +1,9 @@
 #include "GameState.h"
 #include "../StateManager.h"
-#include "Engine/EngineManager/EngineManager.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../Engine/EngineManager/EngineManager.h"
+#include "../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../Engine/NetworkEngine/clientnetworkengine.h"
 
 GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::string& address, const std::string& password, Joueur *j):
     State(mng),
@@ -19,7 +20,8 @@ GameState::~GameState()
 ret_code GameState::work(unsigned int time)
 {
     m_engineManager->work();
-    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+	ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_engineManager->getNetwork());
+	if (m_keyboard->isKeyDown(OIS::KC_ESCAPE) || net->getState() == ClientNetworkEngine::ClientNetworkEngineState::NONE)
 	{
         return ret_code::FINISHED;
 	}

@@ -20,6 +20,7 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& 
     m_tcp = TcpConnection::create(m_service);
     m_udp = UdpConnection::create(m_service);
 	m_teamId = -1;
+	m_state = WAITING;
 	connect(address, port);
 }
 ClientNetworkEngine::~ClientNetworkEngine()
@@ -34,6 +35,7 @@ void ClientNetworkEngine::work()
     while(m_tcp->hasError())
 	{
         std::cout << m_tcp->getError().message()<<std::endl;
+		m_state = ClientNetworkEngineState::NONE;
     }
     while(m_tcp->hasData())
 	{

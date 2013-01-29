@@ -9,6 +9,13 @@ class Joueur;
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
+		enum ClientNetworkEngineState{
+		            CONNECTING,
+		            CONNECTED,
+		            AUTHENTIFICATING,
+					WAITING,
+		            NONE
+		        } ;
         ClientNetworkEngine(EngineManager*, const std::string& address, unsigned short port, Joueur*, const std::string& password);
         virtual ~ClientNetworkEngine();
 
@@ -42,13 +49,7 @@ class ClientNetworkEngine : public NetworkEngine
 		Joueur *m_joueur;
 		char m_teamId;
 		Clock m_timeSinceLastSync, m_timeSinceLastSyncReq;
-	public:
-        enum ClientNetworkEngineState{
-            CONNECTING,
-            CONNECTED,
-            AUTHENTIFICATING,
-            NONE
-        } m_state;
+		ClientNetworkEngineState m_state;
 };
 
 #endif // CLIENTNETWORKENGINE_H
