@@ -86,6 +86,7 @@
 		<Unit filename="../GlobalServer/src/Server.cpp" />
 		<Unit filename="../GlobalServer/src/ServerGlobalMessage.h" />
 		<Unit filename="../include/Hero_State.h" />
+		<Unit filename="../src/Hero_State.cpp" />
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />
@@ -265,6 +266,8 @@
 		<Unit filename="src/UnitTest/Tests/NetworkEngineTest.cpp" />
 		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp" />
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Clock.cpp" />
+		<Unit filename="src/Utils/Clock.h" />
 		<Unit filename="src/Utils/DataChecksum.cpp" />
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
@@ -279,7 +282,6 @@
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/version.h" />
-		<Unit filename="../src/Hero_State.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
