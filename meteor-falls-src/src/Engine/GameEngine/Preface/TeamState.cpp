@@ -76,11 +76,16 @@ bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 }
 TeamState::~TeamState()
 {
-    delete m_window;
-    delete m_rts;
-    delete m_rpg;
-    delete m_chat;
-    delete m_edit;
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_chat);
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_edit);
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rts);
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rpg);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_chat);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_edit);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_rts);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_rpg);
 }
 bool TeamState::isVisible()
 {
@@ -100,7 +105,7 @@ void TeamState::exit()
 }
 ret_code TeamState::work(unsigned int time)
 {
-    if (m_game_engine->getCurrentJoueur()->equipe->getRTS() != nullptr)
+    if (m_game_engine->getCurrentJoueur()->equipe()->getRTS() != nullptr)
             m_rts->disable();
 
     return CONTINUE;

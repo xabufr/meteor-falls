@@ -143,7 +143,7 @@ void ServerNetworkEngine::work()
 							messageRep.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
 							{
-								if(client->joueur->equipe->getRTS() == nullptr)
+								if(client->joueur->equipe()->getRTS() == nullptr)
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
 								}
@@ -324,7 +324,7 @@ void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 	message.message = EngineMessageType::NEW_PLAYER;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.id();
 	message.strings[EngineMessageKey::PSEUDO] = c.joueur->getNom();
-	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe->id();
+	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe()->id();
 	if(c.joueur->getTypeGameplay() == Joueur::RPG)
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RPG_GAMEPLAY;
 	else if(c.joueur->getTypeGameplay() == Joueur::RTS)
