@@ -3,13 +3,19 @@
 
 #include "../../../State/State.h"
 #include "../../../State/StateManager.h"
-#include "../GameEngine.h"
 #include <vector>
-#include <CEGUI.h>
 #include <OIS/OIS.h>
 
 class JoueurRPG;
-
+class GameEngine;
+namespace CEGUI {
+	class PushButton;
+	class Listbox;
+	class Editbox;
+	class TabButton;
+	class String;
+	class EventArgs;
+} 
 class TeamState : public State
 {
 public:
@@ -19,7 +25,7 @@ public:
     virtual void enter();
     virtual void exit();
     virtual ret_code work(unsigned int);
-    void setMessage(const CEGUI::String message);
+    void setMessage(const CEGUI::String& message);
 private:
     bool m_send_message(const CEGUI::EventArgs &);
     bool m_choix_mode(const CEGUI::EventArgs &);

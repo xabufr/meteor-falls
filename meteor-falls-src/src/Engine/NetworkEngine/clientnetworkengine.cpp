@@ -146,7 +146,6 @@ void ClientNetworkEngine::connect(std::string address, unsigned short port)
     m_serverAddress = getAddress(*m_service, address, &error);
     if(error){
         THROW_BASIC_EXCEPTION("Can't resolve host address");
-        return;
     }
     m_state = CONNECTING;
     m_tcp->connect(boost::asio::ip::tcp::endpoint(m_serverAddress, m_port));

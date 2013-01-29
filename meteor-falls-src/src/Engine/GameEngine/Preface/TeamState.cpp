@@ -4,7 +4,11 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/NetworkEngine/clientnetworkengine.h"
 #include "Engine/GameEngine/Factions/Equipe.h"
+#include "../GameEngine.h"
+#include "../../EngineManager/EngineManager.h"
+#include "../../EngineMessage/EngineMessage.h"
 #include <string>
+#include <CEGUI.h>
 
 TeamState::TeamState(StateManager* mgr, GameEngine* engine):State(mgr),
 m_visible(true),
@@ -63,7 +67,7 @@ bool TeamState::m_send_message(const CEGUI::EventArgs&)
     }
     return true;
 }
-void TeamState::setMessage(const CEGUI::String message)
+void TeamState::setMessage(const CEGUI::String& message)
 {
     CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(message);
     m_chat->addItem(item);

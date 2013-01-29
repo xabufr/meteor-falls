@@ -42,7 +42,6 @@ void ServerNetworkEngine::work()
 		}
         clients =  m_clients;
     }
-    std::vector<EngineMessage*> messages;
     EngineMessage *message;
     for(ServerClient client : clients)
     {

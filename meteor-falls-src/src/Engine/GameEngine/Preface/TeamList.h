@@ -2,10 +2,13 @@
 #define TEAMLIST_H_INCLUDED
 
 #include "../../../State/State.h"
-#include "../GameEngine.h"
-#include <CEGUI.h>
 
+class GameEngine;
 class Equipe;
+namespace CEGUI {
+	class Listbox;
+	class EventArgs;
+}
 class TeamList : public State
 {
     public:

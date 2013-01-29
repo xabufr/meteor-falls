@@ -5,6 +5,10 @@
 #include "Factions/FactionManager.h"
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
+#include "Map/Map.h"
+#include "Preface/TeamList.h"
+#include "../EngineMessage/EngineMessage.h"
+#include <CEGUIString.h>
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),

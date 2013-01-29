@@ -2,6 +2,9 @@
 #include "../Factions/Equipe.h"
 #include <boost/lexical_cast.hpp>
 #include "../../NetworkEngine/clientnetworkengine.h"
+#include "../../EngineManager/EngineManager.h"
+#include "../GameEngine.h"
+#include <CEGUI.h>
 
 TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
 m_visible(true),
