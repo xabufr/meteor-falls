@@ -6,13 +6,10 @@ SoundEngine::SoundEngine(EngineManager * manager)
 {
     m_last = 0;
 }
-
 SoundEngine::~SoundEngine()
 {
     //dtor
 }
-
-
 unsigned int SoundEngine::playSound(const std::string& chemin)
 {
     m_sounds[m_last] = new SoundParams;
@@ -25,8 +22,6 @@ unsigned int SoundEngine::playSound(const std::string& chemin)
 
     return m_last++;
 }
-
-
 unsigned int SoundEngine::playLocalizedSound(const std::string& chemin)
 {
     m_sounds[m_last] = new SoundParams;
@@ -38,8 +33,6 @@ unsigned int SoundEngine::playLocalizedSound(const std::string& chemin)
     m_sounds[m_last]->sound->play();
     return m_last++;
 }
-
-
 void SoundEngine::removeWhenFinished(unsigned int id, bool rem)
 {
     auto it = m_sounds.find(id);
@@ -47,8 +40,6 @@ void SoundEngine::removeWhenFinished(unsigned int id, bool rem)
         return;
     it->second->removeWhenFinished=rem;
 }
-
-
 void SoundEngine::work()// appeller la classe Fade
 {
     for (auto it: m_sounds)
@@ -90,8 +81,6 @@ void SoundEngine::work()// appeller la classe Fade
 
       //  std::cout << "new voilume : "<<new_volume << std::endl;
 }
-
-
 void SoundEngine::handleEngineEvent(EngineMessage* event)
 {
     switch(event->message)
@@ -101,14 +90,10 @@ void SoundEngine::handleEngineEvent(EngineMessage* event)
         break;
     }
 }
-
-
 EngineType SoundEngine::getType() const
 {
     return EngineType::SoundEngineType;// enginetype
 }
-
-
 sf::Sound* SoundEngine::getSound(SoundId id)
 {
     auto it = m_sounds.find(id);
@@ -116,26 +101,21 @@ sf::Sound* SoundEngine::getSound(SoundId id)
         return 0;
     return it->second->sound;
 }
-
-
 void SoundEngine::stop(SoundId id)
 {
     m_sounds[id]->sound->stop();
 }
-
 void SoundEngine::setListenerAttenuation(SoundId id, float attenuation)
 {
       m_sounds[id]->sound->setAttenuation(attenuation);
       //void sf::SoundSource::setAttenuation ( float  attenuation).
 }
-
 void SoundEngine::play(SoundId id)
 {
     m_sounds[id]->sound->play();
     m_sounds[id]->isFadeIn=false;
     m_sounds[id]->isFadeOut=false;
 }
-
 void SoundEngine::set_fadeIn_time(int time)
 {
 
@@ -143,7 +123,6 @@ void SoundEngine::set_fadeIn_time(int time)
     m_fadeIn_time = time;
 
 }
-
 void SoundEngine::set_fadeOut_time(int time)
 {
 
@@ -151,7 +130,6 @@ void SoundEngine::set_fadeOut_time(int time)
     m_fadeOut_time = time;
 
 }
-
 void SoundEngine::set_type_transition(Fade::fadeFunction string)
 {
 
@@ -163,8 +141,3 @@ void SoundEngine::set_type_transition(Fade::fadeFunction string)
         MonFade.setFunction(Fade::fadeFunction::constant);
 
 }
-
-
-
-
-

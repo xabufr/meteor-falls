@@ -1,10 +1,10 @@
 #ifndef H_NETWORKENGINE_H
 #define H_NETWORKENGINE_H
 #include "../Engine.h"
-#include "precompiled/asio.h"
-#include "precompiled/shared_ptr.h"
-
-
+#include "../../precompiled/asio.h"
+#include "../../precompiled/shared_ptr.h"
+#include "TcpConnection.h"
+#include "UdpConnection.h"
 
 class NetworkEngine : public Engine
 {
@@ -14,17 +14,20 @@ public:
     NetworkEngine(EngineManager*);
     ~NetworkEngine();
     virtual void setEngineManager(EngineManager*);
-    virtual void handleMessage(const EngineMessage&) = 0;
+    virtual void handleMessage(EngineMessage&) = 0;
     virtual void work() = 0;
     virtual EngineType getType();
 
     static std::string serialize(const EngineMessage*);
+    static EngineMessage* deserialize(const std::string &, EngineManager*);
     EngineMessage* deserialize(const std::string &);
+	static std::string SHA1(const std::string &);
 protected:
     boost::shared_ptr<boost::asio::io_service> m_service;
     boost::shared_ptr<boost::asio::io_service::work> m_work;
     boost::thread m_thread_service;
 
+	UdpConnection::pointer m_udpConnexion;
 private:
     void m_run();
 };

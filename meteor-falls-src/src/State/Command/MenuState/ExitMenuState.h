@@ -9,7 +9,7 @@ class ExitMenuState : public Command
     public:
         ExitMenuState();
         ~ExitMenuState();
-        virtual void use();
+        virtual void use(std::string);
 };
 
 #endif // EXITMENUSTATE_H_INCLUDED

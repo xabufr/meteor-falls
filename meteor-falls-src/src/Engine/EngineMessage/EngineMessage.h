@@ -8,9 +8,8 @@
 #include "EngineMessageKey.h"
 #include "EngineMessageType.h"
 #include "../Engine.h"
-#include "precompiled/serialization.h"
-
-class EngineManager;
+#include "../../precompiled/serialization.h"
+#include "../EngineManager/EngineManager.h"
 
 class EngineMessage{
 
@@ -29,7 +28,9 @@ class EngineMessage{
         EngineType getFromType();
         std::vector<Engine*> getTo();
         std::vector<EngineType> getToType();
+		void clearTo();
 
+		static EngineMessage* clone(EngineMessage*);
     protected:
 
     private:
@@ -43,6 +44,18 @@ class EngineMessage{
         template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
             ar & message & time & m_from_type & m_to_type & ints & doubles & strings & positions;
+			if(m_engine_manager!=0)
+			{
+				if(m_from==0)
+					m_from = m_engine_manager->get(m_from_type);
+				if(m_to.empty())
+				{
+					for(EngineType t : m_to_type)
+					{
+						m_to.push_back(m_engine_manager->get(t));
+					}
+				}
+			}
         }
 };
 

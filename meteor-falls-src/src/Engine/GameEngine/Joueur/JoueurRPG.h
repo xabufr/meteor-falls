@@ -1,14 +1,16 @@
 #ifndef JOUEURRPG_H
 #define JOUEURRPG_H
-#include "Joueur.h"
 
-class JoueurRPG : public Joueur
+class Joueur;
+class JoueurRPG 
 {
     public:
-        JoueurRPG();
+        JoueurRPG(Joueur*);
         virtual ~JoueurRPG();
+		Joueur* joueur() const;
     protected:
     private:
+		Joueur *m_joueur;
 };
 
 #endif // JOUEURRPG_H

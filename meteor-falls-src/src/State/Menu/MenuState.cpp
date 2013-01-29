@@ -1,7 +1,7 @@
 #include <string>
 #include "MenuState.h"
-#include "LoginState.h"
 #include "State/Console.h"
+#include "State/Command/Connect.h"
 #include "State/Command/MenuState/ExitMenuState.h"
 #include "State/Command/MenuState/LoginMenuState.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -91,22 +91,43 @@ MenuState::MenuState(StateManager* mng):
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
 
+    m_state = m_window_mgr.createWindow("OgreTray/StaticText", "TextState");
+    m_state->setSize(CEGUI::UVector2(CEGUI::UDim(0.10, 0), CEGUI::UDim(0.10, 0)));
+    m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
+    m_state->setProperty("HorzFormatting", "WordWrapCentred");
+    m_sheet->addChildWindow(m_state);
+    m_state->hide();
+
     CEGUI::System::getSingleton().setGUISheet(m_sheet);
 
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
 
-    m_sousState = new LoginState(m_state_manager);
+    m_player = new Joueur();
+
+    m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, &m_player);
+    m_layout_state = new LayoutRTS(m_state_manager);
+    m_credit_state = new CreditState(m_state_manager);
+    m_login_state = new LoginState(m_state_manager, &m_player);
+    m_option_state = new OptionState(m_state_manager);
+
+    m_sousState = m_login_state;
+
 
     Playlist::loadFile("data/playlist.xml");
 
 }
-
 MenuState::~MenuState()
 {
     delete m_background;
+    delete m_sousState;
+    delete m_credit_state;
+    delete m_layout_state;
+    delete m_server_list;
+    delete m_login_state;
+    delete m_player;
+    delete m_state;
 }
-
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
     OgreContextManager::get()->getOgreApplication()->getWindow()->destroy();
@@ -114,16 +135,47 @@ bool MenuState::quit(const CEGUI::EventArgs &)
 }
 bool MenuState::startGame()
 {
-    m_state_manager->addState(new GameState(m_state_manager));
+    m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN, "", "", m_player));
     return true;
 }
+bool MenuState::showLanServer()
+{
+    m_state->show();
+    m_sousState = m_server_list;
+    m_sousState->enter();
 
+    return true;
+}
+bool MenuState::showCredit()
+{
+    m_state->hide();
+    m_sousState = m_layout_state;
+    m_sousState->enter();
+
+    return true;
+}
+bool MenuState::showOption()
+{
+    m_state->hide();
+    m_sousState = m_option_state;
+    m_sousState->enter();
+}
+bool MenuState::m_hide_sous_state()
+{
+	if(m_sousState!=0)
+	    m_sousState->exit();
+    return true;
+}
 void MenuState::enter()
 {
+    OgreContextManager::get()->getInputManager()->addKeyboardListener(Console::get());
+    OgreContextManager::get()->getInputManager()->addMouseListener(Console::get());
+
     //initialisation des commandes
     Console::get()->clearCommands();
     Console::get()->addCommand(new ExitMenuState());
     Console::get()->addCommand(new LoginMenuState(m_sousState, m_state_manager));
+    Console::get()->addCommand(new Connect());
 
     if(m_sousState)
         m_sousState->enter();
@@ -132,17 +184,17 @@ void MenuState::enter()
     m_visible = true;
 
 }
-
 void MenuState::exit()
 {
     if(m_sousState)
         m_sousState->exit();
+    if(m_state)
+        m_state->hide();
     m_scene_mgr->getRootSceneNode()->setVisible(false);
-    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
-    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
+//    OgreContextManager::get()->getOgreApplication()->getWindow()->removeAllViewports();
+//    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
     m_visible = false;
 }
-
 ret_code MenuState::work(unsigned int time)
 {
     Ogre::Vector3      cam_to_obj = terreAtmosphere->getPosition() - m_camera->getPosition();
@@ -155,12 +207,19 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->yaw(Ogre::Degree(90));
     terreAtmosphere->roll(Ogre::Degree(90));
 
-    m_nodeTerre->yaw(Ogre::Degree(6*time*0.001));
-    m_nodeLune->yaw(Ogre::Degree(6*time*0.001));
+    m_nodeTerre->yaw(Ogre::Degree(6.f*float(time)*0.001));
+    m_nodeLune->yaw(Ogre::Degree(6.f*float(time)*0.001));
 
     if (m_sousState==0 || !m_sousState->isVisible())
     {
         /*Piking*/
+        if (!m_player->getNom().empty())
+        {
+            m_state->setText(m_player->getNom());
+            m_state->setSize(CEGUI::UVector2(CEGUI::UDim((m_state->getText().size()*0.05), 0), CEGUI::UDim(0.10, 0)));
+            m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
+        }
+        m_state->show();
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
                      height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
@@ -171,6 +230,8 @@ ret_code MenuState::work(unsigned int time)
         bool click = m_mouse->getMouseState().buttonDown(OIS::MouseButtonID::MB_Left);
         if(!m_transitionning)
         {
+			if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+				return ret_code::EXIT_PROGRAM;
             if(selected==m_eTerre||selected==m_eAtmoTerre)
             {
                 if(click)
@@ -180,6 +241,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showLanServer, this);
                 }
             }
             else if(selected==m_eSoleil)
@@ -191,6 +253,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeSoleil->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showCredit, this);
                 }
             }
             else if(selected==m_eLune)
@@ -202,6 +265,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeLune->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::showOption, this);
                 }
             }
             else
@@ -213,6 +277,7 @@ ret_code MenuState::work(unsigned int time)
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = Ogre::Vector3(0,0,10);
                     m_transitionParams.duration=2.5;
+                    m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
                 }
             }
         }
@@ -236,30 +301,25 @@ ret_code MenuState::work(unsigned int time)
     else
     {
         m_sousState->work(time);
+		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+		{
+			m_sousState->exit();
+			m_sousState=0;
+			m_transitionning=true;
+            m_timerTranslation.restart();
+            m_transitionParams.from=m_camera->getPosition();
+            m_transitionParams.to = Ogre::Vector3(0,0,10);
+            m_transitionParams.duration=2.5;
+            m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
+		}
     }
 
-    if (!Console::get()->isVisible())
-    {
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            return ret_code::EXIT_PROGRAM;
-        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
-            Console::get()->show();
-    }
-    else
-    {
-        if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-            return ret_code::EXIT_PROGRAM;
-        else if (m_keyboard->isKeyDown(OIS::KC_UNASSIGNED))
-            Console::get()->hide();
-        else if (m_keyboard->isKeyDown(OIS::KC_RETURN))
-            Console::get()->start();
-    }
+//    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+//        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }
-
 bool MenuState::isVisible()
 {
     return m_visible;
 }
-

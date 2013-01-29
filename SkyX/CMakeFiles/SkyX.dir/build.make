@@ -31,6 +31,7 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+<<<<<<< HEAD
 # The program to use to edit the cache.
 CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
 
@@ -39,6 +40,19 @@ CMAKE_SOURCE_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
+=======
+# Escaping for special characters.
+EQUALS = =
+
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
+# The top-level source directory on which CMake was run.
+CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SkyX.dir/depend.make
@@ -49,6 +63,7 @@ include CMakeFiles/SkyX.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/SkyX.dir/flags.make
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/SkyX.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/SkyX.o: Source/SkyX.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_1)
@@ -62,6 +77,67 @@ CMakeFiles/SkyX.dir/Source/SkyX.i: cmake_force
 CMakeFiles/SkyX.dir/Source/SkyX.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/SkyX.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/SkyX.cpp -o CMakeFiles/SkyX.dir/Source/SkyX.s
+=======
+CMakeFiles/SkyX.dir/Source/MeshManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/MeshManager.o: Source/MeshManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/MeshManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/MeshManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/MeshManager.cpp
+
+CMakeFiles/SkyX.dir/Source/MeshManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/MeshManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/MeshManager.cpp > CMakeFiles/SkyX.dir/Source/MeshManager.i
+
+CMakeFiles/SkyX.dir/Source/MeshManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/MeshManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/MeshManager.cpp -o CMakeFiles/SkyX.dir/Source/MeshManager.s
+
+CMakeFiles/SkyX.dir/Source/MeshManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/MeshManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/MeshManager.o.provides: CMakeFiles/SkyX.dir/Source/MeshManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/MeshManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/MeshManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/MeshManager.o.provides.build: CMakeFiles/SkyX.dir/Source/MeshManager.o
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.o: Source/AtmosphereManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/AtmosphereManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/AtmosphereManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/AtmosphereManager.cpp
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/AtmosphereManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/AtmosphereManager.cpp > CMakeFiles/SkyX.dir/Source/AtmosphereManager.i
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/AtmosphereManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/AtmosphereManager.cpp -o CMakeFiles/SkyX.dir/Source/AtmosphereManager.s
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.provides: CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.provides.build: CMakeFiles/SkyX.dir/Source/AtmosphereManager.o
+
+CMakeFiles/SkyX.dir/Source/SkyX.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/SkyX.o: Source/SkyX.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/SkyX.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/SkyX.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/SkyX.cpp
+
+CMakeFiles/SkyX.dir/Source/SkyX.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/SkyX.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/SkyX.cpp > CMakeFiles/SkyX.dir/Source/SkyX.i
+
+CMakeFiles/SkyX.dir/Source/SkyX.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/SkyX.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/SkyX.cpp -o CMakeFiles/SkyX.dir/Source/SkyX.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/SkyX.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/SkyX.o.requires
@@ -72,6 +148,7 @@ CMakeFiles/SkyX.dir/Source/SkyX.o.provides: CMakeFiles/SkyX.dir/Source/SkyX.o.re
 
 CMakeFiles/SkyX.dir/Source/SkyX.o.provides.build: CMakeFiles/SkyX.dir/Source/SkyX.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/MeshManager.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/MeshManager.o: Source/MeshManager.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_2)
@@ -154,6 +231,90 @@ CMakeFiles/SkyX.dir/Source/VClouds/DataManager.i: cmake_force
 CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/VClouds/DataManager.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s
+=======
+CMakeFiles/SkyX.dir/Source/VCloudsManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VCloudsManager.o: Source/VCloudsManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VCloudsManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VCloudsManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VCloudsManager.cpp
+
+CMakeFiles/SkyX.dir/Source/VCloudsManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VCloudsManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VCloudsManager.cpp > CMakeFiles/SkyX.dir/Source/VCloudsManager.i
+
+CMakeFiles/SkyX.dir/Source/VCloudsManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VCloudsManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VCloudsManager.cpp -o CMakeFiles/SkyX.dir/Source/VCloudsManager.s
+
+CMakeFiles/SkyX.dir/Source/VCloudsManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/VCloudsManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/VCloudsManager.o.provides: CMakeFiles/SkyX.dir/Source/VCloudsManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/VCloudsManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/VCloudsManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/VCloudsManager.o.provides.build: CMakeFiles/SkyX.dir/Source/VCloudsManager.o
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/Prerequisites.o: Source/Prerequisites.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/Prerequisites.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/Prerequisites.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/Prerequisites.cpp
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/Prerequisites.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/Prerequisites.cpp > CMakeFiles/SkyX.dir/Source/Prerequisites.i
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/Prerequisites.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/Prerequisites.cpp -o CMakeFiles/SkyX.dir/Source/Prerequisites.s
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/Prerequisites.o.requires
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.o.provides: CMakeFiles/SkyX.dir/Source/Prerequisites.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/Prerequisites.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/Prerequisites.o.provides
+
+CMakeFiles/SkyX.dir/Source/Prerequisites.o.provides.build: CMakeFiles/SkyX.dir/Source/Prerequisites.o
+
+CMakeFiles/SkyX.dir/Source/MoonManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/MoonManager.o: Source/MoonManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/MoonManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/MoonManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/MoonManager.cpp
+
+CMakeFiles/SkyX.dir/Source/MoonManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/MoonManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/MoonManager.cpp > CMakeFiles/SkyX.dir/Source/MoonManager.i
+
+CMakeFiles/SkyX.dir/Source/MoonManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/MoonManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/MoonManager.cpp -o CMakeFiles/SkyX.dir/Source/MoonManager.s
+
+CMakeFiles/SkyX.dir/Source/MoonManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/MoonManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/MoonManager.o.provides: CMakeFiles/SkyX.dir/Source/MoonManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/MoonManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/MoonManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/MoonManager.o.provides.build: CMakeFiles/SkyX.dir/Source/MoonManager.o
+
+CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o: Source/VClouds/DataManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/DataManager.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/DataManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/DataManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/DataManager.cpp > CMakeFiles/SkyX.dir/Source/VClouds/DataManager.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/DataManager.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/DataManager.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o.requires
@@ -164,6 +325,7 @@ CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o.provides: CMakeFiles/SkyX.dir/S
 
 CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o: Source/VClouds/LightningManager.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_6)
@@ -200,6 +362,21 @@ CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.i: cmake_force
 CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/VClouds/FastFakeRandom.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s
+=======
+CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o: Source/VClouds/FastFakeRandom.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/FastFakeRandom.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/FastFakeRandom.cpp > CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/FastFakeRandom.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o.requires
@@ -210,6 +387,7 @@ CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o.provides: CMakeFiles/SkyX.di
 
 CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o: Source/VClouds/Lightning.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_8)
@@ -223,6 +401,67 @@ CMakeFiles/SkyX.dir/Source/VClouds/Lightning.i: cmake_force
 CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/VClouds/Lightning.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s
+=======
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o: Source/VClouds/VClouds.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/VClouds.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/VClouds.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/VClouds.cpp > CMakeFiles/SkyX.dir/Source/VClouds/VClouds.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/VClouds.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/VClouds.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/VClouds.s
+
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.requires
+
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.provides: CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.provides
+
+CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o: Source/VClouds/Ellipsoid.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Ellipsoid.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Ellipsoid.cpp > CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Ellipsoid.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.s
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.requires
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.provides: CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.provides
+
+CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o
+
+CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o: Source/VClouds/Lightning.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Lightning.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/Lightning.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/Lightning.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Lightning.cpp > CMakeFiles/SkyX.dir/Source/VClouds/Lightning.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/Lightning.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/Lightning.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o.requires
@@ -233,6 +472,7 @@ CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o.provides: CMakeFiles/SkyX.dir/Sou
 
 CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o: Source/VClouds/GeometryBlock.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_9)
@@ -269,6 +509,21 @@ CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.i: cmake_force
 CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/VClouds/GeometryManager.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s
+=======
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o: Source/VClouds/GeometryManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_12)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryManager.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryManager.cpp > CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryManager.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o.requires
@@ -279,6 +534,7 @@ CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o.provides: CMakeFiles/SkyX.d
 
 CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o: Source/VClouds/Ellipsoid.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_11)
@@ -407,6 +663,90 @@ CMakeFiles/SkyX.dir/Source/ColorGradient.i: cmake_force
 CMakeFiles/SkyX.dir/Source/ColorGradient.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/ColorGradient.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/ColorGradient.cpp -o CMakeFiles/SkyX.dir/Source/ColorGradient.s
+=======
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o: Source/VClouds/GeometryBlock.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_13)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryBlock.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryBlock.cpp > CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/GeometryBlock.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.s
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.requires
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.provides: CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.provides
+
+CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o: Source/VClouds/LightningManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_14)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/LightningManager.cpp
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/LightningManager.cpp > CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.i
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/VClouds/LightningManager.cpp -o CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.s
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.provides: CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.provides.build: CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o
+
+CMakeFiles/SkyX.dir/Source/BasicController.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/BasicController.o: Source/BasicController.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_15)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/BasicController.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/BasicController.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/BasicController.cpp
+
+CMakeFiles/SkyX.dir/Source/BasicController.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/BasicController.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/BasicController.cpp > CMakeFiles/SkyX.dir/Source/BasicController.i
+
+CMakeFiles/SkyX.dir/Source/BasicController.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/BasicController.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/BasicController.cpp -o CMakeFiles/SkyX.dir/Source/BasicController.s
+
+CMakeFiles/SkyX.dir/Source/BasicController.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/BasicController.o.requires
+
+CMakeFiles/SkyX.dir/Source/BasicController.o.provides: CMakeFiles/SkyX.dir/Source/BasicController.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/BasicController.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/BasicController.o.provides
+
+CMakeFiles/SkyX.dir/Source/BasicController.o.provides.build: CMakeFiles/SkyX.dir/Source/BasicController.o
+
+CMakeFiles/SkyX.dir/Source/ColorGradient.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/ColorGradient.o: Source/ColorGradient.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_16)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/ColorGradient.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/ColorGradient.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/ColorGradient.cpp
+
+CMakeFiles/SkyX.dir/Source/ColorGradient.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/ColorGradient.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/ColorGradient.cpp > CMakeFiles/SkyX.dir/Source/ColorGradient.i
+
+CMakeFiles/SkyX.dir/Source/ColorGradient.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/ColorGradient.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/ColorGradient.cpp -o CMakeFiles/SkyX.dir/Source/ColorGradient.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/ColorGradient.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/ColorGradient.o.requires
@@ -417,6 +757,7 @@ CMakeFiles/SkyX.dir/Source/ColorGradient.o.provides: CMakeFiles/SkyX.dir/Source/
 
 CMakeFiles/SkyX.dir/Source/ColorGradient.o.provides.build: CMakeFiles/SkyX.dir/Source/ColorGradient.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/CloudsManager.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/CloudsManager.o: Source/CloudsManager.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_17)
@@ -430,6 +771,44 @@ CMakeFiles/SkyX.dir/Source/CloudsManager.i: cmake_force
 CMakeFiles/SkyX.dir/Source/CloudsManager.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/CloudsManager.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/Source/CloudsManager.cpp -o CMakeFiles/SkyX.dir/Source/CloudsManager.s
+=======
+CMakeFiles/SkyX.dir/Source/GPUManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/GPUManager.o: Source/GPUManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_17)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/GPUManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/GPUManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/GPUManager.cpp
+
+CMakeFiles/SkyX.dir/Source/GPUManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/GPUManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/GPUManager.cpp > CMakeFiles/SkyX.dir/Source/GPUManager.i
+
+CMakeFiles/SkyX.dir/Source/GPUManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/GPUManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/GPUManager.cpp -o CMakeFiles/SkyX.dir/Source/GPUManager.s
+
+CMakeFiles/SkyX.dir/Source/GPUManager.o.requires:
+.PHONY : CMakeFiles/SkyX.dir/Source/GPUManager.o.requires
+
+CMakeFiles/SkyX.dir/Source/GPUManager.o.provides: CMakeFiles/SkyX.dir/Source/GPUManager.o.requires
+	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/Source/GPUManager.o.provides.build
+.PHONY : CMakeFiles/SkyX.dir/Source/GPUManager.o.provides
+
+CMakeFiles/SkyX.dir/Source/GPUManager.o.provides.build: CMakeFiles/SkyX.dir/Source/GPUManager.o
+
+CMakeFiles/SkyX.dir/Source/CloudsManager.o: CMakeFiles/SkyX.dir/flags.make
+CMakeFiles/SkyX.dir/Source/CloudsManager.o: Source/CloudsManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_18)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/SkyX.dir/Source/CloudsManager.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/SkyX.dir/Source/CloudsManager.o -c /home/zequiel/software/c++/meteor-falls/SkyX/Source/CloudsManager.cpp
+
+CMakeFiles/SkyX.dir/Source/CloudsManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkyX.dir/Source/CloudsManager.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/zequiel/software/c++/meteor-falls/SkyX/Source/CloudsManager.cpp > CMakeFiles/SkyX.dir/Source/CloudsManager.i
+
+CMakeFiles/SkyX.dir/Source/CloudsManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkyX.dir/Source/CloudsManager.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/zequiel/software/c++/meteor-falls/SkyX/Source/CloudsManager.cpp -o CMakeFiles/SkyX.dir/Source/CloudsManager.s
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 CMakeFiles/SkyX.dir/Source/CloudsManager.o.requires:
 .PHONY : CMakeFiles/SkyX.dir/Source/CloudsManager.o.requires
@@ -440,6 +819,7 @@ CMakeFiles/SkyX.dir/Source/CloudsManager.o.provides: CMakeFiles/SkyX.dir/Source/
 
 CMakeFiles/SkyX.dir/Source/CloudsManager.o.provides.build: CMakeFiles/SkyX.dir/Source/CloudsManager.o
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/Source/VCloudsManager.o: CMakeFiles/SkyX.dir/flags.make
 CMakeFiles/SkyX.dir/Source/VCloudsManager.o: Source/VCloudsManager.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles $(CMAKE_PROGRESS_18)
@@ -483,10 +863,33 @@ SkyX_OBJECTS = \
 "CMakeFiles/SkyX.dir/Source/ColorGradient.o" \
 "CMakeFiles/SkyX.dir/Source/CloudsManager.o" \
 "CMakeFiles/SkyX.dir/Source/VCloudsManager.o"
+=======
+# Object files for target SkyX
+SkyX_OBJECTS = \
+"CMakeFiles/SkyX.dir/Source/MeshManager.o" \
+"CMakeFiles/SkyX.dir/Source/AtmosphereManager.o" \
+"CMakeFiles/SkyX.dir/Source/SkyX.o" \
+"CMakeFiles/SkyX.dir/Source/VCloudsManager.o" \
+"CMakeFiles/SkyX.dir/Source/Prerequisites.o" \
+"CMakeFiles/SkyX.dir/Source/MoonManager.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o" \
+"CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o" \
+"CMakeFiles/SkyX.dir/Source/BasicController.o" \
+"CMakeFiles/SkyX.dir/Source/ColorGradient.o" \
+"CMakeFiles/SkyX.dir/Source/GPUManager.o" \
+"CMakeFiles/SkyX.dir/Source/CloudsManager.o"
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 # External object files for target SkyX
 SkyX_EXTERNAL_OBJECTS =
 
+<<<<<<< HEAD
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/SkyX.o
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/MeshManager.o
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/BasicController.o
@@ -505,6 +908,26 @@ lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/Prerequisites.o
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/ColorGradient.o
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/CloudsManager.o
 lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VCloudsManager.o
+=======
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/MeshManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/AtmosphereManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/SkyX.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VCloudsManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/Prerequisites.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/MoonManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/BasicController.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/ColorGradient.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/GPUManager.o
+lib/libSkyX.a: CMakeFiles/SkyX.dir/Source/CloudsManager.o
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 lib/libSkyX.a: CMakeFiles/SkyX.dir/build.make
 lib/libSkyX.a: CMakeFiles/SkyX.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library lib/libSkyX.a"
@@ -515,6 +938,7 @@ lib/libSkyX.a: CMakeFiles/SkyX.dir/link.txt
 CMakeFiles/SkyX.dir/build: lib/libSkyX.a
 .PHONY : CMakeFiles/SkyX.dir/build
 
+<<<<<<< HEAD
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/SkyX.o.requires
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/MeshManager.o.requires
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/BasicController.o.requires
@@ -533,6 +957,26 @@ CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/Prerequisites.o.require
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/ColorGradient.o.requires
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/CloudsManager.o.requires
 CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VCloudsManager.o.requires
+=======
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/MeshManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/AtmosphereManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/SkyX.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VCloudsManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/Prerequisites.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/MoonManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/DataManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/FastFakeRandom.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/VClouds.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/Ellipsoid.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/Lightning.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/GeometryManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/GeometryBlock.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/VClouds/LightningManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/BasicController.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/ColorGradient.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/GPUManager.o.requires
+CMakeFiles/SkyX.dir/requires: CMakeFiles/SkyX.dir/Source/CloudsManager.o.requires
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 .PHONY : CMakeFiles/SkyX.dir/requires
 
 CMakeFiles/SkyX.dir/clean:
@@ -540,6 +984,10 @@ CMakeFiles/SkyX.dir/clean:
 .PHONY : CMakeFiles/SkyX.dir/clean
 
 CMakeFiles/SkyX.dir/depend:
+<<<<<<< HEAD
 	cd /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles/SkyX.dir/DependInfo.cmake --color=$(COLOR)
+=======
+	cd /home/zequiel/software/c++/meteor-falls/SkyX && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/zequiel/software/c++/meteor-falls/SkyX /home/zequiel/software/c++/meteor-falls/SkyX /home/zequiel/software/c++/meteor-falls/SkyX /home/zequiel/software/c++/meteor-falls/SkyX /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles/SkyX.dir/DependInfo.cmake --color=$(COLOR)
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 .PHONY : CMakeFiles/SkyX.dir/depend
 

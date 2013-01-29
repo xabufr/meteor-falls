@@ -17,7 +17,6 @@ m_start(true)
     m_thread_service = boost::thread(&GlobalServer::m_run, this);
     m_startAccept();
 }
-
 GlobalServer::~GlobalServer()
 {
     delete m_sql;
@@ -25,17 +24,14 @@ GlobalServer::~GlobalServer()
     m_service->stop();
     m_thread_service.join();
 }
-
 bool GlobalServer::get_start()
 {
     return m_start;
 }
-
 void GlobalServer::m_run()
 {
     m_service->run();
 }
-
 void GlobalServer::work()
 {
     std::vector<SslConnection::pointer> clients;
@@ -47,7 +43,8 @@ void GlobalServer::work()
     ServerGlobalMessage *message;
     for (SslConnection::pointer client : clients){
         if (!client->isConnected())
-            removeClient(client);
+		{
+		}
         else{
             while (client->hasData()){
                 std::string data = client->getData();
@@ -59,22 +56,22 @@ void GlobalServer::work()
                 {
                     case ServerGlobalMessageType::LOGIN:
                     {
-                        msg->player = m_sql->select_player(message->player.get_pseudo());
-                        msg->make = (msg->player.get_passwd() == message->player.get_passwd())?true:false;
+                        msg->player = m_sql->select_player(message->player.pseudo);
+                        msg->make = (msg->player.passwd == message->player.passwd)?true:false;
                     }
                     break;
                     case ServerGlobalMessageType::ADMIN_LOGIN:
                     {
-                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
-                        msg->make = (msg->admin.get_passwd() == message->admin.get_passwd())?true:false;
+                        msg->admin = m_sql->select_admin(message->admin.pseudo);
+                        msg->make = (msg->admin.passwd == message->admin.passwd)?true:false;
                     }
                     break;
                     case ServerGlobalMessageType::ADMIN_CMD:
                     {
-                        msg->admin = m_sql->select_admin(message->admin.get_pseudo());
-                        if (msg->admin.get_passwd() == message->admin.get_passwd())
+                        msg->admin = m_sql->select_admin(message->admin.pseudo);
+                        if (msg->admin.passwd == message->admin.passwd)
                         {
-                            if (message->admin.get_cmd() == "server_stop")
+                            if (message->admin.cmd == "server_stop")
                             {
                                 m_start = false;
                                 msg->make = true;
@@ -99,16 +96,15 @@ void GlobalServer::work()
                     case ServerGlobalMessageType::SERVER_UP:
                     {
                         Server srv = message->servers[0];
-                        m_sql->update(srv.get_id_server(), srv.get_ip_server(), srv.get_nom(),
-                                      srv.get_version(), srv.get_nombre_joueurs_max(),
-                                      srv.get_nombre_joueurs_connectes(), srv.get_passwd(), srv.get_carte_jouee(), srv.get_type_partie(),
-                                      srv.get_temps_jeu());
+						srv.ip = client->socket().remote_endpoint().address().to_string();
+                        m_sql->update(srv);
                         msg->make = true;
+						m_serversAdd(client);
                     }
                     break;
                     case ServerGlobalMessageType::SERVER_DEL:
                     {
-                        m_sql->delete_server(message->servers[0].get_ip_server());
+                        m_sql->delete_server(message->servers[0].ip);
                         msg->make = true;
                     }
                     break;
@@ -117,11 +113,14 @@ void GlobalServer::work()
                 delete msg;
             }
             while (client->hasError())
+			{
                 std::cout<<client->getError().message()<<std::endl;
+				m_serversDel(client);
+           	 	removeClient(client);
+			}
         }
     }
 }
-
 void GlobalServer::m_startAccept()
 {
     SslConnection::pointer connection_ssl = SslConnection::create(m_service, SslConnection::SERVER);
@@ -129,7 +128,6 @@ void GlobalServer::m_startAccept()
                                 boost::bind(&GlobalServer::m_handleAccept_ssl, this,
                                             connection_ssl, boost::asio::placeholders::error));
 }
-
 void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::system::error_code& e)
 {
     if (!e){
@@ -141,7 +139,6 @@ void GlobalServer::m_handleAccept_ssl(SslConnection::pointer conn, const boost::
         m_startAccept();
     }
 }
-
 void GlobalServer::removeClient(SslConnection::pointer c)
 {
     boost::mutex::scoped_lock l(m_mutex_clients);
@@ -154,7 +151,6 @@ void GlobalServer::removeClient(SslConnection::pointer c)
         }
     }
 }
-
 std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
 {
     std::ostringstream os;
@@ -162,7 +158,6 @@ std::string GlobalServer::m_serialize(const ServerGlobalMessage *message)
     archive << *message;
     return os.str();
 }
-
 ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
 {
     ServerGlobalMessage *message = new ServerGlobalMessage();
@@ -171,3 +166,27 @@ ServerGlobalMessage* GlobalServer::m_deserialize(const std::string &data)
     archive >> *message;
     return message;
 }
+void GlobalServer::m_serversAdd(SslConnection::pointer p)
+{
+	for(SslConnection::pointer p_cur: m_servers)
+	{
+		if(p.get()==p_cur.get())
+		{
+			return;
+		}
+	}
+	m_servers.push_back(p);	
+}
+void GlobalServer::m_serversDel(SslConnection::pointer p)
+{
+	for(size_t i=0;i<m_servers.size();++i)
+	{
+		if(m_servers[i].get() == p.get())
+		{
+			m_sql->delete_server(p->socket().remote_endpoint().address().to_string());
+			m_servers.erase(m_servers.begin()+i);
+			return;
+		}
+	}
+}
+

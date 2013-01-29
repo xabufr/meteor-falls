@@ -1,73 +1,63 @@
 #include "applicationparameters.h"
-#include "Application/parameterparserexception.h"
-#include "Utils/Exception/BasicException.h"
+#include "parameterparserexception.h"
+#include "../Utils/Exception/BasicException.h"
+#include "../precompiled/lexical_cast.h"
 #include <iostream>
+#include <argp.h>
+#define OPT_ABORT  1            /* --abort */
 
+const char *argp_program_version     = "Meteor-Falls v0.1";
+const char *argp_program_bug_address = "none@epsi.fr";
 ApplicationParameters::ApplicationParameters(int argc, char** argv)
 {
-    m_setDefault();
-    std::vector<std::string> args;
-    for(int i=1;i<argc;++i)
-        args.push_back(std::string(argv[i]));
-    m_parse(args);
+		static char doc[] =
+				       "Meteor-falls, le jeu\
+							     \vtout droit réservé";
+		static char args_doc[] = "";
+		static argp_option options[] = {
+        	{"server-lan", 1, 0, 0, "Démarre le server lan"},
+        	{"server-wan", 2, 0, 0, "Démarre le server wan"},
+			{"server-name", 3, "NAME", 0, "Nom du serveur"},
+			{"server-map", 4, "MAPNAME", 0, "Nom de la carte" },
+			{"server-max-clients", 5, "MAXCLIENTS", 0, "Maximum de clients autorisés sur ce serveur"},
+			{ 0 }
+		};
+		static argp argp_s = {
+        	options, ApplicationParameters::parse_opt, args_doc, doc
+		};
+		argp_parse(&argp_s, argc, argv, 0, 0, &parametres);
 }
 ApplicationParameters::ApplicationParameters(std::vector<std::string> args)
 {
-    m_setDefault();
-    m_parse(args);
 }
 
 ApplicationParameters::~ApplicationParameters()
 {
+
 }
-ApplicationParametersKeys & ApplicationParameters::getKeys()
+error_t ApplicationParameters::parse_opt(int key, char *arg, argp_state *state)
 {
-    return m_keys;
+	Parameters *params = static_cast<Parameters*>(state->input);
+	switch(key)
+	{
+		case 1:
+            params->server=true;
+			params->server_wan=false;
+			break;
+		case 2:
+            params->server=true;
+			params->server_wan=true;
+			break;
+		case 3:
+			params->server_name = arg;
+			break;
+		case 4:
+			params->server_map = arg;
+			break;
+		case 5:
+			params->server_max_client = boost::lexical_cast<unsigned short>(arg);
+			break;
+	}
+	return 0;
 }
 
-void ApplicationParameters::m_parse(std::vector<std::string> args)
-{
-    bool settingargument = false;
-    std::string argument;
-    for(size_t i=0;i<args.size();++i)
-    {
-        std::string arg = args[i];
-        if(!settingargument)
-        {
-            if(arg.size()>2)
-            {
-                if(arg.substr(0, 2)=="--")
-                {
-                    if(m_keys.find(arg.substr(2))==m_keys.cend())
-                        throw ParameterParserException(arg);
-                    if(arg.substr(2)=="help")
-                    {
-                        m_keys["help"]="y";
-                        settingargument=!settingargument;
-                    }
-                    else
-                        argument = arg.substr(2);
-                }
-                else
-                {
-                    throw ParameterParserException(arg);
-                }
-            }
-            else
-            {
-                THROW_BASIC_EXCEPTION(arg);
-            }
-        }
-        else
-        {
-            m_keys[argument] = arg;
-        }
-        settingargument=!settingargument;
-    }
-}
-void ApplicationParameters::m_setDefault()
-{
-    m_keys["gui"]="y";
-    m_keys["netconsole"]="n";
-    m_keys["help"]="n";
-}

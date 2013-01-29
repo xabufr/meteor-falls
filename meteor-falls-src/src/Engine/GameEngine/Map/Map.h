@@ -12,7 +12,7 @@
 #include "../../../Utils/Vector3D.h"
 #include "../Unites/Hero.h"
 #include <Terrain/OgreTerrainGroup.h>
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 
 using namespace rapidxml;
 

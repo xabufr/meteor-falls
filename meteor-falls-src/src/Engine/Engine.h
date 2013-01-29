@@ -9,11 +9,12 @@ class Engine
 {
 public:
 
-    virtual void handleMessage(const EngineMessage&) = 0;
+    virtual void handleMessage(EngineMessage&) = 0;
     virtual void work() = 0;
     virtual EngineType getType() = 0;
 
     Engine(EngineManager *manager):m_manager(manager){};
+    EngineManager* getManager(){return m_manager;};
 protected:
     EngineManager *m_manager;
 };

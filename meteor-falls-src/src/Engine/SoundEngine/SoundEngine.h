@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <unordered_map>
-#include "precompiled/sfml_audio.h"
+#include "../../precompiled/sfml_audio.h"
 #include "../Engine.h"
 #include "soundbuffermanager.h"
 #include "../../Engine/SoundEngine/Fade.h"

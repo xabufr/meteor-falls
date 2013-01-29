@@ -1,5 +1,4 @@
 #include "ClientLogin.h"
-#include "../../../GlobalServer/src/Player.h"
 #include "Engine/NetworkEngine/NetworkIpAdressFinder.h"
 #include <boost/bind.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -37,6 +36,7 @@ bool ClientLogin::isLogin()
     m_work.reset();
     m_service->stop();
     m_service_thread.join();
+    delete m_player;
 }
 
  ClientLogin::ClientLogin(unsigned short port, std::string pseudo, std::string passwd) :
@@ -62,8 +62,8 @@ m_login(false)
         }
         boost::this_thread::sleep(boost::posix_time::milliseconds(150));
     }
-    player.set_pseudo(pseudo);
-    player.set_passwd(passwd);
+    player.pseudo=pseudo;
+    player.passwd=passwd;
 
     message->player = player;
     message->type = ServerGlobalMessageType::LOGIN;
@@ -83,8 +83,9 @@ m_login(false)
             {
                 case ServerGlobalMessageType::LOGIN:
                 {
-                    if (message->player.get_pseudo() == pseudo && message->player.get_passwd() == passwd)
+                    if (message->player.pseudo == pseudo && message->player.passwd == passwd)
                     {
+                        m_player = &message->player;
                         m_login = true;
                         delete message;
                         return;
@@ -99,4 +100,8 @@ m_login(false)
     delete message;
 }
 
+Player* ClientLogin::getPlayer()
+{
+    return m_player;
+}
 

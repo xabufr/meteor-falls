@@ -1,14 +1,16 @@
 #ifndef JOUEURRTS_H
 #define JOUEURRTS_H
-#include "Joueur.h"
 
-class JoueurRTS : public Joueur
+class Joueur;
+class JoueurRTS
 {
     public:
-        JoueurRTS();
+        JoueurRTS(Joueur*);
         virtual ~JoueurRTS();
+		Joueur* joueur();
     protected:
     private:
+		Joueur *m_joueur;
 };
 
 #endif // JOUEURRTS_H

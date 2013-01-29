@@ -1,5 +1,5 @@
 #include "Map.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "precompiled/lexical_cast.h"
 
 #include <OgreSceneManager.h>
@@ -12,9 +12,9 @@
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
 #include <OIS/OIS.h>
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../GraphicEngine/Ogre/OgreApplication.h"
+#include "../../GraphicEngine/Ogre/OgreWindowInputManager.h"
 
 #include <Hydrax/Noise/Perlin/Perlin.h>
 #include <Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
@@ -33,13 +33,21 @@ Map::Map(Ogre::SceneManager *p_scene_mgr)
     m_loaded = false;
     m_timer.reset();
 
-}
+	m_hydrax = nullptr;
+	m_skyx   = nullptr;
 
+}
 Map::~Map()
 {
-    //dtor
+	if(m_hydrax != nullptr)
+		delete m_hydrax;
+	if(m_skyx != nullptr)
+	{
+		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
+		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
+		delete m_skyx;
+	}
 }
-
 void Map::load(std::string p_name)
 {
     Hero MyHero(m_scene_mgr, nullptr, 5);
@@ -86,7 +94,8 @@ void Map::load(std::string p_name)
 			Ogre::Quaternion rotation = getRotation(camNode->first_node("rotation"));
 			std::string camName(camNode->first_attribute("name")->value());
 			m_camera = m_scene_mgr->createCamera(camName);
-			Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera);
+			OgreContextManager::get()->getOgreApplication()->getWindow()->removeViewport(1);
+			Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera, 1);
 
 			m_camera->setPosition(pos.convert<Ogre::Vector3>());
 			m_camera->setNearClipDistance(near);
@@ -254,7 +263,6 @@ void Map::load(std::string p_name)
     m_node->setPosition(myVector);
     m_node->attachObject(light);
 }
-
 std::string Map::getName()
 {
     return m_name;
@@ -433,14 +441,13 @@ void Map::update()
     }
 
 }
-
 bool Map::getLoaded()
 {
     return m_loaded;
 }
 float Map::getHeightAt(float x, float z)
 {
- //   m_terrain->getHeightAtWorldPosition(x,0,z);
+	return m_terrainGroup->getHeightAtWorldPosition(x,0.f,z);
 }
 Vector3D Map::getNormalAt(float x, float z)
 {
@@ -487,7 +494,6 @@ Ogre::Quaternion Map::getRotation(rapidxml::xml_node<>* n)
 	Vector3D p = getPosition(n, "q");
 	float w    = boost::lexical_cast<float>(n->first_attribute("qw")->value());
 }
-
 void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 {
 	Ogre::SceneNode *currentNode = parent->createChildSceneNode(n->first_attribute("name")->value());

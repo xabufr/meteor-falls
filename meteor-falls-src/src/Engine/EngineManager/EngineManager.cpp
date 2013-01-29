@@ -1,15 +1,18 @@
 #include "EngineManager.h"
-#include "Engine/NetworkEngine/NetworkEngine.h"
-#include "Engine/SoundEngine/SoundEngine.h"
-#include "Engine/NetworkEngine/ClientNetworkEngineLan.h"
-#include "Engine/NetworkEngine/clientnetworkengine.h"
-#include "Engine/NetworkEngine/ServerNetworkEngine.h"
-#include "Engine/GraphicEngine/GraphicEngine.h"
-#include "Engine/GameEngine/GameEngine.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "../NetworkEngine/NetworkEngine.h"
+#include "../SoundEngine/SoundEngine.h"
+#include "../NetworkEngine/ClientNetworkEngineLan.h"
+#include "../NetworkEngine/clientnetworkengine.h"
+#include "../NetworkEngine/ServerNetworkEngineLan.h"
+#include "../NetworkEngine/ServerNetworkEngineWan.h"
+#include "../GraphicEngine/GraphicEngine.h"
+#include "../GameEngine/GameEngine.h"
+#include "../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../GraphicEngine/Ogre/OgreApplication.h"
+#include "../EngineMessage/EngineMessage.h"
 
-Engine* EngineManager::get(EngineType p_engine_type){
+Engine* EngineManager::get(EngineType p_engine_type)
+{
     switch(p_engine_type)
     {
     case EngineType::GameEngineType:
@@ -23,48 +26,63 @@ Engine* EngineManager::get(EngineType p_engine_type){
     case EngineType::SoundEngineType:
         return m_sound;
     }
-    return 0;
+    return nullptr;
 }
 void EngineManager::work()
 {
     if(m_type==SERVER || m_type==SERVER_LAN) //Sinon les autres moteurs doivent travailler pendant le rendu
     {
-
+		m_network->work();
+		m_game->work();
     }
+	for(EngineMessage *message : m_messages)
+	{
+		for(Engine *e : message->getTo())
+		{
+			e->handleMessage(*message);
+		}
+		delete message;
+	}
+	m_messages.clear();
 }
-EngineManager::EngineManager(Type t):
+EngineManager::EngineManager(Type t, const std::string& address, const std::string& password, Joueur *j):
     m_type(t),
     m_sound(0)
 {
+	if(t==Type::SERVER||t==Type::SERVER_LAN)
+		OgreContextManager::createGraphics = false;
+    m_graphic = new GraphicEngine(this);
     if(t==Type::CLIENT||t==Type::CLIENT_LAN)
     {
-        m_graphic = new GraphicEngine(this);
         OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(this);
     }
 
     switch(t)
     {
     case Type::CLIENT:
-        m_network = new ClientNetworkEngine(this);
+        m_network = new ClientNetworkEngine(this, address, 8888, j, password);
         break;
     case Type::CLIENT_LAN:
-        m_network = new ClientNetworkEngineLan(this);
+        m_network = new ClientNetworkEngineLan(this, address, 8888, j, password);
         break;
     case Type::SERVER:
+	  //  m_network = new ServerNetworkEngineWan(this, 8888);
+		break;
     case Type::SERVER_LAN:
-        m_network = new ServerNetworkEngine(this, 8888);
+        m_network = new ServerNetworkEngineLan(this, 8888);
         break;
     }
-    m_game = new GameEngine(this, (t==CLIENT||t==CLIENT_LAN)?GameEngine::Type::CLIENT : GameEngine::Type::SERVER);
+    m_game = (t==CLIENT||t==CLIENT_LAN)?new GameEngine(this, GameEngine::Type::CLIENT, j)
+                                      : new GameEngine(this, GameEngine::Type::SERVER);
 }
 EngineManager::~EngineManager()
 {
+    delete m_game;
     if(m_type==Type::CLIENT||m_type==Type::CLIENT_LAN)
     {
         delete m_graphic;
         OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(this);
     }
-    delete m_game;
     delete m_network;
 }
 SoundEngine* EngineManager::getSound()
@@ -97,4 +115,8 @@ bool EngineManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(m_sound)
         m_sound->work();
     return true;
+}
+void EngineManager::addMessage(EngineMessage* message)
+{
+	m_messages.push_back(message);
 }

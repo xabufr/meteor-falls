@@ -1,8 +1,8 @@
 #ifndef SSLCONNECTION_H
 #define SSLCONNECTION_H
 
-#include "precompiled/asio.h"
-#include "precompiled/shared_ptr.h"
+#include "../../precompiled/asio.h"
+#include "../../precompiled/shared_ptr.h"
 #include "Connection.h"
 
 class SslConnection: public boost::enable_shared_from_this<SslConnection>, public Connection

@@ -14,7 +14,7 @@
     m_state_mgr = mgr;
 }
 
-void LoginMenuState::use()
+void LoginMenuState::use(std::string s)
 {
     if (m_used_propertie == "hide")
             m_state->exit();

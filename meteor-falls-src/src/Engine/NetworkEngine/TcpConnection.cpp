@@ -1,17 +1,15 @@
 #include "TcpConnection.h"
-#include "precompiled/bind.h"
+#include "../../precompiled/bind.h"
 #include <iomanip>
 
 TcpConnection::pointer TcpConnection::create(boost::shared_ptr<boost::asio::io_service> io)
 {
     return pointer(new TcpConnection(io));
 }
-
 void TcpConnection::send(std::string data)
 {
     m_service->post(boost::bind(&TcpConnection::handleSendData, shared_from_this(), data));
 }
-
 void TcpConnection::handleReadHeader(const boost::system::error_code& e)
 {
     if(e){
@@ -39,7 +37,6 @@ void TcpConnection::handleReadHeader(const boost::system::error_code& e)
                                             boost::asio::placeholders::error));
     }
 }
-
 void TcpConnection::handleReadData(const boost::system::error_code& e)
 {
     if(e)
@@ -64,7 +61,6 @@ void TcpConnection::handleReadData(const boost::system::error_code& e)
                                             boost::asio::placeholders::error));
     }
 }
-
 void TcpConnection::handleSendData(std::string data)
 {
     if(isConnected())
@@ -94,7 +90,6 @@ void TcpConnection::startListen()
                                                 boost::asio::placeholders::error));
     }
 }
-
 void TcpConnection::connect(boost::asio::ip::tcp::endpoint e)
 {
     if(!isConnected()){
@@ -102,7 +97,6 @@ void TcpConnection::connect(boost::asio::ip::tcp::endpoint e)
                                               boost::asio::placeholders::error));
     }
 }
-
 void TcpConnection::handleConnect(const boost::system::error_code& e)
 {
     if(e)
@@ -113,7 +107,6 @@ void TcpConnection::handleConnect(const boost::system::error_code& e)
         startListen();
     }
 }
-
 TcpConnection::TcpConnection(boost::shared_ptr<boost::asio::io_service> io): Connection(io)
 {
     m_socket = new boost::asio::ip::tcp::socket(*m_service);

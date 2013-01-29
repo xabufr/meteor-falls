@@ -11,11 +11,8 @@
 #include "Engine/GameEngine/Map/Map.h"
 #include "Engine/GameEngine/Factions/FactionManager.h"
 
-
 int main(int argc, char **argv)
 {
-    //launchUnitTestForSound();
-    FactionManager::get();
     try
     {
         Application app(argc, argv);

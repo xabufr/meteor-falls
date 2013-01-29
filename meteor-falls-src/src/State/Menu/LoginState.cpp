@@ -11,7 +11,9 @@
 
 }
 
- LoginState::LoginState(StateManager *mgr) : State(mgr), m_visible(false)
+ LoginState::LoginState(StateManager *mgr, Joueur **j) : State(mgr),
+ m_visible(false),
+ m_player(j)
 {
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
@@ -25,6 +27,7 @@
     m_playLan = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouerLAN");
     m_playLan->setText("Jouer (LAN)");
     m_playLan->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_playLan->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this));
     m_sheet->addChildWindow(m_playLan);
 
     m_playOnline = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouer");
@@ -41,7 +44,6 @@
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
     m_sheet->hide();
 }
-
 bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
@@ -95,25 +97,28 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
 
     return true;
 }
-
+bool LoginState::m_connection_lan(const CEGUI::EventArgs&)
+{
+	delete *m_player;
+    *m_player = new JoueurLan();
+    (*m_player)->setNom("Test");
+    this->exit();
+    return true;
+}
 ret_code LoginState::work(unsigned int time)
 {
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;
     else if (m_keyboard->isKeyDown(OIS::KC_J))
-        m_state_manager->addState(new GameState(m_state_manager));
+        m_state_manager->addState(new GameState(m_state_manager, EngineManager::Type::CLIENT_LAN));
     return CONTINUE;
 }
-
 void LoginState::m_state_element(const bool actif)
 {
     m_login->setEnabled(actif);
     m_passwd->setEnabled(actif);
     m_connect->setEnabled(actif);
 }
-
-
-
 bool LoginState::send(const CEGUI::EventArgs &)
 {
     m_state_element(false);
@@ -137,9 +142,15 @@ bool LoginState::send(const CEGUI::EventArgs &)
     ClientLogin *log = new ClientLogin(6050, std::string(m_login->getText().c_str()), std::string(m_passwd->getText().c_str()));
 
     if (log->isLogin())
-        m_message->setText("Connection établie.");
+    {
+        m_message->setText((CEGUI::utf8*)("Connection établie."));
+        *m_player = new JoueurWan();
+        (*m_player)->setNom(std::string(m_login->getText().c_str()));
+        (*m_player)->setNom(log->getPlayer()->num_session);
+        this->exit();
+    }
     else
-        m_message->setText("Login ou mot de passe erroné.");
+        m_message->setText((CEGUI::utf8*)("Login ou mot de passe erroné."));
 
     delete log;
 
@@ -147,21 +158,17 @@ bool LoginState::send(const CEGUI::EventArgs &)
 
     return true;
 }
-
 bool LoginState::isVisible()
 {
     return m_visible;
 }
-
 void LoginState::exit()
 {
     m_sheet->hide();
     m_visible = false;
 }
-
 void LoginState::enter()
 {
     m_sheet->show();
     m_visible = true;
 }
-

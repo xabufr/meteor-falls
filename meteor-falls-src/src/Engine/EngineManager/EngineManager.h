@@ -1,8 +1,9 @@
 #ifndef ENGINEMANAGER_H
 #define ENGINEMANAGER_H
 
-#include <vector>
+#include <list>
 #include "../EngineType.h"
+#include "../GameEngine/Joueur/Joueur.h"
 #include <OgreFrameListener.h>
 
 class SoundEngine;
@@ -10,11 +11,12 @@ class GraphicEngine;
 class NetworkEngine;
 class GameEngine;
 class Engine;
+class EngineMessage;
 class EngineManager: public Ogre::FrameListener
 {
 private:
 
-public:
+	public:
     enum Type{
         SERVER,
         CLIENT,
@@ -27,11 +29,11 @@ public:
         LOADING_MAP,
         PLAYING
     };
-private:
+	private:
     Type m_type;
 
     public:
-        EngineManager(Type t);
+        EngineManager(Type t, const std::string& address = "", const std::string& password = "", Joueur *j=0);
         ~EngineManager();
         Engine* get(EngineType p_engine_type);
         void work();
@@ -40,6 +42,8 @@ private:
         GraphicEngine *getGraphic();
         NetworkEngine *getNetwork();
         GameEngine *getGame();
+
+		void addMessage(EngineMessage*);
 
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
@@ -50,8 +54,7 @@ private:
         GraphicEngine *m_graphic;
         NetworkEngine *m_network;
         GameEngine *m_game;
-
-
+		std::list<EngineMessage*> m_messages;
 };
 
 #endif // ENGINEMANAGER_H
