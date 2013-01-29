@@ -30,6 +30,7 @@ void ServerNetworkEngine::handleMessage(EngineMessage&)
 }
 void ServerNetworkEngine::work()
 {
+	std::cout << m_clock.getTime() << std::endl;
     std::vector<ServerClient> clients;
     {
         boost::mutex::scoped_lock l(m_mutex_clients);
@@ -155,6 +156,14 @@ void ServerNetworkEngine::work()
 							sendToAllTcp(&messageRep);
 							messageRep.addToType(EngineType::GameEngineType);
 							m_manager->addMessage(EngineMessage::clone(&messageRep));
+						}
+						break;
+					case EngineMessageType::SYNC_TIME:
+						{
+							EngineMessage messageTime(m_manager);
+							messageTime.message = EngineMessageType::SYNC_TIME;
+							messageTime.time    = m_clock.getTime();
+							sendToTcp(client, &messageTime);
 						}
 						break;
 				}

@@ -5,6 +5,7 @@
 #include "../../precompiled/shared_ptr.h"
 #include "TcpConnection.h"
 #include "UdpConnection.h"
+#include "../../Utils/Clock.h"
 
 class NetworkEngine : public Engine
 {
@@ -28,6 +29,7 @@ protected:
     boost::thread m_thread_service;
 
 	UdpConnection::pointer m_udpConnexion;
+	Clock m_clock;
 private:
     void m_run();
 };

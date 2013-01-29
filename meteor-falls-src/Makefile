@@ -2178,6 +2178,30 @@ src/UnitTest/Tests/SoundEngineTest.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.s
 .PHONY : src/UnitTest/Tests/SoundEngineTest.cpp.s
 
+src/Utils/Clock.o: src/Utils/Clock.cpp.o
+.PHONY : src/Utils/Clock.o
+
+# target to build an object file
+src/Utils/Clock.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.o
+.PHONY : src/Utils/Clock.cpp.o
+
+src/Utils/Clock.i: src/Utils/Clock.cpp.i
+.PHONY : src/Utils/Clock.i
+
+# target to preprocess a source file
+src/Utils/Clock.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.i
+.PHONY : src/Utils/Clock.cpp.i
+
+src/Utils/Clock.s: src/Utils/Clock.cpp.s
+.PHONY : src/Utils/Clock.s
+
+# target to generate assembly for a file
+src/Utils/Clock.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.s
+.PHONY : src/Utils/Clock.cpp.s
+
 src/Utils/DataChecksum.o: src/Utils/DataChecksum.cpp.o
 .PHONY : src/Utils/DataChecksum.o
 
@@ -2589,6 +2613,9 @@ help:
 	@echo "... src/UnitTest/Tests/SoundEngineTest.o"
 	@echo "... src/UnitTest/Tests/SoundEngineTest.i"
 	@echo "... src/UnitTest/Tests/SoundEngineTest.s"
+	@echo "... src/Utils/Clock.o"
+	@echo "... src/Utils/Clock.i"
+	@echo "... src/Utils/Clock.s"
 	@echo "... src/Utils/DataChecksum.o"
 	@echo "... src/Utils/DataChecksum.i"
 	@echo "... src/Utils/DataChecksum.s"

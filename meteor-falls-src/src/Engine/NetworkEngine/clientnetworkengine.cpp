@@ -65,6 +65,7 @@ void ClientNetworkEngine::work()
 				break;
 			case EngineMessageType::LOAD_MAP:
 					m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
+					sendSyncReq();
 				break;
 			case EngineMessageType::ADDTEAM:
 				{
@@ -126,9 +127,20 @@ void ClientNetworkEngine::work()
 					m_manager->addMessage(clone);
 				}
 				break;
+			case EngineMessageType::SYNC_TIME:
+				{
+					boost::posix_time::time_duration tm = boost::posix_time::milliseconds(message->time);
+					tm += m_timeSinceLastSyncReq.getDuration()/2;
+					m_clock.setTime(tm.total_milliseconds());
+					m_timeSinceLastSync.reset();
+				}
+				break;
 		}
 		delete message;
     }
+	if(m_timeSinceLastSync.getTime() >= 5000)
+		sendSyncReq();
+	std::cout << m_clock.getTime() << std::endl;
 }
 void ClientNetworkEngine::handleMessage(EngineMessage& e)
 {
@@ -193,4 +205,11 @@ void ClientNetworkEngine::trySelectGameplay(int gameplay)
 char ClientNetworkEngine::teamId() const
 {
 	return m_teamId; 
+}
+void ClientNetworkEngine::sendSyncReq()
+{
+	m_timeSinceLastSyncReq.reset();
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SYNC_TIME;
+	m_tcp->send(serialize(&message));
 }

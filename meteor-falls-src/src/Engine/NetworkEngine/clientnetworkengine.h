@@ -33,12 +33,15 @@ class ClientNetworkEngine : public NetworkEngine
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
 
+		void sendSyncReq();
+
         boost::asio::ip::address m_serverAddress;
         unsigned short m_port;
 		std::string m_password, m_salt, m_session;
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
 		char m_teamId;
+		Clock m_timeSinceLastSync, m_timeSinceLastSyncReq;
 	public:
         enum ClientNetworkEngineState{
             CONNECTING,

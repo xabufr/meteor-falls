@@ -4,7 +4,6 @@
 
 enum EngineMessageKey
 {
-
     FILE_NAME     = 0,
     SERVER_NAME   = 1,
     MAX_PLAYERS   = 2,
