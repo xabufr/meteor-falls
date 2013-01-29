@@ -91,7 +91,7 @@ void Equipe::removeRPG(JoueurRPG* j)
 {
 	for(auto it=m_joueursRPS.begin();it!=m_joueursRPS.end();)
 	{
-		if(j==*it)
+		if(j->joueur()==(*it)->joueur())
 		{
 			m_joueursRPS.erase(it);
 			return;

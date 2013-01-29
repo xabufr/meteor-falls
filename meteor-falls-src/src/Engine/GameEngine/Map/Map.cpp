@@ -40,7 +40,9 @@ Map::Map(Ogre::SceneManager *p_scene_mgr)
 Map::~Map()
 {
 	if(m_hydrax != nullptr)
+	{
 		delete m_hydrax;
+	}
 	if(m_skyx != nullptr)
 	{
 		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);

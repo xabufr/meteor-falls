@@ -37,11 +37,10 @@ GameEngine::~GameEngine()
         m_sous_state->exit();
         delete m_sous_state;
     }
-  //  delete m_map;
+    delete m_map;
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
-	std::cout << message.message << std::endl;
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
 		if(m_type==SERVER)
@@ -53,7 +52,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
 			   	for(Joueur *j : m_joueurs)
 			   		if(j->id == playerId)
-			   			equipe = j->equipe;
+			   			equipe = j->equipe();
 			   	if(equipe==nullptr)
 			   			return;
 			   	net->sendToTeam(equipe, &message);
@@ -75,33 +74,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 			Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 			if(joueur==nullptr)
 				return;
-			switch(message.ints[EngineMessageKey::GAMEPLAY_TYPE])
-			{
-				case EngineMessageKey::RTS_GAMEPLAY:
-					if(joueur->getTypeGameplay()==Joueur::TypeGameplay::RTS)
-						break;
-					else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG) 
-					{
-						joueur->equipe->removeRPG(joueur->getRPG());
-						delete joueur->getRPG();
-					}
-					joueur->setTypeGamplay(Joueur::TypeGameplay::RTS);
-					joueur->setRTS(new JoueurRTS(joueur));
-					joueur->equipe->setJoueurRTS(joueur->getRTS());
-					break;
-				case EngineMessageKey::RPG_GAMEPLAY:
-					if(joueur->getTypeGameplay()==Joueur::TypeGameplay::RPG)
-						break;
-					else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
-					{
-						joueur->equipe->setJoueurRTS(nullptr);
-						delete joueur->getRTS();
-					}
-					joueur->setTypeGamplay(Joueur::TypeGameplay::RPG);
-					joueur->setRPG(new JoueurRPG(joueur));
-					joueur->equipe->addRPG(joueur->getRPG());
-					break;
-			}
+			joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE]==EngineMessageKey::RTS_GAMEPLAY?
+							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
 
         }
     }
@@ -109,14 +83,16 @@ void GameEngine::handleMessage(EngineMessage& message)
 	{
 		deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 	}
-	else if (message.message==EngineMessageType::SELECT_TEAM) 
+	else if (message.message==EngineMessageType::SELECT_TEAM)
 	{
+		int team_id = message.ints[EngineMessageKey::TEAM_ID];
+		if(team_id==-1)
+			return;
 		Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-		Equipe *equ = getEquipe(message.ints[EngineMessageKey::TEAM_ID]);
+		Equipe *equ = getEquipe(team_id);
 		if(joueur==nullptr || equ == nullptr)
 				return;
-		joueur->equipe = equ;
-		equ->addJoueur(joueur);
+		joueur->changeTeam(equ);
 	}
 }
 void GameEngine::work()
@@ -195,7 +171,7 @@ void GameEngine::setSousStateType(TypeState t)
 bool GameEngine::tryJoinTeam(char id, Joueur* j)
 {
 	int nb_min=999, nb_cur = 9999;
-	Equipe *eJoueur;
+	Equipe *eJoueur = nullptr;
 	for(Equipe *e : m_teams)
 	{
 		int nb = e->joueurs().size();
@@ -207,11 +183,11 @@ bool GameEngine::tryJoinTeam(char id, Joueur* j)
 			eJoueur = e;
 		}
 	}
-	if(nb_cur >= nb_min+3)
+	if(eJoueur==nullptr || nb_cur >= nb_min+3)
 		return false;
-	j->equipe=eJoueur;
-	eJoueur->addJoueur(j);
-	m_joueurs = eJoueur->joueurs();
+
+	j->changeTeam(eJoueur);
+
 	return true;
 }
 Joueur* GameEngine::findJoueur(int id)
@@ -230,19 +206,7 @@ void GameEngine::deleteJoueur(int id)
 	Joueur *joueur = findJoueur(id);
 	if(joueur==nullptr)
 		return;
-	joueur->equipe->removeJoueur(joueur);
-	switch(joueur->getTypeGameplay())
-	{
-		case Joueur::TypeGameplay::RTS:
-			delete joueur->getRTS();
-			joueur->equipe->setJoueurRTS(nullptr);
-			break;
-		case Joueur::TypeGameplay::RPG:
-			joueur->equipe->removeRPG(joueur->getRPG());
-			delete joueur->getRPG();
-			break;
-	}
-	joueur->equipe->removeJoueur(joueur);
+	joueur->changeTeam(nullptr);
 	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
 	{
 		if(*it==joueur)

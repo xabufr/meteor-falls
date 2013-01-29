@@ -3,12 +3,9 @@
 
 JoueurRTS::JoueurRTS(Joueur *j): m_joueur(j)
 {
- 	m_joueur->setRTS(this);
-	m_joueur->setTypeGamplay(Joueur::TypeGameplay::RTS);
 }
 JoueurRTS::~JoueurRTS()
 {
-    //dtor
 }
 Joueur* JoueurRTS::joueur()
 {

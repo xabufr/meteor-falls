@@ -79,20 +79,17 @@ void ClientNetworkEngine::work()
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
 					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
-					j->equipe = e;
-					e->addJoueur(j);
+					j->changeTeam(e);
 					m_manager->getGame()->addPlayer(j);
 					j->setTypeGamplay(Joueur::TypeGameplay::NONE_GAMEPLAY);
 					if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] != EngineMessageKey::NONE_GAMEPLAY)
 					{
 						if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RPG_GAMEPLAY)
 						{
-							e->addRPG(new JoueurRPG(j));
 							j->setTypeGamplay(Joueur::TypeGameplay::RPG);
 						}
 						else
 						{
-							e->setJoueurRTS(new JoueurRTS(j));
 							j->setTypeGamplay(Joueur::TypeGameplay::RTS);
 						}
 					}
@@ -105,11 +102,6 @@ void ClientNetworkEngine::work()
 					messageGame->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGame);
 				}
-				break;
-			case EngineMessageType::SET_RTS_DISP:
-				{
-					m_rtsDispo = message->ints[EngineMessageKey::RESULT] == 1;
-				}	
 				break;
 			case EngineMessageType::SELECT_GAMEPLAY:
 				{
@@ -190,10 +182,6 @@ void ClientNetworkEngine::trySelectTeam(char id)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
 	m_tcp->send(serialize(&message));
-}
-bool ClientNetworkEngine::isRtsDispo() const
-{
-	return m_rtsDispo;
 }
 void ClientNetworkEngine::trySelectGameplay(int gameplay)
 {

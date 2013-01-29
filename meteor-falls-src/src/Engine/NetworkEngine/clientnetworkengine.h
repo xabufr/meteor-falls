@@ -27,7 +27,6 @@ class ClientNetworkEngine : public NetworkEngine
 		void trySelectTeam(char);
 		void trySelectGameplay(int);
 
-		bool isRtsDispo() const;
 		char teamId() const;
 
     protected:
@@ -40,7 +39,6 @@ class ClientNetworkEngine : public NetworkEngine
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
 		char m_teamId;
-		bool m_rtsDispo;
 	public:
         enum ClientNetworkEngineState{
             CONNECTING,
