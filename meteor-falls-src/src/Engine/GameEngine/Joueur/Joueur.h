@@ -31,10 +31,11 @@ class Joueur
 		JoueurRPG* getRPG(){return m_rpg;}
 		void setTypeGamplay(TypeGameplay t);
 		const TypeGameplay getTypeGameplay(){return m_type_gamplay;}
-		int id;
 		void changeTeam(Equipe*);
 		Equipe* equipe() { return m_equipe; }
 
+		int id;
+		long ping;
     private:
 		void setRTS(JoueurRTS* rts){m_rts=rts;}
 		void setRPG(JoueurRPG* rpg){m_rpg=rpg;}

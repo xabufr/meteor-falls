@@ -135,12 +135,29 @@ void ClientNetworkEngine::work()
 					m_timeSinceLastSync.reset();
 				}
 				break;
+			case EngineMessageType::PING:
+				{
+					EngineMessage mess(m_manager);
+					mess.message = EngineMessageType::PING;
+					m_tcp->send(serialize(&mess));
+				}
+				break;
+			case EngineMessageType::SET_PING:
+				{
+					long ping = message->ints[EngineMessageKey::TIME];
+					Joueur* j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(j!=nullptr)
+					{
+						j->ping = ping;
+						std::cout << "ping joueur" << j->id << ":" << ping << std::endl;
+					}
+				}
+				break;
 		}
 		delete message;
     }
-	if(m_timeSinceLastSync.getTime() >= 5000)
+	if(m_timeSinceLastSync.getTime() >= 1000)
 		sendSyncReq();
-	std::cout << m_clock.getTime() << std::endl;
 }
 void ClientNetworkEngine::handleMessage(EngineMessage& e)
 {
@@ -209,6 +226,7 @@ char ClientNetworkEngine::teamId() const
 void ClientNetworkEngine::sendSyncReq()
 {
 	m_timeSinceLastSyncReq.reset();
+	m_timeSinceLastSync.reset();
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::SYNC_TIME;
 	m_tcp->send(serialize(&message));

@@ -2,8 +2,24 @@
 #define SERVERCLIENT_H
 #include "TcpConnection.h"
 #include "UdpConnection.h"
+#include "../../Utils/Clock.h"
+#include <boost/shared_ptr.hpp>
 
 class Joueur;
+class ServerClientData
+{
+public:
+	bool isConnected, toDel;
+	std::string sel, session;
+	Clock timePing, timeSinceLastPingRep;
+	bool waitingPing;
+	ServerClientData()
+	{
+		isConnected=false;
+		toDel=false;
+		waitingPing = false;
+	}
+};
 class ServerClient
 {
     public:
@@ -11,9 +27,8 @@ class ServerClient
         virtual ~ServerClient();
         TcpConnection::pointer tcp();
         unsigned int id();
-		bool isConnected, toDel;
 		Joueur *joueur;
-		std::string sel, session;
+		boost::shared_ptr<ServerClientData> data;
     protected:
     private:
         TcpConnection::pointer m_tcp;
