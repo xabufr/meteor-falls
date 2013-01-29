@@ -3594,14 +3594,15 @@
 
 1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineType.h
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
 	"../Engine.h"
 	"../../precompiled/asio.h"
 	"../../precompiled/shared_ptr.h"
 	"TcpConnection.h"
 	"UdpConnection.h"
+	"../../Utils/Clock.h"
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/Engine.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/Engine.h
 	"EngineType.h"
 
 1354183570 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/precompiled/asio.h
@@ -3698,7 +3699,7 @@
 1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
 	"clientnetworkengine.h"
 
-1359470258 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
 	"NetworkEngine.h"
 	"TcpConnection.h"
 	"UdpConnection.h"
@@ -3731,13 +3732,10 @@
 	"../Engine.h"
 	<OgreSceneManager.h>
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
 	<string>
-	"Map/Map.h"
-	"../EngineMessage/EngineMessage.h"
+	<vector>
 	"../Engine.h"
-	"../../State/State.h"
-	"Preface/TeamList.h"
 
 1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
 	<OgreSceneManager.h>
@@ -4364,7 +4362,7 @@
 	"OgreVector3.h"
 	"OgreDataStream.h"
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
 	<vector>
 	<map>
 	<string>
@@ -4389,7 +4387,7 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
 
 1359470258 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
 
@@ -4407,7 +4405,7 @@
 	"EngineMessage.h"
 	"../EngineManager/EngineManager.h"
 
-1359470258 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
 	"GameEngine.h"
 	"../EngineManager/EngineManager.h"
 	"../GraphicEngine/GraphicEngine.h"
@@ -4415,6 +4413,10 @@
 	"Factions/FactionManager.h"
 	"Preface/TeamState.h"
 	"../NetworkEngine/ServerNetworkEngine.h"
+	"Map/Map.h"
+	"Preface/TeamList.h"
+	"../EngineMessage/EngineMessage.h"
+	<CEGUIString.h>
 
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 	"GraphicEngine.h"
@@ -4456,7 +4458,7 @@
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 	"ServerClient.h"
 
-1359470258 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 	"ServerNetworkEngine.h"
 	<iostream>
 	"../EngineMessage/EngineMessage.h"
@@ -4482,7 +4484,7 @@
 	"../../precompiled/bind.h"
 	<iomanip>
 
-1359470258 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 	"NetworkIpAdressFinder.h"
 	"../../Utils/Exception/BasicException.h"
@@ -4774,7 +4776,7 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1359469958 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1359472952 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"State/Console.h"
@@ -5592,17 +5594,13 @@
 	"ServerNetworkEngine.h"
 	"SslConnection.h"
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.h
 	"../../../State/State.h"
-	"../GameEngine.h"
-	<CEGUI.h>
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.h
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.h
 	"../../../State/State.h"
 	"../../../State/StateManager.h"
-	"../GameEngine.h"
 	<vector>
-	<CEGUI.h>
 	<OIS/OIS.h>
 
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
@@ -5611,20 +5609,27 @@
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurWan.cpp
 	"JoueurWan.h"
 
-1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
 	"TeamList.h"
 	"../Factions/Equipe.h"
 	<boost/lexical_cast.hpp>
 	"../../NetworkEngine/clientnetworkengine.h"
+	"../../EngineManager/EngineManager.h"
+	"../GameEngine.h"
+	<CEGUI.h>
 
-1359470258 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
 	"TeamState.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/NetworkEngine/clientnetworkengine.h"
 	"Engine/GameEngine/Factions/Equipe.h"
+	"../GameEngine.h"
+	"../../EngineManager/EngineManager.h"
+	"../../EngineMessage/EngineMessage.h"
 	<string>
+	<CEGUI.h>
 
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
 	"ServerNetworkEngineLan.h"
@@ -5701,10 +5706,10 @@
 
 1359386605 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
 
-1359468831 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
+1359473505 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
 	"layoutRTS.h"
 
-1359468830 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
+1359474135 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
 	<CEGUI.h>
 	"Engine/GameEngine/Factions/Faction.h"
 	"State/StateManager.h"
@@ -5984,6 +5989,13 @@
 	"Hero_State.h"
 
 1359469521 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/Clock.cpp
+	"Clock.h"
+	<boost/date_time/posix_time/posix_time.hpp>
+
+1359471580 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Clock.h
+	<boost/date_time/posix_time/posix_time_types.hpp>
+
+1359471580 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/Clock.cpp
 	"Clock.h"
 	<boost/date_time/posix_time/posix_time.hpp>
 

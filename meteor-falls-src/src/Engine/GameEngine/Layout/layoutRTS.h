@@ -20,7 +20,7 @@ class LayoutRTS : public State
         StateManager *m_state_manager;
         bool m_visible;
         Faction* m_faction;
-        CEGUI::Window *m_info_res;
+        CEGUI::Window *m_info_ressources, * m_grille_batiments, * m_position_map, *m_infos_unite;
 };
 
 #endif
