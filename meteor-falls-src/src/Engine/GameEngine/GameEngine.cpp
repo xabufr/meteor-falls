@@ -85,8 +85,11 @@ void GameEngine::handleMessage(EngineMessage& message)
 	}
 	else if (message.message==EngineMessageType::SELECT_TEAM)
 	{
+		int team_id = message.ints[EngineMessageKey::TEAM_ID];
+		if(team_id==-1)
+			return;
 		Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-		Equipe *equ = getEquipe(message.ints[EngineMessageKey::TEAM_ID]);
+		Equipe *equ = getEquipe(team_id);
 		if(joueur==nullptr || equ == nullptr)
 				return;
 		joueur->changeTeam(equ);

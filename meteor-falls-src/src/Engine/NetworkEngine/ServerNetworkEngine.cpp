@@ -111,21 +111,17 @@ void ServerNetworkEngine::work()
 							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 							if(client==nullptr)
 									break;
+							bool alertOther = client->joueur->equipe() == nullptr;
 							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
 							EngineMessage messageTeam(m_manager);
 							messageTeam.message = EngineMessageType::SELECT_TEAM;
 							messageTeam.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 							if(canJoin)
 							{
+								if(alertOther)
+									announcePlayerConnectionTeam(*client);
 								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
 								sendToAllTcp(&messageTeam);
-								Equipe *equ         = m_manager->getGame()->getEquipe(teamId);
-								int rtsDisp         = equ->getRTS() == nullptr ? 1 : 0;
-								messageTeam.message = EngineMessageType::SET_RTS_DISP;
-								messageTeam.ints.clear();
-								messageTeam.ints[EngineMessageKey::RESULT] = rtsDisp;
-								sendToTcp(*client, &messageTeam);
-								announcePlayerConnectionTeam(*client);
 							}
 							else
 							{

@@ -103,11 +103,6 @@ void ClientNetworkEngine::work()
 					m_manager->addMessage(messageGame);
 				}
 				break;
-			case EngineMessageType::SET_RTS_DISP:
-				{
-					m_rtsDispo = message->ints[EngineMessageKey::RESULT] == 1;
-				}	
-				break;
 			case EngineMessageType::SELECT_GAMEPLAY:
 				{
 					EngineMessage *messageGameplay = EngineMessage::clone(message);
@@ -187,10 +182,6 @@ void ClientNetworkEngine::trySelectTeam(char id)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
 	m_tcp->send(serialize(&message));
-}
-bool ClientNetworkEngine::isRtsDispo() const
-{
-	return m_rtsDispo;
 }
 void ClientNetworkEngine::trySelectGameplay(int gameplay)
 {
