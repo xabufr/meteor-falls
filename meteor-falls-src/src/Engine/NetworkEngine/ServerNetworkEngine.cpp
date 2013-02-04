@@ -30,6 +30,7 @@ void ServerNetworkEngine::handleMessage(EngineMessage&)
 }
 void ServerNetworkEngine::work()
 {
+	const long pingTimeout = 10000;
     std::vector<ServerClient> clients;
     {
         boost::mutex::scoped_lock l(m_mutex_clients);
@@ -47,7 +48,8 @@ void ServerNetworkEngine::work()
     EngineMessage *message;
     for(ServerClient& client : clients)
     {
-        if(!client.tcp()->isConnected()||!client.tcp()->isListening())
+        if(!client.tcp()->isConnected()||!client.tcp()->isListening()
+			||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout))
         {
             removeClient(client);
         }

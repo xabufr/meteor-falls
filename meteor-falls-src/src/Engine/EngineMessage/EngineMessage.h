@@ -11,7 +11,8 @@
 #include "../../precompiled/serialization.h"
 #include "../EngineManager/EngineManager.h"
 
-class EngineMessage{
+class EngineMessage
+{
 
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
@@ -32,7 +33,6 @@ class EngineMessage{
 		void clearTo();
 
 		static EngineMessage* clone(EngineMessage*);
-    protected:
 
     private:
         EngineManager* m_engine_manager;
