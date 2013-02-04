@@ -1,11 +1,16 @@
 #include "EngineMessage.h"
 #include "../EngineManager/EngineManager.h"
+#include "../NetworkEngine/NetworkEngine.h"
 
 EngineMessage::EngineMessage(EngineManager* p_engine_manager)
 {
     m_engine_manager = p_engine_manager;
 	m_from = nullptr;
 	m_from_type = EngineType::NoneEngineType;
+	if(m_engine_manager != nullptr)
+	{
+		time = m_engine_manager->getNetwork()->getClock().getTime();
+	}
 }
 void EngineMessage::setFrom(Engine* p_from)
 {

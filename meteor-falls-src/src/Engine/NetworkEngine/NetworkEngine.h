@@ -23,6 +23,8 @@ public:
     static EngineMessage* deserialize(const std::string &, EngineManager*);
     EngineMessage* deserialize(const std::string &);
 	static std::string SHA1(const std::string &);
+
+	const Clock& getClock() const;
 protected:
     boost::shared_ptr<boost::asio::io_service> m_service;
     boost::shared_ptr<boost::asio::io_service::work> m_work;

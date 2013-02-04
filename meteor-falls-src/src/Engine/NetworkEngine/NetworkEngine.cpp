@@ -60,3 +60,7 @@ std::string NetworkEngine::SHA1(const std::string& chaine)
 		os << hash[i];
 	return os.str();
 }
+const Clock& NetworkEngine::getClock() const
+{
+	return m_clock;
+}

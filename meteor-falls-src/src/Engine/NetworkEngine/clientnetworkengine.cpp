@@ -151,7 +151,6 @@ void ClientNetworkEngine::work()
 					if(j!=nullptr)
 					{
 						j->ping = ping;
-						std::cout << "ping joueur" << j->id << ":" << ping << std::endl;
 					}
 				}
 				break;
