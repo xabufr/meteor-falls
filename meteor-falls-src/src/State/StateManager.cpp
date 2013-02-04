@@ -23,9 +23,6 @@ void StateManager::startLoop()
     m_states.top()->enter();
     sf::Clock timer;
     ret_code code;
-    Playlist *pl;
-    if(m_audio)
-        pl = Playlist::get();
 
     size_t time;
     while(!m_end&&!m_states.empty())
@@ -33,7 +30,7 @@ void StateManager::startLoop()
         time = timer.getElapsedTime().asMilliseconds();
         timer.restart();
         if(m_audio)
-            pl->work();
+            Playlist::get()->work();
 
         if(last!=m_states.top())
         {

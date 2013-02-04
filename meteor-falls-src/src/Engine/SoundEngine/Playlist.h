@@ -1,7 +1,6 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 #include <string.h>
-#include <iostream>
 #include <stdio.h>
 #include <map>
 #include "precompiled/sfml_audio.h"
@@ -15,21 +14,22 @@ class Playlist: public Singleton<Playlist>
         void addMusic(std::string path, std::string group); // ajouter une musique au vector et au groupe
 
         // control/*
-        void set_Volume(int type_son, int new_volume);
+        void set_Volume(int new_volume);
         void work();
 
         // state
-        void set_Stop(bool stop){m_stop = true;} ;
-        void set_Pause(bool pause) {m_pause = true;};
+        void set_Stop(bool stop);
+        void set_Pause(bool pause);
         void set_Loop(bool loop) {m_loop = loop;};
 
         // getters
-        int get_Audio_State(); // stop / pause / read
         int get_Volume() {return m_volume;};
         int get_Temps_Chanson();
         int get_HowManyMusic();
         int get_MusicPlayed();
         bool get_Loop() {return m_loop;};
+        bool get_Pause(){return m_pause;}
+        bool get_Stop(){return m_stop;}
         int get_Time_Elapsed();
         void select_group(std::string group);
 

@@ -236,8 +236,12 @@
 		<Unit filename="src/State/Menu/LoginState.h" />
 		<Unit filename="src/State/Menu/MenuState.cpp" />
 		<Unit filename="src/State/Menu/MenuState.h" />
+		<Unit filename="src/State/Menu/OptionState.cpp" />
+		<Unit filename="src/State/Menu/OptionState.h" />
 		<Unit filename="src/State/Menu/ServerList.cpp" />
 		<Unit filename="src/State/Menu/ServerList.h" />
+		<Unit filename="src/State/Option/SoundSetting.cpp" />
+		<Unit filename="src/State/Option/SoundSetting.h" />
 		<Unit filename="src/State/ServerState/ServerState.cpp" />
 		<Unit filename="src/State/ServerState/ServerState.h" />
 		<Unit filename="src/State/State.cpp" />

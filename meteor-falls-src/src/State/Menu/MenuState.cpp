@@ -114,7 +114,6 @@ MenuState::MenuState(StateManager* mng):
 
 
     Playlist::loadFile("data/playlist.xml");
-
 }
 MenuState::~MenuState()
 {

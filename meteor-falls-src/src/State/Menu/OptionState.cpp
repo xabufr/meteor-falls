@@ -25,7 +25,7 @@ m_sous_state(nullptr)
     m_graphics->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_graphics->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.25-(m_graphics->getSize().d_y.d_scale
                                                         /2), 0)));
-    m_graphics->setText("Graphique");
+    m_graphics->setText("Graphisme");
     m_graphics->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&OptionState::m_choix_option, this));
     m_window->addChildWindow(m_graphics);
 
@@ -43,10 +43,11 @@ m_sous_state(nullptr)
     m_control->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_control->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.75-(m_control->getSize().d_y.d_scale
                                                         /2), 0)));
-    m_control->setText("Commande");
+    m_control->setText("Commandes");
     m_control->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&OptionState::m_choix_option, this));
     m_window->addChildWindow(m_control);
 
+    m_sound_setting = new SoundSetting(m_state_manager);
     m_window->hide();
 }
 
@@ -71,6 +72,15 @@ ret_code OptionState::work(unsigned int)
 {
     if (m_sous_state != nullptr && m_sous_state->isVisible())
         m_sous_state->work(0);
+    else if (m_sous_state != nullptr)
+    {
+        m_sous_state->exit();
+        delete m_sous_state;
+        m_sous_state = nullptr;
+        m_sound->show();
+        m_graphics->show();
+        m_control->show();
+    }
 
     return CONTINUE;
 }
@@ -82,7 +92,7 @@ bool OptionState::m_choix_option(const CEGUI::EventArgs&)
     m_control->hide();
 
     if (m_sound->isPushed())
-        m_sous_state = new SoundSetting(m_state_manager);
+        m_sous_state = m_sound_setting;
 
     m_sous_state->enter();
 
