@@ -9,6 +9,13 @@ class Joueur;
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
+		enum ClientNetworkEngineState{
+		            CONNECTING,
+		            CONNECTED,
+		            AUTHENTIFICATING,
+					WAITING,
+		            NONE
+		        } ;
         ClientNetworkEngine(EngineManager*, const std::string& address, unsigned short port, Joueur*, const std::string& password);
         virtual ~ClientNetworkEngine();
 
@@ -27,12 +34,13 @@ class ClientNetworkEngine : public NetworkEngine
 		void trySelectTeam(char);
 		void trySelectGameplay(int);
 
-		bool isRtsDispo() const;
 		char teamId() const;
 
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
+
+		void sendSyncReq();
 
         boost::asio::ip::address m_serverAddress;
         unsigned short m_port;
@@ -40,14 +48,8 @@ class ClientNetworkEngine : public NetworkEngine
 		unsigned int m_playerNumber;
 		Joueur *m_joueur;
 		char m_teamId;
-		bool m_rtsDispo;
-	public:
-        enum ClientNetworkEngineState{
-            CONNECTING,
-            CONNECTED,
-            AUTHENTIFICATING,
-            NONE
-        } m_state;
+		Clock m_timeSinceLastSync, m_timeSinceLastSyncReq;
+		ClientNetworkEngineState m_state;
 };
 
 #endif // CLIENTNETWORKENGINE_H

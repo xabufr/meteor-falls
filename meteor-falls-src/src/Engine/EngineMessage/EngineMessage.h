@@ -15,7 +15,8 @@ class EngineMessage{
 
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
-        int time, message;
+        int message;
+		long time;
         std::map<EngineMessageKey, int> ints;
         std::map<EngineMessageKey, double> doubles;
         std::map<EngineMessageKey, std::string> strings;

@@ -28,7 +28,7 @@ class TypeUnite
 
         UnitId id() const;
         Type type() const;
-        Faction* fation() const;
+        Faction* faction() const;
 
         int vie() const;
         const std::string& nom() const;
@@ -52,7 +52,7 @@ class TypeUnite
         friend class Faction;
         const UnitId m_id;
         Type m_type;
-        Faction *m_fation;
+        Faction *m_faction;
 
         int m_vie;
         std::string m_nom;

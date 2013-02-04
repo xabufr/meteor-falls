@@ -31,13 +31,18 @@ Map::Map(Ogre::SceneManager *p_scene_mgr)
 {
     m_scene_mgr = p_scene_mgr;
     m_loaded = false;
+    m_timer.reset();
+
 	m_hydrax = nullptr;
 	m_skyx   = nullptr;
+
 }
 Map::~Map()
 {
 	if(m_hydrax != nullptr)
+	{
 		delete m_hydrax;
+	}
 	if(m_skyx != nullptr)
 	{
 		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
@@ -47,6 +52,10 @@ Map::~Map()
 }
 void Map::load(std::string p_name)
 {
+    Hero MyHero(m_scene_mgr, nullptr, 5);
+
+    MyHero.InsertHero("x","x");
+
     m_loaded = true;
     m_name = p_name;
     rapidxml::xml_document<> *map_params = XmlDocumentManager::get()->getDocument("data/maps/" + p_name + "/" + p_name + ".scene");
@@ -54,6 +63,7 @@ void Map::load(std::string p_name)
     rapidxml::xml_node<>* environment = rootNode->first_node("environment");
     if(environment)
     {
+
         if(environment->first_node("colourAmbient"))
         {
             m_scene_mgr->setAmbientLight(getRGBA(environment->first_node("colourAmbient")));
@@ -75,6 +85,7 @@ void Map::load(std::string p_name)
             color = getRGBA(fog->first_node("colour"));
             m_scene_mgr->setFog(fogm, color, density, start, end);
         }
+
 		if(environment->first_node("camera"))
 		{
 			rapidxml::xml_node<>* camNode = environment->first_node("camera");
@@ -96,6 +107,7 @@ void Map::load(std::string p_name)
 			m_camera_test->setCamera(m_camera);
 		}
     }
+
 	rapidxml::xml_node<>* resources = rootNode->first_node("resourceLocations");
 	if(resources)
 	{
@@ -223,6 +235,7 @@ void Map::load(std::string p_name)
 		OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(m_skyx);
 		OgreContextManager::get()->getOgreApplication()->getWindow()->addListener(m_skyx);
 	}
+
 	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
 	if(nodes)
 	{
@@ -233,18 +246,38 @@ void Map::load(std::string p_name)
 			node = node->first_node("node");
 		}
 	}
+
+
+
+    //Hero MonHero("ninja","ninja.mesh",m_scene_mgr);
+    Ogre::Light *light = m_scene_mgr->createLight("lumiere1");
+
+    light->setDiffuseColour(1.0, 0.7, 1.0);
+    light->setSpecularColour(1.0, 0.7, 1.0);
+    light->setPosition(0, 200, 0);
+    m_Eninja = m_scene_mgr->createEntity("ninja", "ninja.mesh");
+    m_node = m_scene_mgr->getRootSceneNode()->createChildSceneNode("nodeninja", Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
+    m_node->attachObject(m_Eninja);
+    m_posx_hero = 0;
+    m_posy_hero = 110;
+    m_posz_hero = 0;
+    Ogre::Vector3 myVector(m_posx_hero,m_posy_hero,m_posz_hero);
+    m_node->setPosition(myVector);
+    m_node->attachObject(light);
 }
 std::string Map::getName()
 {
     return m_name;
 }
+
+
 void Map::update()
 {
+
     OIS::Mouse* mouse;
     mouse = OgreContextManager::get()->getInputManager()->getMouse();
     OIS::Keyboard* keyboard;
     keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
-
     Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
     CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
 
@@ -255,8 +288,150 @@ void Map::update()
     m_camera_test->left(keyboard->isKeyDown(OIS::KC_Q));
     m_camera_test->lookRightLeft(Ogre::Degree(-mouse->getMouseState().X.rel*0.1));
     m_camera_test->lookUpDown(Ogre::Degree(-mouse->getMouseState().Y.rel*0.1));
+
+
 //    light->setDirection(-m_controller->getSunDirection());
 
+
+    /* ############### Test Mouvement Heros ############## */
+    bool animation_is_finished = false;
+    bool no_key = true;
+   // do
+   // {
+
+        if(keyboard->isKeyDown(OIS::KC_P) )
+        {
+            m_posy_hero += 5;
+            mAnimationState = m_Eninja->getAnimationState("Climb");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        else if(keyboard->isKeyDown(OIS::KC_M) )
+        {
+            m_posy_hero -= 5;
+            mAnimationState = m_Eninja->getAnimationState("Climb");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        else if(keyboard->isKeyDown(OIS::KC_UP) )
+        {
+            m_posz_hero -= 5;
+            mAnimationState = m_Eninja->getAnimationState("Walk");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        else if(keyboard->isKeyDown(OIS::KC_DOWN))
+        {
+            m_posz_hero += 5;
+            mAnimationState = m_Eninja->getAnimationState("Walk");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        else if(keyboard->isKeyDown(OIS::KC_RIGHT))
+        {
+            m_posx_hero += 5;
+            mAnimationState = m_Eninja->getAnimationState("Walk");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        else if(keyboard->isKeyDown(OIS::KC_LEFT))
+        {
+            m_posx_hero -= 5;
+            mAnimationState = m_Eninja->getAnimationState("Walk");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+        /* ###############  Heros Attaque / backflip  ############## */
+         else if(keyboard->isKeyDown(OIS::KC_E))
+        {/*
+            do{
+                 mAnimationState = m_Eninja->getAnimationState("Attack3");
+                 mAnimationState->setLoop(true);
+                 mAnimationState->setEnabled(true);
+                // mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+                 mAnimationState->setTimePosition((m_timer.getMilliseconds())/1500.f);
+
+                }while(mAnimationState->getTimePosition() != mAnimationState->getLength());
+
+                mAnimationState->setLoop(true);
+                mAnimationState->setTimePosition(0);
+                mAnimationState->setEnabled(false);*/
+            mAnimationState = m_Eninja->getAnimationState("Attack3");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+        }
+
+
+        else if(keyboard->isKeyDown(OIS::KC_R))
+        {
+            mAnimationState = m_Eninja->getAnimationState("Death1");
+            mAnimationState->setLoop(true);
+            mAnimationState->setEnabled(true);
+            mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+            m_timer.reset();
+            no_key = false;
+
+               /* mAnimationState = m_Eninja->getAnimationState("Death1");
+                std::cout << "DEBUT" << std::endl;
+                mAnimationState->setLoop(false);
+                mAnimationState->setEnabled(true);
+                mAnimationState->setTimePosition((m_timer.getMilliseconds())/1500.f);
+                mAnimationState->addTime((m_timer.getMilliseconds())/1500.f);
+
+                 m_timer.reset();
+                std::cout << "timeposition" <<mAnimationState->getTimePosition() << std::endl;
+                std::cout << "temps animation" <<mAnimationState->getLength() << std::endl;
+            if(mAnimationState->getTimePosition() >= mAnimationState->getLength());
+
+                std::cout << "timeposition" <<mAnimationState->getTimePosition() << std::endl;
+                std::cout << "temps animation" <<mAnimationState->getLength() << std::endl;
+                std::cout << "PASSE" << std::endl;
+                mAnimationState->setLoop(true);
+                mAnimationState->setTimePosition(0);
+                mAnimationState->setEnabled(false);*/
+        }
+
+
+        else if(keyboard->isKeyDown(OIS::KC_G))
+        {
+            mAnimationState->setLoop(true);
+            mAnimationState->setTimePosition(0);
+            mAnimationState->setEnabled(false);
+        }
+
+                m_timer.reset();
+        // if (no_key == false)
+            /*if (static_cast <float> (m_timer.getMilliseconds()) >= mAnimationState->getLength())
+                animation_is_finished = true;*/
+
+//    }while(animation_is_finished == false);
+
+    // update position
+    Ogre::Vector3 myVector(m_posx_hero,m_posy_hero,m_posz_hero);
+    m_node->setPosition(myVector);
+
+    //light->setDirection(-m_controller->getSunDirection());
     m_camera_test->update(1000/60);
     /* ############################################################## */
 
@@ -266,6 +441,7 @@ void Map::update()
     {
         //m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
     }
+
 }
 bool Map::getLoaded()
 {
@@ -356,3 +532,4 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		nodes=nodes->next_sibling("node");
 	}
 }
+

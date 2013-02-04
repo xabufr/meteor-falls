@@ -77,7 +77,7 @@ void ServerNetworkEngineWan::work()
 			ServerClient *cli = nullptr;
 			for(ServerClient &c : m_clients)
 			{
-				if(c.session==message.player.num_session)
+				if(c.data->session==message.player.num_session)
 				{
 					cli=&c;
 					break;
@@ -88,7 +88,7 @@ void ServerNetworkEngineWan::work()
 			if(cli->tcp()->socket().remote_endpoint().address().to_string()==message.player.ip)
 			{
 				//On peut ajouter le client
-				cli->isConnected=true;
+				cli->data->isConnected=true;
 				cli->joueur = new Joueur;
 				cli->joueur->setNom(message.player.pseudo);
 				EngineMessage messageLogin(m_manager);
@@ -122,9 +122,9 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
 	}
 	if(client==nullptr)
 		return;
-	if(password == SHA1(password+client->sel))
+	if(password == SHA1(password+client->data->sel))
 	{
-		client->session = session;
+		client->data->session = session;
 		m_recupererSession(client);
 	}
 	else
@@ -139,7 +139,7 @@ void ServerNetworkEngineWan::m_recupererSession(ServerClient* sc)
 {
 	ServerGlobalMessage message;
 	message.type               = ServerGlobalMessageType::GET_IP_SESSION;
-	message.player.num_session = sc->session;
+	message.player.num_session = sc->data->session;
 	std::ostringstream os;
 	boost::archive::text_oarchive ar(os);
 	ar << message;

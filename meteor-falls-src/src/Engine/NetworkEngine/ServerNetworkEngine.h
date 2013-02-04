@@ -34,6 +34,8 @@ class ServerNetworkEngine : public NetworkEngine
 		void announcePlayerConnectionTeam(ServerClient &c);
 
 		ServerClient* findClient(client_id);
+		void pingClients();
+		void sendSetPing(ServerClient&);
 
     protected:
         void m_startAccept();

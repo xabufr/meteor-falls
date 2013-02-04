@@ -2,12 +2,11 @@
 #define GAMEENGINE_H
 
 #include <string>
-#include "Map/Map.h"
-#include "../EngineMessage/EngineMessage.h"
+#include <vector>
 #include "../Engine.h"
-#include "../../State/State.h"
-#include "Preface/TeamList.h"
 
+class State;
+class Map;
 class Joueur;
 class Equipe;
 class GameEngine : public Engine

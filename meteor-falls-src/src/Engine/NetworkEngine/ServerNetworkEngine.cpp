@@ -35,16 +35,17 @@ void ServerNetworkEngine::work()
         boost::mutex::scoped_lock l(m_mutex_clients);
 		for(auto it=m_clients.begin();it!=m_clients.end();)
 		{
-			if(it->toDel)
+			if(it->data->toDel)
 				it = m_clients.erase(it);
 			else
+			{
 				++it;
+			}
+			clients = m_clients;
 		}
-        clients =  m_clients;
     }
-    std::vector<EngineMessage*> messages;
     EngineMessage *message;
-    for(ServerClient client : clients)
+    for(ServerClient& client : clients)
     {
         if(!client.tcp()->isConnected()||!client.tcp()->isListening())
         {
@@ -111,21 +112,17 @@ void ServerNetworkEngine::work()
 							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 							if(client==nullptr)
 									break;
+							bool alertOther = client->joueur->equipe() == nullptr;
 							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
 							EngineMessage messageTeam(m_manager);
 							messageTeam.message = EngineMessageType::SELECT_TEAM;
 							messageTeam.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 							if(canJoin)
 							{
+								if(alertOther)
+									announcePlayerConnectionTeam(*client);
 								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
 								sendToAllTcp(&messageTeam);
-								Equipe *equ         = m_manager->getGame()->getEquipe(teamId);
-								int rtsDisp         = equ->getRTS() == nullptr ? 1 : 0;
-								messageTeam.message = EngineMessageType::SET_RTS_DISP;
-								messageTeam.ints.clear();
-								messageTeam.ints[EngineMessageKey::RESULT] = rtsDisp;
-								sendToTcp(*client, &messageTeam);
-								announcePlayerConnectionTeam(*client);
 							}
 							else
 							{
@@ -143,7 +140,7 @@ void ServerNetworkEngine::work()
 							messageRep.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
 							{
-								if(client->joueur->equipe->getRTS() == nullptr)
+								if(client->joueur->equipe()->getRTS() == nullptr)
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
 								}
@@ -160,6 +157,22 @@ void ServerNetworkEngine::work()
 							sendToAllTcp(&messageRep);
 							messageRep.addToType(EngineType::GameEngineType);
 							m_manager->addMessage(EngineMessage::clone(&messageRep));
+						}
+						break;
+					case EngineMessageType::SYNC_TIME:
+						{
+							EngineMessage messageTime(m_manager);
+							messageTime.message = EngineMessageType::SYNC_TIME;
+							messageTime.time    = m_clock.getTime();
+							sendToTcp(client, &messageTime);
+						}
+						break;
+					case EngineMessageType::PING:
+						{
+							client.data->timeSinceLastPingRep.reset();
+							client.data->waitingPing = false;
+							client.joueur->ping = client.data->timePing.getTime()/2;
+							sendSetPing(client);
 						}
 						break;
 				}
@@ -195,6 +208,7 @@ void ServerNetworkEngine::work()
 		EngineMessage *message = deserialize(data.second);
 		delete message;
 	}
+	pingClients();
 }
 void ServerNetworkEngine::m_startAccept()
 {
@@ -213,11 +227,11 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             conn->setConnected(true);
             conn->startListen();
 			ServerClient &client(m_clients.back());
-			client.sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
+			client.data->sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
 							client.tcp()->socket().remote_endpoint().address().to_string());
 			EngineMessage messageSalt(m_manager);
 			messageSalt.message = EngineMessageType::SETSALT;
-			messageSalt.strings[EngineMessageKey::SEL] = client.sel;
+			messageSalt.strings[EngineMessageKey::SEL] = client.data->sel;
 			client.tcp()->send(serialize(&messageSalt));
 		}
         m_startAccept();
@@ -324,7 +338,7 @@ void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 	message.message = EngineMessageType::NEW_PLAYER;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.id();
 	message.strings[EngineMessageKey::PSEUDO] = c.joueur->getNom();
-	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe->id();
+	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe()->id();
 	if(c.joueur->getTypeGameplay() == Joueur::RPG)
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RPG_GAMEPLAY;
 	else if(c.joueur->getTypeGameplay() == Joueur::RTS)
@@ -332,4 +346,27 @@ void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 	else
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
 	sendToAllExcluding(c.id(), &message);
+}
+void ServerNetworkEngine::pingClients()
+{
+	boost::mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient& c : m_clients)
+	{
+		if(!c.data->waitingPing && c.data->timeSinceLastPingRep.getTime() > 2000)
+		{
+			c.data->waitingPing = true;
+			EngineMessage mess(m_manager);
+			mess.message = EngineMessageType::PING;
+			sendToTcp(c, &mess);
+			c.data->timePing.reset();
+		}
+	}
+}
+void ServerNetworkEngine::sendSetPing(ServerClient& c)
+{
+	EngineMessage mess(m_manager);
+	mess.message = EngineMessageType::SET_PING;
+	mess.ints[EngineMessageKey::TIME] = c.joueur->ping;
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
+	sendToAllTcp(&mess);
 }

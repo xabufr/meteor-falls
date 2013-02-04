@@ -4,7 +4,6 @@
 
 class EngineMessage;
 class EngineManager;
-
 class Engine
 {
 public:

@@ -690,6 +690,54 @@ src/Engine/GameEngine/Joueur/JoueurWan.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.s
 .PHONY : src/Engine/GameEngine/Joueur/JoueurWan.cpp.s
 
+src/Engine/GameEngine/Layout/layoutRPG.o: src/Engine/GameEngine/Layout/layoutRPG.cpp.o
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.o
+
+# target to build an object file
+src/Engine/GameEngine/Layout/layoutRPG.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.cpp.o
+
+src/Engine/GameEngine/Layout/layoutRPG.i: src/Engine/GameEngine/Layout/layoutRPG.cpp.i
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Layout/layoutRPG.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.i
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.cpp.i
+
+src/Engine/GameEngine/Layout/layoutRPG.s: src/Engine/GameEngine/Layout/layoutRPG.cpp.s
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Layout/layoutRPG.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.s
+.PHONY : src/Engine/GameEngine/Layout/layoutRPG.cpp.s
+
+src/Engine/GameEngine/Layout/layoutRTS.o: src/Engine/GameEngine/Layout/layoutRTS.cpp.o
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.o
+
+# target to build an object file
+src/Engine/GameEngine/Layout/layoutRTS.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.cpp.o
+
+src/Engine/GameEngine/Layout/layoutRTS.i: src/Engine/GameEngine/Layout/layoutRTS.cpp.i
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Layout/layoutRTS.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.i
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.cpp.i
+
+src/Engine/GameEngine/Layout/layoutRTS.s: src/Engine/GameEngine/Layout/layoutRTS.cpp.s
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Layout/layoutRTS.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.s
+.PHONY : src/Engine/GameEngine/Layout/layoutRTS.cpp.s
+
 src/Engine/GameEngine/Map/Map.o: src/Engine/GameEngine/Map/Map.cpp.o
 .PHONY : src/Engine/GameEngine/Map/Map.o
 
@@ -977,6 +1025,30 @@ src/Engine/GameEngine/Unites/Hero.s: src/Engine/GameEngine/Unites/Hero.cpp.s
 src/Engine/GameEngine/Unites/Hero.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.s
 .PHONY : src/Engine/GameEngine/Unites/Hero.cpp.s
+
+src/Engine/GameEngine/Unites/Hero_State.o: src/Engine/GameEngine/Unites/Hero_State.cpp.o
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.o
+
+# target to build an object file
+src/Engine/GameEngine/Unites/Hero_State.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.o
+
+src/Engine/GameEngine/Unites/Hero_State.i: src/Engine/GameEngine/Unites/Hero_State.cpp.i
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Unites/Hero_State.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.i
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.i
+
+src/Engine/GameEngine/Unites/Hero_State.s: src/Engine/GameEngine/Unites/Hero_State.cpp.s
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Unites/Hero_State.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.s
+.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.s
 
 src/Engine/GameEngine/Unites/Mobile.o: src/Engine/GameEngine/Unites/Mobile.cpp.o
 .PHONY : src/Engine/GameEngine/Unites/Mobile.o
@@ -1746,6 +1818,30 @@ src/Engine/SoundEngine/soundbuffermanager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.s
 .PHONY : src/Engine/SoundEngine/soundbuffermanager.cpp.s
 
+src/PremiereApplication.o: src/PremiereApplication.cpp.o
+.PHONY : src/PremiereApplication.o
+
+# target to build an object file
+src/PremiereApplication.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o
+.PHONY : src/PremiereApplication.cpp.o
+
+src/PremiereApplication.i: src/PremiereApplication.cpp.i
+.PHONY : src/PremiereApplication.i
+
+# target to preprocess a source file
+src/PremiereApplication.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.i
+.PHONY : src/PremiereApplication.cpp.i
+
+src/PremiereApplication.s: src/PremiereApplication.cpp.s
+.PHONY : src/PremiereApplication.s
+
+# target to generate assembly for a file
+src/PremiereApplication.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.s
+.PHONY : src/PremiereApplication.cpp.s
+
 src/State/Command/Command.o: src/State/Command/Command.cpp.o
 .PHONY : src/State/Command/Command.o
 
@@ -1962,6 +2058,30 @@ src/State/Menu/MenuState.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/MenuState.cpp.s
 .PHONY : src/State/Menu/MenuState.cpp.s
 
+src/State/Menu/OptionState.o: src/State/Menu/OptionState.cpp.o
+.PHONY : src/State/Menu/OptionState.o
+
+# target to build an object file
+src/State/Menu/OptionState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.o
+.PHONY : src/State/Menu/OptionState.cpp.o
+
+src/State/Menu/OptionState.i: src/State/Menu/OptionState.cpp.i
+.PHONY : src/State/Menu/OptionState.i
+
+# target to preprocess a source file
+src/State/Menu/OptionState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.i
+.PHONY : src/State/Menu/OptionState.cpp.i
+
+src/State/Menu/OptionState.s: src/State/Menu/OptionState.cpp.s
+.PHONY : src/State/Menu/OptionState.s
+
+# target to generate assembly for a file
+src/State/Menu/OptionState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/OptionState.cpp.s
+.PHONY : src/State/Menu/OptionState.cpp.s
+
 src/State/Menu/ServerList.o: src/State/Menu/ServerList.cpp.o
 .PHONY : src/State/Menu/ServerList.o
 
@@ -1985,6 +2105,30 @@ src/State/Menu/ServerList.s: src/State/Menu/ServerList.cpp.s
 src/State/Menu/ServerList.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.s
 .PHONY : src/State/Menu/ServerList.cpp.s
+
+src/State/Option/SoundSetting.o: src/State/Option/SoundSetting.cpp.o
+.PHONY : src/State/Option/SoundSetting.o
+
+# target to build an object file
+src/State/Option/SoundSetting.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.o
+.PHONY : src/State/Option/SoundSetting.cpp.o
+
+src/State/Option/SoundSetting.i: src/State/Option/SoundSetting.cpp.i
+.PHONY : src/State/Option/SoundSetting.i
+
+# target to preprocess a source file
+src/State/Option/SoundSetting.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.i
+.PHONY : src/State/Option/SoundSetting.cpp.i
+
+src/State/Option/SoundSetting.s: src/State/Option/SoundSetting.cpp.s
+.PHONY : src/State/Option/SoundSetting.s
+
+# target to generate assembly for a file
+src/State/Option/SoundSetting.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/SoundSetting.cpp.s
+.PHONY : src/State/Option/SoundSetting.cpp.s
 
 src/State/ServerState/ServerState.o: src/State/ServerState/ServerState.cpp.o
 .PHONY : src/State/ServerState/ServerState.o
@@ -2129,6 +2273,30 @@ src/UnitTest/Tests/SoundEngineTest.s: src/UnitTest/Tests/SoundEngineTest.cpp.s
 src/UnitTest/Tests/SoundEngineTest.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.s
 .PHONY : src/UnitTest/Tests/SoundEngineTest.cpp.s
+
+src/Utils/Clock.o: src/Utils/Clock.cpp.o
+.PHONY : src/Utils/Clock.o
+
+# target to build an object file
+src/Utils/Clock.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.o
+.PHONY : src/Utils/Clock.cpp.o
+
+src/Utils/Clock.i: src/Utils/Clock.cpp.i
+.PHONY : src/Utils/Clock.i
+
+# target to preprocess a source file
+src/Utils/Clock.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.i
+.PHONY : src/Utils/Clock.cpp.i
+
+src/Utils/Clock.s: src/Utils/Clock.cpp.s
+.PHONY : src/Utils/Clock.s
+
+# target to generate assembly for a file
+src/Utils/Clock.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.s
+.PHONY : src/Utils/Clock.cpp.s
 
 src/Utils/DataChecksum.o: src/Utils/DataChecksum.cpp.o
 .PHONY : src/Utils/DataChecksum.o
@@ -2355,6 +2523,12 @@ help:
 	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.o"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.i"
 	@echo "... src/Engine/GameEngine/Joueur/JoueurWan.s"
+	@echo "... src/Engine/GameEngine/Layout/layoutRPG.o"
+	@echo "... src/Engine/GameEngine/Layout/layoutRPG.i"
+	@echo "... src/Engine/GameEngine/Layout/layoutRPG.s"
+	@echo "... src/Engine/GameEngine/Layout/layoutRTS.o"
+	@echo "... src/Engine/GameEngine/Layout/layoutRTS.i"
+	@echo "... src/Engine/GameEngine/Layout/layoutRTS.s"
 	@echo "... src/Engine/GameEngine/Map/Map.o"
 	@echo "... src/Engine/GameEngine/Map/Map.i"
 	@echo "... src/Engine/GameEngine/Map/Map.s"
@@ -2391,6 +2565,9 @@ help:
 	@echo "... src/Engine/GameEngine/Unites/Hero.o"
 	@echo "... src/Engine/GameEngine/Unites/Hero.i"
 	@echo "... src/Engine/GameEngine/Unites/Hero.s"
+	@echo "... src/Engine/GameEngine/Unites/Hero_State.o"
+	@echo "... src/Engine/GameEngine/Unites/Hero_State.i"
+	@echo "... src/Engine/GameEngine/Unites/Hero_State.s"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.o"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.i"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.s"
@@ -2487,6 +2664,9 @@ help:
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.o"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.i"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.s"
+	@echo "... src/PremiereApplication.o"
+	@echo "... src/PremiereApplication.i"
+	@echo "... src/PremiereApplication.s"
 	@echo "... src/State/Command/Command.o"
 	@echo "... src/State/Command/Command.i"
 	@echo "... src/State/Command/Command.s"
@@ -2514,9 +2694,15 @@ help:
 	@echo "... src/State/Menu/MenuState.o"
 	@echo "... src/State/Menu/MenuState.i"
 	@echo "... src/State/Menu/MenuState.s"
+	@echo "... src/State/Menu/OptionState.o"
+	@echo "... src/State/Menu/OptionState.i"
+	@echo "... src/State/Menu/OptionState.s"
 	@echo "... src/State/Menu/ServerList.o"
 	@echo "... src/State/Menu/ServerList.i"
 	@echo "... src/State/Menu/ServerList.s"
+	@echo "... src/State/Option/SoundSetting.o"
+	@echo "... src/State/Option/SoundSetting.i"
+	@echo "... src/State/Option/SoundSetting.s"
 	@echo "... src/State/ServerState/ServerState.o"
 	@echo "... src/State/ServerState/ServerState.i"
 	@echo "... src/State/ServerState/ServerState.s"
@@ -2535,6 +2721,9 @@ help:
 	@echo "... src/UnitTest/Tests/SoundEngineTest.o"
 	@echo "... src/UnitTest/Tests/SoundEngineTest.i"
 	@echo "... src/UnitTest/Tests/SoundEngineTest.s"
+	@echo "... src/Utils/Clock.o"
+	@echo "... src/Utils/Clock.i"
+	@echo "... src/Utils/Clock.s"
 	@echo "... src/Utils/DataChecksum.o"
 	@echo "... src/Utils/DataChecksum.i"
 	@echo "... src/Utils/DataChecksum.s"

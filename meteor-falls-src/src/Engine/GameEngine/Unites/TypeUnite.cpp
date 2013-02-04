@@ -1,6 +1,6 @@
 #include "TypeUnite.h"
 
-TypeUnite::TypeUnite(UnitId id, Type type, Faction* fac): m_id(id), m_type(type), m_fation(fac)
+TypeUnite::TypeUnite(UnitId id, Type type, Faction* fac): m_id(id), m_type(type), m_faction(fac)
 {
 
 }
@@ -30,9 +30,9 @@ TypeUnite::Type TypeUnite::type() const
     return m_type;
 }
 
-Faction* TypeUnite::fation() const
+Faction* TypeUnite::faction() const
 {
-    return m_fation;
+    return m_faction;
 }
 
 int TypeUnite::vie() const

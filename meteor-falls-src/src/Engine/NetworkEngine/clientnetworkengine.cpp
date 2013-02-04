@@ -20,6 +20,7 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& 
     m_tcp = TcpConnection::create(m_service);
     m_udp = UdpConnection::create(m_service);
 	m_teamId = -1;
+	m_state = WAITING;
 	connect(address, port);
 }
 ClientNetworkEngine::~ClientNetworkEngine()
@@ -34,6 +35,7 @@ void ClientNetworkEngine::work()
     while(m_tcp->hasError())
 	{
         std::cout << m_tcp->getError().message()<<std::endl;
+		m_state = ClientNetworkEngineState::NONE;
     }
     while(m_tcp->hasData())
 	{
@@ -65,6 +67,7 @@ void ClientNetworkEngine::work()
 				break;
 			case EngineMessageType::LOAD_MAP:
 					m_manager->getGame()->loadMap(message->strings[EngineMessageKey::MAP_NAME]);
+					sendSyncReq();
 				break;
 			case EngineMessageType::ADDTEAM:
 				{
@@ -79,20 +82,17 @@ void ClientNetworkEngine::work()
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
 					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
-					j->equipe = e;
-					e->addJoueur(j);
+					j->changeTeam(e);
 					m_manager->getGame()->addPlayer(j);
 					j->setTypeGamplay(Joueur::TypeGameplay::NONE_GAMEPLAY);
 					if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] != EngineMessageKey::NONE_GAMEPLAY)
 					{
 						if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RPG_GAMEPLAY)
 						{
-							e->addRPG(new JoueurRPG(j));
 							j->setTypeGamplay(Joueur::TypeGameplay::RPG);
 						}
 						else
 						{
-							e->setJoueurRTS(new JoueurRTS(j));
 							j->setTypeGamplay(Joueur::TypeGameplay::RTS);
 						}
 					}
@@ -105,11 +105,6 @@ void ClientNetworkEngine::work()
 					messageGame->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGame);
 				}
-				break;
-			case EngineMessageType::SET_RTS_DISP:
-				{
-					m_rtsDispo = message->ints[EngineMessageKey::RESULT] == 1;
-				}	
 				break;
 			case EngineMessageType::SELECT_GAMEPLAY:
 				{
@@ -134,9 +129,37 @@ void ClientNetworkEngine::work()
 					m_manager->addMessage(clone);
 				}
 				break;
+			case EngineMessageType::SYNC_TIME:
+				{
+					boost::posix_time::time_duration tm = boost::posix_time::milliseconds(message->time);
+					tm += m_timeSinceLastSyncReq.getDuration()/2;
+					m_clock.setTime(tm.total_milliseconds());
+					m_timeSinceLastSync.reset();
+				}
+				break;
+			case EngineMessageType::PING:
+				{
+					EngineMessage mess(m_manager);
+					mess.message = EngineMessageType::PING;
+					m_tcp->send(serialize(&mess));
+				}
+				break;
+			case EngineMessageType::SET_PING:
+				{
+					long ping = message->ints[EngineMessageKey::TIME];
+					Joueur* j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(j!=nullptr)
+					{
+						j->ping = ping;
+						std::cout << "ping joueur" << j->id << ":" << ping << std::endl;
+					}
+				}
+				break;
 		}
 		delete message;
     }
+	if(m_timeSinceLastSync.getTime() >= 1000)
+		sendSyncReq();
 }
 void ClientNetworkEngine::handleMessage(EngineMessage& e)
 {
@@ -154,7 +177,6 @@ void ClientNetworkEngine::connect(std::string address, unsigned short port)
     m_serverAddress = getAddress(*m_service, address, &error);
     if(error){
         THROW_BASIC_EXCEPTION("Can't resolve host address");
-        return;
     }
     m_state = CONNECTING;
     m_tcp->connect(boost::asio::ip::tcp::endpoint(m_serverAddress, m_port));
@@ -191,10 +213,6 @@ void ClientNetworkEngine::trySelectTeam(char id)
 	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
 	m_tcp->send(serialize(&message));
 }
-bool ClientNetworkEngine::isRtsDispo() const
-{
-	return m_rtsDispo;
-}
 void ClientNetworkEngine::trySelectGameplay(int gameplay)
 {
 	EngineMessage message(m_manager);
@@ -205,5 +223,13 @@ void ClientNetworkEngine::trySelectGameplay(int gameplay)
 }
 char ClientNetworkEngine::teamId() const
 {
-	return m_teamId; 
+	return m_teamId;
+}
+void ClientNetworkEngine::sendSyncReq()
+{
+	m_timeSinceLastSyncReq.reset();
+	m_timeSinceLastSync.reset();
+	EngineMessage message(m_manager);
+	message.message = EngineMessageType::SYNC_TIME;
+	m_tcp->send(serialize(&message));
 }

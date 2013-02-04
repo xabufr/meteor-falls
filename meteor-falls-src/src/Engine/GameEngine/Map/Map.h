@@ -10,9 +10,11 @@
 #include <SkyX/SkyX.h>
 #include <vector>
 #include "../../../Utils/Vector3D.h"
+#include "../Unites/Hero.h"
 #include <Terrain/OgreTerrainGroup.h>
 #include "../../ScriptEngine/XmlDocumentManager.h"
 
+using namespace rapidxml;
 
 class WorldObject;
 class Map
@@ -35,6 +37,7 @@ class Map
         Ogre::ShadowCameraSetupPtr m_cam_setup;
 		Ogre::TerrainGroup *m_terrainGroup;
         Ogre::Light *light;
+        Ogre::Timer m_timer;
         bool m_loaded;
         std::string m_name;
         int m_size_x;
@@ -42,11 +45,17 @@ class Map
         bool m_cycle_enable;
         float m_cycle_coef;
         int m_cycle_hour;
+        Ogre::Entity *m_Eninja;
+        Ogre::SceneNode *m_node;
+        Ogre::AnimationState *mAnimationState;
         Ogre::Camera* m_camera;
         CameraLibre* m_camera_test;
         SkyX::SkyX *m_skyx;
         SkyX::BasicController *m_controller;
         Hydrax::Hydrax *m_hydrax;
+        int m_posx_hero;
+        int m_posy_hero;
+        int m_posz_hero;
 
         std::vector<WorldObject*> m_worldObjects;
 

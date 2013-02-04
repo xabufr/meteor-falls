@@ -43,6 +43,16 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+<<<<<<< HEAD
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+
+# The top-level source directory on which CMake was run.
+CMAKE_SOURCE_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
+=======
 # Escaping for special characters.
 EQUALS = =
 
@@ -54,6 +64,7 @@ CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 
 #=============================================================================
 # Target rules for target CMakeFiles/SkyX.dir
@@ -62,7 +73,11 @@ CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
 CMakeFiles/SkyX.dir/all:
 	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/depend
 	$(MAKE) -f CMakeFiles/SkyX.dir/build.make CMakeFiles/SkyX.dir/build
+<<<<<<< HEAD
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+=======
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 	@echo "Built target SkyX"
 .PHONY : CMakeFiles/SkyX.dir/all
 
@@ -72,9 +87,15 @@ all: CMakeFiles/SkyX.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SkyX.dir/rule: cmake_check_build_system
+<<<<<<< HEAD
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles 18
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SkyX.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles 0
+=======
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles 18
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SkyX.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles 0
+>>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 .PHONY : CMakeFiles/SkyX.dir/rule
 
 # Convenience name for target.

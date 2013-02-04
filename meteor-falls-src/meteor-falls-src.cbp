@@ -252,6 +252,9 @@
 		<Unit filename="src/UnitTest/Tests/NetworkEngineTest.cpp" />
 		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp" />
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Configuration/Config.h" />
+		<Unit filename="src/Utils/Configuration/SoundConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/SoundConfig.h" />
 		<Unit filename="src/Utils/DataChecksum.cpp" />
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
