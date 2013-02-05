@@ -7,6 +7,7 @@
 #include <CEGUI.h>
 #include <OIS/OIS.h>
 
+class SoundSetting;
 class OptionState : public State
 {
     public:
@@ -22,6 +23,7 @@ class OptionState : public State
         OIS::Keyboard *m_keyboard;
         State* m_sous_state;
         StateManager* m_state_manager;
+        SoundSetting *m_sound_setting;
         CEGUI::TabButton *m_window;
         CEGUI::PushButton *m_graphics;
         CEGUI::PushButton *m_sound;

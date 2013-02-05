@@ -232,7 +232,7 @@ void ClientNetworkEngine::trySelectGameplay(int gameplay)
 }
 char ClientNetworkEngine::teamId() const
 {
-	return m_teamId; 
+	return m_teamId;
 }
 void ClientNetworkEngine::sendSyncReq()
 {
