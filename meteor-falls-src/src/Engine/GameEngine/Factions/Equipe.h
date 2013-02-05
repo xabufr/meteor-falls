@@ -9,7 +9,7 @@ class TypeUnite;
 class JoueurRPG;
 class JoueurRTS;
 class Joueur;
-
+class UniteFactory;
 
 class Equipe
 {
@@ -21,6 +21,7 @@ class Equipe
         void setFaction(Faction*);
         void create_unit(Unite*);
         void destroy_unite(Unite*);
+		const std::vector<Unite*>& unites() const;
 
 		void setJoueurRTS(JoueurRTS*);
 		const std::vector<JoueurRPG*> getRPG() const;
@@ -33,6 +34,7 @@ class Equipe
 		void addJoueur(Joueur*);
 		void removeJoueur(Joueur*);
 		const std::vector<Joueur*> joueurs() const;
+		UniteFactory* factory();
 
     protected:
     private:
@@ -43,7 +45,7 @@ class Equipe
 		JoueurRTS *m_joueurRTS;
 		std::vector<Joueur*> m_joueurs;
 		char m_id;
-
+        UniteFactory *m_factory;
 };
 
 #endif // EQUIPE_H

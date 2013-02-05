@@ -41,7 +41,7 @@ struct armor_damage_type
 class Hero : public Terrestre
 {
     public:
-        Hero(Ogre::SceneManager* mng, TypeUnite* type, int id);
+        Hero(Ogre::SceneManager* mng, Equipe*, TypeUnite* type, int id);
         void InsertHero(std::string name, std::string path);
         void SetPositionNinja(Vector3D MyPosition);
         float InflictDamage();

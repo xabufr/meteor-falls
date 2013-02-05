@@ -36,6 +36,7 @@ class GameEngine : public Engine
 		bool tryJoinTeam(char, Joueur*);
 		Joueur* findJoueur(int);
 		void deleteJoueur(int);
+		Type getTypeServerClient() const;
 
     protected:
 

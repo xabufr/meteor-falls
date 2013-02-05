@@ -15,7 +15,6 @@ OgreWindowInputManager::OgreWindowInputManager(Ogre::RenderWindow* window) : m_w
     m_injectKeyboard=true;
     m_injectWindowEvent = true;
 }
-
 void OgreWindowInputManager::m_initOIS()
 {
     Ogre::LogManager::getSingleton().logMessage("***Initializing OIS***");
@@ -25,8 +24,8 @@ void OgreWindowInputManager::m_initOIS()
     m_window->getCustomAttribute("WINDOW", &windowHnd);
     pl.insert(std::make_pair<std::string, std::string>("WINDOW", boost::lexical_cast<std::string>(windowHnd)));
 
-    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
+    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
     pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
     //pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
 
@@ -55,7 +54,6 @@ void OgreWindowInputManager::windowResized(Ogre::RenderWindow* rw)
     }
     first=false;
 }
-
 void OgreWindowInputManager::windowClosed(Ogre::RenderWindow* rw)
 {
     if(rw!=m_window||!m_inputManager) return;
@@ -81,12 +79,10 @@ OIS::Mouse* OgreWindowInputManager::getMouse()
 {
     return m_mouse;
 }
-
 OIS::Keyboard* OgreWindowInputManager::getKeyboard()
 {
     return m_keyboard;
 }
-
 CEGUI::MouseButton OgreWindowInputManager::convertButton(OIS::MouseButtonID buttonID)
 {
     switch (buttonID)
@@ -105,12 +101,10 @@ CEGUI::MouseButton OgreWindowInputManager::convertButton(OIS::MouseButtonID butt
         return CEGUI::LeftButton;
     }
 }
-
 void OgreWindowInputManager::addPersonalizedDevice(OIS::Object* o)
 {
     m_personalizedDevices.push_back(o);
 }
-
 void OgreWindowInputManager::removePersonalizedDevice(OIS::Object* o)
 {
     for(auto it = m_personalizedDevices.begin(); it!=m_personalizedDevices.end(); ++it)
@@ -126,7 +120,6 @@ void OgreWindowInputManager::injectKeyboardEventToCEGUI(bool i)
 {
     m_injectKeyboard=i;
 }
-
 void OgreWindowInputManager::injectMouseEventToCEGUI(bool i)
 {
     m_injectMouse=i;
@@ -135,12 +128,10 @@ void OgreWindowInputManager::injectWindowEventToCEGUI(bool i)
 {
     m_injectWindowEvent=i;
 }
-
 void OgreWindowInputManager::addMouseListener(OIS::MouseListener* l)
 {
     m_mouseListeners.push_back(l);
 }
-
 void OgreWindowInputManager::delMouseListener(OIS::MouseListener*l)
 {
     for(auto it=m_mouseListeners.begin(); it!=m_mouseListeners.end(); ++it)
@@ -152,12 +143,10 @@ void OgreWindowInputManager::delMouseListener(OIS::MouseListener*l)
         }
     }
 }
-
 void OgreWindowInputManager::addKeyboardListener(OIS::KeyListener *l)
 {
     m_keyboardListeners.push_back(l);
 }
-
 void OgreWindowInputManager::delKeyboardListener(OIS::KeyListener *l)
 {
     for(auto it=m_keyboardListeners.begin(); it!=m_keyboardListeners.end(); ++it)
@@ -169,7 +158,6 @@ void OgreWindowInputManager::delKeyboardListener(OIS::KeyListener *l)
         }
     }
 }
-
 bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
 {
     if(m_injectMouse)
@@ -185,7 +173,6 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
     }
     return true;
 }
-
 bool OgreWindowInputManager::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     if(m_injectMouse)
@@ -198,7 +185,6 @@ bool OgreWindowInputManager::mousePressed(const OIS::MouseEvent& arg, OIS::Mouse
     }
     return true;
 }
-
 bool OgreWindowInputManager::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     if(m_injectMouse)
@@ -210,7 +196,6 @@ bool OgreWindowInputManager::mouseReleased(const OIS::MouseEvent& arg, OIS::Mous
     }
     return true;
 }
-
 bool OgreWindowInputManager::keyPressed(const OIS::KeyEvent& arg)
 {
     if(m_injectKeyboard)
@@ -225,7 +210,6 @@ bool OgreWindowInputManager::keyPressed(const OIS::KeyEvent& arg)
     }
     return true;
 }
-
 bool OgreWindowInputManager::keyReleased(const OIS::KeyEvent& arg)
 {
     if(m_injectKeyboard)

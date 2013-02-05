@@ -9,24 +9,16 @@
 #include "Utils/Exception/FileNotFound.h"
 
 Faction::Faction(bool jouable, FactionId id, const std::string& nom):
-m_nom(nom), m_id(id), m_jouable(jouable), m_factory(0)
+m_nom(nom), m_id(id), m_jouable(jouable) 
 {
-    m_factory = new UniteFactory(this);
 }
-
 Faction::~Faction()
 {
-    delete m_factory;
-}
-UniteFactory* Faction::factory() const
-{
-    return m_factory;
 }
 void Faction::addConfigFile(std::string path)
 {
     m_paths.push_back(path);
 }
-
 void Faction::load()
 {
     rapidxml::xml_document<>* document;
@@ -107,8 +99,18 @@ void Faction::load()
                 if(nodeCouts->first_node("pop"))
                     unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
             }
-
-
+			rapidxml::xml_node<>* nodeMeshes = nodeUnit->first_node("meshes");
+			if(nodeMeshes)
+			{
+				rapidxml::xml_node<>* nodeMesh;
+				for(nodeMesh = nodeMeshes->first_node("mesh");nodeMesh!=0;nodeMesh=nodeMeshes->next_sibling("mesh"))
+				{
+					std::string name, mesh;
+					name                          = nodeMesh->first_attribute("name")->value();
+					mesh                          = nodeMesh->first_attribute("mesh")->value();
+					unite->m_meshParameters[name] = mesh;
+				}
+			}
             switch(type)
             {
                 case TypeUnite::Type::BATIMENT:
@@ -123,8 +125,6 @@ void Faction::load()
                     m_terrestre.push_back(m_nom);
                 break;
             }
-
-
         }
     }
     //Seconde passe, pour édition de liens
@@ -220,4 +220,3 @@ TypeUnite* Faction::getType(UnitId id)
         return it->second;
     return 0;
 }
-

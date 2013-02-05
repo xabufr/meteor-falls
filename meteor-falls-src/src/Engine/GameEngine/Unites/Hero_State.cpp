@@ -1,7 +1,7 @@
 #include "Hero_State.h"
 
-Hero_State::Hero_State(Ogre::SceneManager* mng, TypeUnite* type, int id)
-: Hero(mng, type, id)
+Hero_State::Hero_State(Ogre::SceneManager* mng, Equipe* e, TypeUnite* type, int id)
+: Hero(mng, e, type, id)
 {
 
 }

@@ -8,6 +8,7 @@
 class Vector3D
 {
 public:
+    double x,y,z;
     Vector3D()
     {
         x=y=z=0.f;
@@ -15,12 +16,9 @@ public:
     Vector3D(float _x, float _y, float _z):
         x(_x),
         y(_y),
-        z(_y)
+        z(_z)
     {
     }
-
-    double x,y,z;
-
     template<class T>
     Vector3D(const T &vec)
     {

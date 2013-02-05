@@ -1,7 +1,7 @@
 #include "Hero.h"
 #include <assert.h>
-Hero::Hero(Ogre::SceneManager* mng, TypeUnite* type, int id)
-: Terrestre(mng, type, id)
+Hero::Hero(Ogre::SceneManager* mng, Equipe* e, TypeUnite* type, int id)
+: Terrestre(mng, e, type, id)
 {
     m_scene_mgr = mng;
     m_timer.reset();
