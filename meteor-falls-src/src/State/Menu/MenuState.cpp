@@ -126,6 +126,7 @@ MenuState::~MenuState()
     delete m_login_state;
     delete m_player;
     delete m_state;
+    delete m_option_state;
 }
 bool MenuState::quit(const CEGUI::EventArgs &)
 {

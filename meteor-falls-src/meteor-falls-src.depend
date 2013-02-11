@@ -6079,7 +6079,7 @@
 	<vector>
 	<argp.h>
 
-1355831774 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h
+1360061970 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.h
 	"../../../Utils/singleton.h"
 
 1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/singleton.h
@@ -6157,7 +6157,7 @@
 	"../../precompiled/shared_ptr.h"
 	"Connection.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+1359979266 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
 	<vector>
 	<map>
 	<string>
@@ -6229,7 +6229,7 @@
 	"../StateManager.h"
 	<CEGUI.h>
 
-1359976248 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
+1360084578 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
 	"../State.h"
 	"../StateManager.h"
 	<vector>
@@ -6258,12 +6258,13 @@
 	"../State.h"
 	"../../Engine/EngineManager/EngineManager.h"
 
-1359975120 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/Config.h
+1360587094 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/Config.h
 	"../singleton.h"
 	"SoundConfig.h"
+	"GraphicConfig.h"
+	"CommandConfig.h"
 
-1359974853 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.h
-	"../singleton.h"
+1359979549 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.h
 
 1355738918 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
 	"applicationparameters.h"
@@ -6301,7 +6302,7 @@
 	"../GraphicEngine/Ogre/OgreApplication.h"
 	"../EngineMessage/EngineMessage.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+1359979266 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
 	"../Engine.h"
 	"../../precompiled/asio.h"
 	"../../precompiled/shared_ptr.h"
@@ -6374,7 +6375,7 @@
 	<vector>
 	"../Engine.h"
 
-1355831774 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
+1360064592 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
 	<OgreRenderWindow.h>
 	<OgreRoot.h>
 	<CEGUI.h>
@@ -6384,9 +6385,10 @@
 1354530560 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.h
 	<OgreResourceGroupManager.h>
 
-1358263264 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
+1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
 	"EngineMessage.h"
 	"../EngineManager/EngineManager.h"
+	"../NetworkEngine/NetworkEngine.h"
 
 1354546269 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.cpp
 	"Camera.h"
@@ -6553,21 +6555,21 @@
 	<OgreRay.h>
 	<OgreSceneQuery.h>
 
-1354530560 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
+1359982081 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
 	"LoadingListener.h"
 	<iostream>
 	"LoadingScreen.h"
 
-1354530560 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.h
+1359982039 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.h
 	<CEGUI.h>
 
-1354530560 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
+1359982073 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
 	"LoadingScreen.h"
 	<iostream>
 	"OgreApplication.h"
 	"ogrecontextmanager.h"
 
-1355831774 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1360065301 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
 	"Utils/Exception/BasicException.h"
 	<OgreConfigFile.h>
@@ -6575,7 +6577,7 @@
 	<OgreResourceBackgroundQueue.h>
 	"LoadingScreen.h"
 
-1355831774 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
+1360062737 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
 	"ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -6608,7 +6610,7 @@
 1355481965 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
 	"Connection.h"
 
-1355755472 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
+1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
 	"NetworkEngine.h"
 	"../../precompiled/serialization.h"
 	"../EngineMessage/EngineMessage.h"
@@ -6798,12 +6800,14 @@
 	"Engine/NetworkEngine/ClientLogin.h"
 	"State/Game/GameState.h"
 
-1359976213 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
+1360084623 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
 	"OptionState.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"../Option/SoundSetting.h"
+	"../Option/GraphicSetting.h"
+	"../Option/CommandSetting.h"
 
 1359477814 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.h
 	"../State.h"
@@ -6881,7 +6885,7 @@
 	<assert.h>
 	"precompiled/sfml_audio.h"
 
-1359975523 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.cpp
+1360079724 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.cpp
 	"SoundConfig.h"
 	"../../Engine/ScriptEngine/XmlDocumentManager.h"
 	"../../precompiled/lexical_cast.h"
@@ -7076,7 +7080,7 @@
 1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 	"ServerClient.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 	"ServerNetworkEngine.h"
 	<iostream>
 	"../EngineMessage/EngineMessage.h"
@@ -7105,7 +7109,7 @@
 	"../EngineMessage/EngineMessage.h"
 	"../GameEngine/Joueur/Joueur.h"
 
-1359978116 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
+1359979704 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
 	"Playlist.h"
 	"../ScriptEngine/XmlDocumentManager.h"
 	"../../precompiled/lexical_cast.h"
@@ -7122,7 +7126,7 @@
 	"../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"../../Engine/NetworkEngine/clientnetworkengine.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1360084660 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"State/Console.h"
@@ -7141,7 +7145,7 @@
 	"Clock.h"
 	<boost/date_time/posix_time/posix_time.hpp>
 
-1359978774 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 	"NetworkIpAdressFinder.h"
 	"../../Utils/Exception/BasicException.h"
@@ -7153,4 +7157,58 @@
 	"../GameEngine/Factions/FactionManager.h"
 	"../EngineMessage/EngineMessage.h"
 	<iostream>
+
+1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
+
+1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
+	"layoutRTS.h"
+
+1359990502 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/GraphicSetting.h
+	"../State.h"
+	"../StateManager.h"
+	<CEGUI.h>
+
+1360059312 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/GraphicSetting.cpp
+	"GraphicSetting.h"
+	"../../Utils/Configuration/Config.h"
+	"../../precompiled/lexical_cast.h"
+	<OgreRoot.h>
+	<OgreRenderSystem.h>
+	<string>
+	<iostream>
+
+1360066484 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/GraphicConfig.cpp
+	"GraphicConfig.h"
+	"../../precompiled/lexical_cast.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	<OgreRoot.h>
+	<CEGUI.h>
+	<string>
+
+1360058838 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/GraphicConfig.h
+	<OgreConfigOptionMap.h>
+	<vector>
+
+1360587407 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.h
+	<OIS/OIS.h>
+	<vector>
+
+1360587398 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.cpp
+	"CommandConfig.h"
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../precompiled/lexical_cast.h"
+	"Utils/Exception/FileNotFound.h"
+	<rapidxml_print.hpp>
+
+1360083475 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.h
+	"../State.h"
+	"../StateManager.h"
+	<CEGUI.h>
+
+1360584997 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.cpp
+	"CommandSetting.h"
+	"../../Utils/Configuration/Config.h"
+	"../../Utils/Configuration/CommandConfig.h"
+	"../../precompiled/lexical_cast.h"
 

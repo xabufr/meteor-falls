@@ -36,11 +36,7 @@ void SoundConfig::loadConfig()
     }
     catch(FileNotFound &e)
     {
-        m_activate = true;
-        m_music_volume = 100;
-        m_ambiant_volume = 100;
-        m_effect_volume = 100;
-        m_interface_volume = 100;
+        defaultSoundConfig();
     }
 }
 

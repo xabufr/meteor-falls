@@ -3,7 +3,8 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "../Option/SoundSetting.h"
-
+#include "../Option/GraphicSetting.h"
+#include "../Option/CommandSetting.h"
 
 OptionState::OptionState(StateManager* mgr):State(mgr),
 m_visible(true),
@@ -48,7 +49,15 @@ m_sous_state(nullptr)
     m_window->addChildWindow(m_control);
 
     m_sound_setting = new SoundSetting(m_state_manager);
+    m_graphic_setting = new GraphicSetting(m_state_manager);
+    m_command_setting = new CommandSetting(m_state_manager);
     m_window->hide();
+}
+OptionState::~OptionState()
+{
+    delete m_command_setting;
+    delete m_sound_setting;
+    delete m_graphic_setting;
 }
 
 bool OptionState::isVisible()
@@ -75,7 +84,6 @@ ret_code OptionState::work(unsigned int)
     else if (m_sous_state != nullptr)
     {
         m_sous_state->exit();
-        delete m_sous_state;
         m_sous_state = nullptr;
         m_sound->show();
         m_graphics->show();
@@ -93,6 +101,10 @@ bool OptionState::m_choix_option(const CEGUI::EventArgs&)
 
     if (m_sound->isPushed())
         m_sous_state = m_sound_setting;
+    else if (m_graphics->isPushed())
+        m_sous_state = m_graphic_setting;
+    else if (m_control->isPushed())
+        m_sous_state = m_command_setting;
 
     m_sous_state->enter();
 

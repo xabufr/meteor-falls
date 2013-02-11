@@ -1,9 +1,7 @@
 #ifndef SOUNDCONFIG_H_INCLUDED
 #define SOUNDCONFIG_H_INCLUDED
 
-#include "../singleton.h"
-
-class SoundConfig:public Singleton<SoundConfig>
+class SoundConfig
 {
     public:
         SoundConfig();

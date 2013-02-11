@@ -33,3 +33,20 @@ OgreContextManager* OgreContextManager::get()
 {
     return Singleton<OgreContextManager>::get();
 }
+
+void OgreContextManager::reinitialise()
+{
+    Ogre::WindowEventUtilities::removeWindowEventListener(m_application->getWindow(), m_inputManager);
+    m_inputManager->windowClosed(m_application->getWindow());
+    delete m_inputManager;
+
+    m_application->recreateWindow();
+
+	if(createGraphics)
+	{
+    	m_inputManager = new OgreWindowInputManager(m_application->getWindow());
+    	m_inputManager->windowResized(m_application->getWindow());
+    	Ogre::WindowEventUtilities::addWindowEventListener(m_application->getWindow(), m_inputManager);
+    	m_application->getRoot()->addFrameListener(m_inputManager);
+	}
+}
