@@ -6,7 +6,9 @@
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
 #include "Map/Map.h"
+#include "Unites/UniteFactory.h"
 #include "Preface/TeamList.h"
+#include "Preface/SpawnState.h"
 #include "../EngineMessage/EngineMessage.h"
 #include <CEGUIString.h>
 
@@ -15,16 +17,19 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     m_type(t),
     m_change_sous_state(false)
 {
-    m_map = new Map(mng->getGraphic()->getSceneManager());
+	if(t==SERVER)
+		m_map = new Map(nullptr, this);
+	else
+		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
 	m_sous_state = nullptr;
 	m_type_sous_state = TypeState::TEAM_LIST;
 	if(t==SERVER)
 	{
-		for(char i=1; i<3;++i)
+		for(char i=0; i<3;++i)
 		{
 			m_current_joueur=nullptr;
 			Equipe *e = new Equipe(i);
-			e->setFaction(FactionManager::get()->getFaction(i));
+			e->setFaction(FactionManager::get()->getFaction(1));
 			addTeam(e);
 		}
 	}
@@ -80,7 +85,10 @@ void GameEngine::handleMessage(EngineMessage& message)
 				return;
 			joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE]==EngineMessageKey::RTS_GAMEPLAY?
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
-
+			if(joueur == m_current_joueur)
+			{
+				setEtatClient(EtatClient::Spawn);
+			}
         }
     }
 	else if (message.message==EngineMessageType::DEL_PLAYER)
@@ -97,6 +105,16 @@ void GameEngine::handleMessage(EngineMessage& message)
 		if(joueur==nullptr || equ == nullptr)
 				return;
 		joueur->changeTeam(equ);
+	}
+	else if (message.message==EngineMessageType::ADDOBJECT) 
+	{
+		UnitId type       = message.ints[EngineMessageKey::OBJECT_TYPE];
+		UnitId id         = message.ints[EngineMessageKey::OBJECT_ID];
+		Vector3D position = message.positions[EngineMessageKey::OBJECT_POSITION];
+		char teamId = message.ints[EngineMessageKey::TEAM_ID];
+		Equipe *e   = getEquipe(teamId);
+		Unite *unit = e->factory()->create(m_manager->getGraphic()->getSceneManager(), type, id);
+		unit->setPosition(position);
 	}
 }
 void GameEngine::work()
@@ -125,8 +143,15 @@ void GameEngine::work()
                     case TypeState::TEAM_STATE:
                         m_sous_state = new TeamState(nullptr, this);
                         break;
+					case TypeState::SPAWN_STATE:
+						m_sous_state = new SpawnState(nullptr, this);
+						break;
+					default:
+						m_sous_state = nullptr;
+						break;
                 }
-                m_sous_state->enter();
+				if(m_sous_state != nullptr)
+	                m_sous_state->enter();
                 m_change_sous_state = false;
             }
             m_sous_state->work(0);
@@ -163,7 +188,7 @@ Equipe* GameEngine::getEquipe(char id)
 	for(Equipe *e : m_teams)
 	{
 		if(e->id() == id)
-				return e;
+			return e;
 	}
 	return nullptr;
 }
@@ -220,4 +245,20 @@ void GameEngine::deleteJoueur(int id)
 		}
 	}
 	delete joueur;
+}
+GameEngine::Type GameEngine::getTypeServerClient() const
+{
+	return m_type;
+}
+void GameEngine::setEtatClient(GameEngine::EtatClient etat)
+{
+	m_etatClient = etat;
+	switch(etat)
+	{
+		case EtatClient::Spawn:
+		{
+			setSousStateType(SPAWN_STATE);
+		}
+		break;
+	}
 }

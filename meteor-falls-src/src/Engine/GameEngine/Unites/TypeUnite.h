@@ -5,6 +5,7 @@
 #include "../Ressources/Ressources.h"
 #include <string>
 #include <vector>
+#include <map>
 
 class Faction;
 class Recherche;
@@ -18,9 +19,7 @@ class TypeUnite
             AERIEN,
             BATIMENT
         };
-        struct MeshParameters{
-            std::string m_nomMesh;
-        };
+        typedef std::map<std::string, std::string> MeshParameters;
         TypeUnite(UnitId id, Type, Faction* fac);
         virtual ~TypeUnite();
 

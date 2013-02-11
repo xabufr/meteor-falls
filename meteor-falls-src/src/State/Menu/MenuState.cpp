@@ -240,7 +240,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showLanServer, this);
                 }
             }
@@ -252,7 +252,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeSoleil->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showCredit, this);
                 }
             }
@@ -264,7 +264,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeLune->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showOption, this);
                 }
             }
@@ -276,7 +276,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = Ogre::Vector3(0,0,10);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
                 }
             }
@@ -309,13 +309,10 @@ ret_code MenuState::work(unsigned int time)
             m_timerTranslation.restart();
             m_transitionParams.from=m_camera->getPosition();
             m_transitionParams.to = Ogre::Vector3(0,0,10);
-            m_transitionParams.duration=2.5;
+            m_transitionParams.duration=1.0;
             m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
 		}
     }
-
-//    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-//        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }

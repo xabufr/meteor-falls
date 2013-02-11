@@ -858,6 +858,30 @@ src/Engine/GameEngine/Map/WorldObjectType.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.s
 .PHONY : src/Engine/GameEngine/Map/WorldObjectType.cpp.s
 
+src/Engine/GameEngine/Preface/SpawnState.o: src/Engine/GameEngine/Preface/SpawnState.cpp.o
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.o
+
+# target to build an object file
+src/Engine/GameEngine/Preface/SpawnState.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.cpp.o
+
+src/Engine/GameEngine/Preface/SpawnState.i: src/Engine/GameEngine/Preface/SpawnState.cpp.i
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Preface/SpawnState.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.i
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.cpp.i
+
+src/Engine/GameEngine/Preface/SpawnState.s: src/Engine/GameEngine/Preface/SpawnState.cpp.s
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Preface/SpawnState.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.s
+.PHONY : src/Engine/GameEngine/Preface/SpawnState.cpp.s
+
 src/Engine/GameEngine/Preface/TeamList.o: src/Engine/GameEngine/Preface/TeamList.cpp.o
 .PHONY : src/Engine/GameEngine/Preface/TeamList.o
 
@@ -2298,6 +2322,30 @@ src/Utils/Clock.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.s
 .PHONY : src/Utils/Clock.cpp.s
 
+src/Utils/Configuration/SoundConfig.o: src/Utils/Configuration/SoundConfig.cpp.o
+.PHONY : src/Utils/Configuration/SoundConfig.o
+
+# target to build an object file
+src/Utils/Configuration/SoundConfig.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/SoundConfig.cpp.o
+.PHONY : src/Utils/Configuration/SoundConfig.cpp.o
+
+src/Utils/Configuration/SoundConfig.i: src/Utils/Configuration/SoundConfig.cpp.i
+.PHONY : src/Utils/Configuration/SoundConfig.i
+
+# target to preprocess a source file
+src/Utils/Configuration/SoundConfig.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/SoundConfig.cpp.i
+.PHONY : src/Utils/Configuration/SoundConfig.cpp.i
+
+src/Utils/Configuration/SoundConfig.s: src/Utils/Configuration/SoundConfig.cpp.s
+.PHONY : src/Utils/Configuration/SoundConfig.s
+
+# target to generate assembly for a file
+src/Utils/Configuration/SoundConfig.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/SoundConfig.cpp.s
+.PHONY : src/Utils/Configuration/SoundConfig.cpp.s
+
 src/Utils/DataChecksum.o: src/Utils/DataChecksum.cpp.o
 .PHONY : src/Utils/DataChecksum.o
 
@@ -2544,6 +2592,9 @@ help:
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.o"
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.i"
 	@echo "... src/Engine/GameEngine/Map/WorldObjectType.s"
+	@echo "... src/Engine/GameEngine/Preface/SpawnState.o"
+	@echo "... src/Engine/GameEngine/Preface/SpawnState.i"
+	@echo "... src/Engine/GameEngine/Preface/SpawnState.s"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.o"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.i"
 	@echo "... src/Engine/GameEngine/Preface/TeamList.s"
@@ -2724,6 +2775,9 @@ help:
 	@echo "... src/Utils/Clock.o"
 	@echo "... src/Utils/Clock.i"
 	@echo "... src/Utils/Clock.s"
+	@echo "... src/Utils/Configuration/SoundConfig.o"
+	@echo "... src/Utils/Configuration/SoundConfig.i"
+	@echo "... src/Utils/Configuration/SoundConfig.s"
 	@echo "... src/Utils/DataChecksum.o"
 	@echo "... src/Utils/DataChecksum.i"
 	@echo "... src/Utils/DataChecksum.s"

@@ -9,6 +9,7 @@
 #include "../GameEngine/Joueur/JoueurRTS.h"
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
+#include "../GameEngine/Unites/Unite.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -177,6 +178,23 @@ void ServerNetworkEngine::work()
 							sendSetPing(client);
 						}
 						break;
+					case EngineMessageType::GETOBJECTSLIST:
+						{
+							for(Equipe *e : m_manager->getGame()->getTeams())
+							{
+								for(Unite *u : e->unites())
+								{
+									EngineMessage messageUnit(m_manager);
+									messageUnit.message = EngineMessageType::ADDOBJECT;
+									messageUnit.positions[EngineMessageKey::OBJECT_POSITION] = u->getPosition();
+									messageUnit.ints[EngineMessageKey::TEAM_ID] = e->id();
+									messageUnit.ints[EngineMessageKey::OBJECT_ID] = u->id();
+									messageUnit.ints[EngineMessageKey::OBJECT_TYPE] = u->type()->id();
+									sendToTcp(client, &messageUnit);
+								}
+							}
+						}
+						break;
 				}
 				delete message;
             }
@@ -300,6 +318,7 @@ void ServerNetworkEngine::setMaxClients(unsigned short number)
 void ServerNetworkEngine::setMapName(const std::string& name)
 {
 	m_map_name=name;	
+	m_manager->getGame()->loadMap(name);
 }
 EngineMessage* ServerNetworkEngine::m_createMapMessage()
 {

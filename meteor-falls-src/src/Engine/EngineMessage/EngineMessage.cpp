@@ -70,6 +70,7 @@ EngineMessage* EngineMessage::clone(EngineMessage* mes)
 	message->ints          = mes->ints;
 	message->strings       = mes->strings;
 	message->time          = mes->time;
+	message->positions     = mes->positions;
 	message->doubles       = mes->doubles;
 	message->setFrom(mes->getFrom());
 	message->message = mes->message;

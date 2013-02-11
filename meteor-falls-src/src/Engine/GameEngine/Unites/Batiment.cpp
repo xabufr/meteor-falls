@@ -1,39 +1,23 @@
 #include "Batiment.h"
+#include "TypeUnite.h"
+#include <OgreSceneManager.h>
+#include <OgreEntity.h>
+#include "../Factions/Equipe.h"
+#include "../../../precompiled/lexical_cast.h"
 
-Batiment::Batiment(Ogre::SceneManager* mng, int p_id, std::string p_nom, TypeUnite* type, int id)
-    : Unite(mng, type, id)
+Batiment::Batiment(Ogre::SceneManager* mng, Equipe *equipe, TypeUnite* type, int id)
+    : Unite(mng, equipe, type, id)
 {
-
     m_timer.reset();
-    m_id = p_id;
-    m_nom = p_nom;
     m_isconstructed = false;
-
+	if(m_sceneNode != nullptr)
+	{
+		m_entite = mng->createEntity("bat#" + boost::lexical_cast<std::string>(equipe->id())
+					+ "#" + boost::lexical_cast<std::string>(id), type->meshParameters().at("normal"));
+		m_sceneNode->attachObject(m_entite);	
+	}
 }
-
-void Batiment::SetPosition(Vector3D p_position)
-{
-
-    m_position = p_position;
-
-}
-
 bool Batiment::Is_Constructed()
 {
     return m_isconstructed;
-}
-
-int Batiment::GetId()
-{
-    return m_id;
-}
-
-std::string Batiment::GetName()
-{
-    return m_nom;
-}
-
-Vector3D Batiment::GetPosition()
-{
-    return m_position;
 }

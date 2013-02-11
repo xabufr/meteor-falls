@@ -14,13 +14,20 @@ class GameEngine : public Engine
     public:
         enum TypeState{
             TEAM_LIST,
-            TEAM_STATE
+            TEAM_STATE,
+			SPAWN_STATE,
         };
         enum Type{
             CLIENT,
             SERVER
         };
-        GameEngine(EngineManager*, Type, Joueur* j=0);
+        enum EtatClient{
+			SelectTeam,
+			SelectGameplay,
+			Spawn,
+			Playing,
+		};
+		GameEngine(EngineManager*, Type, Joueur* j=0);
         virtual ~GameEngine();
         virtual void handleMessage(EngineMessage&);
         virtual void work();
@@ -36,6 +43,9 @@ class GameEngine : public Engine
 		bool tryJoinTeam(char, Joueur*);
 		Joueur* findJoueur(int);
 		void deleteJoueur(int);
+		Type getTypeServerClient() const;
+		
+		void setEtatClient(EtatClient);
 
     protected:
 
@@ -48,6 +58,7 @@ class GameEngine : public Engine
 		std::vector<Equipe*> m_teams;
 		std::vector<Joueur*> m_joueurs;
 		bool m_change_sous_state;
+		EtatClient m_etatClient;
 };
 
 #endif // GAMEENGINE_H

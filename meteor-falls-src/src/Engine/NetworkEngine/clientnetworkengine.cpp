@@ -56,10 +56,12 @@ void ClientNetworkEngine::work()
 					if(m_playerNumber!=-1)
 					{
 						m_state = CONNECTED;
+						m_joueur->id = m_playerNumber;
 						EngineMessage messageTeam(m_manager);
 						messageTeam.message = EngineMessageType::GETTEAMLIST;
 						m_tcp->send(serialize(&messageTeam));
-						m_joueur->id = m_playerNumber;
+						messageTeam.message = EngineMessageType::GETOBJECTSLIST;
+						m_tcp->send(serialize(&messageTeam));
 					}
 					else
 						m_state=NONE;
@@ -152,6 +154,14 @@ void ClientNetworkEngine::work()
 					{
 						j->ping = ping;
 					}
+				}
+				break;
+			case EngineMessageType::ADDOBJECT:
+				{
+					EngineMessage *messageObject = EngineMessage::clone(message);
+					messageObject->clearTo();
+					messageObject->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(messageObject);
 				}
 				break;
 		}

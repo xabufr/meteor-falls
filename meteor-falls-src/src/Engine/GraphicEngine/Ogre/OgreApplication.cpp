@@ -30,6 +30,7 @@ OgreApplication::OgreApplication(bool createWindow)
 	{
 		m_root->restoreConfig();
 		m_root->initialise(false);
+   		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	}
 }
 OgreApplication::~OgreApplication()

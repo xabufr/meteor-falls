@@ -27,6 +27,10 @@ enum EngineMessageKey
 	GAMEPLAY_TYPE = 21,
 	RESULT        = 22,
 	TIME          = 23,
+	OBJECT_ID       = 24,
+	OBJECT_HEAL     = 25,
+	OBJECT_POSITION = 26,
+	OBJECT_TYPE     = 27,
 };
 
 #endif // ENGINEMESSAGEKEY_H
