@@ -8,6 +8,7 @@
 #include "Map/Map.h"
 #include "Unites/UniteFactory.h"
 #include "Preface/TeamList.h"
+#include "Preface/SpawnState.h"
 #include "../EngineMessage/EngineMessage.h"
 #include <CEGUIString.h>
 
@@ -84,7 +85,10 @@ void GameEngine::handleMessage(EngineMessage& message)
 				return;
 			joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE]==EngineMessageKey::RTS_GAMEPLAY?
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
-
+			if(joueur == m_current_joueur)
+			{
+				setEtatClient(EtatClient::Spawn);
+			}
         }
     }
 	else if (message.message==EngineMessageType::DEL_PLAYER)
@@ -139,8 +143,15 @@ void GameEngine::work()
                     case TypeState::TEAM_STATE:
                         m_sous_state = new TeamState(nullptr, this);
                         break;
+					case TypeState::SPAWN_STATE:
+						m_sous_state = new SpawnState(nullptr, this);
+						break;
+					default:
+						m_sous_state = nullptr;
+						break;
                 }
-                m_sous_state->enter();
+				if(m_sous_state != nullptr)
+	                m_sous_state->enter();
                 m_change_sous_state = false;
             }
             m_sous_state->work(0);
@@ -238,4 +249,16 @@ void GameEngine::deleteJoueur(int id)
 GameEngine::Type GameEngine::getTypeServerClient() const
 {
 	return m_type;
+}
+void GameEngine::setEtatClient(GameEngine::EtatClient etat)
+{
+	m_etatClient = etat;
+	switch(etat)
+	{
+		case EtatClient::Spawn:
+		{
+			setSousStateType(SPAWN_STATE);
+		}
+		break;
+	}
 }
