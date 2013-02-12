@@ -570,6 +570,30 @@ src/Engine/GameEngine/GameEngine.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.s
 .PHONY : src/Engine/GameEngine/GameEngine.cpp.s
 
+src/Engine/GameEngine/Heros/Avatar.o: src/Engine/GameEngine/Heros/Avatar.cpp.o
+.PHONY : src/Engine/GameEngine/Heros/Avatar.o
+
+# target to build an object file
+src/Engine/GameEngine/Heros/Avatar.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Avatar.cpp.o
+.PHONY : src/Engine/GameEngine/Heros/Avatar.cpp.o
+
+src/Engine/GameEngine/Heros/Avatar.i: src/Engine/GameEngine/Heros/Avatar.cpp.i
+.PHONY : src/Engine/GameEngine/Heros/Avatar.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Heros/Avatar.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Avatar.cpp.i
+.PHONY : src/Engine/GameEngine/Heros/Avatar.cpp.i
+
+src/Engine/GameEngine/Heros/Avatar.s: src/Engine/GameEngine/Heros/Avatar.cpp.s
+.PHONY : src/Engine/GameEngine/Heros/Avatar.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Heros/Avatar.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Avatar.cpp.s
+.PHONY : src/Engine/GameEngine/Heros/Avatar.cpp.s
+
 src/Engine/GameEngine/Heros/ClasseHero.o: src/Engine/GameEngine/Heros/ClasseHero.cpp.o
 .PHONY : src/Engine/GameEngine/Heros/ClasseHero.o
 
@@ -2178,6 +2202,54 @@ src/State/Menu/ServerList.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Menu/ServerList.cpp.s
 .PHONY : src/State/Menu/ServerList.cpp.s
 
+src/State/Option/CommandSetting.o: src/State/Option/CommandSetting.cpp.o
+.PHONY : src/State/Option/CommandSetting.o
+
+# target to build an object file
+src/State/Option/CommandSetting.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/CommandSetting.cpp.o
+.PHONY : src/State/Option/CommandSetting.cpp.o
+
+src/State/Option/CommandSetting.i: src/State/Option/CommandSetting.cpp.i
+.PHONY : src/State/Option/CommandSetting.i
+
+# target to preprocess a source file
+src/State/Option/CommandSetting.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/CommandSetting.cpp.i
+.PHONY : src/State/Option/CommandSetting.cpp.i
+
+src/State/Option/CommandSetting.s: src/State/Option/CommandSetting.cpp.s
+.PHONY : src/State/Option/CommandSetting.s
+
+# target to generate assembly for a file
+src/State/Option/CommandSetting.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/CommandSetting.cpp.s
+.PHONY : src/State/Option/CommandSetting.cpp.s
+
+src/State/Option/GraphicSetting.o: src/State/Option/GraphicSetting.cpp.o
+.PHONY : src/State/Option/GraphicSetting.o
+
+# target to build an object file
+src/State/Option/GraphicSetting.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/GraphicSetting.cpp.o
+.PHONY : src/State/Option/GraphicSetting.cpp.o
+
+src/State/Option/GraphicSetting.i: src/State/Option/GraphicSetting.cpp.i
+.PHONY : src/State/Option/GraphicSetting.i
+
+# target to preprocess a source file
+src/State/Option/GraphicSetting.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/GraphicSetting.cpp.i
+.PHONY : src/State/Option/GraphicSetting.cpp.i
+
+src/State/Option/GraphicSetting.s: src/State/Option/GraphicSetting.cpp.s
+.PHONY : src/State/Option/GraphicSetting.s
+
+# target to generate assembly for a file
+src/State/Option/GraphicSetting.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/State/Option/GraphicSetting.cpp.s
+.PHONY : src/State/Option/GraphicSetting.cpp.s
+
 src/State/Option/SoundSetting.o: src/State/Option/SoundSetting.cpp.o
 .PHONY : src/State/Option/SoundSetting.o
 
@@ -2369,6 +2441,54 @@ src/Utils/Clock.s: src/Utils/Clock.cpp.s
 src/Utils/Clock.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Clock.cpp.s
 .PHONY : src/Utils/Clock.cpp.s
+
+src/Utils/Configuration/CommandConfig.o: src/Utils/Configuration/CommandConfig.cpp.o
+.PHONY : src/Utils/Configuration/CommandConfig.o
+
+# target to build an object file
+src/Utils/Configuration/CommandConfig.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/CommandConfig.cpp.o
+.PHONY : src/Utils/Configuration/CommandConfig.cpp.o
+
+src/Utils/Configuration/CommandConfig.i: src/Utils/Configuration/CommandConfig.cpp.i
+.PHONY : src/Utils/Configuration/CommandConfig.i
+
+# target to preprocess a source file
+src/Utils/Configuration/CommandConfig.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/CommandConfig.cpp.i
+.PHONY : src/Utils/Configuration/CommandConfig.cpp.i
+
+src/Utils/Configuration/CommandConfig.s: src/Utils/Configuration/CommandConfig.cpp.s
+.PHONY : src/Utils/Configuration/CommandConfig.s
+
+# target to generate assembly for a file
+src/Utils/Configuration/CommandConfig.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/CommandConfig.cpp.s
+.PHONY : src/Utils/Configuration/CommandConfig.cpp.s
+
+src/Utils/Configuration/GraphicConfig.o: src/Utils/Configuration/GraphicConfig.cpp.o
+.PHONY : src/Utils/Configuration/GraphicConfig.o
+
+# target to build an object file
+src/Utils/Configuration/GraphicConfig.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/GraphicConfig.cpp.o
+.PHONY : src/Utils/Configuration/GraphicConfig.cpp.o
+
+src/Utils/Configuration/GraphicConfig.i: src/Utils/Configuration/GraphicConfig.cpp.i
+.PHONY : src/Utils/Configuration/GraphicConfig.i
+
+# target to preprocess a source file
+src/Utils/Configuration/GraphicConfig.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/GraphicConfig.cpp.i
+.PHONY : src/Utils/Configuration/GraphicConfig.cpp.i
+
+src/Utils/Configuration/GraphicConfig.s: src/Utils/Configuration/GraphicConfig.cpp.s
+.PHONY : src/Utils/Configuration/GraphicConfig.s
+
+# target to generate assembly for a file
+src/Utils/Configuration/GraphicConfig.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Configuration/GraphicConfig.cpp.s
+.PHONY : src/Utils/Configuration/GraphicConfig.cpp.s
 
 src/Utils/Configuration/SoundConfig.o: src/Utils/Configuration/SoundConfig.cpp.o
 .PHONY : src/Utils/Configuration/SoundConfig.o
@@ -2604,6 +2724,9 @@ help:
 	@echo "... src/Engine/GameEngine/GameEngine.o"
 	@echo "... src/Engine/GameEngine/GameEngine.i"
 	@echo "... src/Engine/GameEngine/GameEngine.s"
+	@echo "... src/Engine/GameEngine/Heros/Avatar.o"
+	@echo "... src/Engine/GameEngine/Heros/Avatar.i"
+	@echo "... src/Engine/GameEngine/Heros/Avatar.s"
 	@echo "... src/Engine/GameEngine/Heros/ClasseHero.o"
 	@echo "... src/Engine/GameEngine/Heros/ClasseHero.i"
 	@echo "... src/Engine/GameEngine/Heros/ClasseHero.s"
@@ -2805,6 +2928,12 @@ help:
 	@echo "... src/State/Menu/ServerList.o"
 	@echo "... src/State/Menu/ServerList.i"
 	@echo "... src/State/Menu/ServerList.s"
+	@echo "... src/State/Option/CommandSetting.o"
+	@echo "... src/State/Option/CommandSetting.i"
+	@echo "... src/State/Option/CommandSetting.s"
+	@echo "... src/State/Option/GraphicSetting.o"
+	@echo "... src/State/Option/GraphicSetting.i"
+	@echo "... src/State/Option/GraphicSetting.s"
 	@echo "... src/State/Option/SoundSetting.o"
 	@echo "... src/State/Option/SoundSetting.i"
 	@echo "... src/State/Option/SoundSetting.s"
@@ -2829,6 +2958,12 @@ help:
 	@echo "... src/Utils/Clock.o"
 	@echo "... src/Utils/Clock.i"
 	@echo "... src/Utils/Clock.s"
+	@echo "... src/Utils/Configuration/CommandConfig.o"
+	@echo "... src/Utils/Configuration/CommandConfig.i"
+	@echo "... src/Utils/Configuration/CommandConfig.s"
+	@echo "... src/Utils/Configuration/GraphicConfig.o"
+	@echo "... src/Utils/Configuration/GraphicConfig.i"
+	@echo "... src/Utils/Configuration/GraphicConfig.s"
 	@echo "... src/Utils/Configuration/SoundConfig.o"
 	@echo "... src/Utils/Configuration/SoundConfig.i"
 	@echo "... src/Utils/Configuration/SoundConfig.s"

@@ -3,6 +3,7 @@
 
 #include "../../../State/State.h"
 #include "../../../State/StateManager.h"
+#include <unordered_map>
 
 class Unite;
 class GameEngine;
@@ -14,7 +15,8 @@ namespace CEGUI {
 	class GroupBox;
 	class TabControl;
 } // namespace CEGUI
-
+class Avatar;
+class ClasseHero;
 class SpawnState: public State
 {
 public:
@@ -26,6 +28,9 @@ public:
     virtual ret_code work(unsigned int time);
 	void updateSpawns();
 	bool spawnSelected(const CEGUI::EventArgs&);
+	bool classSelected(const CEGUI::EventArgs&);
+	bool classChanged(const CEGUI::EventArgs&);
+	bool trySpawn(const CEGUI::EventArgs&);
 private:
 	GameEngine* m_game;
 	CEGUI::Window *m_window;
@@ -36,6 +41,9 @@ private:
 	CEGUI::TabControl *m_tabClasses;
 	Unite* m_last_selected_u;
 	void m_loadClasses();
+	Avatar *m_avatar;
+	std::unordered_map<ClasseHero*, Avatar*> m_selectionsAvatar;
+	void m_resetCurrentClasses();
 };
 
 #endif 

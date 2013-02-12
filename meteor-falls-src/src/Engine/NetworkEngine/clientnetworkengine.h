@@ -5,6 +5,8 @@
 #include "TcpConnection.h"
 #include "UdpConnection.h"
 
+class Unite;
+class Avatar;
 class Joueur;
 class ClientNetworkEngine : public NetworkEngine
 {
@@ -33,6 +35,7 @@ class ClientNetworkEngine : public NetworkEngine
 
 		void trySelectTeam(char);
 		void trySelectGameplay(int);
+		void trySpawn(Unite*, Avatar*);
 
 		char teamId() const;
 

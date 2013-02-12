@@ -9,6 +9,7 @@
 typedef unsigned char FactionId;
 typedef unsigned short RechercheId;
 class TypeUnite;
+class Avatar;
 class Recherche;
 class Faction
 {
@@ -25,6 +26,7 @@ class Faction
         void load();
         TypeUnite* getType(UnitId);
 		const ClasseHeroManager& getClassesManager() const;
+		const std::vector<Avatar*> defaultAvatars() const;
     protected:
     private:
         const std::string m_nom;
@@ -33,6 +35,7 @@ class Faction
 		ClasseHeroManager m_classeHeroManager;
         std::unordered_map<UnitId, TypeUnite*> m_typesUnites;
         std::unordered_map<RechercheId, Recherche*> m_recherches;
+		std::vector<Avatar*> m_avatarDefault;
         std::vector<std::string> m_paths;
         std::vector<std::string> m_batiments;
         std::vector<std::string> m_terrestre;

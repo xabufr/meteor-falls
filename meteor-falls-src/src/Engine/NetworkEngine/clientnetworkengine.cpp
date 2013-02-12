@@ -242,3 +242,8 @@ void ClientNetworkEngine::sendSyncReq()
 	message.message = EngineMessageType::SYNC_TIME;
 	m_tcp->send(serialize(&message));
 }
+void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
+{
+	EngineMessage message(m_manager);
+//	message->message = EngineMessageKey::
+}

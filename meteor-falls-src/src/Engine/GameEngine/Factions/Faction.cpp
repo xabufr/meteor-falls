@@ -8,6 +8,7 @@
 #include "../Recherches/Recherche.h"
 #include "../../../Utils/Exception/FileNotFound.h"
 #include "../Heros/ClasseHero.h"
+#include "../Heros/Avatar.h"
 
 Faction::Faction(bool jouable, FactionId id, const std::string& nom):
 m_nom(nom), m_id(id), m_jouable(jouable) 
@@ -21,6 +22,8 @@ Faction::~Faction()
 	}
 	for(auto it : m_recherches)
 		delete it.second;
+	for(Avatar* av : m_avatarDefault)
+		delete av;
 }
 void Faction::addConfigFile(std::string path)
 {
@@ -140,7 +143,7 @@ void Faction::load()
 		for(nodeHero=root->first_node("classe");nodeHero;nodeHero=nodeHero->next_sibling("classe"))
 		{
 			int id             = boost::lexical_cast<int>(nodeHero->first_node("id")->value());
-			ClasseHero *classe = new ClasseHero(id);
+			ClasseHero *classe = new ClasseHero(id, this);
 			if(!m_classeHeroManager.addClasse(classe))
 			{
 				delete classe;
@@ -230,6 +233,27 @@ void Faction::load()
                 }
             }
         }
+		rapidxml::xml_node<>* nodeAvatars;
+		for(nodeAvatars=root->first_node("avatar");nodeAvatars;nodeAvatars=nodeAvatars->next_sibling("avatar"))
+		{
+			int id = boost::lexical_cast<int>(nodeAvatars->first_node("id")->value());
+			bool existe = false;
+			for(Avatar *av : m_avatarDefault)
+			{
+				if(av->id() == id)
+					existe = true;
+			}
+			if(existe)
+				continue;
+			ClasseHero *classe = nullptr;
+			int idClasse       = boost::lexical_cast<int>(nodeAvatars->first_node("classe")->value());
+			classe             = m_classeHeroManager.classe(idClasse);
+			if(classe == nullptr)
+					continue;
+			Avatar* av = new Avatar(id, classe);
+			av->m_nom  = nodeAvatars->first_node("nom")->value();
+			m_avatarDefault.push_back(av);
+		}
     }
 }
 FactionId Faction::id() const
@@ -246,4 +270,8 @@ TypeUnite* Faction::getType(UnitId id)
 const ClasseHeroManager& Faction::getClassesManager() const
 {
 	return m_classeHeroManager;
+}
+const std::vector<Avatar*> Faction::defaultAvatars() const
+{
+	return m_avatarDefault;
 }

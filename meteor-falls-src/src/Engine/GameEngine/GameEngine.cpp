@@ -3,6 +3,7 @@
 #include "../GraphicEngine/GraphicEngine.h"
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
+#include "Factions/Faction.h"
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
 #include "Map/Map.h"
@@ -103,8 +104,13 @@ void GameEngine::handleMessage(EngineMessage& message)
 		Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 		Equipe *equ = getEquipe(team_id);
 		if(joueur==nullptr || equ == nullptr)
-				return;
+			return;
 		joueur->changeTeam(equ);
+		if(joueur == m_current_joueur)
+		{
+			for(Avatar *av : equ->faction()->defaultAvatars())
+				m_current_joueur->addAvatar(av);
+		}
 	}
 	else if (message.message==EngineMessageType::ADDOBJECT) 
 	{
