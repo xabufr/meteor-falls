@@ -627,9 +627,55 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o.provides: CMa
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o
 
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o: ../src/Engine/GameEngine/Heros/ClasseHeroManager.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_26)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp > CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.i
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.requires:
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.requires
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.provides: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.requires
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.provides.build
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.provides
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o: ../src/Engine/GameEngine/Heros/ClasseHero.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_27)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp > CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.i
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.s
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.requires:
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.requires
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.provides: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.requires
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.provides.build
+.PHONY : CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.provides
+
+CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.provides.build: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o
+
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o: ../src/Engine/GameEngine/Factions/Equipe.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
 
@@ -652,7 +698,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o: ../src/Engine/GameEngine/Factions/Faction.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
 
@@ -675,7 +721,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o: ../src/Engine/GameEngine/Factions/FactionManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp
 
@@ -698,7 +744,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o.
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.o: ../src/Engine/GameEngine/Unites/Batiment.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
 
@@ -721,7 +767,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Terrestre.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Terrestre.cpp.o: ../src/Engine/GameEngine/Unites/Terrestre.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Terrestre.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Terrestre.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
 
@@ -744,7 +790,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Terrestre.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Aerien.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Aerien.cpp.o: ../src/Engine/GameEngine/Unites/Aerien.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Aerien.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Aerien.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
 
@@ -767,7 +813,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Aerien.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Mobile.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Mobile.cpp.o: ../src/Engine/GameEngine/Unites/Mobile.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Mobile.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Mobile.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
 
@@ -790,7 +836,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Mobile.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o: ../src/Engine/GameEngine/Unites/Hero_State.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_33)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero_State.cpp
 
@@ -813,7 +859,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o.provid
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/UniteFactory.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/UniteFactory.cpp.o: ../src/Engine/GameEngine/Unites/UniteFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/UniteFactory.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/UniteFactory.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
 
@@ -836,7 +882,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/UniteFactory.cpp.o.prov
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/TypeUnite.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/TypeUnite.cpp.o: ../src/Engine/GameEngine/Unites/TypeUnite.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_37)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/TypeUnite.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/TypeUnite.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
 
@@ -859,7 +905,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/TypeUnite.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o: ../src/Engine/GameEngine/Unites/Hero.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_36)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_38)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 
@@ -882,7 +928,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o.provides.bui
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Unite.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Unite.cpp.o: ../src/Engine/GameEngine/Unites/Unite.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_37)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_39)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Unite.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Unite.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 
@@ -905,7 +951,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Unite.cpp.o.provides.bu
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.o: ../src/Engine/GameEngine/Map/WorldObjectType.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_38)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_40)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.cpp
 
@@ -928,7 +974,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectType.cpp.o.prov
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/ObjetTerrain.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/ObjetTerrain.cpp.o: ../src/Engine/GameEngine/Map/ObjetTerrain.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_41)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/ObjetTerrain.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/ObjetTerrain.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
 
@@ -951,7 +997,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/ObjetTerrain.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.cpp.o: ../src/Engine/GameEngine/Map/WorldObject.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_40)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_42)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.cpp
 
@@ -974,7 +1020,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObject.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o: ../src/Engine/GameEngine/Map/Map.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_41)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_43)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
 
@@ -997,7 +1043,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/Map.cpp.o.provides.build: 
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o: ../src/Engine/GameEngine/Map/WorldObjectManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_42)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_44)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectManager.cpp
 
@@ -1020,7 +1066,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Map/WorldObjectManager.cpp.o.p
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o: ../src/Engine/GameEngine/Recherches/Recherche.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_43)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_45)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Recherches/Recherche.cpp
 
@@ -1043,7 +1089,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Recherches/Recherche.cpp.o.pro
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o: ../src/Engine/GameEngine/Preface/TeamState.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_44)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_46)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
 
@@ -1066,7 +1112,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamState.cpp.o.provid
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o: ../src/Engine/GameEngine/Preface/SpawnState.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_45)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_47)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/SpawnState.cpp
 
@@ -1089,7 +1135,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/SpawnState.cpp.o.provi
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o: ../src/Engine/GameEngine/Preface/TeamList.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_46)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_48)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
 
@@ -1112,7 +1158,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Preface/TeamList.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o: ../src/Engine/GameEngine/Degats/Degat.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_47)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_49)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/Degat.cpp
 
@@ -1135,7 +1181,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o.provides.bu
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o: ../src/Engine/GameEngine/Degats/Armure.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_48)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_50)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/Armure.cpp
 
@@ -1158,7 +1204,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o: ../src/Engine/GameEngine/Degats/DegatManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_49)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_51)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/DegatManager.cpp
 
@@ -1181,7 +1227,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/DegatManager.cpp.o.prov
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o: ../src/Engine/GameEngine/Camera/CameraFPS.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_50)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_52)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraFPS.cpp
 
@@ -1204,7 +1250,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o: ../src/Engine/GameEngine/Camera/CameraRTS.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_51)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_53)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraRTS.cpp
 
@@ -1227,7 +1273,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o: ../src/Engine/GameEngine/Camera/Camera.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_52)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_54)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.cpp
 
@@ -1250,7 +1296,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o: ../src/Engine/GameEngine/Camera/CameraLibre.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_53)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_55)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraLibre.cpp
 
@@ -1273,7 +1319,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o.provi
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o: ../src/Engine/GameEngine/Layout/layoutRTS.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_54)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_56)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
 
@@ -1296,7 +1342,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o: ../src/Engine/GameEngine/Layout/layoutRPG.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_55)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_57)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
 
@@ -1319,7 +1365,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Ressources/Ressources.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Ressources/Ressources.cpp.o: ../src/Engine/GameEngine/Ressources/Ressources.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_56)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_58)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Ressources/Ressources.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Ressources/Ressources.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.cpp
 
@@ -1342,7 +1388,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Ressources/Ressources.cpp.o.pr
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o: ../src/Engine/GameEngine/Joueur/JoueurRPG.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_57)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_59)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.cpp
 
@@ -1365,7 +1411,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o: ../src/Engine/GameEngine/Joueur/JoueurLan.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_58)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_60)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
 
@@ -1388,7 +1434,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o: ../src/Engine/GameEngine/Joueur/Joueur.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_59)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_61)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp
 
@@ -1411,7 +1457,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.o: ../src/Engine/GameEngine/Joueur/JoueurRTS.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_60)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_62)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRTS.cpp
 
@@ -1434,7 +1480,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRTS.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o: ../src/Engine/GameEngine/Joueur/JoueurWan.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_61)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_63)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurWan.cpp
 
@@ -1457,7 +1503,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurWan.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.o: ../src/Engine/SoundEngine/soundbuffermanager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_62)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_64)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/soundbuffermanager.cpp
 
@@ -1480,7 +1526,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.o.prov
 
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/SoundEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/SoundEngine.cpp.o: ../src/Engine/SoundEngine/SoundEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_63)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_65)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/SoundEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/SoundEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/SoundEngine.cpp
 
@@ -1503,7 +1549,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/SoundEngine.cpp.o.provides.bu
 
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Playlist.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Playlist.cpp.o: ../src/Engine/SoundEngine/Playlist.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_64)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_66)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Playlist.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Playlist.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
 
@@ -1526,7 +1572,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Playlist.cpp.o.provides.build
 
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Fade.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Fade.cpp.o: ../src/Engine/SoundEngine/Fade.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_65)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_67)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Fade.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Fade.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Fade.cpp
 
@@ -1549,7 +1595,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/Fade.cpp.o.provides.build: CM
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.o: ../src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_66)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_68)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
 
@@ -1572,7 +1618,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp.o: ../src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_67)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_69)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
 
@@ -1595,7 +1641,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp.o.pr
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp.o: ../src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_68)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_70)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 
@@ -1618,7 +1664,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp.o.
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp.o: ../src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_69)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_71)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
 
@@ -1641,7 +1687,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp.o.
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp.o: ../src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_70)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_72)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp
 
@@ -1664,7 +1710,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/GetMeshInformation.cpp
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp.o: ../src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_71)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_73)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
 
@@ -1687,7 +1733,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
 
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/GraphicEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/GraphicEngine.cpp.o: ../src/Engine/GraphicEngine/GraphicEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_72)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_74)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/GraphicEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/GraphicEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 
@@ -1710,7 +1756,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/GraphicEngine.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/EngineManager/EngineManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/EngineManager/EngineManager.cpp.o: ../src/Engine/EngineManager/EngineManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_73)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_75)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/EngineManager/EngineManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/EngineManager/EngineManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
 
@@ -1733,7 +1779,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/EngineManager/EngineManager.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/UdpConnection.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/UdpConnection.cpp.o: ../src/Engine/NetworkEngine/UdpConnection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_74)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_76)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/UdpConnection.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/UdpConnection.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.cpp
 
@@ -1756,7 +1802,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/UdpConnection.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngine.cpp.o: ../src/Engine/NetworkEngine/ServerNetworkEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_75)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_77)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 
@@ -1779,7 +1825,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngine.cpp.o.p
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/SslConnection.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/SslConnection.cpp.o: ../src/Engine/NetworkEngine/SslConnection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_76)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_78)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/SslConnection.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/SslConnection.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp
 
@@ -1802,7 +1848,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/SslConnection.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp.o: ../src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_77)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_79)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
 
@@ -1825,7 +1871,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp.
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp.o: ../src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_78)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_80)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp
 
@@ -1848,7 +1894,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp.
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkEngine.cpp.o: ../src/Engine/NetworkEngine/NetworkEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_79)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_81)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
 
@@ -1871,7 +1917,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkEngine.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp.o: ../src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_80)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_82)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp
 
@@ -1894,7 +1940,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp.o
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.o: ../src/Engine/NetworkEngine/clientnetworkengine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_81)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_83)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 
@@ -1917,7 +1963,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.o.p
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp.o: ../src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_82)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_84)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
 
@@ -1940,7 +1986,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp.
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/TcpConnection.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/TcpConnection.cpp.o: ../src/Engine/NetworkEngine/TcpConnection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_83)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_85)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/TcpConnection.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/TcpConnection.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
 
@@ -1963,7 +2009,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/TcpConnection.cpp.o.provide
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerClient.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerClient.cpp.o: ../src/Engine/NetworkEngine/ServerClient.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_84)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_86)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerClient.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerClient.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 
@@ -1986,7 +2032,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ServerClient.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/Connection.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/Connection.cpp.o: ../src/Engine/NetworkEngine/Connection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_85)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_87)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/Connection.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/Connection.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
 
@@ -2009,7 +2055,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/Connection.cpp.o.provides.b
 
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientLogin.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientLogin.cpp.o: ../src/Engine/NetworkEngine/ClientLogin.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_86)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_88)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientLogin.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientLogin.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientLogin.cpp
 
@@ -2032,7 +2078,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/ClientLogin.cpp.o.provides.
 
 CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/XmlDocumentManager.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/XmlDocumentManager.cpp.o: ../src/Engine/ScriptEngine/XmlDocumentManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_87)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_89)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/XmlDocumentManager.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/XmlDocumentManager.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
 
@@ -2055,7 +2101,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/XmlDocumentManager.cpp.o.pro
 
 CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/ScriptEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/ScriptEngine.cpp.o: ../src/Engine/ScriptEngine/ScriptEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_88)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_90)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/ScriptEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/ScriptEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
 
@@ -2078,7 +2124,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/ScriptEngine.cpp.o.provides.
 
 CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.o: ../src/Engine/PhysicalEngine/PhysicalEngine.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_89)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_91)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.cpp
 
@@ -2101,7 +2147,7 @@ CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.o.provi
 
 CMakeFiles/meteor-falls.dir/src/Application/application.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Application/application.cpp.o: ../src/Application/application.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_90)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_92)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Application/application.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Application/application.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Application/application.cpp
 
@@ -2124,7 +2170,7 @@ CMakeFiles/meteor-falls.dir/src/Application/application.cpp.o.provides.build: CM
 
 CMakeFiles/meteor-falls.dir/src/Application/applicationparameters.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Application/applicationparameters.cpp.o: ../src/Application/applicationparameters.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_91)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_93)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Application/applicationparameters.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Application/applicationparameters.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
 
@@ -2147,7 +2193,7 @@ CMakeFiles/meteor-falls.dir/src/Application/applicationparameters.cpp.o.provides
 
 CMakeFiles/meteor-falls.dir/src/Application/parameterparserexception.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/Application/parameterparserexception.cpp.o: ../src/Application/parameterparserexception.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_92)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_94)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/Application/parameterparserexception.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/Application/parameterparserexception.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.cpp
 
@@ -2170,7 +2216,7 @@ CMakeFiles/meteor-falls.dir/src/Application/parameterparserexception.cpp.o.provi
 
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.o: ../src/UnitTest/Tests/SoundEngineTest.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_93)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_95)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/UnitTest/Tests/SoundEngineTest.cpp
 
@@ -2193,7 +2239,7 @@ CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/SoundEngineTest.cpp.o.provides.bu
 
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/ApplicationParametersTest.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/ApplicationParametersTest.cpp.o: ../src/UnitTest/Tests/ApplicationParametersTest.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_94)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_96)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/ApplicationParametersTest.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/ApplicationParametersTest.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/UnitTest/Tests/ApplicationParametersTest.cpp
 
@@ -2216,7 +2262,7 @@ CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/ApplicationParametersTest.cpp.o.p
 
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/NetworkEngineTest.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/NetworkEngineTest.cpp.o: ../src/UnitTest/Tests/NetworkEngineTest.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_95)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_97)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/NetworkEngineTest.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/NetworkEngineTest.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/UnitTest/Tests/NetworkEngineTest.cpp
 
@@ -2239,7 +2285,7 @@ CMakeFiles/meteor-falls.dir/src/UnitTest/Tests/NetworkEngineTest.cpp.o.provides.
 
 CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o: ../src/PremiereApplication.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_96)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_98)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o -c /home/thomas/meteor-falls/meteor-falls-src/src/PremiereApplication.cpp
 
@@ -2262,7 +2308,7 @@ CMakeFiles/meteor-falls.dir/src/PremiereApplication.cpp.o.provides.build: CMakeF
 
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o: /home/thomas/meteor-falls/GlobalServer/src/Admin.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_97)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_99)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o -c /home/thomas/meteor-falls/GlobalServer/src/Admin.cpp
 
@@ -2285,7 +2331,7 @@ CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.
 
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o: /home/thomas/meteor-falls/GlobalServer/src/Player.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_98)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_100)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o -c /home/thomas/meteor-falls/GlobalServer/src/Player.cpp
 
@@ -2308,7 +2354,7 @@ CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp
 
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o: CMakeFiles/meteor-falls.dir/flags.make
 CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o: /home/thomas/meteor-falls/GlobalServer/src/Server.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_99)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles $(CMAKE_PROGRESS_101)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o -c /home/thomas/meteor-falls/GlobalServer/src/Server.cpp
 
@@ -2356,6 +2402,8 @@ meteor__falls_OBJECTS = \
 "CMakeFiles/meteor-falls.dir/src/Utils/Random.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/EngineMessage/EngineMessage.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o" \
+"CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o" \
+"CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o" \
 "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o" \
@@ -2459,6 +2507,8 @@ meteor-falls: CMakeFiles/meteor-falls.dir/src/Utils/Exception/FileNotFound.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Utils/Random.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/EngineMessage/EngineMessage.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o
+meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o
+meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o
 meteor-falls: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o
@@ -2567,6 +2617,8 @@ CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Utils/Exce
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Utils/Random.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/EngineMessage/EngineMessage.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o.requires
+CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o.requires
+CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o.requires
 CMakeFiles/meteor-falls.dir/requires: CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o.requires

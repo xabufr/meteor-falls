@@ -24,6 +24,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/meteor-falls.dir/src/Utils/Random.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/EngineMessage/EngineMessage.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o"
+  "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o"
+  "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Equipe.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o"

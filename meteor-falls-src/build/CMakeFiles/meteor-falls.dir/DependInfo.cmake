@@ -23,6 +23,8 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/Faction.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Factions/FactionManager.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/GameEngine.cpp.o"
+  "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHero.cpp.o"
+  "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/Joueur.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurLan.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Joueur/JoueurRPG.cpp.o"

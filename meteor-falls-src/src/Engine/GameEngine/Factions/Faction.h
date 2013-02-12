@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <vector>
 #include "../Unites/typedefs.h"
+#include "../Heros/ClasseHeroManager.h"
 
 typedef unsigned char FactionId;
 typedef unsigned short RechercheId;
@@ -23,11 +24,13 @@ class Faction
          */
         void load();
         TypeUnite* getType(UnitId);
+		const ClasseHeroManager& getClassesManager() const;
     protected:
     private:
         const std::string m_nom;
         const FactionId m_id;
         const bool m_jouable;
+		ClasseHeroManager m_classeHeroManager;
         std::unordered_map<UnitId, TypeUnite*> m_typesUnites;
         std::unordered_map<RechercheId, Recherche*> m_recherches;
         std::vector<std::string> m_paths;

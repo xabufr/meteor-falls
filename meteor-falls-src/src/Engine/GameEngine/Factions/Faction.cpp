@@ -1,12 +1,13 @@
 #include "Faction.h"
 #include "../Unites/UniteFactory.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "../Unites/typedefs.h"
 #include "../Unites/TypeUnite.h"
 #include "../Degats/DegatManager.h"
-#include "precompiled/lexical_cast.h"
+#include "../../../precompiled/lexical_cast.h"
 #include "../Recherches/Recherche.h"
-#include "Utils/Exception/FileNotFound.h"
+#include "../../../Utils/Exception/FileNotFound.h"
+#include "../Heros/ClasseHero.h"
 
 Faction::Faction(bool jouable, FactionId id, const std::string& nom):
 m_nom(nom), m_id(id), m_jouable(jouable) 
@@ -14,6 +15,12 @@ m_nom(nom), m_id(id), m_jouable(jouable)
 }
 Faction::~Faction()
 {
+	for(auto it : m_typesUnites)
+	{
+		delete it.second;
+	}
+	for(auto it : m_recherches)
+		delete it.second;
 }
 void Faction::addConfigFile(std::string path)
 {
@@ -60,12 +67,15 @@ void Faction::load()
         //Chargement des unités
         for(nodeUnit=root->first_node("unite");nodeUnit;nodeUnit=nodeUnit->next_sibling("unite"))
         {
-
             TypeUnite *unite;
             TypeUnite::Type type = TypeUnite::typeFromString(nodeUnit->first_node("type")->value());
             UnitId id = boost::lexical_cast<UnitId>(nodeUnit->first_node("id")->value());
             unite = new TypeUnite(id,type,this);
             m_typesUnites[id]=unite;
+			if(nodeUnit->first_attribute("spawn"))
+			{
+				unite->m_spawn = boost::lexical_cast<bool>(nodeUnit->first_attribute("spawn")->value());
+			}
 
             if(nodeUnit->first_node("level"))
                 unite->m_niveau_recquis = boost::lexical_cast<int>(nodeUnit->first_node("level")->value());
@@ -126,6 +136,19 @@ void Faction::load()
                 break;
             }
         }
+		rapidxml::xml_node<>* nodeHero;
+		for(nodeHero=root->first_node("classe");nodeHero;nodeHero=nodeHero->next_sibling("classe"))
+		{
+			int id             = boost::lexical_cast<int>(nodeHero->first_node("id")->value());
+			ClasseHero *classe = new ClasseHero(id);
+			if(!m_classeHeroManager.addClasse(classe))
+			{
+				delete classe;
+				continue;
+			}
+			classe->m_nom   = nodeHero->first_node("nom")->value();
+			classe->m_icone = nodeHero->first_node("icone")->value();
+		}
     }
     //Seconde passe, pour édition de liens
     for(std::string path : m_paths)
@@ -219,4 +242,8 @@ TypeUnite* Faction::getType(UnitId id)
     if(it!=m_typesUnites.end())
         return it->second;
     return 0;
+}
+const ClasseHeroManager& Faction::getClassesManager() const
+{
+	return m_classeHeroManager;
 }

@@ -2,7 +2,7 @@
 
 TypeUnite::TypeUnite(UnitId id, Type type, Faction* fac): m_id(id), m_type(type), m_faction(fac)
 {
-
+	m_spawn = false;
 }
 TypeUnite::~TypeUnite()
 {
@@ -97,4 +97,8 @@ Armure* TypeUnite::armure() const
 const TypeUnite::MeshParameters& TypeUnite::meshParameters() const
 {
     return m_meshParameters;
+}
+bool TypeUnite::spawn() const
+{
+	return m_spawn;
 }
