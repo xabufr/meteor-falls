@@ -129,6 +129,10 @@
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurWan.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurWan.h" />
+		<Unit filename="src/Engine/GameEngine/Layout/layoutRPG.cpp" />
+		<Unit filename="src/Engine/GameEngine/Layout/layoutRPG.h" />
+		<Unit filename="src/Engine/GameEngine/Layout/layoutRTS.cpp" />
+		<Unit filename="src/Engine/GameEngine/Layout/layoutRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Map/Map.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/Map.h" />
 		<Unit filename="src/Engine/GameEngine/Map/ObjetTerrain.cpp" />
@@ -240,6 +244,10 @@
 		<Unit filename="src/State/Menu/OptionState.h" />
 		<Unit filename="src/State/Menu/ServerList.cpp" />
 		<Unit filename="src/State/Menu/ServerList.h" />
+		<Unit filename="src/State/Option/CommandSetting.cpp" />
+		<Unit filename="src/State/Option/CommandSetting.h" />
+		<Unit filename="src/State/Option/GraphicSetting.cpp" />
+		<Unit filename="src/State/Option/GraphicSetting.h" />
 		<Unit filename="src/State/Option/SoundSetting.cpp" />
 		<Unit filename="src/State/Option/SoundSetting.h" />
 		<Unit filename="src/State/ServerState/ServerState.cpp" />
@@ -252,7 +260,13 @@
 		<Unit filename="src/UnitTest/Tests/NetworkEngineTest.cpp" />
 		<Unit filename="src/UnitTest/Tests/SoundEngineTest.cpp" />
 		<Unit filename="src/UnitTest/UnitTest.h" />
+		<Unit filename="src/Utils/Clock.cpp" />
+		<Unit filename="src/Utils/Clock.h" />
+		<Unit filename="src/Utils/Configuration/CommandConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/CommandConfig.h" />
 		<Unit filename="src/Utils/Configuration/Config.h" />
+		<Unit filename="src/Utils/Configuration/GraphicConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/GraphicConfig.h" />
 		<Unit filename="src/Utils/Configuration/SoundConfig.cpp" />
 		<Unit filename="src/Utils/Configuration/SoundConfig.h" />
 		<Unit filename="src/Utils/DataChecksum.cpp" />

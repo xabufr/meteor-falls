@@ -47,6 +47,7 @@ void OgreApplication::UnloadRessources(std::string fileName)
 }
 void OgreApplication::m_ParcourirRessource(std::string &fileName, bool add)
 {
+    int sum=0;
     Ogre::ConfigFile file;
     file.load(fileName);
     Ogre::ConfigFile::SectionIterator sec_it = file.getSectionIterator();
@@ -65,7 +66,10 @@ void OgreApplication::m_ParcourirRessource(std::string &fileName, bool add)
             type_name = it->first;
             archive = it->second;
             if(add)
+            {
                 Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archive, type_name, sec_name);
+                ++sum;
+            }
             else
                 Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(archive, sec_name);
         }
@@ -76,7 +80,7 @@ void OgreApplication::m_ParcourirRessource(std::string &fileName, bool add)
         LoadingScreen *load = 0;
         if(m_ceguiStarted)
         {
-            load = new LoadingScreen;
+            load = new LoadingScreen(sum);
             load->show();
         }
         m_listener.setLoadingScreen(load);
@@ -131,4 +135,11 @@ void OgreApplication::AddResourceLocation(std::vector<std::pair<std::string, std
         std::cout << "adding :" << location.first << std::endl;
 	}
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+}
+void OgreApplication::recreateWindow()
+{
+    m_root->getRenderSystem()->destroyRenderWindow(m_window->getName());
+    m_window = m_root->initialise(true, "Meteor-Falls");
+    dynamic_cast<CEGUI::OgreRenderer*>(m_ceguiRenderer)->setDefaultRootRenderTarget(static_cast<Ogre::RenderTarget&>(*m_window));
+    dynamic_cast<CEGUI::OgreRenderer*>(m_ceguiRenderer)->initialiseRenderStateSettings();
 }

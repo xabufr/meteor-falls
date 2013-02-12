@@ -14,6 +14,7 @@ class OgreContextManager : public Singleton<OgreContextManager>
         OgreWindowInputManager* getInputManager();
         static OgreContextManager* get();
 		static bool createGraphics;
+		void reinitialise();
     protected:
     private:
         OgreApplication* m_application;

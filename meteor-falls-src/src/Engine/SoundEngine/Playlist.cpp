@@ -140,7 +140,7 @@ void Playlist::work()
         m_music->setVolume(m_volume);
     }
 
-    if (m_music->getStatus() == sf::SoundSource::Status::Stopped)
+    if (m_music->getStatus() == sf::SoundSource::Status::Stopped && !m_pause)
     {
         m_music_playing[m_groupe_courant]++;
         readPlaylist();

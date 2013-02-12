@@ -24,7 +24,7 @@ LoadingListener::~LoadingListener()
 void LoadingListener::resourceGroupScriptingStarted(const String& groupName, size_t scriptCount)
 {
     if(m_loadingScreen)
-        m_loadingScreen->update(groupName);
+        m_loadingScreen->setGroup(groupName);
 }
 
 void LoadingListener::scriptParseStarted(const String& scriptName, bool& skipThisScript)

@@ -14,6 +14,7 @@ class OgreApplication
         void LoadRessources(std::string fileName);
 		void AddResourceLocation(std::vector<std::pair<std::string, std::string>>);
         void UnloadRessources(std::string fileName);
+        void recreateWindow();
         virtual ~OgreApplication();
         bool RenderOneFrame();
 
