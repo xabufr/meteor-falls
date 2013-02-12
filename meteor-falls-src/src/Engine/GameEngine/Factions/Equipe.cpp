@@ -127,3 +127,12 @@ const std::vector<Unite*>& Equipe::unites() const
 {
 	return m_unites_construites;
 }
+Unite* Equipe::getUnite(int id) const
+{
+	for(Unite *u : m_unites_construites)
+	{
+		if(u->id() == id)
+			return u;
+	}
+	return nullptr;	
+}

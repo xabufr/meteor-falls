@@ -8,6 +8,8 @@
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/FactionManager.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../GameEngine/Heros/ClasseHero.h"
+#include "../GameEngine/Heros/Avatar.h"
 
 #include <iostream>
 
@@ -164,6 +166,14 @@ void ClientNetworkEngine::work()
 					m_manager->addMessage(messageObject);
 				}
 				break;
+			case EngineMessageType::SPAWN:
+				{
+					EngineMessage *messageSpawn = EngineMessage::clone(message);
+					messageSpawn->clearTo();
+					messageSpawn->addToType(EngineType::GameEngineType);
+					m_manager->addMessage();
+				}
+				break;
 		}
 		delete message;
     }
@@ -245,5 +255,10 @@ void ClientNetworkEngine::sendSyncReq()
 void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 {
 	EngineMessage message(m_manager);
-//	message->message = EngineMessageKey::
+	message.message = EngineMessageType::SPAWN;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::CLASS_ID] = av->classe()->id();
+	message.ints[EngineMessageKey::AVATAR_ID] = av->id();
+	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
+	m_tcp->send(serialize(&message));
 }

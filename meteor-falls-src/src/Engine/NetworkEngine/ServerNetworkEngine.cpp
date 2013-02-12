@@ -195,6 +195,14 @@ void ServerNetworkEngine::work()
 							}
 						}
 						break;
+					case EngineMessageType::SPAWN:
+						{
+							EngineMessage *messageSpawn = EngineMessage::clone(message);
+							messageSpawn->clearTo();
+							messageSpawn->addToType(EngineType::GameEngineType);
+							m_manager->addMessage();
+						}
+						break;
 				}
 				delete message;
             }

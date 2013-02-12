@@ -11,6 +11,7 @@
 #include "Preface/TeamList.h"
 #include "Preface/SpawnState.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "Heros/ClasseHeroManager.h"
 #include <CEGUIString.h>
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
@@ -121,6 +122,24 @@ void GameEngine::handleMessage(EngineMessage& message)
 		Equipe *e   = getEquipe(teamId);
 		Unite *unit = e->factory()->create(m_manager->getGraphic()->getSceneManager(), type, id);
 		unit->setPosition(position);
+	}
+	else if (message.message==EngineMessageType::SPAWN) 
+	{
+		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
+			return;
+		if(m_type == SERVER)
+		{
+			Unite *unit = j->equipe()->getUnite(message.ints[EngineMessageKey::OBJECT_ID]);
+			ClasseHero* cl = j->equipe()->faction()->getClassesManager().classe(message.ints[EngineMessageKey::CLASS_ID]);
+			if(cl==nullptr||unit==nullptr)
+				return;
+			Vector3D position(unit->getPosition());
+		}
+		else
+		{
+			Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+		}
 	}
 }
 void GameEngine::work()

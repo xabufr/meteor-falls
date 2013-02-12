@@ -2,14 +2,14 @@
 #define HERO_H
 
 #include "Terrestre.h"
-#include "Engine/GameEngine/Degats/Armure.h"
-#include "Engine/GameEngine/Degats/Degat.h"
+#include "../Degats/Armure.h"
+#include "../Degats/Degat.h"
 #include <OgreSceneManager.h>
 #include <string>
 #include <iostream>
 #include <vector>
 #include "../../../Utils/Vector3D.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include <boost/lexical_cast.hpp>
 
 using namespace rapidxml;
