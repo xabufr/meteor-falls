@@ -143,6 +143,8 @@
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectManager.h" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.h" />
+		<Unit filename="src/Engine/GameEngine/Preface/SpawnState.cpp" />
+		<Unit filename="src/Engine/GameEngine/Preface/SpawnState.h" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamList.cpp" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamList.h" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamState.cpp" />

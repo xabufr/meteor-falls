@@ -33,6 +33,8 @@ class MenuState: public State
         MenuState(StateManager*);
         ~MenuState();
 
+        void setEscape(bool var){m_escape = var;}
+        bool getEscape() const{return m_escape;}
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
@@ -56,6 +58,7 @@ class MenuState: public State
         Ogre::RaySceneQuery* m_sceneQuery;
         bool m_visible;
         bool m_hide_sous_state();
+        bool m_escape;
         State *m_sousState;
         LoginState *m_login_state;
         LayoutRTS *m_layout_state;

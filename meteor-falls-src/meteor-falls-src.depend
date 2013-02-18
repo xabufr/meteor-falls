@@ -6091,7 +6091,7 @@
 
 1353402081 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/singleton.h
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
+1360680938 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
 	<OgreRectangle2D.h>
 	<OgreSceneNode.h>
 	<OgreCamera.h>
@@ -6117,7 +6117,7 @@
 	<OgreWindowEventUtilities.h>
 	<OgreFrameListener.h>
 
-1358174724 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/State.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/State.h
 	"StateManager.h"
 	<vector>
 
@@ -6164,7 +6164,7 @@
 	"../../precompiled/shared_ptr.h"
 	"Connection.h"
 
-1359979266 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.h
 	<vector>
 	<map>
 	<string>
@@ -6175,7 +6175,7 @@
 	"../../precompiled/serialization.h"
 	"../EngineManager/EngineManager.h"
 
-1355229404 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h
 	"../precompiled/serialization.h"
 	<SFML/System/Vector3.hpp>
 	<OgreVector3.h>
@@ -6189,9 +6189,9 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
 
 1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/Engine.h
 	"EngineType.h"
@@ -6204,8 +6204,9 @@
 	"../GameEngine/Joueur/Joueur.h"
 	<OgreFrameListener.h>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.h
 	<string>
+	<vector>
 
 1355762145 /home/zequiel/software/c++/meteor-falls/GlobalServer/src/ServerGlobalMessage.h
 	"Player.h"
@@ -6236,7 +6237,7 @@
 	"../StateManager.h"
 	<CEGUI.h>
 
-1360084578 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
+1360681120 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
 	"../State.h"
 	"../StateManager.h"
 	<vector>
@@ -6253,13 +6254,14 @@
 	"State/State.h"
 	<iostream>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
 	<string>
 	<unordered_map>
 	<vector>
 	"../Unites/typedefs.h"
+	"../Heros/ClasseHeroManager.h"
 
-1354054301 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/typedefs.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/typedefs.h
 
 1355229404 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/ServerState/ServerState.h
 	"../State.h"
@@ -6271,7 +6273,7 @@
 	"GraphicConfig.h"
 	"CommandConfig.h"
 
-1359979549 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.h
+1361202323 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.h
 
 1355738918 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
 	"applicationparameters.h"
@@ -6295,7 +6297,7 @@
 1352903835 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.cpp
 	"parameterparserexception.h"
 
-1358260337 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
 	"EngineManager.h"
 	"../NetworkEngine/NetworkEngine.h"
 	"../SoundEngine/SoundEngine.h"
@@ -6349,7 +6351,7 @@
 1357658131 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
 	"clientnetworkengine.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+1361203886 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
 	"NetworkEngine.h"
 	"TcpConnection.h"
 	"UdpConnection.h"
@@ -6377,7 +6379,7 @@
 	"../Engine.h"
 	<OgreSceneManager.h>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
 	<string>
 	<vector>
 	"../Engine.h"
@@ -6392,7 +6394,7 @@
 1354530560 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.h
 	<OgreResourceGroupManager.h>
 
-1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
 	"EngineMessage.h"
 	"../EngineManager/EngineManager.h"
 	"../NetworkEngine/NetworkEngine.h"
@@ -6452,12 +6454,12 @@
 	"Armure.h"
 	"precompiled/lexical_cast.h"
 
-1354054301 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/DegatManager.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/DegatManager.h
 	"typedefs.h"
-	"Utils/singleton.h"
+	"../../../Utils/singleton.h"
 	<unordered_map>
 
-1359480269 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
+1361201390 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
 	<string>
 	<map>
 	"../../precompiled/_rapidxml.h"
@@ -6466,7 +6468,7 @@
 1354199169 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/precompiled/_rapidxml.h
 	<rapidxml.hpp>
 
-1357658131 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp
 	"FactionManager.h"
 	"Faction.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
@@ -6476,13 +6478,13 @@
 	"../../../Utils/singleton.h"
 	<vector>
 
-1355827477 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
 	"JoueurLan.h"
 
 1355827572 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurWan.cpp
 	"JoueurWan.h"
 
-1355130505 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
 	"ObjetTerrain.h"
 	<OgreSceneNode.h>
 	<OgreSceneManager.h>
@@ -6531,19 +6533,22 @@
 1354054301 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.cpp
 	"Ressources.h"
 
-1359375546 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
 	"UniteFactory.h"
+	"../Factions/Equipe.h"
 	"../Factions/Faction.h"
 	"TypeUnite.h"
+	"Batiment.h"
 
-1354054301 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
 	"typedefs.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
 	"typedefs.h"
 	"../Ressources/Ressources.h"
 	<string>
 	<vector>
+	<map>
 
 1358174724 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 	"GraphicEngine.h"
@@ -6576,7 +6581,7 @@
 	"OgreApplication.h"
 	"ogrecontextmanager.h"
 
-1360065301 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1360587855 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
 	"Utils/Exception/BasicException.h"
 	<OgreConfigFile.h>
@@ -6648,7 +6653,7 @@
 
 1352903835 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
 
-1359556384 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
+1361201379 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
 	"XmlDocumentManager.h"
 	"Utils/Exception/FileNotFound.h"
 	<fstream>
@@ -6682,7 +6687,7 @@
 	"../Engine/SoundEngine/SoundEngine.h"
 	<boost/test/unit_test.hpp>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
 	<OgreSceneManager.h>
 	<OgreCamera.h>
 	<Hydrax/Hydrax.h>
@@ -6696,27 +6701,28 @@
 	<Terrain/OgreTerrainGroup.h>
 	"../../ScriptEngine/XmlDocumentManager.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.h
 	"Terrestre.h"
-	"Engine/GameEngine/Degats/Armure.h"
-	"Engine/GameEngine/Degats/Degat.h"
+	"../Degats/Armure.h"
+	"../Degats/Degat.h"
 	<OgreSceneManager.h>
 	<string>
 	<iostream>
 	<vector>
 	"../../../Utils/Vector3D.h"
-	"Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
 	"Mobile.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
 	"Unite.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
 	"../Map/ObjetTerrain.h"
 	"TypeUnite.h"
+	"../../../Utils/Vector3D.h"
 
 1355762197 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Command/Command.cpp
 	"Command.h"
@@ -6778,7 +6784,7 @@
 	"State/State.h"
 	"State/StateManager.h"
 
-1355821516 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Console.cpp
+1360663685 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Console.cpp
 	"State/Console.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -6798,7 +6804,7 @@
 1355829122 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/CreditState.cpp
 	"CreditState.h"
 
-1358249036 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
 	"LoginState.h"
 	"State/Console.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
@@ -6807,7 +6813,7 @@
 	"Engine/NetworkEngine/ClientLogin.h"
 	"State/Game/GameState.h"
 
-1360084623 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
+1360681236 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
 	"OptionState.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -6815,6 +6821,7 @@
 	"../Option/SoundSetting.h"
 	"../Option/GraphicSetting.h"
 	"../Option/CommandSetting.h"
+	"MenuState.h"
 
 1359477814 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.h
 	"../State.h"
@@ -6833,7 +6840,7 @@
 	<boost/lexical_cast.hpp>
 	<sstream>
 
-1359976404 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.cpp
+1361204722 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.cpp
 	"SoundSetting.h"
 	"../../Engine/SoundEngine/Playlist.h"
 	"../../precompiled/_rapidxml.h"
@@ -6892,7 +6899,7 @@
 	<assert.h>
 	"precompiled/sfml_audio.h"
 
-1360079724 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.cpp
+1361206015 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.cpp
 	"SoundConfig.h"
 	"../../Engine/ScriptEngine/XmlDocumentManager.h"
 	"../../precompiled/lexical_cast.h"
@@ -6937,40 +6944,47 @@
 
 1355130505 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Random.h
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
 	"Equipe.h"
 	"../Unites/TypeUnite.h"
 	"../Unites/Unite.h"
 	"../Joueur/JoueurRPG.h"
+	"../Unites/UniteFactory.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
 	<string>
 	<vector>
 
-1355848071 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.h
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.h
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
 	"Faction.h"
 	"../Unites/UniteFactory.h"
-	"Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../ScriptEngine/XmlDocumentManager.h"
 	"../Unites/typedefs.h"
 	"../Unites/TypeUnite.h"
 	"../Degats/DegatManager.h"
-	"precompiled/lexical_cast.h"
+	"../../../precompiled/lexical_cast.h"
 	"../Recherches/Recherche.h"
-	"Utils/Exception/FileNotFound.h"
+	"../../../Utils/Exception/FileNotFound.h"
+	"../Heros/ClasseHero.h"
+	"../Heros/Avatar.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
 	"GameEngine.h"
 	"../EngineManager/EngineManager.h"
 	"../GraphicEngine/GraphicEngine.h"
 	"Factions/Equipe.h"
 	"Factions/FactionManager.h"
+	"Factions/Faction.h"
 	"Preface/TeamState.h"
 	"../NetworkEngine/ServerNetworkEngine.h"
 	"Map/Map.h"
+	"Unites/UniteFactory.h"
 	"Preface/TeamList.h"
+	"Preface/SpawnState.h"
 	"../EngineMessage/EngineMessage.h"
+	"Heros/ClasseHeroManager.h"
 	<CEGUIString.h>
 
 1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.h
@@ -6982,7 +6996,7 @@
 1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.h
 	"../../../State/State.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp
 	"Joueur.h"
 	<iostream>
 	"JoueurRPG.h"
@@ -6999,10 +7013,9 @@
 	"JoueurRTS.h"
 	"Joueur.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
 	"Map.h"
 	"../../ScriptEngine/XmlDocumentManager.h"
-	"precompiled/lexical_cast.h"
 	<OgreSceneManager.h>
 	<OgreCamera.h>
 	<OgreQuaternion.h>
@@ -7018,9 +7031,12 @@
 	<Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
 	"WorldObject.h"
 	"WorldObjectManager.h"
+	"../Factions/Equipe.h"
+	"../Unites/UniteFactory.h"
 	"../../../Utils/Random.h"
 	"../../../precompiled/lexical_cast.h"
 	"WorldObjectType.h"
+	"../GameEngine.h"
 
 1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
 	"TeamList.h"
@@ -7044,39 +7060,44 @@
 	<string>
 	<CEGUI.h>
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
 	"Aerien.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
 	"Mobile.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
 	"Batiment.h"
+	"TypeUnite.h"
+	<OgreSceneManager.h>
+	<OgreEntity.h>
+	"../Factions/Equipe.h"
+	"../../../precompiled/lexical_cast.h"
 
-1359977924 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
+1360587854 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
 	"Unite.h"
 	<string>
 	<iostream>
-	<OgreSceneManager.h>
-	"../../../Utils/Vector3D.h"
+	<OgreTimer.h>
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
 	<assert.h>
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
 	"Mobile.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
 	"Terrestre.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
 	"TypeUnite.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
+1360587854 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 	"Unite.h"
+	"../Factions/Equipe.h"
 
-1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
+1360603796 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
 	"OgreWindowInputManager.h"
 	"precompiled/lexical_cast.h"
 	<CEGUI.h>
@@ -7087,7 +7108,7 @@
 1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 	"ServerClient.h"
 
-1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+1361203868 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 	"ServerNetworkEngine.h"
 	<iostream>
 	"../EngineMessage/EngineMessage.h"
@@ -7099,6 +7120,7 @@
 	"../GameEngine/Joueur/JoueurRTS.h"
 	"../GameEngine/Joueur/Joueur.h"
 	"../GameEngine/Factions/Equipe.h"
+	"../GameEngine/Unites/Unite.h"
 
 1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
 	"ServerNetworkEngineLan.h"
@@ -7133,7 +7155,7 @@
 	"../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"../../Engine/NetworkEngine/clientnetworkengine.h"
 
-1360084660 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1360680616 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"State/Console.h"
@@ -7152,17 +7174,19 @@
 	"Clock.h"
 	<boost/date_time/posix_time/posix_time.hpp>
 
-1359979266 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+1361203871 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 	"NetworkIpAdressFinder.h"
 	"../../Utils/Exception/BasicException.h"
 	"../EngineMessage/EngineMessage.h"
+	"../EngineManager/EngineManager.h"
 	"../../precompiled/serialization.h"
 	"../GameEngine/GameEngine.h"
 	"../GameEngine/Joueur/Joueur.h"
 	"../GameEngine/Factions/Equipe.h"
 	"../GameEngine/Factions/FactionManager.h"
-	"../EngineMessage/EngineMessage.h"
+	"../GameEngine/Heros/ClasseHero.h"
+	"../GameEngine/Heros/Avatar.h"
 	<iostream>
 
 1359977924 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
@@ -7197,29 +7221,76 @@
 	<OgreConfigOptionMap.h>
 	<vector>
 
-1360587407 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.h
+1361196247 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.h
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
 	<OIS/OIS.h>
 	<vector>
 
-1360587398 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.cpp
+1361201206 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.cpp
 	"CommandConfig.h"
-	"../../Engine/ScriptEngine/XmlDocumentManager.h"
 	"../../precompiled/lexical_cast.h"
 	"Utils/Exception/FileNotFound.h"
 	<rapidxml_print.hpp>
+	<fstream>
 
-1360083475 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.h
+1360679943 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.h
 	"../State.h"
 	"../StateManager.h"
 	<CEGUI.h>
+	<OIS/OIS.h>
 
-1360584997 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.cpp
+1361198258 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.cpp
 	"CommandSetting.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"../../Utils/Configuration/Config.h"
 	"../../Utils/Configuration/CommandConfig.h"
 	"../../precompiled/lexical_cast.h"
 
+<<<<<<< HEAD
 1360659566 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.h
 	<vector>
 	<cstddef>
 
+=======
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/SpawnState.h
+	"../../../State/State.h"
+	"../../../State/StateManager.h"
+	<unordered_map>
+
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/SpawnState.cpp
+	"SpawnState.h"
+	"../GameEngine.h"
+	"../Joueur/Joueur.h"
+	"../Factions/Equipe.h"
+	"../Factions/Faction.h"
+	"../Unites/Unite.h"
+	"../Unites/TypeUnite.h"
+	<CEGUI.h>
+	<string>
+	"../../../precompiled/lexical_cast.h"
+	"../Heros/ClasseHeroManager.h"
+	"../Heros/ClasseHero.h"
+	"../Heros/Avatar.h"
+
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.h
+	<vector>
+	<cstddef>
+
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.h
+	<string>
+
+1361201481 /home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Avatar.h
+	<string>
+
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp
+	"ClasseHeroManager.h"
+	"ClasseHero.h"
+
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Avatar.cpp
+	"Avatar.h"
+
+1361201481 source:/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp
+	"ClasseHero.h"
+
+>>>>>>> ade787c3dd534cdb4f2868010490ddd1d7ceb8b3

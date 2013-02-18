@@ -1,18 +1,22 @@
 #include "CommandSetting.h"
+#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "../../Utils/Configuration/Config.h"
 #include "../../Utils/Configuration/CommandConfig.h"
 #include "../../precompiled/lexical_cast.h"
 
 
-CommandSetting::CommandSetting(StateManager* mgr):State(mgr)
+CommandSetting::CommandSetting(StateManager* mgr):State(mgr),
+m_box_selected(nullptr)
 {
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
+    m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+    m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
 
-    m_pane = (CEGUI::ScrollablePane*)m_window_manager.createWindow("OgreTray/ScrollablePane", "PaneCommand");
+    m_pane = (CEGUI::TabControl*)m_window_manager.createWindow("OgreTray/TabControl", "PaneCommand");
     m_pane->setSize(CEGUI::UVector2(CEGUI::UDim(0.9,0), CEGUI::UDim(0.8, 0)));
     m_pane->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                          CEGUI::UDim(0.05, 0)));
-    m_pane->setVerticalScrollPosition(0.1);
 
     m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonCancel3");
     m_cancel->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
@@ -36,18 +40,78 @@ CommandSetting::CommandSetting(StateManager* mgr):State(mgr)
 
     CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_pane);
 
-    CommandConfig::KeyAction* keys = Config::get()->getCommandConfig()->getKeyRTS();
-    for (int i=0; i<CommandConfig::KeyRPG::RPG_COUNT; ++i)
+    int maxi;
+    std::string t;
+    int nb = 0;
+    for (int i=0; i<3; ++i)
     {
-        CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i));
-        elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
-        elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
-                                         CEGUI::UDim(0.06+(i*(0.10)), 0)));
-        elem->setText((CEGUI::utf8*)keys[i].description.c_str());
-        elem->setProperty("FrameEnabled", "false");
-        elem->setProperty("BackgroundEnabled", "false");
-        elem->setProperty("VertFormatting", "TopAligned");
-        m_pane->addChildWindow(elem);
+        nb = 0;
+        CommandConfig::KeyAction* keys = Config::get()->getCommandConfig()->getKeyMap()[i];
+        if (i==0)
+        {
+            maxi = CommandConfig::KeyGlobal::GLOBAL_COUNT;
+            t = "Global";
+        }
+        else if (i==1)
+        {
+            maxi = CommandConfig::KeyRPG::RPG_COUNT;
+            t = "RPG";
+        }
+        else
+        {
+            maxi = CommandConfig::KeyRTS::RTS_COUNT;
+            t = "RTS";
+        }
+
+        CEGUI::ScrollablePane *text = (CEGUI::ScrollablePane*)m_window_manager.createWindow("OgreTray/ScrollablePane", "Contrôle"+boost::lexical_cast<std::string>(i));
+        text->setSize(CEGUI::UVector2(CEGUI::UDim(1,0), CEGUI::UDim(1, 0)));
+        text->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
+                                         CEGUI::UDim(0, 0)));
+        text->setText(t.c_str());
+
+        m_pane->addChildWindow(text);
+
+        for (int j=0; j<maxi; ++j)
+        {
+            CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
+                                             CEGUI::UDim(0.06+(nb*(0.10)), 0)));
+            elem->setText((CEGUI::utf8*)keys[j].description.c_str());
+            elem->setProperty("FrameEnabled", "false");
+            elem->setProperty("BackgroundEnabled", "false");
+            elem->setProperty("VertFormatting", "TopAligned");
+            text->addChildWindow(elem);
+
+            CEGUI::Editbox *box = (CEGUI::Editbox*)m_window_manager.createWindow("OgreTray/Editbox", "BoxContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
+                                             CEGUI::UDim(0.05+(nb*(0.10)), 0)));
+            box->setReadOnly(true);
+            box->subscribeEvent(CEGUI::Editbox::EventMouseClick, CEGUI::Event::Subscriber(&CommandSetting::m_box_pushed, this));
+            OIS::Keyboard *keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+            if (keys[j].action[0].type == CommandConfig::KeyAction::Key::Type::KEYBOARD)
+                box->setText(keyboard->getAsString(keys[j].action[0].keyboard));
+            else
+                box->setText(Config::get()->getCommandConfig()->toString(keys[j].action[0].mouse));
+            box->setUserData(&keys[j].action[0]);
+            text->addChildWindow(box);
+
+            box = (CEGUI::Editbox*)m_window_manager.createWindow("OgreTray/Editbox", "BoxContrôle2"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.66, 0),
+                                             CEGUI::UDim(0.05+(nb*(0.10)), 0)));
+            box->setReadOnly(true);
+            box->subscribeEvent(CEGUI::Editbox::EventMouseClick, CEGUI::Event::Subscriber(&CommandSetting::m_box_pushed, this));
+            if (keys[j].action[1].type == CommandConfig::KeyAction::Key::Type::KEYBOARD)
+                box->setText(keyboard->getAsString(keys[j].action[1].keyboard));
+            else
+                box->setText(Config::get()->getCommandConfig()->toString(keys[j].action[1].mouse));
+            box->setUserData(&keys[j].action[1]);
+            text->addChildWindow(box);
+
+            ++nb;
+        }
     }
 
     m_pane->hide();
@@ -62,12 +126,6 @@ CommandSetting::~CommandSetting()
     CEGUI::WindowManager::getSingleton().destroyWindow(m_cancel);
     CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_pane);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_pane);
-    for (int i=0; i<CommandConfig::KeyRPG::RPG_COUNT; ++i)
-    {
-        CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextContrôle"+boost::lexical_cast<std::string>(i));
-        CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(current);
-        CEGUI::WindowManager::getSingleton().destroyWindow(current);
-    }
 }
 
 bool CommandSetting::isVisible()
@@ -108,4 +166,58 @@ bool CommandSetting::m_button_pushed(const CEGUI::EventArgs&)
 {
     if (m_cancel->isPushed())
         m_visible = false;
+    else
+    {
+        Config::get()->getCommandConfig()->saveConfig();
+    }
+    return true;
+}
+
+bool CommandSetting::m_box_pushed(const CEGUI::EventArgs& arg)
+{
+    OgreContextManager::get()->getInputManager()->addKeyboardListener(this);
+    OgreContextManager::get()->getInputManager()->addMouseListener(this);
+    m_box_selected = (CEGUI::Editbox*)((CEGUI::WindowEventArgs&)arg).window;
+    m_old_key = m_box_selected->getText().c_str();
+    m_box_selected->setText("Appuyer sur une touche.");
+
+    return true;
+}
+bool CommandSetting::mouseMoved(const OIS::MouseEvent& arg)
+{
+    return true;
+}
+
+bool CommandSetting::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->mouse = id;
+    m_box_selected->setText(Config::get()->getCommandConfig()->toString(id));
+    OgreContextManager::get()->getInputManager()->delMouseListener(this);
+    OgreContextManager::get()->getInputManager()->delKeyboardListener(this);
+    return true;
+}
+
+bool CommandSetting::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    return true;
+}
+
+bool CommandSetting::keyPressed(const OIS::KeyEvent& arg)
+{
+    if (arg.key != OIS::KeyCode::KC_ESCAPE)
+    {
+        ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->keyboard = arg.key;
+        m_box_selected->setText(m_keyboard->getAsString(arg.key));
+    }
+    else
+        m_box_selected->setText(m_old_key);
+
+    OgreContextManager::get()->getInputManager()->delKeyboardListener(this);
+    OgreContextManager::get()->getInputManager()->delMouseListener(this);
+    return true;
+}
+
+bool CommandSetting::keyReleased(const OIS::KeyEvent& arg)
+{
+    return true;
 }

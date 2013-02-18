@@ -93,7 +93,7 @@ void ServerNetworkEngine::work()
 										player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RTS_GAMEPLAY;
 									else
 										player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
-	
+
 									client.tcp()->send(serialize(player));
 									delete player;
 								}
@@ -147,7 +147,7 @@ void ServerNetworkEngine::work()
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 1;
 								}
-								else 
+								else
 								{
 									messageRep.ints[EngineMessageKey::RESULT] = 0;
 								}
@@ -155,7 +155,7 @@ void ServerNetworkEngine::work()
 							else
 							{
 								messageRep.ints[EngineMessageKey::RESULT] = 1;
-							}							
+							}
 							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
 							sendToAllTcp(&messageRep);
 							messageRep.addToType(EngineType::GameEngineType);
@@ -317,7 +317,7 @@ void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* mes
 }
 void ServerNetworkEngine::setServerName(const std::string& name)
 {
-	m_server_name=name;	
+	m_server_name=name;
 }
 void ServerNetworkEngine::setMaxClients(unsigned short number)
 {
@@ -325,7 +325,7 @@ void ServerNetworkEngine::setMaxClients(unsigned short number)
 }
 void ServerNetworkEngine::setMapName(const std::string& name)
 {
-	m_map_name=name;	
+	m_map_name=name;
 	m_manager->getGame()->loadMap(name);
 }
 EngineMessage* ServerNetworkEngine::m_createMapMessage()
@@ -359,7 +359,7 @@ ServerClient* ServerNetworkEngine::findClient(client_id id)
 		if(c.id() == id)
 				return &c;
 	}
-	return nullptr;	
+	return nullptr;
 }
 void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 {

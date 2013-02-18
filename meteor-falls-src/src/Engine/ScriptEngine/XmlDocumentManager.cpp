@@ -45,15 +45,6 @@ XmlDocumentManager::Document XmlDocumentManager::m_loadDocument(const std::strin
 
     return doc;
 }
-rapidxml::xml_document<>* XmlDocumentManager::writeDocument(const std::string& path)
-{
-    std::ofstream file;
-    file.open(path);
-    if (file.bad())
-        throw FileNotFound(path);
-    file.close();
-    return m_loadDocument(path).second;
-}
 XmlDocumentManager* XmlDocumentManager::get()
 {
     return Singleton<XmlDocumentManager>::get();

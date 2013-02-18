@@ -42,19 +42,13 @@ void SoundConfig::loadConfig()
 
 void SoundConfig::saveConfig()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->writeDocument("config.cfg");
+    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("config.cfg");
     rapidxml::xml_node<>* root;
     rapidxml::xml_node<>* sound;
     rapidxml::xml_node<>* music;
     rapidxml::xml_node<>* ambiant;
     rapidxml::xml_node<>* effect;
     rapidxml::xml_node<>* interface;
-
-    CEGUI::Checkbox *activate = (CEGUI::Checkbox*)CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("CheckBoxActivate");
-    CEGUI::Slider *music_volume = (CEGUI::Slider*)CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("SliderVolMusic");
-    CEGUI::Slider *ambiant_volume = (CEGUI::Slider*)CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("SliderVolAmbiant");
-    CEGUI::Slider *effect_volume = (CEGUI::Slider*)CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("SliderVolEffect");
-    CEGUI::Slider *interface_volume = (CEGUI::Slider*)CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("SliderVolInterface");
 
     if (!document->first_node("configuration"))
     {
@@ -67,61 +61,61 @@ void SoundConfig::saveConfig()
     if (!root->first_node("sound"))
     {
         sound = document->allocate_node(rapidxml::node_type::node_element, "sound");
-        sound->append_attribute(document->allocate_attribute("activate", document->allocate_string(boost::lexical_cast<std::string>(!activate->isSelected()).c_str())));
+        sound->append_attribute(document->allocate_attribute("activate", document->allocate_string(boost::lexical_cast<std::string>(!m_activate).c_str())));
         root->append_node(sound);
     }
     else
     {
-        sound = document->first_node("sound");
-        sound->first_attribute("activate")->value(document->allocate_string(boost::lexical_cast<std::string>(!activate->isSelected()).c_str()));
+        sound = root->first_node("sound");
+        sound->first_attribute("activate")->value(document->allocate_string(boost::lexical_cast<std::string>(!m_activate).c_str()));
     }
 
     if (!sound->first_node("music"))
     {
         music = document->allocate_node(rapidxml::node_type::node_element, "music");
-        music->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(music_volume->getCurrentValue()).c_str())));
+        music->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(m_music_volume).c_str())));
         sound->append_node(music);
     }
     else
     {
         music = sound->first_node("music");
-        music->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(music_volume->getCurrentValue()).c_str()));
+        music->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(m_music_volume).c_str()));
     }
 
     if (!sound->first_node("ambiant"))
     {
         ambiant = document->allocate_node(rapidxml::node_type::node_element, "ambiant");
-        ambiant->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(ambiant_volume->getCurrentValue()).c_str())));
+        ambiant->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(m_ambiant_volume).c_str())));
         sound->append_node(ambiant);
     }
     else
     {
         ambiant = sound->first_node("ambiant");
-        ambiant->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(ambiant_volume->getCurrentValue()).c_str()));
+        ambiant->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(m_ambiant_volume).c_str()));
     }
 
     if (!sound->first_node("effect"))
     {
         effect = document->allocate_node(rapidxml::node_type::node_element, "effect");
-        effect->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(effect_volume->getCurrentValue()).c_str())));
+        effect->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(m_effect_volume).c_str())));
         sound->append_node(effect);
     }
     else
     {
         effect = sound->first_node("effect");
-        effect->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(effect_volume->getCurrentValue()).c_str()));
+        effect->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(m_effect_volume).c_str()));
     }
 
     if (!sound->first_node("interface"))
     {
         interface = document->allocate_node(rapidxml::node_type::node_element, "interface");
-        interface->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(interface_volume->getCurrentValue()).c_str())));
+        interface->append_attribute(document->allocate_attribute("volume", document->allocate_string(boost::lexical_cast<std::string>(m_interface_volume).c_str())));
         sound->append_node(interface);
     }
     else
     {
         interface = sound->first_node("interface");
-        interface->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(interface_volume->getCurrentValue()).c_str()));
+        interface->first_attribute("volume")->value(document->allocate_string(boost::lexical_cast<std::string>(m_interface_volume).c_str()));
     }
 
     std::ofstream file;
@@ -130,5 +124,4 @@ void SoundConfig::saveConfig()
         throw FileNotFound("config.cfg");
     file << *document;
     file.close();
-    loadConfig();
 }
