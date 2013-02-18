@@ -8,7 +8,7 @@ class JoueurRPG
         JoueurRPG(Joueur*);
         virtual ~JoueurRPG();
 		Joueur* joueur() const;
-    protected:
+
     private:
 		Joueur *m_joueur;
 };

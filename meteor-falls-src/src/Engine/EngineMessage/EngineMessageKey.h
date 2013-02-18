@@ -31,6 +31,8 @@ enum EngineMessageKey
 	OBJECT_HEAL     = 25,
 	OBJECT_POSITION = 26,
 	OBJECT_TYPE     = 27,
+	CLASS_ID  = 28,
+	AVATAR_ID = 29,
 };
 
 #endif // ENGINEMESSAGEKEY_H

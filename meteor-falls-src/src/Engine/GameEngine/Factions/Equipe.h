@@ -36,6 +36,8 @@ class Equipe
 		const std::vector<Joueur*> joueurs() const;
 		UniteFactory* factory();
 
+		Unite* getUnite(int) const;
+
     protected:
     private:
         Faction *m_faction;

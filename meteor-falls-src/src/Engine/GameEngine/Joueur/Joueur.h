@@ -1,9 +1,11 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 #include <string>
+#include <vector>
 
 class Equipe;
 class JoueurRTS;
+class Avatar;
 class JoueurRPG;
 class Joueur
 {
@@ -33,6 +35,8 @@ class Joueur
 		const TypeGameplay getTypeGameplay(){return m_type_gamplay;}
 		void changeTeam(Equipe*);
 		Equipe* equipe() { return m_equipe; }
+		const std::vector<Avatar*> avatars() const;
+		void addAvatar(Avatar*);
 
 		int id;
 		long ping;
@@ -47,6 +51,8 @@ class Joueur
 		JoueurRPG* m_rpg;
 		JoueurRTS* m_rts;
 		Equipe *m_equipe;
+
+		std::vector<Avatar*> m_avatars;
 };
 
 #endif // JOUEUR_H

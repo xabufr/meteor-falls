@@ -24,6 +24,7 @@ enum EngineMessageType
 	SET_PING 		= 17,
 	GETOBJECTSLIST  = 18,
 	ADDOBJECT       = 19,
+	SPAWN           = 20,
 };
 
 #endif // ENGINEMESSAGETYPE_H

@@ -75,3 +75,14 @@ void Joueur::setTypeGamplay(TypeGameplay t)
 		m_equipe->addRPG(getRPG());
 	}
 }
+const std::vector<Avatar*> Joueur::avatars() const
+{
+	return m_avatars;
+}
+void Joueur::addAvatar(Avatar* av)
+{
+	for(Avatar* avatar : m_avatars)
+		if(av == avatar)
+			return;
+	m_avatars.push_back(av);
+}

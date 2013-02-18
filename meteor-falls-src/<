@@ -38,7 +38,7 @@ SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(
 	m_tabClasses = (CEGUI::TabControl*) windowManager.createWindow("OgreTray/TabControl", "tab_classes");
 	m_tabClasses->setSize(CEGUI::UVector2(CEGUI::UDim(0.95, 0), CEGUI::UDim(0.4, 0)));
 	m_tabClasses->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.45, 0)));
-	m_tabClasses->subscribeEvent(CEGUI::TabControl::EventSelectionChanged, CEGUI::Event::Subscriber(&SpawnState::classChanged, this));
+	m_tabClasses->subscribeEvent(CEGUI::TabControl::EventSelectionChanged, CEGUI::Event::Subscriber(SpawnState::classChanged&, this));
 
 	m_groupCarte->addChildWindow(m_infosSpawn);
 	m_window->addChildWindow(m_groupCarte);
@@ -148,38 +148,11 @@ void SpawnState::m_loadClasses()
 bool SpawnState::classSelected(const CEGUI::EventArgs& arg)
 {
 	CEGUI::Window* win = ((CEGUI::WindowEventArgs&)arg).window;
-	m_avatar = (Avatar*) win->getUserData();
-	m_selectionsAvatar[m_avatar->classe()] = m_avatar;
-	m_resetCurrentClasses();
 	win->setEnabled(false);
+	m_avatar = (Avatar*) win->getUserData();
 	return true;
 }
 bool SpawnState::classChanged(const CEGUI::EventArgs&)
 {
 	m_avatar = nullptr;	
-	m_resetCurrentClasses();
-	return true;
-}
-void SpawnState::m_resetCurrentClasses()
-{
-	CEGUI::Window *currT = m_tabClasses->getTabContentsAtIndex(m_tabClasses->getSelectedTabIndex());
-	if(currT->getChildCount() == 0 || currT->getChildAtIdx(0)->getChildCount()==0)
-		return;
-	CEGUI::Window *currentTab = currT->getChildAtIdx(0)->getChildAtIdx(0);
-	size_t number = currentTab->getChildCount();
-	for(size_t i(0);i<number;++i)
-	{
-		auto it = m_selectionsAvatar.find(((Avatar*)currentTab->getChildAtIdx(i)->getUserData())->classe());
-		if(it!=m_selectionsAvatar.end()&&it->second==currentTab->getChildAtIdx(i)->getUserData())
-		{
-			currentTab->getChildAtIdx(i)->setEnabled(false);
-			m_avatar = it->second;
-		}
-		else
-			currentTab->getChildAtIdx(i)->setEnabled(true);
-	}
-}
-bool SpawnState::trySpawn(const CEGUI::EventArgs&)
-{
-	return true;	
 }
