@@ -228,6 +228,7 @@ bool SoundSetting::m_checkbox_used(const CEGUI::EventArgs&)
     m_ambiant_volume->setEnabled(m_activate->isSelected());
     m_effect_volume->setEnabled(m_activate->isSelected());
     m_interface_volume->setEnabled(m_activate->isSelected());
+    Config::get()->getSoundConfig()->setActivate(m_activate->isSelected());
 
     return true;
 }
@@ -235,7 +236,13 @@ bool SoundSetting::m_checkbox_used(const CEGUI::EventArgs&)
 bool SoundSetting::m_modif_slide(const CEGUI::EventArgs&)
 {
     if (m_music_volume->getCurrentValue() != Playlist::get()->get_Volume())
+    {
         Playlist::get()->set_Volume(m_music_volume->getCurrentValue());
+        Config::get()->getSoundConfig()->setMusicVolume(m_music_volume->getCurrentValue());
+        Config::get()->getSoundConfig()->setAmbiantVolume(m_ambiant_volume->getCurrentValue());
+        Config::get()->getSoundConfig()->setEffectVolume(m_effect_volume->getCurrentValue());
+        Config::get()->getSoundConfig()->setInterfaceVolume(m_interface_volume->getCurrentValue());
+    }
 
     return true;
 }

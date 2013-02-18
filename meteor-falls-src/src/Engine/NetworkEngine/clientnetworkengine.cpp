@@ -2,12 +2,12 @@
 #include "NetworkIpAdressFinder.h"
 #include "../../Utils/Exception/BasicException.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../EngineManager/EngineManager.h"
 #include "../../precompiled/serialization.h"
 #include "../GameEngine/GameEngine.h"
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/FactionManager.h"
-#include "../EngineMessage/EngineMessage.h"
 #include "../GameEngine/Heros/ClasseHero.h"
 #include "../GameEngine/Heros/Avatar.h"
 
@@ -171,7 +171,7 @@ void ClientNetworkEngine::work()
 					EngineMessage *messageSpawn = EngineMessage::clone(message);
 					messageSpawn->clearTo();
 					messageSpawn->addToType(EngineType::GameEngineType);
-					m_manager->addMessage();
+//					m_manager->addMessage();
 				}
 				break;
 		}
@@ -259,6 +259,6 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	message.ints[EngineMessageKey::CLASS_ID] = av->classe()->id();
 	message.ints[EngineMessageKey::AVATAR_ID] = av->id();
-	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
+//	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
 	m_tcp->send(serialize(&message));
 }
