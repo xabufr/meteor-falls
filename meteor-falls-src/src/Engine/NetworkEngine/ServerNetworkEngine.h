@@ -25,6 +25,7 @@ class ServerNetworkEngine : public NetworkEngine
 
         static void sendToTcp(ServerClient&, EngineMessage*);
         static void sendToTcp(ServerClient&, std::string);
+		void sendToTcp(Joueur*, EngineMessage*);
 
 		void sendToTeam(Equipe*, EngineMessage*);
 

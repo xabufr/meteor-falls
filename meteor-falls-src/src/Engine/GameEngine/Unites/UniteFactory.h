@@ -13,6 +13,7 @@ class UniteFactory
         UniteFactory(Equipe*);
         virtual ~UniteFactory();
         Unite* create(Ogre::SceneManager*, UnitId idType, UnitId id=0);
+		int getNextId();
 
     protected:
     private:

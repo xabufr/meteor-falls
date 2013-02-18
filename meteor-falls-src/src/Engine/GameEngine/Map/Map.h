@@ -10,7 +10,6 @@
 #include <SkyX/SkyX.h>
 #include <vector>
 #include "../../../Utils/Vector3D.h"
-#include "../Unites/Hero.h"
 #include <Terrain/OgreTerrainGroup.h>
 #include "../../ScriptEngine/XmlDocumentManager.h"
 

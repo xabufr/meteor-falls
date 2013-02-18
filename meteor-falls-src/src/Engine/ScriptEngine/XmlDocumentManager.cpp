@@ -6,7 +6,6 @@ XmlDocumentManager::XmlDocumentManager()
 {
     //ctor
 }
-
 XmlDocumentManager::~XmlDocumentManager()
 {
     for(auto it : m_documents)
@@ -46,7 +45,6 @@ XmlDocumentManager::Document XmlDocumentManager::m_loadDocument(const std::strin
 
     return doc;
 }
-
 rapidxml::xml_document<>* XmlDocumentManager::writeDocument(const std::string& path)
 {
     std::ofstream file;
@@ -56,8 +54,6 @@ rapidxml::xml_document<>* XmlDocumentManager::writeDocument(const std::string& p
     file.close();
     return m_loadDocument(path).second;
 }
-
-
 XmlDocumentManager* XmlDocumentManager::get()
 {
     return Singleton<XmlDocumentManager>::get();

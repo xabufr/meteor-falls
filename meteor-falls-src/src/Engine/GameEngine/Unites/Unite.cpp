@@ -21,3 +21,7 @@ TypeUnite* Unite::type() const
 {
 	return m_type;
 }
+void Unite::update(unsigned int)
+{
+
+}

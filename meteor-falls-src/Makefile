@@ -642,6 +642,30 @@ src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s
 .PHONY : src/Engine/GameEngine/Heros/ClasseHeroManager.cpp.s
 
+src/Engine/GameEngine/Heros/Hero.o: src/Engine/GameEngine/Heros/Hero.cpp.o
+.PHONY : src/Engine/GameEngine/Heros/Hero.o
+
+# target to build an object file
+src/Engine/GameEngine/Heros/Hero.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Hero.cpp.o
+.PHONY : src/Engine/GameEngine/Heros/Hero.cpp.o
+
+src/Engine/GameEngine/Heros/Hero.i: src/Engine/GameEngine/Heros/Hero.cpp.i
+.PHONY : src/Engine/GameEngine/Heros/Hero.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Heros/Hero.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Hero.cpp.i
+.PHONY : src/Engine/GameEngine/Heros/Hero.cpp.i
+
+src/Engine/GameEngine/Heros/Hero.s: src/Engine/GameEngine/Heros/Hero.cpp.s
+.PHONY : src/Engine/GameEngine/Heros/Hero.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Heros/Hero.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Hero.cpp.s
+.PHONY : src/Engine/GameEngine/Heros/Hero.cpp.s
+
 src/Engine/GameEngine/Joueur/Joueur.o: src/Engine/GameEngine/Joueur/Joueur.cpp.o
 .PHONY : src/Engine/GameEngine/Joueur/Joueur.o
 
@@ -1097,54 +1121,6 @@ src/Engine/GameEngine/Unites/Batiment.s: src/Engine/GameEngine/Unites/Batiment.c
 src/Engine/GameEngine/Unites/Batiment.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Batiment.cpp.s
 .PHONY : src/Engine/GameEngine/Unites/Batiment.cpp.s
-
-src/Engine/GameEngine/Unites/Hero.o: src/Engine/GameEngine/Unites/Hero.cpp.o
-.PHONY : src/Engine/GameEngine/Unites/Hero.o
-
-# target to build an object file
-src/Engine/GameEngine/Unites/Hero.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.o
-.PHONY : src/Engine/GameEngine/Unites/Hero.cpp.o
-
-src/Engine/GameEngine/Unites/Hero.i: src/Engine/GameEngine/Unites/Hero.cpp.i
-.PHONY : src/Engine/GameEngine/Unites/Hero.i
-
-# target to preprocess a source file
-src/Engine/GameEngine/Unites/Hero.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.i
-.PHONY : src/Engine/GameEngine/Unites/Hero.cpp.i
-
-src/Engine/GameEngine/Unites/Hero.s: src/Engine/GameEngine/Unites/Hero.cpp.s
-.PHONY : src/Engine/GameEngine/Unites/Hero.s
-
-# target to generate assembly for a file
-src/Engine/GameEngine/Unites/Hero.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero.cpp.s
-.PHONY : src/Engine/GameEngine/Unites/Hero.cpp.s
-
-src/Engine/GameEngine/Unites/Hero_State.o: src/Engine/GameEngine/Unites/Hero_State.cpp.o
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.o
-
-# target to build an object file
-src/Engine/GameEngine/Unites/Hero_State.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.o
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.o
-
-src/Engine/GameEngine/Unites/Hero_State.i: src/Engine/GameEngine/Unites/Hero_State.cpp.i
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.i
-
-# target to preprocess a source file
-src/Engine/GameEngine/Unites/Hero_State.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.i
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.i
-
-src/Engine/GameEngine/Unites/Hero_State.s: src/Engine/GameEngine/Unites/Hero_State.cpp.s
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.s
-
-# target to generate assembly for a file
-src/Engine/GameEngine/Unites/Hero_State.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Unites/Hero_State.cpp.s
-.PHONY : src/Engine/GameEngine/Unites/Hero_State.cpp.s
 
 src/Engine/GameEngine/Unites/Mobile.o: src/Engine/GameEngine/Unites/Mobile.cpp.o
 .PHONY : src/Engine/GameEngine/Unites/Mobile.o
@@ -2733,6 +2709,9 @@ help:
 	@echo "... src/Engine/GameEngine/Heros/ClasseHeroManager.o"
 	@echo "... src/Engine/GameEngine/Heros/ClasseHeroManager.i"
 	@echo "... src/Engine/GameEngine/Heros/ClasseHeroManager.s"
+	@echo "... src/Engine/GameEngine/Heros/Hero.o"
+	@echo "... src/Engine/GameEngine/Heros/Hero.i"
+	@echo "... src/Engine/GameEngine/Heros/Hero.s"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.o"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.i"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.s"
@@ -2790,12 +2769,6 @@ help:
 	@echo "... src/Engine/GameEngine/Unites/Batiment.o"
 	@echo "... src/Engine/GameEngine/Unites/Batiment.i"
 	@echo "... src/Engine/GameEngine/Unites/Batiment.s"
-	@echo "... src/Engine/GameEngine/Unites/Hero.o"
-	@echo "... src/Engine/GameEngine/Unites/Hero.i"
-	@echo "... src/Engine/GameEngine/Unites/Hero.s"
-	@echo "... src/Engine/GameEngine/Unites/Hero_State.o"
-	@echo "... src/Engine/GameEngine/Unites/Hero_State.i"
-	@echo "... src/Engine/GameEngine/Unites/Hero_State.s"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.o"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.i"
 	@echo "... src/Engine/GameEngine/Unites/Mobile.s"

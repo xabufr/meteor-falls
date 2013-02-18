@@ -200,7 +200,7 @@ void ServerNetworkEngine::work()
 							EngineMessage *messageSpawn = EngineMessage::clone(message);
 							messageSpawn->clearTo();
 							messageSpawn->addToType(EngineType::GameEngineType);
-							m_manager->addMessage();
+							m_manager->addMessage(messageSpawn);
 						}
 						break;
 				}
@@ -398,4 +398,16 @@ void ServerNetworkEngine::sendSetPing(ServerClient& c)
 	mess.ints[EngineMessageKey::TIME] = c.joueur->ping;
 	mess.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
 	sendToAllTcp(&mess);
+}
+void ServerNetworkEngine::sendToTcp(Joueur* j, EngineMessage* message)
+{
+	boost::mutex::scoped_lock(m_mutex_clients);
+	for(ServerClient &c : m_clients)
+	{
+		if(c.joueur == j)
+		{
+			sendToTcp(c, message);
+			return;
+		}
+	}
 }

@@ -3,6 +3,8 @@
 #include "JoueurRPG.h"
 #include "JoueurRTS.h"
 #include "../Factions/Equipe.h"
+#include "../Factions/Faction.h"
+#include "../Heros/Avatar.h"
 
 Joueur::Joueur()
 {
@@ -85,4 +87,21 @@ void Joueur::addAvatar(Avatar* av)
 		if(av == avatar)
 			return;
 	m_avatars.push_back(av);
+}
+void Joueur::clearAvatars()
+{
+}
+Avatar* Joueur::avatar(int id) const
+{
+	for(Avatar* av : m_equipe->faction()->defaultAvatars())
+	{
+		if(av->id() == id)
+			return av;
+	}
+	for(Avatar *av : m_avatars)
+	{
+		if(av->id() == id)
+			return av;
+	}
+	return nullptr;
 }

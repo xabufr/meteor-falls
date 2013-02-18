@@ -16,6 +16,7 @@ class GameEngine : public Engine
             TEAM_LIST,
             TEAM_STATE,
 			SPAWN_STATE,
+			PLAYING,
         };
         enum Type{
             CLIENT,
@@ -44,10 +45,6 @@ class GameEngine : public Engine
 		Joueur* findJoueur(int);
 		void deleteJoueur(int);
 		Type getTypeServerClient() const;
-		
-		void setEtatClient(EtatClient);
-
-    protected:
 
     private:
         Map *m_map;

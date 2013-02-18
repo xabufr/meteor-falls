@@ -23,7 +23,7 @@ void Equipe::setFaction(Faction* f)
 }
 void Equipe::create_unit(Unite* u)
 {
-    if (u->GetType()->type() == TypeUnite::Type::BATIMENT)
+    if (u->GetType()&&u->GetType()->type() == TypeUnite::Type::BATIMENT)
     {
     	bool exists = false;
         for (int i=0;m_batiments_cache.size();i++)

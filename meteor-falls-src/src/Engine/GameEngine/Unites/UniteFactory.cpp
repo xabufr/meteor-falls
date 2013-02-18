@@ -14,7 +14,7 @@ UniteFactory::~UniteFactory()
 Unite* UniteFactory::create(Ogre::SceneManager* scene, UnitId idType, UnitId id)
 {
 	if(id==0)
-		id = m_last_id++;
+		id = getNextId();
 
     TypeUnite *type = m_equipe->faction()->getType(idType);
 	Unite *unit = nullptr;		
@@ -39,4 +39,8 @@ Unite* UniteFactory::create(Ogre::SceneManager* scene, UnitId idType, UnitId id)
 
 	}
     return unit;
+}
+int UniteFactory::getNextId()
+{
+	return m_last_id++;
 }

@@ -12,12 +12,14 @@
 #include "Preface/SpawnState.h"
 #include "../EngineMessage/EngineMessage.h"
 #include "Heros/ClasseHeroManager.h"
+#include "Heros/Hero.h"
+#include "Unites/Unite.h"
 #include <CEGUIString.h>
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),
     m_type(t),
-    m_change_sous_state(false)
+    m_change_sous_state(true)
 {
 	if(t==SERVER)
 		m_map = new Map(nullptr, this);
@@ -39,6 +41,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	{
         m_current_joueur = j;
 		addPlayer(j);
+		setSousStateType(TypeState::TEAM_LIST);
 	}
 }
 GameEngine::~GameEngine()
@@ -89,7 +92,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
 			if(joueur == m_current_joueur)
 			{
-				setEtatClient(EtatClient::Spawn);
+				setSousStateType(TypeState::SPAWN_STATE);
 			}
         }
     }
@@ -109,8 +112,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 		joueur->changeTeam(equ);
 		if(joueur == m_current_joueur)
 		{
-			for(Avatar *av : equ->faction()->defaultAvatars())
-				m_current_joueur->addAvatar(av);
 		}
 	}
 	else if (message.message==EngineMessageType::ADDOBJECT) 
@@ -132,13 +133,46 @@ void GameEngine::handleMessage(EngineMessage& message)
 		{
 			Unite *unit = j->equipe()->getUnite(message.ints[EngineMessageKey::OBJECT_ID]);
 			ClasseHero* cl = j->equipe()->faction()->getClassesManager().classe(message.ints[EngineMessageKey::CLASS_ID]);
+			ServerNetworkEngine* net = (ServerNetworkEngine*) m_manager->getNetwork();
 			if(cl==nullptr||unit==nullptr)
-				return;
-			Vector3D position(unit->getPosition());
+			{
+				message.ints.clear();
+				message.ints[EngineMessageKey::RESULT] = 0;
+				message.ints[EngineMessageKey::ERROR_CODE] = SpawnState::ErrorMessages::INVALID_SPAWN;
+				net->sendToTcp(j, &message);
+			}
+			else
+			{
+				Vector3D position(unit->getPosition());
+				message.ints[EngineMessageKey::RESULT] = 1;
+				message.positions[EngineMessageKey::OBJECT_POSITION];
+				int id = j->equipe()->factory()->getNextId();
+				message.ints[EngineMessageKey::OBJECT_ID] = id;
+				net->sendToAllTcp(&message);
+
+				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+					id);	
+				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+			}
 		}
 		else
 		{
-			Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+			if(message.ints[EngineMessageKey::RESULT] == 1)
+			{
+				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+						message.ints[EngineMessageKey::OBJECT_ID]);
+				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				setSousStateType(TypeState::PLAYING);
+			}
+			else if(m_sous_state!=nullptr)
+			{
+				SpawnState* sous_state = dynamic_cast<SpawnState*>(m_sous_state);
+				if(sous_state)
+				{
+					sous_state->notifySpawnError((SpawnState::ErrorMessages)message.ints[EngineMessageKey::ERROR_CODE]);
+				}
+			}
 		}
 	}
 }
@@ -148,11 +182,6 @@ void GameEngine::work()
     {
         if (m_type == Type::CLIENT)
         {
-            if (m_sous_state == nullptr)
-            {
-                m_sous_state = new TeamList(nullptr, this);
-                m_sous_state->enter();
-            }
             if (m_change_sous_state)
             {
                 if (m_sous_state != nullptr)
@@ -179,7 +208,8 @@ void GameEngine::work()
 	                m_sous_state->enter();
                 m_change_sous_state = false;
             }
-            m_sous_state->work(0);
+			if(m_sous_state)
+				m_sous_state->work(0);
         }
         m_map->update();
     }
@@ -274,16 +304,4 @@ void GameEngine::deleteJoueur(int id)
 GameEngine::Type GameEngine::getTypeServerClient() const
 {
 	return m_type;
-}
-void GameEngine::setEtatClient(GameEngine::EtatClient etat)
-{
-	m_etatClient = etat;
-	switch(etat)
-	{
-		case EtatClient::Spawn:
-		{
-			setSousStateType(SPAWN_STATE);
-		}
-		break;
-	}
 }

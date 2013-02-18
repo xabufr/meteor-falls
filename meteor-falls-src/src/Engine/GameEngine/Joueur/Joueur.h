@@ -6,6 +6,7 @@
 class Equipe;
 class JoueurRTS;
 class Avatar;
+class Hero;
 class JoueurRPG;
 class Joueur
 {
@@ -37,6 +38,8 @@ class Joueur
 		Equipe* equipe() { return m_equipe; }
 		const std::vector<Avatar*> avatars() const;
 		void addAvatar(Avatar*);
+		void clearAvatars();
+		Avatar* avatar(int) const;
 
 		int id;
 		long ping;

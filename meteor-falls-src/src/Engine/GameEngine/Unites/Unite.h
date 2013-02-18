@@ -13,6 +13,7 @@ class Unite : public ObjetTerrain
         virtual ~Unite();
 		int id() const;
 		TypeUnite* type() const;
+		virtual void update(unsigned int);
 	protected:
         Vector3D m_position;
         TypeUnite* m_type;

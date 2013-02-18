@@ -10,6 +10,7 @@
 #include "../EngineMessage/EngineMessage.h"
 #include "../GameEngine/Heros/ClasseHero.h"
 #include "../GameEngine/Heros/Avatar.h"
+#include "../GameEngine/Unites/Unite.h"
 
 #include <iostream>
 
@@ -171,7 +172,7 @@ void ClientNetworkEngine::work()
 					EngineMessage *messageSpawn = EngineMessage::clone(message);
 					messageSpawn->clearTo();
 					messageSpawn->addToType(EngineType::GameEngineType);
-					m_manager->addMessage();
+					m_manager->addMessage(messageSpawn);
 				}
 				break;
 		}

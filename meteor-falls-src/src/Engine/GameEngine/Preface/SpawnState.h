@@ -20,6 +20,10 @@ class ClasseHero;
 class SpawnState: public State
 {
 public:
+	enum ErrorMessages
+	{
+		INVALID_SPAWN = 0,
+	};
 	SpawnState(StateManager*, GameEngine*);
 	~SpawnState();
 	virtual bool isVisible();
@@ -31,6 +35,7 @@ public:
 	bool classSelected(const CEGUI::EventArgs&);
 	bool classChanged(const CEGUI::EventArgs&);
 	bool trySpawn(const CEGUI::EventArgs&);
+	void notifySpawnError(ErrorMessages);
 private:
 	GameEngine* m_game;
 	CEGUI::Window *m_window;
@@ -40,7 +45,9 @@ private:
 	CEGUI::Window *m_infosSpawn;
 	CEGUI::TabControl *m_tabClasses;
 	Unite* m_last_selected_u;
+	bool m_waitingResponse;
 	void m_loadClasses();
+	CEGUI::PushButton* m_loadClasse(ClasseHero*, Avatar*);
 	Avatar *m_avatar;
 	std::unordered_map<ClasseHero*, Avatar*> m_selectionsAvatar;
 	void m_resetCurrentClasses();

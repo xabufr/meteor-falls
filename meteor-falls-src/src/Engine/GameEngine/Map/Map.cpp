@@ -22,6 +22,7 @@
 #include "WorldObjectManager.h"
 #include "../Factions/Equipe.h"
 #include "../Unites/UniteFactory.h"
+#include "../Unites/Unite.h"
 #include "../../../Utils/Random.h"
 #include "../../../precompiled/lexical_cast.h"
 #include "WorldObjectType.h"

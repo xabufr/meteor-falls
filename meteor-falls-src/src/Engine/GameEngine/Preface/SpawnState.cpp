@@ -11,6 +11,8 @@
 #include "../Heros/ClasseHeroManager.h"
 #include "../Heros/ClasseHero.h"
 #include "../Heros/Avatar.h"
+#include "../../EngineManager/EngineManager.h"
+#include "../../NetworkEngine/clientnetworkengine.h"
 
 SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(game)
 {
@@ -23,13 +25,17 @@ SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(
 	m_buttonSpawn->setText((CEGUI::utf8*)"Apparaître");
 	m_buttonSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.15,0), CEGUI::UDim(0.10,0)));
 	m_buttonSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.8250,0), CEGUI::UDim(0.875, 0)));
+	m_buttonSpawn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::trySpawn, this));
+
 	m_spawns = (CEGUI::Listbox*) windowManager.createWindow("OgreTray/Listbox", "spawns_list");
 	m_spawns->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4, 0)));
 	m_spawns->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.025, 0)));
+
 	m_groupCarte = (CEGUI::GroupBox*)windowManager.createWindow("OgreTray/Group", "groupe_spawn_carte");
 	m_groupCarte->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4,0)));
 	m_groupCarte->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5125, 0), CEGUI::UDim(0.025, 0)));
 	m_groupCarte->setText("Carte");
+
 	m_infosSpawn = windowManager.createWindow("OgreTray/StaticText", "infos_spawn");
 	m_infosSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8,0)));
 	m_infosSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1, 0), CEGUI::UDim(0.1, 0)));
@@ -50,6 +56,8 @@ SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(
 	m_avatar = nullptr;
 	updateSpawns();
 	m_loadClasses();
+	m_waitingResponse = false;
+	std::cout << "trySpawn" << std::endl;
 }
 SpawnState::~SpawnState()
 {
@@ -73,7 +81,7 @@ void SpawnState::exit()
 }
 ret_code SpawnState::work(unsigned int time)
 {
-	m_buttonSpawn->setEnabled(m_avatar!=nullptr);
+	m_buttonSpawn->setEnabled(m_avatar!=nullptr && !m_waitingResponse);
 	return ret_code::CONTINUE;
 }
 void SpawnState::updateSpawns()
@@ -128,22 +136,39 @@ void SpawnState::m_loadClasses()
 		int i=0;
 		for(Avatar* ava : m_game->getCurrentJoueur()->avatars())
 		{
-			if(ava->classe() == classe)
-			{
-				CEGUI::PushButton* btn = (CEGUI::PushButton*)CEGUI::WindowManager::getSingleton().createWindow("OgreTray/Button");
-				btn->setText(ava->nom());
-				btn->setSize(CEGUI::UVector2(CEGUI::UDim(0.2, 0), CEGUI::UDim(0.8, 0)));
-				btn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2*i, 0), CEGUI::UDim(0.1, 0)));
-				btn->setUserData(ava);
-				btn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::classSelected, this));
-				++i;
-				scroll->addChildWindow(btn);
-			}
+			CEGUI::PushButton *btn = m_loadClasse(classe, ava);
+			if(!btn)
+				continue;
+			scroll->addChildWindow(btn);
+			btn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2*i, 0), CEGUI::UDim(0.1, 0)));
+			++i;
+		}
+		for(Avatar* ava : m_game->getCurrentJoueur()->equipe()->faction()->defaultAvatars())
+		{
+			CEGUI::PushButton *btn = m_loadClasse(classe, ava);
+			if(!btn)
+				continue;
+			scroll->addChildWindow(btn);
+			btn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2*i, 0), CEGUI::UDim(0.1, 0)));
+			++i;
 		}
 		scroll->setSize(CEGUI::UVector2(CEGUI::UDim(1.00, 0), CEGUI::UDim(1.0, 0)));
 		scroll->setPosition(CEGUI::UVector2(CEGUI::UDim(0.0, 0), CEGUI::UDim(0.0, 0)));
 		tab->addChildWindow(scroll);
 	}
+}
+CEGUI::PushButton* SpawnState::m_loadClasse(ClasseHero* classe, Avatar* ava)
+{
+	if(ava->classe() == classe)
+	{
+		CEGUI::PushButton* btn = (CEGUI::PushButton*)CEGUI::WindowManager::getSingleton().createWindow("OgreTray/Button");
+		btn->setText(ava->nom());
+		btn->setSize(CEGUI::UVector2(CEGUI::UDim(0.2, 0), CEGUI::UDim(0.8, 0)));
+		btn->setUserData(ava);
+		btn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::classSelected, this));
+		return btn;
+	}
+	return nullptr;
 }
 bool SpawnState::classSelected(const CEGUI::EventArgs& arg)
 {
@@ -181,5 +206,12 @@ void SpawnState::m_resetCurrentClasses()
 }
 bool SpawnState::trySpawn(const CEGUI::EventArgs&)
 {
+	m_waitingResponse = true;
+	ClientNetworkEngine* net = (ClientNetworkEngine*)m_game->getManager()->getNetwork();
+	net->trySpawn(m_last_selected_u, m_avatar);
 	return true;	
+}
+void SpawnState::notifySpawnError(ErrorMessages error)
+{
+	m_waitingResponse = false;
 }
