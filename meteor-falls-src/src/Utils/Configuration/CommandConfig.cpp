@@ -24,230 +24,165 @@ void CommandConfig::defaultCommandConfig()
 
     //Global
     current.description = "Chat";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 20;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_T;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[0][0] = current;
 
     current.description = "Carte";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 50;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_M;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[0][1] = current;
 
     //RPG
     current.description = "Avance";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 44;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 200;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_Z;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[1].keyboard = OIS::KeyCode::KC_UP;
     m_map_key[1][0] = current;
 
     current.description = "Reculer";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 31;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_S;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[1].keyboard = OIS::KeyCode::KC_DOWN;
     m_map_key[1][1] = current;
 
     current.description = "Aller à droite";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 32;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 205;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_D;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[1].keyboard = OIS::KeyCode::KC_RIGHT;
     m_map_key[1][2] = current;
 
     current.description = "Aller à gauche";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 16;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 203;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_Q;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[1].keyboard = OIS::KeyCode::KC_LEFT;
     m_map_key[1][3] = current;
 
-    current.description = "Interface";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 18;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.description = "Interaction";
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_E;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][4] = current;
 
     current.description = "Main gauche";
-    current.action[0].type = 1;
-    current.action[0].keyboard = 0;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::MOUSE;
+    current.action[0].mouse = OIS::MouseButtonID::MB_Left;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][5] = current;
 
     current.description = "Main droite";
-    current.action[0].type = 1;
-    current.action[0].keyboard = 0;
-    current.action[0].mouse = 1;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::MOUSE;
+    current.action[0].mouse = OIS::MouseButtonID::MB_Right;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][6] = current;
 
     current.description = "Accroupi";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 46;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_C;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][7] = current;
 
     current.description = "Courir";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 42;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_LSHIFT;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][8] = current;
 
     current.description = "Marcher";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 17;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_W;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][9] = current;
 
     current.description = "Sauter";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 57;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_SPACE;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][10] = current;
 
     current.description = "Position";
-    current.action[0].type = 1;
-    current.action[0].keyboard = 0;
-    current.action[0].mouse = 3;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::MOUSE;
+    current.action[0].mouse = OIS::MouseButtonID::MB_Middle;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][11] = current;
 
     current.description = "Inventaire";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 23;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_I;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][12] = current;
 
     current.description = "Statistique";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 25;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_P;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][13] = current;
 
     current.description = "Action 0";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 11;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_0;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][14] = current;
 
     current.description = "Action 1";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 2;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_1;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][15] = current;
 
     current.description = "Action 2";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 3;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_2;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][16] = current;
 
     current.description = "Action 3";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 4;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_3;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][17] = current;
 
     current.description = "Action 4";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 5;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_4;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][18] = current;
 
     current.description = "Action 5";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 6;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_5;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][19] = current;
 
     current.description = "Action 6";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 7;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
-    m_map_key[1][17] = current;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_6;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    m_map_key[1][20] = current;
 
     current.description = "Action 7";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 8;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
-    m_map_key[1][18] = current;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_7;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    m_map_key[1][21] = current;
 
     current.description = "Action 8";
-    current.action[0].type = 0;
-    current.action[0].keyboard = 9;
-    current.action[0].mouse = 0;
-    current.action[1].type = 0;
-    current.action[1].keyboard = 999;
-    current.action[1].mouse = 0;
-    m_map_key[1][19] = current;
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_8;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    m_map_key[1][22] = current;
+
+    current.description = "Action 9";
+    current.action[0].type = KeyAction::Key::Type::KEYBOARD;
+    current.action[0].keyboard = OIS::KeyCode::KC_9;
+    current.action[1].type = KeyAction::Key::Type::KEYBOARD;
+    m_map_key[1][23] = current;
 }
 
 void CommandConfig::loadConfig()
@@ -425,9 +360,6 @@ std::string CommandConfig::toString(OIS::MouseButtonID c)
         break;
         case OIS::MouseButtonID::MB_Button7:
             return "Bouton 5";
-        break;
-        case 999:
-            return "";
         break;
     }
     return "Unknown";
