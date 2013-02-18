@@ -42,7 +42,7 @@ void SoundConfig::loadConfig()
 
 void SoundConfig::saveConfig()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->writeDocument("config.cfg");
+    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("config.cfg");
     rapidxml::xml_node<>* root;
     rapidxml::xml_node<>* sound;
     rapidxml::xml_node<>* music;

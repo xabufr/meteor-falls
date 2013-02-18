@@ -200,9 +200,10 @@ bool Console::keyPressed(const OIS::KeyEvent& arg)
                 m_show_old_command(arg);
 
         m_lines = std::string(m_console->getText().c_str());
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 bool Console::keyReleased(const OIS::KeyEvent& arg)

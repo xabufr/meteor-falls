@@ -13,7 +13,7 @@
 #include "../../Engine/SoundEngine/Playlist.h"
 
 MenuState::MenuState(StateManager* mng):
-    State(mng), m_visible(false)
+    State(mng), m_visible(false), m_escape(true)
 {
     m_transitionning=false;
     m_currentSelected = 0;
@@ -109,7 +109,7 @@ MenuState::MenuState(StateManager* mng):
     m_layout_state = new LayoutRTS(m_state_manager);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
-    m_option_state = new OptionState(m_state_manager);
+    m_option_state = new OptionState(m_state_manager, this);
 
     m_sousState = m_login_state;
 
@@ -301,7 +301,7 @@ ret_code MenuState::work(unsigned int time)
     else
     {
         m_sousState->work(time);
-		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape)
 		{
 			m_sousState->exit();
 			m_sousState=0;

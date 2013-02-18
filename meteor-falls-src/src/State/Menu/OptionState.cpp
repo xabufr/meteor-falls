@@ -5,11 +5,13 @@
 #include "../Option/SoundSetting.h"
 #include "../Option/GraphicSetting.h"
 #include "../Option/CommandSetting.h"
+#include "MenuState.h"
 
-OptionState::OptionState(StateManager* mgr):State(mgr),
+OptionState::OptionState(StateManager* mgr, MenuState* menu):State(mgr),
 m_visible(true),
 m_state_manager(mgr),
-m_sous_state(nullptr)
+m_sous_state(nullptr),
+m_menu(menu)
 {
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
@@ -83,6 +85,7 @@ ret_code OptionState::work(unsigned int)
         m_sous_state->work(0);
     else if (m_sous_state != nullptr)
     {
+        m_menu->setEscape(true);
         m_sous_state->exit();
         m_sous_state = nullptr;
         m_sound->show();
@@ -104,7 +107,10 @@ bool OptionState::m_choix_option(const CEGUI::EventArgs&)
     else if (m_graphics->isPushed())
         m_sous_state = m_graphic_setting;
     else if (m_control->isPushed())
+    {
         m_sous_state = m_command_setting;
+        m_menu->setEscape(false);
+    }
 
     m_sous_state->enter();
 

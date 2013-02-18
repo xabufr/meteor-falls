@@ -10,10 +10,11 @@
 class SoundSetting;
 class GraphicSetting;
 class CommandSetting;
+class MenuState;
 class OptionState : public State
 {
     public:
-        OptionState(StateManager*);
+        OptionState(StateManager*, MenuState*);
         ~OptionState();
         virtual bool isVisible();
         virtual void enter();
@@ -22,6 +23,7 @@ class OptionState : public State
     private:
         bool m_visible;
         bool m_choix_option(const CEGUI::EventArgs &);
+        MenuState* m_menu;
         OIS::Keyboard *m_keyboard;
         State* m_sous_state;
         StateManager* m_state_manager;
