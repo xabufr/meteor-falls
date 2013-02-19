@@ -82,7 +82,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		else
 		{
 			std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
-            m_chat->addMessage(nom);
+            m_chat->addMessage(nom, findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]));
 		}
 	}
 	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)

@@ -125,6 +125,10 @@
 		<Unit filename="src/Engine/GameEngine/Heros/ClasseHero.h" />
 		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.cpp" />
 		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/Hero.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/Hero.h" />
+		<Unit filename="src/Engine/GameEngine/Interface/Chat.cpp" />
+		<Unit filename="src/Engine/GameEngine/Interface/Chat.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurLan.cpp" />
@@ -285,6 +289,8 @@
 		<Unit filename="src/Utils/Exception/FileNotFound.h" />
 		<Unit filename="src/Utils/File.cpp" />
 		<Unit filename="src/Utils/File.h" />
+		<Unit filename="src/Utils/MessageDialog.cpp" />
+		<Unit filename="src/Utils/MessageDialog.h" />
 		<Unit filename="src/Utils/Random.cpp" />
 		<Unit filename="src/Utils/Random.h" />
 		<Unit filename="src/Utils/Vector3D.h" />

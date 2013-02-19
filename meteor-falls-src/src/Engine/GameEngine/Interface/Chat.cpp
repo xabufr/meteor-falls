@@ -7,6 +7,7 @@
 #include "../../EngineMessage/EngineMessage.h"
 #include "../GameEngine.h"
 #include "../../../Utils/Configuration/Config.h"
+#include "../Joueur/Joueur.h"
 #include <CEGUI.h>
 
 
@@ -56,9 +57,10 @@ void Chat::hide()
     m_message->hide();
 }
 
-void Chat::addMessage(std::string message)
+void Chat::addMessage(std::string message, Joueur* j)
 {
     CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem((CEGUI::utf8*)message.c_str());
+    item->setUserData(j);
     m_show_message->addItem(item);
 }
 
