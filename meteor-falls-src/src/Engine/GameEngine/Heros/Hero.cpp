@@ -20,6 +20,11 @@ m_entityBody(nullptr)
 		m_sceneNode->attachObject(m_entityBody);
 	}
 }
+Hero::~Hero()
+{
+	m_joueur->setHero(nullptr);
+	m_sceneManager->destroyEntity(m_entityBody);
+}
 JoueurRPG* Hero::joueur() const
 {
 	return m_joueur;

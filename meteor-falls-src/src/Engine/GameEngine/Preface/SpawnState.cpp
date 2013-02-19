@@ -57,7 +57,6 @@ SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(
 	updateSpawns();
 	m_loadClasses();
 	m_waitingResponse = false;
-	std::cout << "trySpawn" << std::endl;
 }
 SpawnState::~SpawnState()
 {

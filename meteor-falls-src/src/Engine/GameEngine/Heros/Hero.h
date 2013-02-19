@@ -11,6 +11,7 @@ class Hero: public Unite
 {
 public:
 	Hero(Ogre::SceneManager*, JoueurRPG*, Avatar*, int id);
+	virtual ~Hero();
 	JoueurRPG* joueur() const;
 	Avatar *avatar() const;
 	virtual void update(unsigned int);

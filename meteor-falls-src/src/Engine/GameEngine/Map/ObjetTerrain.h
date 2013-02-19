@@ -17,6 +17,7 @@ class ObjetTerrain
     protected:
         Vector3D m_position;
         Ogre::SceneNode *m_sceneNode;
+		Ogre::SceneManager* m_sceneManager;
 };
 
 #endif // OBJETTERRAIN_H

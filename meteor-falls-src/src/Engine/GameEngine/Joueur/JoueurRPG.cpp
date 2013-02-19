@@ -7,6 +7,8 @@ m_hero(nullptr)
 }
 JoueurRPG::~JoueurRPG()
 {
+	if(m_hero)
+		delete m_hero;
 }
 Joueur* JoueurRPG::joueur() const
 {

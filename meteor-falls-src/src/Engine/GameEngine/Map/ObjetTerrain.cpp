@@ -2,7 +2,7 @@
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
 
-ObjetTerrain::ObjetTerrain(Ogre::SceneManager* mng)
+ObjetTerrain::ObjetTerrain(Ogre::SceneManager* mng): m_sceneManager(mng)
 {
 	if(mng!=nullptr)
    		m_sceneNode = mng->getRootSceneNode()->createChildSceneNode();
@@ -11,6 +11,11 @@ ObjetTerrain::ObjetTerrain(Ogre::SceneManager* mng)
 }
 ObjetTerrain::~ObjetTerrain()
 {
+	if(m_sceneNode)
+	{
+		m_sceneNode->removeAndDestroyAllChildren();
+		m_sceneManager->destroySceneNode(m_sceneNode);
+	}
 }
 const Vector3D& ObjetTerrain::getPosition() const
 {

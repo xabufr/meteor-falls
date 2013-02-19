@@ -48,7 +48,7 @@ void Joueur::changeTeam(Equipe* equ)
 	{
 		m_equipe->removeJoueur(this);
 	}
-	m_equipe 		   = equ;
+	m_equipe = equ;
 	if(m_equipe != nullptr)
 		m_equipe->addJoueur(this);
 }
