@@ -151,6 +151,17 @@ void Faction::load()
 			}
 			classe->m_nom   = nodeHero->first_node("nom")->value();
 			classe->m_icone = nodeHero->first_node("icone")->value();
+			/*
+			 * Chargement des meshes
+			 * */
+			rapidxml::xml_node<> *meshes;
+			for(meshes=nodeHero->first_node("meshes")->first_node("mesh");meshes;meshes=meshes->next_sibling("mesh"))
+			{
+				int from, to;
+				from = boost::lexical_cast<int>(meshes->first_attribute("from")->value());
+				to   = boost::lexical_cast<int>(meshes->first_attribute("to")->value());
+				classe->addMesh(from, to, meshes->value());
+			}
 		}
     }
     //Seconde passe, pour édition de liens
