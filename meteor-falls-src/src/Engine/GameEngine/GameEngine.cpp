@@ -146,7 +146,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			{
 				Vector3D position(unit->getPosition());
 				message.ints[EngineMessageKey::RESULT] = 1;
-				message.positions[EngineMessageKey::OBJECT_POSITION];
+				message.positions[EngineMessageKey::OBJECT_POSITION] = unit->getPosition();
 				int id = j->equipe()->factory()->getNextId();
 				message.ints[EngineMessageKey::OBJECT_ID] = id;
 				net->sendToAllTcp(&message);
@@ -161,7 +161,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 			if(message.ints[EngineMessageKey::RESULT] == 1)
 			{
 				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(), 
+						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				setSousStateType(TypeState::PLAYING);

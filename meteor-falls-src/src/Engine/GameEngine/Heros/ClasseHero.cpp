@@ -19,7 +19,7 @@ std::string ClasseHero::mesh(int level) const
 {
 	for(auto mesh : m_meshes)
 	{
-		if(mesh.first.from>=level&&mesh.first.to<=level)
+		if(mesh.first.from<=level&&mesh.first.to>=level)
 			return mesh.second;
 	}
 	return "";

@@ -10,6 +10,7 @@ Joueur::Joueur()
 {
 	m_type_gamplay = TypeGameplay::NONE_GAMEPLAY;
 	m_equipe = nullptr;
+	m_level = 1;
 }
 Joueur::~Joueur()
 {
@@ -34,7 +35,7 @@ void Joueur::setLevel(int lvl)
 {
     m_level = lvl;
 }
-const int& Joueur::getLevel()
+int Joueur::getLevel() const
 {
     return m_level;
 }

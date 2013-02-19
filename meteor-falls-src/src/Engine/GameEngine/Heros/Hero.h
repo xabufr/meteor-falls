@@ -4,6 +4,9 @@
 
 class JoueurRPG;
 class Avatar;
+namespace Ogre {
+	class Entity;
+} // namespace Ogre
 class Hero: public Unite
 {
 public:
@@ -14,6 +17,7 @@ public:
 private:
 	JoueurRPG *m_joueur;
 	Avatar *m_avatar;
+	Ogre::Entity *m_entityBody;
 };
 
 #endif 
