@@ -173,6 +173,7 @@ void ClientNetworkEngine::work()
 					messageSpawn->clearTo();
 					messageSpawn->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageSpawn);
+					std::cout << "mess spawn" << std::endl;
 				}
 				break;
 		}
@@ -259,7 +260,8 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 	message.message = EngineMessageType::SPAWN;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	message.ints[EngineMessageKey::CLASS_ID] = av->classe()->id();
-	message.ints[EngineMessageKey::AVATAR_ID] = av->id();
 	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
+	av->serialize(&message);
+	message.addToType(EngineType::GameEngineType);
 	m_tcp->send(serialize(&message));
 }

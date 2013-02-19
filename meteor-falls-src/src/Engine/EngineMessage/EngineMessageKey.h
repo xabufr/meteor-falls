@@ -33,7 +33,9 @@ enum EngineMessageKey
 	OBJECT_TYPE     = 27,
 	CLASS_ID  		= 28,
 	AVATAR_ID 		= 29,
-	ERROR_CODE 		= 30,
+	AVATAR_NAME     = 30,
+	AVATAR_DEFAULT  = 31,
+	ERROR_CODE 		= 32,
 };
 
 #endif // ENGINEMESSAGEKEY_H

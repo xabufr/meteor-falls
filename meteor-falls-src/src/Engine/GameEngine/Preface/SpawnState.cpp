@@ -90,7 +90,7 @@ void SpawnState::updateSpawns()
 	Equipe *equi = curr->equipe();
 	for(Unite *e : equi->unites())
 	{
-		if(e->type()->spawn())
+		if(e->type() && e->type()->spawn())
 		{
 			CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(e->type()->nom());
 			item->setUserData((void*)e);

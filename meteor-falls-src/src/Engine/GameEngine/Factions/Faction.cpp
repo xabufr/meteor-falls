@@ -266,6 +266,7 @@ void Faction::load()
 					continue;
 			Avatar* av = new Avatar(id, classe);
 			av->m_nom  = nodeAvatars->first_node("nom")->value();
+			av->m_isDefault = true;
 			m_avatarDefault.push_back(av);
 		}
     }

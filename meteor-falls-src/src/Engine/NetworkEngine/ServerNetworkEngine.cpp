@@ -10,6 +10,8 @@
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Unites/Unite.h"
+#include "../GameEngine/Heros/Hero.h"
+#include "../GameEngine/Heros/Avatar.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
     m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
@@ -34,7 +36,7 @@ void ServerNetworkEngine::work()
 	const long pingTimeout = 10000;
     std::vector<ServerClient> clients;
     {
-        boost::mutex::scoped_lock l(m_mutex_clients);
+        boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 		for(auto it=m_clients.begin();it!=m_clients.end();)
 		{
 			if(it->data->toDel)
@@ -194,14 +196,27 @@ void ServerNetworkEngine::work()
 									messageUnit.ints[EngineMessageKey::OBJECT_TYPE] = u->type()->id();
 									sendToTcp(client, &messageUnit);
 								}
+								//Synchro des héros
+								for(JoueurRPG *j : e->getRPG())
+								{
+									if(!j->hero())
+										continue;
+									EngineMessage messageHero(m_manager);
+									messageHero.message = EngineMessageType::SPAWN;
+									messageHero.ints[EngineMessageKey::PLAYER_NUMBER];
+									j->hero()->avatar()->serialize(&messageHero);
+									messageHero.ints[EngineMessageKey::OBJECT_ID] = j->hero()->id();
+									messageHero.positions[EngineMessageKey::OBJECT_POSITION] = j->hero()->getPosition();
+									messageHero.addToType(EngineType::GameEngineType);
+									messageHero.ints[EngineMessageKey::RESULT] = 1;
+									sendToTcp(client, &messageHero);
+								}
 							}
 						}
 						break;
 					case EngineMessageType::SPAWN:
 						{
 							EngineMessage *messageSpawn = EngineMessage::clone(message);
-							messageSpawn->clearTo();
-							messageSpawn->addToType(EngineType::GameEngineType);
 							m_manager->addMessage(messageSpawn);
 						}
 						break;
@@ -252,7 +267,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
     if(!e)
     {
         {
-            boost::mutex::scoped_lock l(m_mutex_clients);
+            boost::recursive_mutex::scoped_lock l(m_mutex_clients);
             m_clients.push_back(ServerClient(conn, m_lastClient++));
             conn->setConnected(true);
             conn->startListen();
@@ -273,7 +288,7 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
 	message.message = EngineMessageType::DEL_PLAYER;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
 	{
-		boost::mutex::scoped_lock l(m_mutex_clients);
+		boost::recursive_mutex::scoped_lock l(m_mutex_clients);
     	for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
     	{
     	    if(it->tcp()==c.tcp())
@@ -292,7 +307,7 @@ void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {
     std::string data(NetworkEngine::serialize(message));
 
-    boost::mutex::scoped_lock l(m_mutex_clients);
+    boost::recursive_mutex::scoped_lock l(m_mutex_clients);
     for(ServerClient &c : m_clients)
     {
         sendToTcp(c,data);
@@ -310,7 +325,7 @@ void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* mes
 {
     std::string data(NetworkEngine::serialize(message));
 
-    boost::mutex::scoped_lock l(m_mutex_clients);
+    boost::recursive_mutex::scoped_lock l(m_mutex_clients);
     for(ServerClient &c  :m_clients)
     {
         if(c.id()!=id)
@@ -340,7 +355,7 @@ EngineMessage* ServerNetworkEngine::m_createMapMessage()
 }
 void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 {
-	boost::mutex::scoped_lock l(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
 		for(Joueur *j : e->joueurs())
@@ -355,7 +370,7 @@ void ServerNetworkEngine::sendToTeam(Equipe* e, EngineMessage* message)
 }
 ServerClient* ServerNetworkEngine::findClient(client_id id)
 {
-	boost::mutex::scoped_lock l(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
 		if(c.id() == id)
@@ -380,7 +395,7 @@ void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
 }
 void ServerNetworkEngine::pingClients()
 {
-	boost::mutex::scoped_lock l(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 	for(ServerClient& c : m_clients)
 	{
 		if(!c.data->waitingPing && c.data->timeSinceLastPingRep.getTime() > 2000)
@@ -403,7 +418,7 @@ void ServerNetworkEngine::sendSetPing(ServerClient& c)
 }
 void ServerNetworkEngine::sendToTcp(Joueur* j, EngineMessage* message)
 {
-	boost::mutex::scoped_lock(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock(m_mutex_clients);
 	for(ServerClient &c : m_clients)
 	{
 		if(c.joueur == j)

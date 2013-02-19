@@ -1,6 +1,8 @@
 #include "Avatar.h"
+#include "ClasseHero.h"
+#include "../../EngineMessage/EngineMessage.h"
 
-Avatar::Avatar(int id, ClasseHero* cl): m_id(id), m_classe(cl)
+Avatar::Avatar(int id, ClasseHero* cl): m_id(id), m_classe(cl), m_isDefault(false)
 {
 	
 }
@@ -15,4 +17,22 @@ int Avatar::id() const
 ClasseHero* Avatar::classe() const
 {
 	return m_classe;
+}
+bool Avatar::isDefault() const
+{
+	return m_isDefault;
+}
+void Avatar::serialize(EngineMessage* mes) const
+{
+	mes->ints[EngineMessageKey::AVATAR_ID] = m_id;
+	mes->strings[EngineMessageKey::AVATAR_NAME] = m_nom;
+	mes->ints[EngineMessageKey::CLASS_ID] = m_classe->id();
+	mes->ints[EngineMessageKey::AVATAR_DEFAULT] = static_cast<int>(m_isDefault);
+}
+bool Avatar::loadFrom(EngineMessage* mes)
+{
+	m_isDefault = static_cast<bool>(mes->ints[EngineMessageKey::AVATAR_DEFAULT]);
+	m_nom       = mes->strings[EngineMessageKey::AVATAR_NAME];
+	m_id        = mes->ints[EngineMessageKey::AVATAR_ID];
+	return true;
 }

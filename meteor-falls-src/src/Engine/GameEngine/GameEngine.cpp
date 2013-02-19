@@ -128,8 +128,10 @@ void GameEngine::handleMessage(EngineMessage& message)
 	else if (message.message==EngineMessageType::SPAWN) 
 	{
 		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+		std::cout << "mess spawn1" << std::endl;
 		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
 			return;
+		std::cout << "mess spawn2" << std::endl;
 		if(m_type == SERVER)
 		{
 			Unite *unit = j->equipe()->getUnite(message.ints[EngineMessageKey::OBJECT_ID]);
@@ -150,10 +152,14 @@ void GameEngine::handleMessage(EngineMessage& message)
 				int id = j->equipe()->factory()->getNextId();
 				message.ints[EngineMessageKey::OBJECT_ID] = id;
 				net->sendToAllTcp(&message);
-
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
-					id);	
-				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				Hero *hero;
+				if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
+						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+				{
+					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+							id);
+					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				}
 			}
 		}
 		else
@@ -161,11 +167,16 @@ void GameEngine::handleMessage(EngineMessage& message)
 			if(message.ints[EngineMessageKey::RESULT] == 1)
 			{
 				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+				{
+				}
 				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(), 
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
-				setSousStateType(TypeState::PLAYING);
+				if(m_current_joueur==j)
+					setSousStateType(TypeState::PLAYING);
+				std::cout << "mess spawn2" << std::endl;
 			}
 			else if(m_sous_state!=nullptr)
 			{
