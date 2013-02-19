@@ -76,7 +76,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-			CEGUI::String nom = "{ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" }:"+message.strings[EngineMessageKey::MESSAGE];
+			CEGUI::String nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
             TeamState *team_state = (TeamState*)m_sous_state;
             team_state->setMessage(nom);
 		}
@@ -114,7 +114,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		{
 		}
 	}
-	else if (message.message==EngineMessageType::ADDOBJECT) 
+	else if (message.message==EngineMessageType::ADDOBJECT)
 	{
 		UnitId type       = message.ints[EngineMessageKey::OBJECT_TYPE];
 		UnitId id         = message.ints[EngineMessageKey::OBJECT_ID];
@@ -124,7 +124,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		Unite *unit = e->factory()->create(m_manager->getGraphic()->getSceneManager(), type, id);
 		unit->setPosition(position);
 	}
-	else if (message.message==EngineMessageType::SPAWN) 
+	else if (message.message==EngineMessageType::SPAWN)
 	{
 		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
@@ -150,8 +150,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 				message.ints[EngineMessageKey::OBJECT_ID] = id;
 				net->sendToAllTcp(&message);
 
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
-					id);	
+				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
+					id);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 			}
 		}
@@ -160,7 +160,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			if(message.ints[EngineMessageKey::RESULT] == 1)
 			{
 				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				setSousStateType(TypeState::PLAYING);
