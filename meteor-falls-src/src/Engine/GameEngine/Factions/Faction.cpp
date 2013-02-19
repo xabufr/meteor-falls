@@ -95,10 +95,13 @@ void Faction::load()
             unite->m_armure = DegatManager::get()->getArmure(boost::lexical_cast<ArmureId>(nodeUnit->first_node("armure")->value()));
 
             rapidxml::xml_node<>* nodeCouts = nodeUnit->first_node("coute");
-            unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
-            unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
-            unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
-            unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
+			if(nodeCouts)
+			{
+				unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
+				unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
+				unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
+				unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
+			}
 
             rapidxml::xml_node<>* nodeProduction = nodeUnit->first_node("produit");
             if(nodeProduction)

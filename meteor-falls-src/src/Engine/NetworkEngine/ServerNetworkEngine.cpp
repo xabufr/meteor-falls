@@ -184,6 +184,8 @@ void ServerNetworkEngine::work()
 							{
 								for(Unite *u : e->unites())
 								{
+									if(!u->type()) //C'est un héro, nécessite une synchro plus poussée (avatar)
+										continue;
 									EngineMessage messageUnit(m_manager);
 									messageUnit.message = EngineMessageType::ADDOBJECT;
 									messageUnit.positions[EngineMessageKey::OBJECT_POSITION] = u->getPosition();

@@ -260,6 +260,6 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	message.ints[EngineMessageKey::CLASS_ID] = av->classe()->id();
 	message.ints[EngineMessageKey::AVATAR_ID] = av->id();
-//	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
+	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
 	m_tcp->send(serialize(&message));
 }

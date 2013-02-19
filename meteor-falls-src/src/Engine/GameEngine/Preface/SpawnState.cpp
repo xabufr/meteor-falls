@@ -117,6 +117,7 @@ bool SpawnState::spawnSelected(const CEGUI::EventArgs& a)
 	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().x);
 	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().y);
 	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().z);
+	infos += " id: " + boost::lexical_cast<std::string>(m_last_selected_u->id());
 	m_infosSpawn->setText(infos);
 
 	return true;
