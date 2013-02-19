@@ -178,7 +178,11 @@ bool CommandSetting::m_box_pushed(const CEGUI::EventArgs& arg)
     OgreContextManager::get()->getInputManager()->addKeyboardListener(this);
     OgreContextManager::get()->getInputManager()->addMouseListener(this);
     m_box_selected = (CEGUI::Editbox*)((CEGUI::WindowEventArgs&)arg).window;
-    m_old_key = m_box_selected->getText().c_str();
+    CommandConfig::KeyAction::Key *key = (CommandConfig::KeyAction::Key*)m_box_selected->getUserData();
+    if (key->type == CommandConfig::KeyAction::Key::Type::KEYBOARD)
+        m_old_key = key->keyboard;
+    else
+        m_old_mouse = key->mouse;
     m_box_selected->setText("Appuyer sur une touche.");
 
     return true;
@@ -190,8 +194,14 @@ bool CommandSetting::mouseMoved(const OIS::MouseEvent& arg)
 
 bool CommandSetting::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
-    ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->mouse = id;
-    m_box_selected->setText(Config::get()->getCommandConfig()->toString(id));
+    if (!Config::get()->getCommandConfig()->eventExist(id, m_old_mouse, m_pane->getSelectedTabIndex()))
+    {
+        ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->mouse = id;
+        m_box_selected->setText(Config::get()->getCommandConfig()->toString(id));
+    }
+    else
+        m_box_selected->setText(Config::get()->getCommandConfig()->toString(m_old_mouse));
+
     OgreContextManager::get()->getInputManager()->delMouseListener(this);
     OgreContextManager::get()->getInputManager()->delKeyboardListener(this);
     return true;
@@ -204,13 +214,19 @@ bool CommandSetting::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonI
 
 bool CommandSetting::keyPressed(const OIS::KeyEvent& arg)
 {
+    std::cout << m_pane->getSelectedTabIndex() << std::endl;
     if (arg.key != OIS::KeyCode::KC_ESCAPE)
     {
-        ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->keyboard = arg.key;
-        m_box_selected->setText(m_keyboard->getAsString(arg.key));
+        if (!Config::get()->getCommandConfig()->eventExist(arg.key, m_old_key, m_pane->getSelectedTabIndex()))
+        {
+            ((CommandConfig::KeyAction::Key*)m_box_selected->getUserData())->keyboard = arg.key;
+            m_box_selected->setText(m_keyboard->getAsString(arg.key));
+        }
+        else
+            m_box_selected->setText(m_keyboard->getAsString(m_old_key));
     }
     else
-        m_box_selected->setText(m_old_key);
+        m_box_selected->setText(m_keyboard->getAsString(m_old_key));
 
     OgreContextManager::get()->getInputManager()->delKeyboardListener(this);
     OgreContextManager::get()->getInputManager()->delMouseListener(this);

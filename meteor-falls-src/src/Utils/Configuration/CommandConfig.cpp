@@ -364,44 +364,72 @@ std::string CommandConfig::toString(OIS::MouseButtonID c)
     }
     return "Unknown";
 }
-bool CommandConfig::eventExist(OIS::MouseButtonID c)
+bool CommandConfig::eventExist(OIS::MouseButtonID c, OIS::MouseButtonID old, int rang)
 {
-    KeyAction *keys = getKeyRPG();
-    for (int i=0; i<KeyRPG::RPG_COUNT; ++i)
-        if (keys[i].action[0].mouse == c || keys[i].action[1].mouse == c)
-            return true;
+    bool res=false;
 
-    keys = getKeyRTS();
-    for (int i=0; i<KeyRTS::RTS_COUNT; ++i)
-        if (keys[i].action[0].mouse == c || keys[i].action[1].mouse == c)
-            return true;
+    if (c == old)
+        return false;
 
-    keys = getKeyGlobal();
+    KeyAction *keys = getKeyGlobal();
     for (int i=0; i<KeyGlobal::GLOBAL_COUNT; ++i)
         if (keys[i].action[0].mouse == c || keys[i].action[1].mouse == c)
-            return true;
+            res=true;
+    switch (rang)
+    {
+    case 1:
+        {
+            keys = getKeyRPG();
+            for (int i=0; i<KeyRPG::RPG_COUNT; ++i)
+                if (keys[i].action[0].mouse == c || keys[i].action[1].mouse == c)
+                    res=true;
+        }
+        break;
+    case 2:
+        {
+            keys = getKeyRTS();
+            for (int i=0; i<KeyRTS::RTS_COUNT; ++i)
+                if (keys[i].action[0].mouse == c || keys[i].action[1].mouse == c)
+                    res=true;
+        }
+        break;
+    }
 
-    return false;
+    return res;
 }
 
-bool CommandConfig::eventExist(OIS::KeyCode c)
+bool CommandConfig::eventExist(OIS::KeyCode c, OIS::KeyCode old, int rang)
 {
-    KeyAction* keys = getKeyRPG();
-    for (int i=0; i<KeyRPG::RPG_COUNT; ++i)
-        if (keys[i].action[0].keyboard == c || keys[i].action[1].keyboard == c)
-            return true;
+    bool res=false;
 
-    keys = getKeyRTS();
-    for (int i=0; i<KeyRTS::RTS_COUNT; ++i)
-        if (keys[i].action[0].keyboard == c || keys[i].action[1].keyboard == c)
-            return true;
+    if (c == old)
+        return false;
 
-    keys = getKeyGlobal();
+    KeyAction *keys = getKeyGlobal();
     for (int i=0; i<KeyGlobal::GLOBAL_COUNT; ++i)
         if (keys[i].action[0].keyboard == c || keys[i].action[1].keyboard == c)
-            return true;
+            res=true;
+    switch (rang)
+    {
+    case 1:
+        {
+            keys = getKeyRPG();
+            for (int i=0; i<KeyRPG::RPG_COUNT; ++i)
+                if (keys[i].action[0].keyboard == c || keys[i].action[1].keyboard == c)
+                    res=true;
+        }
+        break;
+    case 2:
+        {
+            keys = getKeyRTS();
+            for (int i=0; i<KeyRTS::RTS_COUNT; ++i)
+                if (keys[i].action[0].keyboard == c || keys[i].action[1].keyboard == c)
+                    res=true;
+        }
+        break;
+    }
 
-    return false;
+    return res;
 }
 
 void CommandConfig::addKey(int rang, int pos, rapidxml::xml_node<>* current)

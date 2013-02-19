@@ -70,8 +70,8 @@ public:
     void loadConfig();
     void saveConfig();
     static std::string toString(OIS::MouseButtonID);
-    bool eventExist(OIS::MouseButtonID);
-    bool eventExist(OIS::KeyCode);
+    bool eventExist(OIS::MouseButtonID, OIS::MouseButtonID, int);
+    bool eventExist(OIS::KeyCode, OIS::KeyCode, int);
     void addKey(int, int, rapidxml::xml_node<>*);
     KeyAction** getKeyMap(){return m_map_key;}
     KeyAction* getKeyGlobal(){return m_map_key[0];}
