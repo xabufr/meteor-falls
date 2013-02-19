@@ -14,6 +14,7 @@
 #include "Heros/ClasseHeroManager.h"
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
+#include "Interface/Chat.h"
 #include <CEGUIString.h>
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
@@ -39,6 +40,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	}
 	else
 	{
+	    m_chat = new Chat(this);
         m_current_joueur = j;
 		addPlayer(j);
 		setSousStateType(TypeState::TEAM_LIST);
@@ -52,6 +54,7 @@ GameEngine::~GameEngine()
         delete m_sous_state;
     }
     delete m_map;
+    delete m_chat;
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
@@ -76,9 +79,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-			CEGUI::String nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
-            TeamState *team_state = (TeamState*)m_sous_state;
-            team_state->setMessage(nom);
+			std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
+            m_chat->addMessage(nom);
 		}
 	}
 	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)

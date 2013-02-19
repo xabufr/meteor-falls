@@ -1,6 +1,9 @@
 #include "CommandConfig.h"
 #include "../../precompiled/lexical_cast.h"
 #include "Utils/Exception/FileNotFound.h"
+#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include <rapidxml_print.hpp>
 #include <fstream>
 
@@ -431,6 +434,17 @@ bool CommandConfig::eventExist(OIS::KeyCode c, OIS::KeyCode old, int rang)
 
     return res;
 }
+
+bool CommandConfig::eventActif(int rang, int pos)
+{
+    OIS::Keyboard *keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+
+    if (keyboard->isKeyDown(m_map_key[rang][pos].action[0].keyboard) || keyboard->isKeyDown(m_map_key[rang][pos].action[1].keyboard))
+        return true;
+
+    return false;
+}
+
 
 void CommandConfig::addKey(int rang, int pos, rapidxml::xml_node<>* current)
 {
