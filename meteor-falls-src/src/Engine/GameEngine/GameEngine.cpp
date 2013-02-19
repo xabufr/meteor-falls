@@ -92,7 +92,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
 			if(joueur == m_current_joueur)
 			{
-				setSousStateType(TypeState::SPAWN_STATE);
+				if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
+					setSousStateType(TypeState::SPAWN_STATE);
 			}
         }
     }
