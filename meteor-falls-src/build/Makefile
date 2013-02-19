@@ -378,6 +378,30 @@ src/Engine/GameEngine/Camera/CameraLibre.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.s
 .PHONY : src/Engine/GameEngine/Camera/CameraLibre.cpp.s
 
+src/Engine/GameEngine/Camera/CameraManager.o: src/Engine/GameEngine/Camera/CameraManager.cpp.o
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.o
+
+# target to build an object file
+src/Engine/GameEngine/Camera/CameraManager.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.o
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.cpp.o
+
+src/Engine/GameEngine/Camera/CameraManager.i: src/Engine/GameEngine/Camera/CameraManager.cpp.i
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Camera/CameraManager.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.i
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.cpp.i
+
+src/Engine/GameEngine/Camera/CameraManager.s: src/Engine/GameEngine/Camera/CameraManager.cpp.s
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Camera/CameraManager.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.s
+.PHONY : src/Engine/GameEngine/Camera/CameraManager.cpp.s
+
 src/Engine/GameEngine/Camera/CameraRTS.o: src/Engine/GameEngine/Camera/CameraRTS.cpp.o
 .PHONY : src/Engine/GameEngine/Camera/CameraRTS.o
 
@@ -2676,6 +2700,9 @@ help:
 	@echo "... src/Engine/GameEngine/Camera/CameraLibre.o"
 	@echo "... src/Engine/GameEngine/Camera/CameraLibre.i"
 	@echo "... src/Engine/GameEngine/Camera/CameraLibre.s"
+	@echo "... src/Engine/GameEngine/Camera/CameraManager.o"
+	@echo "... src/Engine/GameEngine/Camera/CameraManager.i"
+	@echo "... src/Engine/GameEngine/Camera/CameraManager.s"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.o"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.i"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.s"

@@ -15,6 +15,7 @@
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
 #include <CEGUIString.h>
+#include "Camera/CameraManager.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),
@@ -24,7 +25,10 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	if(t==SERVER)
 		m_map = new Map(nullptr, this);
 	else
+	{
+		m_camManager = new CameraManager();
 		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
+	}
 	m_sous_state = nullptr;
 	m_type_sous_state = TypeState::TEAM_LIST;
 	if(t==SERVER)
@@ -315,4 +319,8 @@ void GameEngine::deleteJoueur(int id)
 GameEngine::Type GameEngine::getTypeServerClient() const
 {
 	return m_type;
+}
+CameraManager* GameEngine::cameraManager() const
+{
+	return m_camManager;
 }

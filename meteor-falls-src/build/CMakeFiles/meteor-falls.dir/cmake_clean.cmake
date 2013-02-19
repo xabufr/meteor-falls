@@ -57,6 +57,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o"
+  "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRTS.cpp.o"
   "CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Layout/layoutRPG.cpp.o"
