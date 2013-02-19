@@ -9,6 +9,8 @@
 GraphicSetting::GraphicSetting(StateManager* mgr):State(mgr),
 m_state_manager(mgr)
 {
+    for (int k=0; k<3; ++k)
+        m_value_water[k]=k+1;
     Config::get()->getGraphicConfig()->loadConfig();
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     int nb = 0;
@@ -17,7 +19,7 @@ m_state_manager(mgr)
         CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
         elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
         elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
-                                         CEGUI::UDim(0.06+(nb*(0.10)), 0)));
+                                         CEGUI::UDim(0.06+(nb*(0.08)), 0)));
         elem->setText(m.name);
         elem->setProperty("FrameEnabled", "false");
         elem->setProperty("BackgroundEnabled", "false");
@@ -37,11 +39,39 @@ m_state_manager(mgr)
 
         comb->setSize(CEGUI::UVector2(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
         comb->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_x.d_scale, 0),
-                                         CEGUI::UDim(0.05+(nb*(0.10)), 0)));
+                                         CEGUI::UDim(0.05+(nb*(0.08)), 0)));
         comb->hide();
         CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(comb);
         ++nb;
     }
+
+    CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
+    elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
+    elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
+                                     CEGUI::UDim(0.06+(nb*(0.08)), 0)));
+    elem->setText((CEGUI::utf8*)"Qualité de l'eau");
+    elem->setProperty("FrameEnabled", "false");
+    elem->setProperty("BackgroundEnabled", "false");
+    elem->setProperty("VertFormatting", "TopAligned");
+    elem->hide();
+    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(elem);
+
+    std::string tab[3] = {"Haute", "Moyenne", "Basse"};
+    m_water = (CEGUI::Combobox*)m_window_manager.createWindow("OgreTray/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
+    for (int i=0; i<3; ++i)
+    {
+        CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(tab[i]);
+        m_water->addItem(item);
+        m_water->setReadOnly(true);
+        item->setUserData(&m_value_water[i]);
+        if (Config::get()->getGraphicConfig()->getQualityWater()-1 == i)
+            m_water->setItemSelectState(item, true);
+    }
+    m_water->setSize(CEGUI::UVector2(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
+    m_water->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_x.d_scale, 0),
+                                     CEGUI::UDim(0.05+(nb*(0.08)), 0)));
+    m_water->hide();
+    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_water);
 
     m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonCancel2");
     m_cancel->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
@@ -67,7 +97,7 @@ m_state_manager(mgr)
 }
 GraphicSetting::~GraphicSetting()
 {
-    for (int i=0; i<Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
+    for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
         CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
         CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(current);
@@ -91,7 +121,7 @@ bool GraphicSetting::isVisible()
 void GraphicSetting::enter()
 {
     m_visible = true;
-    for (int i=0; i<Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
+    for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
         CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
         CEGUI::Window *currentComb = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
@@ -101,7 +131,7 @@ void GraphicSetting::enter()
     m_cancel->show();
     m_accept->show();
 
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.6,0), CEGUI::UDim(0.6, 0)));
+    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.8,0), CEGUI::UDim(0.8, 0)));
     CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
                                                         /2), 0)));
@@ -110,7 +140,7 @@ void GraphicSetting::enter()
 void GraphicSetting::exit()
 {
     m_visible = false;
-    for (int i=0; i<Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
+    for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
         CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
         CEGUI::Window *currentComb = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
@@ -137,6 +167,7 @@ bool GraphicSetting::m_button_pushed(const CEGUI::EventArgs&)
         m_visible = false;
     else if(m_accept->isPushed())
     {
+        Config::get()->getGraphicConfig()->setQualityWater(*((int*)(m_water->getSelectedItem()->getUserData())));
         Config::get()->getGraphicConfig()->saveConfig();
         m_visible = false;
     }
