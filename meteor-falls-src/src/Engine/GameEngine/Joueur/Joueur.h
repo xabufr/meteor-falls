@@ -29,7 +29,7 @@ class Joueur
 		void setNumSession(const std::string&);
 		const std::string& getNumSession();
 		void setLevel(int);
-		const int& getLevel();
+		int getLevel() const;
 		JoueurRTS* getRTS(){return m_rts;}
 		JoueurRPG* getRPG(){return m_rpg;}
 		void setTypeGamplay(TypeGameplay t);

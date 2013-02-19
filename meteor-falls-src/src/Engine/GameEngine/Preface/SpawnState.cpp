@@ -57,7 +57,6 @@ SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(
 	updateSpawns();
 	m_loadClasses();
 	m_waitingResponse = false;
-	std::cout << "trySpawn" << std::endl;
 }
 SpawnState::~SpawnState()
 {
@@ -91,7 +90,7 @@ void SpawnState::updateSpawns()
 	Equipe *equi = curr->equipe();
 	for(Unite *e : equi->unites())
 	{
-		if(e->type()->spawn())
+		if(e->type() && e->type()->spawn())
 		{
 			CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(e->type()->nom());
 			item->setUserData((void*)e);
@@ -117,6 +116,7 @@ bool SpawnState::spawnSelected(const CEGUI::EventArgs& a)
 	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().x);
 	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().y);
 	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().z);
+	infos += " id: " + boost::lexical_cast<std::string>(m_last_selected_u->id());
 	m_infosSpawn->setText(infos);
 
 	return true;

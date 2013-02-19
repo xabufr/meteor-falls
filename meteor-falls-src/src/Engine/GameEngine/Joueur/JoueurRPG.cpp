@@ -1,5 +1,7 @@
 #include "JoueurRPG.h"
 #include "Joueur.h"
+#include "../Heros/Hero.h"
+#include <iostream>
 
 JoueurRPG::JoueurRPG(Joueur *j): m_joueur(j),
 m_hero(nullptr)
@@ -7,6 +9,10 @@ m_hero(nullptr)
 }
 JoueurRPG::~JoueurRPG()
 {
+	if(m_hero)
+	{
+		delete m_hero;
+	}
 }
 Joueur* JoueurRPG::joueur() const
 {

@@ -18,6 +18,8 @@ public:
     bool hasData();
     std::string getData();
 
+	void stop();
+
     boost::asio::ip::tcp::socket& socket();
 
     ~TcpConnection();

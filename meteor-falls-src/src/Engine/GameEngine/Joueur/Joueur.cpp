@@ -10,9 +10,11 @@ Joueur::Joueur()
 {
 	m_type_gamplay = TypeGameplay::NONE_GAMEPLAY;
 	m_equipe = nullptr;
+	m_level = 1;
 }
 Joueur::~Joueur()
 {
+	changeTeam(nullptr);
 }
 void Joueur::setNom(const std::string& nom)
 {
@@ -34,7 +36,7 @@ void Joueur::setLevel(int lvl)
 {
     m_level = lvl;
 }
-const int& Joueur::getLevel()
+int Joueur::getLevel() const
 {
     return m_level;
 }
@@ -43,16 +45,18 @@ void Joueur::changeTeam(Equipe* equ)
 	if(equ==m_equipe)
 		return;
 	setTypeGamplay(TypeGameplay::NONE_GAMEPLAY);
-	if(m_equipe != nullptr)
+	if(m_equipe)
 	{
 		m_equipe->removeJoueur(this);
 	}
-	m_equipe 		   = equ;
-	if(m_equipe != nullptr)
+	m_equipe = equ;
+	if(m_equipe)
 		m_equipe->addJoueur(this);
 }
 void Joueur::setTypeGamplay(TypeGameplay t)
 {
+	if(!m_equipe)
+		return;
 	if(m_type_gamplay==TypeGameplay::RTS)
 	{
 		m_equipe->setJoueurRTS(nullptr);

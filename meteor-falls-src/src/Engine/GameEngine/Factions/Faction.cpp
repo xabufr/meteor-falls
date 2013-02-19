@@ -95,10 +95,13 @@ void Faction::load()
             unite->m_armure = DegatManager::get()->getArmure(boost::lexical_cast<ArmureId>(nodeUnit->first_node("armure")->value()));
 
             rapidxml::xml_node<>* nodeCouts = nodeUnit->first_node("coute");
-            unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
-            unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
-            unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
-            unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
+			if(nodeCouts)
+			{
+				unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
+				unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
+				unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
+				unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
+			}
 
             rapidxml::xml_node<>* nodeProduction = nodeUnit->first_node("produit");
             if(nodeProduction)
@@ -151,6 +154,17 @@ void Faction::load()
 			}
 			classe->m_nom   = nodeHero->first_node("nom")->value();
 			classe->m_icone = nodeHero->first_node("icone")->value();
+			/*
+			 * Chargement des meshes
+			 * */
+			rapidxml::xml_node<> *meshes;
+			for(meshes=nodeHero->first_node("meshes")->first_node("mesh");meshes;meshes=meshes->next_sibling("mesh"))
+			{
+				int from, to;
+				from = boost::lexical_cast<int>(meshes->first_attribute("from")->value());
+				to   = boost::lexical_cast<int>(meshes->first_attribute("to")->value());
+				classe->addMesh(from, to, meshes->value());
+			}
 		}
     }
     //Seconde passe, pour édition de liens
@@ -252,6 +266,7 @@ void Faction::load()
 					continue;
 			Avatar* av = new Avatar(id, classe);
 			av->m_nom  = nodeAvatars->first_node("nom")->value();
+			av->m_isDefault = true;
 			m_avatarDefault.push_back(av);
 		}
     }

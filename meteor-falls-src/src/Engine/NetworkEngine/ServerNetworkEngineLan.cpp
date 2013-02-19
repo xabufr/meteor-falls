@@ -40,7 +40,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 {
 	std::string password = message->strings[EngineMessageKey::PASSWORD];
 	std::string pseudo = message->strings[EngineMessageKey::PSEUDO];
-	boost::mutex::scoped_lock(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock(m_mutex_clients);
 	ServerClient* client=nullptr;
 	for(ServerClient &c : m_clients)
 	{

@@ -55,6 +55,8 @@ GameEngine::~GameEngine()
     }
     delete m_map;
     delete m_chat;
+	if(m_current_joueur)
+		m_current_joueur->changeTeam(nullptr);
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
@@ -94,7 +96,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
 			if(joueur == m_current_joueur)
 			{
-				setSousStateType(TypeState::SPAWN_STATE);
+				if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
+					setSousStateType(TypeState::SPAWN_STATE);
 			}
         }
     }
@@ -147,14 +150,19 @@ void GameEngine::handleMessage(EngineMessage& message)
 			{
 				Vector3D position(unit->getPosition());
 				message.ints[EngineMessageKey::RESULT] = 1;
-				message.positions[EngineMessageKey::OBJECT_POSITION];
+				message.positions[EngineMessageKey::OBJECT_POSITION] = unit->getPosition();
 				int id = j->equipe()->factory()->getNextId();
 				message.ints[EngineMessageKey::OBJECT_ID] = id;
 				net->sendToAllTcp(&message);
 
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-					id);
-				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				Hero *hero;
+				if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
+						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+				{
+					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
+							id);
+					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+				}
 			}
 		}
 		else
@@ -162,10 +170,16 @@ void GameEngine::handleMessage(EngineMessage& message)
 			if(message.ints[EngineMessageKey::RESULT] == 1)
 			{
 				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
-				Hero *hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
+
+				if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+				{
+				}
+				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(),
+						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
-				setSousStateType(TypeState::PLAYING);
+				if(m_current_joueur==j)
+					setSousStateType(TypeState::PLAYING);
 			}
 			else if(m_sous_state!=nullptr)
 			{
@@ -292,7 +306,6 @@ void GameEngine::deleteJoueur(int id)
 	Joueur *joueur = findJoueur(id);
 	if(joueur==nullptr)
 		return;
-	joueur->changeTeam(nullptr);
 	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
 	{
 		if(*it==joueur)

@@ -5,6 +5,7 @@
 #include "ServerClient.h"
 #include <vector>
 #include <boost/asio.hpp>
+#include <boost/thread/recursive_mutex.hpp>
 
 class Equipe;
 class ServerNetworkEngine : public NetworkEngine
@@ -46,7 +47,7 @@ class ServerNetworkEngine : public NetworkEngine
 
         std::vector<ServerClient> m_clients;
         boost::asio::ip::tcp::acceptor m_acceptor;
-        boost::mutex m_mutex_clients;
+        boost::recursive_mutex m_mutex_clients;
         client_id m_lastClient;
 		std::string m_server_name, m_map_name, m_password;
 		unsigned short m_max_clients;
