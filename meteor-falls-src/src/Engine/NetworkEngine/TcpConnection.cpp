@@ -131,3 +131,7 @@ TcpConnection::~TcpConnection()
 {
     delete m_socket;
 }
+void TcpConnection::stop()
+{
+	m_socket->close();
+}

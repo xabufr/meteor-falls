@@ -5,13 +5,9 @@ Unite::Unite(Ogre::SceneManager* mng, Equipe *equipe, TypeUnite* type, int id): 
 {
 	m_equipe->create_unit(this);
 }
-TypeUnite* Unite::GetType()
-{
-    return m_type;
-}
 Unite::~Unite()
 {
-    //dtor
+	m_equipe->destroy_unite(this);
 }
 int Unite::id() const
 {

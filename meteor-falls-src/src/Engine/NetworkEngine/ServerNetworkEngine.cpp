@@ -52,7 +52,7 @@ void ServerNetworkEngine::work()
     for(ServerClient& client : clients)
     {
         if(!client.tcp()->isConnected()||!client.tcp()->isListening()
-			||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout))
+			||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout)||client.tcp()->hasError())
         {
             removeClient(client);
         }

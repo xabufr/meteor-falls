@@ -7,7 +7,7 @@ class JoueurRPG
 {
     public:
         JoueurRPG(Joueur*);
-        virtual ~JoueurRPG();
+        ~JoueurRPG();
 		Joueur* joueur() const;
 		void setHero(Hero*);
 		Hero* hero() const;

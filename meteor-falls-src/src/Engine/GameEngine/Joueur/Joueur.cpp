@@ -14,6 +14,7 @@ Joueur::Joueur()
 }
 Joueur::~Joueur()
 {
+	changeTeam(nullptr);
 }
 void Joueur::setNom(const std::string& nom)
 {
@@ -44,16 +45,18 @@ void Joueur::changeTeam(Equipe* equ)
 	if(equ==m_equipe)
 		return;
 	setTypeGamplay(TypeGameplay::NONE_GAMEPLAY);
-	if(m_equipe != nullptr)
+	if(m_equipe)
 	{
 		m_equipe->removeJoueur(this);
 	}
 	m_equipe = equ;
-	if(m_equipe != nullptr)
+	if(m_equipe)
 		m_equipe->addJoueur(this);
 }
 void Joueur::setTypeGamplay(TypeGameplay t)
 {
+	if(!m_equipe)
+		return;
 	if(m_type_gamplay==TypeGameplay::RTS)
 	{
 		m_equipe->setJoueurRTS(nullptr);

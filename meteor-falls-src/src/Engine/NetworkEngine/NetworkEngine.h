@@ -13,7 +13,7 @@ public:
     typedef boost::shared_ptr<boost::asio::io_service> service_ptr;
     typedef unsigned int client_id;
     NetworkEngine(EngineManager*);
-    ~NetworkEngine();
+    virtual ~NetworkEngine();
     virtual void setEngineManager(EngineManager*);
     virtual void handleMessage(EngineMessage&) = 0;
     virtual void work() = 0;

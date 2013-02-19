@@ -9,7 +9,6 @@ class Unite : public ObjetTerrain
 {
     public:
         Unite(Ogre::SceneManager*, Equipe* ,TypeUnite* type, int id);
-        TypeUnite* GetType();
         virtual ~Unite();
 		int id() const;
 		TypeUnite* type() const;

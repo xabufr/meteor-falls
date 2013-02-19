@@ -128,10 +128,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 	else if (message.message==EngineMessageType::SPAWN) 
 	{
 		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-		std::cout << "mess spawn1" << std::endl;
 		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
 			return;
-		std::cout << "mess spawn2" << std::endl;
 		if(m_type == SERVER)
 		{
 			Unite *unit = j->equipe()->getUnite(message.ints[EngineMessageKey::OBJECT_ID]);
@@ -176,7 +174,6 @@ void GameEngine::handleMessage(EngineMessage& message)
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				if(m_current_joueur==j)
 					setSousStateType(TypeState::PLAYING);
-				std::cout << "mess spawn2" << std::endl;
 			}
 			else if(m_sous_state!=nullptr)
 			{
@@ -303,7 +300,6 @@ void GameEngine::deleteJoueur(int id)
 	Joueur *joueur = findJoueur(id);
 	if(joueur==nullptr)
 		return;
-	joueur->changeTeam(nullptr);
 	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
 	{
 		if(*it==joueur)

@@ -28,6 +28,8 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& 
 }
 ClientNetworkEngine::~ClientNetworkEngine()
 {
+	m_tcp->stop();
+	m_tcp.reset();
 }
 void ClientNetworkEngine::work()
 {
