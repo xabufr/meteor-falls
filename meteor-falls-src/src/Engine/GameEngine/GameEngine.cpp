@@ -52,6 +52,8 @@ GameEngine::~GameEngine()
         delete m_sous_state;
     }
     delete m_map;
+	if(m_current_joueur)
+		m_current_joueur->changeTeam(nullptr);
 }
 void GameEngine::handleMessage(EngineMessage& message)
 {
