@@ -14,19 +14,23 @@
 #include "Heros/ClasseHeroManager.h"
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
+#include "Joueur/JoueurRPG.h"
 #include <CEGUIString.h>
 #include "Camera/CameraManager.h"
+#include <SFML/System.hpp>
+#include "../../Utils/Configuration/Config.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),
     m_type(t),
-    m_change_sous_state(true)
+    m_change_sous_state(true),
+	m_camManager(nullptr)
 {
 	if(t==SERVER)
 		m_map = new Map(nullptr, this);
 	else
 	{
-		m_camManager = new CameraManager();
+		m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
 		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
 	}
 	m_sous_state = nullptr;
@@ -55,6 +59,8 @@ GameEngine::~GameEngine()
         m_sous_state->exit();
         delete m_sous_state;
     }
+	if(m_camManager)
+		delete m_camManager;
     delete m_map;
 	if(m_current_joueur)
 		m_current_joueur->changeTeam(nullptr);
@@ -194,6 +200,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 }
 void GameEngine::work()
 {
+	static sf::Clock clock;
     if(m_map->getLoaded() == true)
     {
         if (m_type == Type::CLIENT)
@@ -226,9 +233,28 @@ void GameEngine::work()
             }
 			if(m_sous_state)
 				m_sous_state->work(0);
+			CommandConfig* commandes = Config::get()->getCommandConfig();
+			if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
+			{
+				if(m_current_joueur->getRPG()->hero())
+				{
+					m_current_joueur->getRPG()->hero()->setDroite(commandes->eventActif(1, CommandConfig::KeyRPG::RPG_RIGHT));
+					m_current_joueur->getRPG()->hero()->setGauche(commandes->eventActif(1, CommandConfig::RPG_LEFT));
+					m_current_joueur->getRPG()->hero()->setAvancer(commandes->eventActif(1, CommandConfig::RPG_FORWARD));
+					m_current_joueur->getRPG()->hero()->setReculer(commandes->eventActif(1, CommandConfig::RPG_BACKWARD));
+				}
+			}
+			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
+			{
+				
+			}
         }
         m_map->update();
     }
+	for(Equipe* e : m_teams)
+		for(Unite *u : e->unites())
+			u->update(clock.getElapsedTime().asMilliseconds());
+	clock.restart();
 }
 EngineType GameEngine::getType()
 {

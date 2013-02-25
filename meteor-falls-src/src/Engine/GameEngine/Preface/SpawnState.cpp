@@ -11,6 +11,8 @@
 #include "../Heros/ClasseHeroManager.h"
 #include "../Heros/ClasseHero.h"
 #include "../Heros/Avatar.h"
+#include "../Camera/CameraManager.h"
+#include <OgreCamera.h>
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
 
@@ -118,6 +120,10 @@ bool SpawnState::spawnSelected(const CEGUI::EventArgs& a)
 	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().z);
 	infos += " id: " + boost::lexical_cast<std::string>(m_last_selected_u->id());
 	m_infosSpawn->setText(infos);
+
+	Ogre::Camera *cam = m_game->cameraManager()->camera();
+	cam->setPosition(m_last_selected_u->getPosition().convert<Ogre::Vector3>()+Ogre::Vector3(1, 100, 1));
+	cam->lookAt(m_last_selected_u->getPosition().convert<Ogre::Vector3>());
 
 	return true;
 }

@@ -99,6 +99,14 @@ void Map::load(std::string p_name)
 	            color = getRGBA(fog->first_node("colour"));
 	            m_scene_mgr->setFog(fogm, color, density, start, end);
 	        }
+			if(environment->first_node("camera"))
+			{
+				rapidxml::xml_node<>* camera = environment->first_node("camera");
+				Vector3D pos = getPosition(camera->first_node("position"));
+				Ogre::Quaternion q = getRotation(camera->first_node("rotation"));
+				m_game->cameraManager()->camera()->setPosition(pos.convert<Ogre::Vector3>());
+				m_game->cameraManager()->camera()->lookAt(0,0,0);
+			}
 	    }
 		rapidxml::xml_node<>* terrain = rootNode->first_node("terrain");
 	    if(terrain)
