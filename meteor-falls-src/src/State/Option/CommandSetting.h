@@ -23,7 +23,8 @@ class CommandSetting : public State, public OIS::KeyListener, public OIS::MouseL
 		virtual bool keyReleased(const OIS::KeyEvent &arg);
     private:
         bool m_visible;
-        std::string m_old_key;
+        OIS::KeyCode m_old_key;
+        OIS::MouseButtonID m_old_mouse;
         bool m_button_pushed(const CEGUI::EventArgs&);
         bool m_box_pushed(const CEGUI::EventArgs&);
         OIS::Keyboard *m_keyboard ;

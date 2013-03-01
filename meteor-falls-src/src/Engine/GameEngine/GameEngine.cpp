@@ -6,6 +6,7 @@
 #include "Factions/Faction.h"
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
+#include "../NetworkEngine/clientnetworkengine.h"
 #include "Map/Map.h"
 #include "Unites/UniteFactory.h"
 #include "Preface/TeamList.h"
@@ -15,6 +16,7 @@
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
 #include "Joueur/JoueurRPG.h"
+#include "Interface/Chat.h"
 #include <CEGUIString.h>
 #include "Camera/CameraManager.h"
 #include <SFML/System.hpp>
@@ -47,6 +49,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	}
 	else
 	{
+	    m_chat = new Chat(this);
         m_current_joueur = j;
 		addPlayer(j);
 		setSousStateType(TypeState::TEAM_LIST);
@@ -62,6 +65,7 @@ GameEngine::~GameEngine()
 	if(m_camManager)
 		delete m_camManager;
     delete m_map;
+    delete m_chat;
 	if(m_current_joueur)
 		m_current_joueur->changeTeam(nullptr);
 }
@@ -88,9 +92,8 @@ void GameEngine::handleMessage(EngineMessage& message)
 		}
 		else
 		{
-			CEGUI::String nom = "{ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" }:"+message.strings[EngineMessageKey::MESSAGE];
-            TeamState *team_state = (TeamState*)m_sous_state;
-            team_state->setMessage(nom);
+			std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
+            m_chat->addMessage(nom);
 		}
 	}
 	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)
@@ -127,7 +130,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		{
 		}
 	}
-	else if (message.message==EngineMessageType::ADDOBJECT) 
+	else if (message.message==EngineMessageType::ADDOBJECT)
 	{
 		UnitId type       = message.ints[EngineMessageKey::OBJECT_TYPE];
 		UnitId id         = message.ints[EngineMessageKey::OBJECT_ID];
@@ -137,7 +140,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 		Unite *unit = e->factory()->create(m_manager->getGraphic()->getSceneManager(), type, id);
 		unit->setPosition(position);
 	}
-	else if (message.message==EngineMessageType::SPAWN) 
+	else if (message.message==EngineMessageType::SPAWN)
 	{
 		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
@@ -162,11 +165,12 @@ void GameEngine::handleMessage(EngineMessage& message)
 				int id = j->equipe()->factory()->getNextId();
 				message.ints[EngineMessageKey::OBJECT_ID] = id;
 				net->sendToAllTcp(&message);
+
 				Hero *hero;
 				if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 				{
-					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
 							id);
 					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				}
@@ -177,11 +181,12 @@ void GameEngine::handleMessage(EngineMessage& message)
 			if(message.ints[EngineMessageKey::RESULT] == 1)
 			{
 				Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+
 				if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 				{
 				}
-				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(), 
-						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]), 
+				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(),
+						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				if(m_current_joueur==j)
@@ -242,6 +247,7 @@ void GameEngine::work()
 					m_current_joueur->getRPG()->hero()->setGauche(commandes->eventActif(1, CommandConfig::RPG_LEFT));
 					m_current_joueur->getRPG()->hero()->setAvancer(commandes->eventActif(1, CommandConfig::RPG_FORWARD));
 					m_current_joueur->getRPG()->hero()->setReculer(commandes->eventActif(1, CommandConfig::RPG_BACKWARD));
+					((ClientNetworkEngine*)m_manager->getNetwork())->sendRpgPosition();
 				}
 			}
 			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 

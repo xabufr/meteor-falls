@@ -61,8 +61,8 @@
 			<Add option="-lOgreMain" />
 			<Add option="-lOgreTerrain" />
 			<Add option="-lOIS" />
-			<Add option="-lsfml-audio" />
 			<Add option="-lsfml-system" />
+			<Add option="-lsfml-audio" />
 			<Add option="-lCEGUIBase" />
 			<Add option="-lCEGUIOgreRenderer" />
 			<Add option="-lboost_system" />
@@ -119,6 +119,12 @@
 		<Unit filename="src/Engine/GameEngine/Factions/FactionManager.h" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/Avatar.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/Avatar.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHero.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHero.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurLan.cpp" />

@@ -39,6 +39,8 @@ class ClientNetworkEngine : public NetworkEngine
 
 		char teamId() const;
 
+		void sendRpgPosition();
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;

@@ -203,7 +203,7 @@ void ServerNetworkEngine::work()
 										continue;
 									EngineMessage messageHero(m_manager);
 									messageHero.message = EngineMessageType::SPAWN;
-									messageHero.ints[EngineMessageKey::PLAYER_NUMBER];
+									messageHero.ints[EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id;
 									j->hero()->avatar()->serialize(&messageHero);
 									messageHero.ints[EngineMessageKey::OBJECT_ID] = j->hero()->id();
 									messageHero.positions[EngineMessageKey::OBJECT_POSITION] = j->hero()->getPosition();

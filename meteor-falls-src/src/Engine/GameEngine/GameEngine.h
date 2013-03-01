@@ -10,6 +10,7 @@ class Map;
 class Joueur;
 class Equipe;
 class CameraManager;
+class Chat;
 class GameEngine : public Engine
 {
     public:
@@ -47,9 +48,10 @@ class GameEngine : public Engine
 		void deleteJoueur(int);
 		Type getTypeServerClient() const;
 		CameraManager *cameraManager() const;
-
+        Chat* getChat(){return m_chat;}
     private:
         Map *m_map;
+        Chat* m_chat;
         Type m_type;
         TypeState m_type_sous_state;
         State *m_sous_state;

@@ -6,9 +6,11 @@
 #include "../../precompiled/serialization.h"
 #include "../GameEngine/GameEngine.h"
 #include "../GameEngine/Joueur/Joueur.h"
+#include "../GameEngine/Joueur/JoueurRPG.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Factions/FactionManager.h"
 #include "../GameEngine/Heros/ClasseHero.h"
+#include "../GameEngine/Heros/Hero.h"
 #include "../GameEngine/Heros/Avatar.h"
 #include "../GameEngine/Unites/Unite.h"
 
@@ -175,12 +177,29 @@ void ClientNetworkEngine::work()
 					messageSpawn->clearTo();
 					messageSpawn->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageSpawn);
-					std::cout << "mess spawn" << std::endl;
 				}
 				break;
 		}
 		delete message;
     }
+	while(m_udp->hasData())
+	{
+		UdpConnection::Data data(m_udp->getData());
+		EngineMessage *mess = deserialize(data.second);
+		switch (mess->message)
+		{
+			case EngineMessageType::PLAYER_POSITION:
+				{
+					Joueur* j = m_manager->getGame()->findJoueur(mess->ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&
+							j->getRPG()->hero() && j != m_joueur)
+					{
+						j->getRPG()->hero()->setPosition(mess->positions[EngineMessageKey::OBJECT_POSITION]);
+					}
+				}
+				break;
+		}
+	}
 	if(m_timeSinceLastSync.getTime() >= 1000)
 		sendSyncReq();
 }
@@ -203,8 +222,11 @@ void ClientNetworkEngine::connect(std::string address, unsigned short port)
     }
     m_state = CONNECTING;
     m_tcp->connect(boost::asio::ip::tcp::endpoint(m_serverAddress, m_port));
-    /*m_udp->connect(boost::asio::ip::udp::endpoint(m_serverAddress, m_port));
-    m_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));*/
+	m_udp->socket()->set_option(boost::asio::socket_base::reuse_address(true));
+    m_udp->connect(boost::asio::ip::udp::endpoint(m_serverAddress, m_port));
+    m_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));
+	m_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+	m_udp->startListen();
 }
 int ClientNetworkEngine::getState() const
 {
@@ -266,4 +288,15 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 	av->serialize(&message);
 	message.addToType(EngineType::GameEngineType);
 	m_tcp->send(serialize(&message));
+}
+void ClientNetworkEngine::sendRpgPosition()
+{
+	if(m_joueur->getTypeGameplay()!=Joueur::TypeGameplay::RPG||!m_joueur->getRPG()->hero())
+		return;
+	Hero *hero = m_joueur->getRPG()->hero();
+	EngineMessage mess(m_manager);
+	mess.message = EngineMessageType::PLAYER_POSITION;
+	mess.positions[EngineMessageKey::OBJECT_POSITION] = hero->getPosition();
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	sendToAllUdp(mess);
 }

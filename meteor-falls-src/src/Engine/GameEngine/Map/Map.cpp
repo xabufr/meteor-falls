@@ -28,6 +28,7 @@
 #include "WorldObjectType.h"
 #include "../GameEngine.h"
 #include "../Camera/CameraManager.h"
+#include "../../../Utils/Configuration/Config.h"
 
 using namespace rapidxml;
 
@@ -119,19 +120,19 @@ void Map::load(std::string p_name)
 			maxBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMaxBatchSize")->value());
 			minBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMinBatchSize")->value());
 			compositeDistance = boost::lexical_cast<int>(terrain->first_attribute("tuningCompositeMapDistance")->value());
-	
+
 			rapidxml::xml_node<>* nodePages = terrain->first_node("terrainPages");
 			rapidxml::xml_node<>* nodePage;
-	
+
 			m_globals = OGRE_NEW Ogre::TerrainGlobalOptions();
-	
+
 			m_globals->setMaxPixelError(maxPixelError);
 			m_globals->setCompositeMapDistance(compositeDistance);
 			m_globals->setCompositeMapAmbient(m_scene_mgr->getAmbientLight());
-	
+
 			m_terrainGroup = OGRE_NEW Ogre::TerrainGroup(m_scene_mgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
 			//m_terrainGroup->setResourceGroup("Maps");
-	
+
 			for(nodePage=nodePages->first_node("terrainPage");nodePage;nodePage=nodePage->next_sibling("terrainPage"))
 			{
 					std::string fileName = nodePage->first_attribute("name")->value();
@@ -145,7 +146,7 @@ void Map::load(std::string p_name)
 		rapidxml::xml_node<>* hydraxNode = rootNode->first_node("hydrax");
 		if(hydraxNode)
 		{
-			int qualite = 3;
+			int qualite = Config::get()->getGraphicConfig()->getQualityWater();
 			if(qualite == 1)
 			{
 				std::string path = hydraxNode->first_attribute("configFile")->value();
@@ -157,7 +158,7 @@ void Map::load(std::string p_name)
 				m_hydrax->loadCfg(path);
 				m_hydrax->create();
 			}
-			else 
+			else
 			{
 				Ogre::Plane plan(Ogre::Vector3::UNIT_Y, 0);
 				Ogre::MeshManager::getSingleton().createPlane("ocean", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plan, 10000, 10000, 10, 10, true, 1, 100, 100, Ogre::Vector3::UNIT_Z);
@@ -172,7 +173,7 @@ void Map::load(std::string p_name)
 				{
 					ocean->setMaterialName("OceanLow");
 				}
-				else 
+				else
 				{
 					ocean->setMaterialName("OceanMedium");
 				}
@@ -183,9 +184,9 @@ void Map::load(std::string p_name)
 		{
 			m_controller = new SkyX::BasicController();
 			m_skyx = new SkyX::SkyX(m_scene_mgr, m_controller);
-	
+
 			SkyX::AtmosphereManager::Options options;
-	
+
 			options.RayleighMultiplier = boost::lexical_cast<float>(skyxNode->first_attribute("rayleighMultiplier")->value());
 			options.MieMultiplier      = boost::lexical_cast<float>(skyxNode->first_attribute("mieMultiplier")->value());
 			options.Exposure    = boost::lexical_cast<float>(skyxNode->first_attribute("exposure")->value());
@@ -195,7 +196,7 @@ void Map::load(std::string p_name)
 			options.HeightPosition = boost::lexical_cast<float>(skyxNode->first_attribute("height")->value());
 			options.SunIntensity = boost::lexical_cast<float>(skyxNode->first_attribute("sunIntensity")->value());
 			options.G      = boost::lexical_cast<float>(skyxNode->first_attribute("G")->value());
-	
+
 			rapidxml::xml_node<>* timeNode = skyxNode->first_node("time");
 			if(timeNode)
 			{
@@ -363,7 +364,7 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		if(!type.empty())
 		{
 			if(type=="team_base")
-			{	
+			{
 				Equipe *equipe = m_game->getEquipe(teamId);
 				if(equipe != nullptr)
 				{
@@ -381,7 +382,7 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		currentNode->setPosition(position.convert<Ogre::Vector3>());
 		currentNode->setOrientation(rotation);
 		currentNode->setScale(scale.convert<Ogre::Vector3>());
-		
+
 		/*
 		 * Ajout des entités
 		 * */
