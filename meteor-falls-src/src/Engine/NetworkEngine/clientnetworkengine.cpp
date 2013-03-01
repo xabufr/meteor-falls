@@ -80,7 +80,7 @@ void ClientNetworkEngine::work()
 				break;
 			case EngineMessageType::ADDTEAM:
 				{
-					Equipe* equipe = new Equipe(message->ints[TEAM_ID]);
+					Equipe* equipe = new Equipe(m_manager->getGame(), message->ints[TEAM_ID]);
 					equipe->setFaction(FactionManager::get()->getFaction(message->ints[FACTION_ID]));
 					m_manager->getGame()->addTeam(equipe);
 				}
@@ -177,6 +177,16 @@ void ClientNetworkEngine::work()
 					messageSpawn->clearTo();
 					messageSpawn->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageSpawn);
+				}
+				break;
+			case EngineMessageType::PLAYER_POSITION:
+				{
+					Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
+					{
+						j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+						std::cout << message->positions[EngineMessageKey::OBJECT_POSITION].x << std::endl;
+					}
 				}
 				break;
 		}
@@ -299,4 +309,15 @@ void ClientNetworkEngine::sendRpgPosition()
 	mess.positions[EngineMessageKey::OBJECT_POSITION] = hero->getPosition();
 	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	sendToAllUdp(mess);
+}
+void ClientNetworkEngine::sendRpgModification()
+{
+	if(m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())
+		return;
+	EngineMessage mess(m_manager);
+	mess.message = EngineMessageType::PLAYER_POSITION;
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	mess.positions[EngineMessageKey::OBJECT_POSITION] = m_joueur->getRPG()->hero()->getPosition();
+
+	m_tcp->send(serialize(&mess));
 }

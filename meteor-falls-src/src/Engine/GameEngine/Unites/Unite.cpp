@@ -1,7 +1,7 @@
 #include "Unite.h"
 #include "../Factions/Equipe.h"
 
-Unite::Unite(Ogre::SceneManager* mng, Equipe *equipe, TypeUnite* type, int id): ObjetTerrain(mng), m_type(type), m_id(id), m_equipe(equipe)
+Unite::Unite(Ogre::SceneManager* mng, Equipe *equipe, TypeUnite* type, int id): ObjetTerrain(equipe->game(),mng), m_type(type), m_id(id), m_equipe(equipe)
 {
 	m_equipe->create_unit(this);
 }

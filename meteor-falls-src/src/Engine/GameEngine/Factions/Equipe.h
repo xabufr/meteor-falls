@@ -10,11 +10,11 @@ class JoueurRPG;
 class JoueurRTS;
 class Joueur;
 class UniteFactory;
-
+class GameEngine;
 class Equipe
 {
     public:
-        Equipe(char id);
+        Equipe(GameEngine*, char id);
         virtual ~Equipe();
 
         Faction* faction();
@@ -37,6 +37,7 @@ class Equipe
 		UniteFactory* factory();
 
 		Unite* getUnite(int) const;
+		GameEngine* game() const;
 
     protected:
     private:
@@ -48,6 +49,7 @@ class Equipe
 		std::vector<Joueur*> m_joueurs;
 		char m_id;
         UniteFactory *m_factory;
+		GameEngine *m_game;
 };
 
 #endif // EQUIPE_H

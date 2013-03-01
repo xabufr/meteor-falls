@@ -14,13 +14,13 @@
 #include "../GameEngine/Heros/Avatar.h"
 
 ServerNetworkEngine::ServerNetworkEngine(EngineManager *mng, unsigned short port) : NetworkEngine(mng),
-    m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
-    m_lastClient(0),
+	m_acceptor(*m_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::address(), port)),
+	m_lastClient(0),
 	m_port(port)
 {
 	m_udpConnexion = UdpConnection::create(m_service);
 	m_timer_seed = new boost::asio::deadline_timer(*m_service);
-    m_startAccept();
+	m_startAccept();
 }
 ServerNetworkEngine::~ServerNetworkEngine()
 {
@@ -34,9 +34,9 @@ void ServerNetworkEngine::handleMessage(EngineMessage&)
 void ServerNetworkEngine::work()
 {
 	const long pingTimeout = 10000;
-    std::vector<ServerClient> clients;
-    {
-        boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+	std::vector<ServerClient> clients;
+	{
+		boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 		for(auto it=m_clients.begin();it!=m_clients.end();)
 		{
 			if(it->data->toDel)
@@ -47,20 +47,20 @@ void ServerNetworkEngine::work()
 			}
 			clients = m_clients;
 		}
-    }
-    EngineMessage *message;
-    for(ServerClient& client : clients)
-    {
-        if(!client.tcp()->isConnected()||!client.tcp()->isListening()
-			||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout)||client.tcp()->hasError())
-        {
-            removeClient(client);
-        }
-        else
-        {
-            while(client.tcp()->hasData())
-            {
-                message = NetworkEngine::deserialize(client.tcp()->getData());
+	}
+	EngineMessage *message;
+	for(ServerClient& client : clients)
+	{
+		if(!client.tcp()->isConnected()||!client.tcp()->isListening()
+				||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout)||client.tcp()->hasError())
+		{
+			removeClient(client);
+		}
+		else
+		{
+			while(client.tcp()->hasData())
+			{
+				message = NetworkEngine::deserialize(client.tcp()->getData());
 				switch(message->message)
 				{
 					case EngineMessageType::NEW_PLAYER:
@@ -116,7 +116,7 @@ void ServerNetworkEngine::work()
 							char teamId  = message->ints[EngineMessageKey::TEAM_ID];
 							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 							if(client==nullptr)
-									break;
+								break;
 							bool alertOther = client->joueur->equipe() == nullptr;
 							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
 							EngineMessage messageTeam(m_manager);
@@ -220,22 +220,32 @@ void ServerNetworkEngine::work()
 							m_manager->addMessage(messageSpawn);
 						}
 						break;
+					case EngineMessageType::PLAYER_POSITION:
+						{
+							Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+							if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
+							{
+								j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+								sendToAllExcluding(client.id(), message);
+							}
+						}
+						break;
 				}
 				delete message;
-            }
-            while(client.tcp()->hasError())
-            {
-                std::cout << client.tcp()->getError().message() << std::endl;
-            }
-        }
-    }
+			}
+			while(client.tcp()->hasError())
+			{
+				std::cout << client.tcp()->getError().message() << std::endl;
+			}
+		}
+	}
 	while(m_udpConnexion->hasError())
 	{
-			std::cout << m_udpConnexion->getError().message() << std::endl;
+		std::cout << m_udpConnexion->getError().message() << std::endl;
 	}
 	while(m_udpConnexion->hasData())
 	{
-		auto data = m_udpConnexion->getData();
+		UdpConnection::Data data(m_udpConnexion->getData());
 		boost::asio::ip::address adr = data.first.address();
 		bool isClient=false;
 		client_id cli_id;
@@ -251,36 +261,39 @@ void ServerNetworkEngine::work()
 		if(!isClient)
 			continue;
 		EngineMessage *message = deserialize(data.second);
+		switch(message->message)
+		{
+		}
 		delete message;
 	}
 	pingClients();
 }
 void ServerNetworkEngine::m_startAccept()
 {
-    TcpConnection::pointer connection = TcpConnection::create(m_service);
-    m_acceptor.async_accept(connection->socket(),
-                            boost::bind(&ServerNetworkEngine::m_handleAccept, this,
-                                        connection, boost::asio::placeholders::error));
+	TcpConnection::pointer connection = TcpConnection::create(m_service);
+	m_acceptor.async_accept(connection->socket(),
+			boost::bind(&ServerNetworkEngine::m_handleAccept, this,
+				connection, boost::asio::placeholders::error));
 }
 void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boost::system::error_code& e)
 {
-    if(!e)
-    {
-        {
-            boost::recursive_mutex::scoped_lock l(m_mutex_clients);
-            m_clients.push_back(ServerClient(conn, m_lastClient++));
-            conn->setConnected(true);
-            conn->startListen();
+	if(!e)
+	{
+		{
+			boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+			m_clients.push_back(ServerClient(conn, m_lastClient++));
+			conn->setConnected(true);
+			conn->startListen();
 			ServerClient &client(m_clients.back());
 			client.data->sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
-							client.tcp()->socket().remote_endpoint().address().to_string());
+					client.tcp()->socket().remote_endpoint().address().to_string());
 			EngineMessage messageSalt(m_manager);
 			messageSalt.message = EngineMessageType::SETSALT;
 			messageSalt.strings[EngineMessageKey::SEL] = client.data->sel;
 			client.tcp()->send(serialize(&messageSalt));
 		}
-        m_startAccept();
-    }
+		m_startAccept();
+	}
 }
 void ServerNetworkEngine::removeClient(ServerClient& c)
 {
@@ -289,14 +302,14 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
 	{
 		boost::recursive_mutex::scoped_lock l(m_mutex_clients);
-    	for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
-    	{
-    	    if(it->tcp()==c.tcp())
-    	    {
-    	        m_clients.erase(it);
-    	        break;
-    	    }
-    	}
+		for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
+		{
+			if(it->tcp()==c.tcp())
+			{
+				m_clients.erase(it);
+				break;
+			}
+		}
 	}
 	message.addToType(EngineType::GameEngineType);
 	sendToAllTcp(&message);
@@ -305,32 +318,32 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
 }
 void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {
-    std::string data(NetworkEngine::serialize(message));
+	std::string data(NetworkEngine::serialize(message));
 
-    boost::recursive_mutex::scoped_lock l(m_mutex_clients);
-    for(ServerClient &c : m_clients)
-    {
-        sendToTcp(c,data);
-    }
+	boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient &c : m_clients)
+	{
+		sendToTcp(c,data);
+	}
 }
 void ServerNetworkEngine::sendToTcp(ServerClient& c, EngineMessage* message)
 {
-    c.tcp()->send(NetworkEngine::serialize(message));
+	c.tcp()->send(NetworkEngine::serialize(message));
 }
 void ServerNetworkEngine::sendToTcp(ServerClient& c, std::string d)
 {
-    c.tcp()->send(d);
+	c.tcp()->send(d);
 }
 void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* message)
 {
-    std::string data(NetworkEngine::serialize(message));
+	std::string data(NetworkEngine::serialize(message));
 
-    boost::recursive_mutex::scoped_lock l(m_mutex_clients);
-    for(ServerClient &c  :m_clients)
-    {
-        if(c.id()!=id)
-            c.tcp()->send(data);
-    }
+	boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+	for(ServerClient &c  :m_clients)
+	{
+		if(c.id()!=id)
+			c.tcp()->send(data);
+	}
 }
 void ServerNetworkEngine::setServerName(const std::string& name)
 {
@@ -374,7 +387,7 @@ ServerClient* ServerNetworkEngine::findClient(client_id id)
 	for(ServerClient &c : m_clients)
 	{
 		if(c.id() == id)
-				return &c;
+			return &c;
 	}
 	return nullptr;
 }

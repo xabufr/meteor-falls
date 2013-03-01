@@ -42,7 +42,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 		for(char i=0; i<3;++i)
 		{
 			m_current_joueur=nullptr;
-			Equipe *e = new Equipe(i);
+			Equipe *e = new Equipe(this, i);
 			e->setFaction(FactionManager::get()->getFaction(1));
 			addTeam(e);
 		}

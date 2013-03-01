@@ -10,7 +10,7 @@ namespace Ogre{
 class WorldObject : public ObjetTerrain
 {
     public:
-        WorldObject(Ogre::SceneManager*, WorldObjectType*);
+        WorldObject(GameEngine*, Ogre::SceneManager*, WorldObjectType*);
         virtual ~WorldObject();
         virtual WorldObjectType* getType() const;
 
