@@ -84,7 +84,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	Equipe *equipe = nullptr;
 			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
 			   	for(Joueur *j : m_joueurs)
-			   		if(j->id == playerId)
+			   		if(j->id() == playerId)
 			   			equipe = j->equipe();
 			   	if(equipe==nullptr)
 			   			return;
@@ -332,11 +332,11 @@ bool GameEngine::tryJoinTeam(char id, Joueur* j)
 }
 Joueur* GameEngine::findJoueur(int id)
 {
-    if (m_current_joueur!=nullptr && m_current_joueur->id == id)
+    if (m_current_joueur!=nullptr && m_current_joueur->id() == id)
         return m_current_joueur;
 	for(Joueur *j : m_joueurs)
     {
-		if(j->id==id)
+		if(j->id()==id)
 				return j;
     }
 	return nullptr;

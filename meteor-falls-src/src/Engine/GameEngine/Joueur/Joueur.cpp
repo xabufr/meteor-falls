@@ -109,3 +109,11 @@ Avatar* Joueur::avatar(int id) const
 	}
 	return nullptr;
 }
+int Joueur::id() const
+{
+	return m_id;
+}
+void Joueur::setId(int i)
+{
+	m_id=i;
+}
