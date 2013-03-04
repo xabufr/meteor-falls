@@ -23,10 +23,11 @@ m_isModified(true)
 	j->setHero(this);
 	if(mng)
 	{
-		std::string meshName = a->classe()->mesh(j->joueur()->getLevel());
+		std::string meshName = a->classe()->mesh(j->joueur()->getLevel())->mesh;
 		m_entityBody = mng->createEntity(meshName);
 		m_sceneNode->attachObject(m_entityBody);
 		m_sceneNode->setScale(0.1, 0.1, 0.1);
+		Ogre::SkeletonInstance *ske = m_entityBody->getSkeleton();
 	}
 }
 Hero::~Hero()
@@ -55,6 +56,16 @@ void Hero::update(unsigned int time)
 			m_sceneNode->translate(Ogre::Vector3(1, 0, 0), Ogre::Node::TS_LOCAL);
 		else if(m_gauche) 
 			m_sceneNode->translate(Ogre::Vector3(-1, 0, 0), Ogre::Node::TS_LOCAL);
+		Ogre::AnimationState *anim = m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk);
+		if(m_avancer)
+		{
+			anim->setLoop(true);
+			anim->setEnabled(true);
+		}
+		else
+		{
+			anim->setEnabled(false);
+		}
 	}
 	m_comportementModifie();
 }
