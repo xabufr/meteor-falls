@@ -20,7 +20,7 @@
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_sheet = m_window_mgr.createWindow("OgreTray/TabButtonPane", "FenetreMenu");
+    m_sheet = m_window_mgr.createWindow("TaharezLook/StaticImage", "FenetreMenu");
     m_sheet->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.50, 0)));
     m_sheet->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_sheet->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0.30, 0)));
 

@@ -3,6 +3,7 @@
 #include "../Unites/Unite.h"
 
 class JoueurRPG;
+class EngineMessage;
 class Avatar;
 namespace Ogre {
 	class Entity;
@@ -19,11 +20,15 @@ public:
 	void setReculer(bool);
 	void setGauche(bool);
 	void setDroite(bool);
+	void serializeComportement(EngineMessage*);
+	void deserializeComportement(EngineMessage*);
 private:
 	JoueurRPG *m_joueur;
 	Avatar *m_avatar;
 	Ogre::Entity *m_entityBody;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
+	bool m_isModified;
+	void m_comportementModifie();
 };
 
 #endif 

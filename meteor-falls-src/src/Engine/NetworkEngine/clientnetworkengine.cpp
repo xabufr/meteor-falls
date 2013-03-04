@@ -13,8 +13,7 @@
 #include "../GameEngine/Heros/Hero.h"
 #include "../GameEngine/Heros/Avatar.h"
 #include "../GameEngine/Unites/Unite.h"
-
-#include <iostream>
+#include <SFML/System/Clock.hpp>
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
@@ -184,8 +183,7 @@ void ClientNetworkEngine::work()
 					Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 					if(j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
 					{
-						j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
-						std::cout << message->positions[EngineMessageKey::OBJECT_POSITION].x << std::endl;
+						j->getRPG()->hero()->deserializeComportement(message);
 					}
 				}
 				break;
@@ -301,8 +299,10 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 }
 void ClientNetworkEngine::sendRpgPosition()
 {
-	if(m_joueur->getTypeGameplay()!=Joueur::TypeGameplay::RPG||!m_joueur->getRPG()->hero())
+	static sf::Clock timerUdpPosition;
+	if(m_joueur->getTypeGameplay()!=Joueur::TypeGameplay::RPG||!m_joueur->getRPG()->hero() || timerUdpPosition.getElapsedTime().asMilliseconds() < 1000/30)
 		return;
+	timerUdpPosition.restart();
 	Hero *hero = m_joueur->getRPG()->hero();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
@@ -310,14 +310,17 @@ void ClientNetworkEngine::sendRpgPosition()
 	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
 	sendToAllUdp(mess);
 }
-void ClientNetworkEngine::sendRpgModification()
+void ClientNetworkEngine::sendRpgModification(bool checkTimer)
 {
-	if(m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())
+	static sf::Clock timer;
+	if((m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())||(timer.getElapsedTime().asMilliseconds() < 1000/2 && checkTimer))
 		return;
+	timer.restart();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
 	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
-	mess.positions[EngineMessageKey::OBJECT_POSITION] = m_joueur->getRPG()->hero()->getPosition();
+	m_joueur->getRPG()->hero()->serializeComportement(&mess);
+	std::cout << "send" << std::endl;
 
 	m_tcp->send(serialize(&mess));
 }

@@ -35,6 +35,10 @@ enum EngineMessageKey
 	AVATAR_NAME     = 30,
 	AVATAR_DEFAULT  = 31,
 	ERROR_CODE 		= 32,
+	HERO_AVANCE 	= 33,
+	HERO_RECULE 	= 34,
+	HERO_GAUCHE 	= 35,
+	HERO_DROITE 	= 36,
 };
 
 #endif // ENGINEMESSAGEKEY_H

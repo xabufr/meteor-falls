@@ -226,6 +226,15 @@ void ServerNetworkEngine::work()
 							if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
 							{
 								j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+								Equipe *e = m_manager->getGame()->getEquipe(message->ints[EngineMessageKey::TEAM_ID]);
+								if(e)
+								{
+									Hero *h = dynamic_cast<Hero*>(e->getUnite(message->ints[EngineMessageKey::OBJECT_ID]));
+									if(h)
+									{
+										h->deserializeComportement(message);
+									}
+								}
 								sendToAllExcluding(client.id(), message);
 							}
 						}
