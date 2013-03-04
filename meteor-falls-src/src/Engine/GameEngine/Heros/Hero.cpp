@@ -6,6 +6,7 @@
 #include "../Factions/Equipe.h"
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
+#include <OgreSubEntity.h>
 #include "../GameEngine.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
@@ -96,21 +97,45 @@ void Hero::m_comportementModifie()
 	}
 	m_isModified=false;
 }
-void Hero::serializeComportement(EngineMessage* mess)
+void Hero::serializeComportement(EngineMessage* mess, bool all)
 {
 	mess->positions[EngineMessageKey::OBJECT_POSITION] = m_sceneNode->getPosition();
+	mess->positions[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation();
+	mess->doubles[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation().w;
 	mess->ints[EngineMessageKey::OBJECT_ID] = this->id(); 
 	mess->ints[EngineMessageKey::TEAM_ID] = m_equipe->id();
-	mess->ints[EngineMessageKey::HERO_AVANCE] = static_cast<int>(m_avancer);
-	mess->ints[EngineMessageKey::HERO_RECULE] = static_cast<int>(m_reculer);
-	mess->ints[EngineMessageKey::HERO_GAUCHE] = static_cast<int>(m_gauche);
-	mess->ints[EngineMessageKey::HERO_DROITE] = static_cast<int>(m_droite);
+	if(all)
+	{
+		mess->ints[EngineMessageKey::HERO_AVANCE] = static_cast<int>(m_avancer);
+		mess->ints[EngineMessageKey::HERO_RECULE] = static_cast<int>(m_reculer);
+		mess->ints[EngineMessageKey::HERO_GAUCHE] = static_cast<int>(m_gauche);
+		mess->ints[EngineMessageKey::HERO_DROITE] = static_cast<int>(m_droite);
+	}
 }
-void Hero::deserializeComportement(EngineMessage* mess)
+void Hero::deserializeComportement(EngineMessage* mess, bool all)
 {
 	setPosition(mess->positions[EngineMessageKey::OBJECT_POSITION]);
-	m_reculer = static_cast<bool>(mess->ints[EngineMessageKey::HERO_RECULE]);
-	m_avancer= static_cast<bool>(mess->ints[EngineMessageKey::HERO_AVANCE]);
-	m_droite = static_cast<bool>(mess->ints[EngineMessageKey::HERO_DROITE]);
-	m_gauche = static_cast<bool>(mess->ints[EngineMessageKey::HERO_GAUCHE]);
+	Ogre::Quaternion q;
+	Vector3D axe = mess->positions[EngineMessageKey::OBJECT_ROTATION];
+	q.x          = axe.x;
+	q.y          = axe.y;
+	q.z          = axe.z;
+	q.w          = mess->doubles[EngineMessageKey::OBJECT_ROTATION];
+	if(m_sceneNode)
+		m_sceneNode->setOrientation(q);
+	if(all)
+	{
+		m_reculer = static_cast<bool>(mess->ints[EngineMessageKey::HERO_RECULE]);
+		m_avancer= static_cast<bool>(mess->ints[EngineMessageKey::HERO_AVANCE]);
+		m_droite = static_cast<bool>(mess->ints[EngineMessageKey::HERO_DROITE]);
+		m_gauche = static_cast<bool>(mess->ints[EngineMessageKey::HERO_GAUCHE]);
+	}
+}
+const Ogre::Entity* Hero::entity() const
+{
+	return m_entityBody;
+}
+void Hero::tournerGaucheDroite(float angle)
+{
+	m_sceneNode->yaw(Ogre::Radian(angle));
 }

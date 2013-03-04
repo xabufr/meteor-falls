@@ -14,9 +14,6 @@ class Camera
 
     protected:
         Ogre::Camera *m_camera;
-
-    private:
-
 };
 
 #endif // CAMERA_H

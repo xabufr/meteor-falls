@@ -1,6 +1,8 @@
 #include "GameEngine.h"
 #include "../EngineManager/EngineManager.h"
 #include "../GraphicEngine/GraphicEngine.h"
+#include "../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
 #include "Factions/Faction.h"
@@ -19,6 +21,7 @@
 #include "Interface/Chat.h"
 #include <CEGUIString.h>
 #include "Camera/CameraManager.h"
+#include "Camera/CameraRPG.h"
 #include <SFML/System.hpp>
 #include "../../Utils/Configuration/Config.h"
 
@@ -190,7 +193,11 @@ void GameEngine::handleMessage(EngineMessage& message)
 						message.ints[EngineMessageKey::OBJECT_ID]);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				if(m_current_joueur==j)
+				{
 					setSousStateType(TypeState::PLAYING);
+					CameraRPG *cam = new CameraRPG(hero);
+					m_camManager->setCameraContener(cam);
+				}
 			}
 			else if(m_sous_state!=nullptr)
 			{
@@ -248,6 +255,7 @@ void GameEngine::work()
 					m_current_joueur->getRPG()->hero()->setAvancer(commandes->eventActif(1, CommandConfig::RPG_FORWARD));
 					m_current_joueur->getRPG()->hero()->setReculer(commandes->eventActif(1, CommandConfig::RPG_BACKWARD));
 					((ClientNetworkEngine*)m_manager->getNetwork())->sendRpgPosition();
+					m_current_joueur->getRPG()->hero()->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
 				}
 			}
 			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 

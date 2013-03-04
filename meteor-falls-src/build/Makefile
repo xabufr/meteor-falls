@@ -402,6 +402,30 @@ src/Engine/GameEngine/Camera/CameraManager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.s
 .PHONY : src/Engine/GameEngine/Camera/CameraManager.cpp.s
 
+src/Engine/GameEngine/Camera/CameraRPG.o: src/Engine/GameEngine/Camera/CameraRPG.cpp.o
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.o
+
+# target to build an object file
+src/Engine/GameEngine/Camera/CameraRPG.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRPG.cpp.o
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.cpp.o
+
+src/Engine/GameEngine/Camera/CameraRPG.i: src/Engine/GameEngine/Camera/CameraRPG.cpp.i
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Camera/CameraRPG.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRPG.cpp.i
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.cpp.i
+
+src/Engine/GameEngine/Camera/CameraRPG.s: src/Engine/GameEngine/Camera/CameraRPG.cpp.s
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Camera/CameraRPG.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRPG.cpp.s
+.PHONY : src/Engine/GameEngine/Camera/CameraRPG.cpp.s
+
 src/Engine/GameEngine/Camera/CameraRTS.o: src/Engine/GameEngine/Camera/CameraRTS.cpp.o
 .PHONY : src/Engine/GameEngine/Camera/CameraRTS.o
 
@@ -689,6 +713,30 @@ src/Engine/GameEngine/Heros/Hero.s: src/Engine/GameEngine/Heros/Hero.cpp.s
 src/Engine/GameEngine/Heros/Hero.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Heros/Hero.cpp.s
 .PHONY : src/Engine/GameEngine/Heros/Hero.cpp.s
+
+src/Engine/GameEngine/Interface/Chat.o: src/Engine/GameEngine/Interface/Chat.cpp.o
+.PHONY : src/Engine/GameEngine/Interface/Chat.o
+
+# target to build an object file
+src/Engine/GameEngine/Interface/Chat.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Interface/Chat.cpp.o
+.PHONY : src/Engine/GameEngine/Interface/Chat.cpp.o
+
+src/Engine/GameEngine/Interface/Chat.i: src/Engine/GameEngine/Interface/Chat.cpp.i
+.PHONY : src/Engine/GameEngine/Interface/Chat.i
+
+# target to preprocess a source file
+src/Engine/GameEngine/Interface/Chat.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Interface/Chat.cpp.i
+.PHONY : src/Engine/GameEngine/Interface/Chat.cpp.i
+
+src/Engine/GameEngine/Interface/Chat.s: src/Engine/GameEngine/Interface/Chat.cpp.s
+.PHONY : src/Engine/GameEngine/Interface/Chat.s
+
+# target to generate assembly for a file
+src/Engine/GameEngine/Interface/Chat.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Interface/Chat.cpp.s
+.PHONY : src/Engine/GameEngine/Interface/Chat.cpp.s
 
 src/Engine/GameEngine/Joueur/Joueur.o: src/Engine/GameEngine/Joueur/Joueur.cpp.o
 .PHONY : src/Engine/GameEngine/Joueur/Joueur.o
@@ -2610,6 +2658,30 @@ src/Utils/File.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/File.cpp.s
 .PHONY : src/Utils/File.cpp.s
 
+src/Utils/MessageDialog.o: src/Utils/MessageDialog.cpp.o
+.PHONY : src/Utils/MessageDialog.o
+
+# target to build an object file
+src/Utils/MessageDialog.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/MessageDialog.cpp.o
+.PHONY : src/Utils/MessageDialog.cpp.o
+
+src/Utils/MessageDialog.i: src/Utils/MessageDialog.cpp.i
+.PHONY : src/Utils/MessageDialog.i
+
+# target to preprocess a source file
+src/Utils/MessageDialog.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/MessageDialog.cpp.i
+.PHONY : src/Utils/MessageDialog.cpp.i
+
+src/Utils/MessageDialog.s: src/Utils/MessageDialog.cpp.s
+.PHONY : src/Utils/MessageDialog.s
+
+# target to generate assembly for a file
+src/Utils/MessageDialog.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/MessageDialog.cpp.s
+.PHONY : src/Utils/MessageDialog.cpp.s
+
 src/Utils/Random.o: src/Utils/Random.cpp.o
 .PHONY : src/Utils/Random.o
 
@@ -2703,6 +2775,9 @@ help:
 	@echo "... src/Engine/GameEngine/Camera/CameraManager.o"
 	@echo "... src/Engine/GameEngine/Camera/CameraManager.i"
 	@echo "... src/Engine/GameEngine/Camera/CameraManager.s"
+	@echo "... src/Engine/GameEngine/Camera/CameraRPG.o"
+	@echo "... src/Engine/GameEngine/Camera/CameraRPG.i"
+	@echo "... src/Engine/GameEngine/Camera/CameraRPG.s"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.o"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.i"
 	@echo "... src/Engine/GameEngine/Camera/CameraRTS.s"
@@ -2739,6 +2814,9 @@ help:
 	@echo "... src/Engine/GameEngine/Heros/Hero.o"
 	@echo "... src/Engine/GameEngine/Heros/Hero.i"
 	@echo "... src/Engine/GameEngine/Heros/Hero.s"
+	@echo "... src/Engine/GameEngine/Interface/Chat.o"
+	@echo "... src/Engine/GameEngine/Interface/Chat.i"
+	@echo "... src/Engine/GameEngine/Interface/Chat.s"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.o"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.i"
 	@echo "... src/Engine/GameEngine/Joueur/Joueur.s"
@@ -2979,6 +3057,9 @@ help:
 	@echo "... src/Utils/File.o"
 	@echo "... src/Utils/File.i"
 	@echo "... src/Utils/File.s"
+	@echo "... src/Utils/MessageDialog.o"
+	@echo "... src/Utils/MessageDialog.i"
+	@echo "... src/Utils/MessageDialog.s"
 	@echo "... src/Utils/Random.o"
 	@echo "... src/Utils/Random.i"
 	@echo "... src/Utils/Random.s"

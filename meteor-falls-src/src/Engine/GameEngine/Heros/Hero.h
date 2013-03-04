@@ -20,8 +20,10 @@ public:
 	void setReculer(bool);
 	void setGauche(bool);
 	void setDroite(bool);
-	void serializeComportement(EngineMessage*);
-	void deserializeComportement(EngineMessage*);
+	void serializeComportement(EngineMessage*, bool all=true);
+	void deserializeComportement(EngineMessage*, bool all=true);
+	const Ogre::Entity* entity() const;
+	void tournerGaucheDroite(float angle);
 private:
 	JoueurRPG *m_joueur;
 	Avatar *m_avatar;
