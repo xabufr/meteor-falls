@@ -21,7 +21,6 @@ class Faction
         UniteFactory* factory() const;
         void addConfigFile(std::string path);
 
-
         /** \brief Charge tous les fichiers passés via addConfigFile()
          */
         void load();

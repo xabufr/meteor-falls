@@ -3459,7 +3459,7 @@
 1354185345 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/precompiled/sfml_system.h
 	<SFML/System.hpp>
 
-1352803318 /usr/local/include/SFML/System.hpp
+1360869905 /usr/local/include/SFML/System.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -3475,65 +3475,65 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
-1352803318 /usr/local/include/SFML/Config.hpp
+1360869905 /usr/local/include/SFML/Config.hpp
 
-1352803318 /usr/local/include/SFML/System/Clock.hpp
+1360869905 /usr/local/include/SFML/System/Clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1352803318 /usr/local/include/SFML/System/Export.hpp
+1360869905 /usr/local/include/SFML/System/Export.hpp
 	<SFML/Config.hpp>
 
-1352803318 /usr/local/include/SFML/System/Time.hpp
+1360869905 /usr/local/include/SFML/System/Time.hpp
 	<SFML/System/Export.hpp>
 
-1352803318 /usr/local/include/SFML/System/Err.hpp
+1360869905 /usr/local/include/SFML/System/Err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
 
-1352803318 /usr/local/include/SFML/System/InputStream.hpp
+1360869905 /usr/local/include/SFML/System/InputStream.hpp
 	<SFML/Config.hpp>
 
-1352803318 /usr/local/include/SFML/System/Lock.hpp
+1360869905 /usr/local/include/SFML/System/Lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1352803318 /usr/local/include/SFML/System/NonCopyable.hpp
+1360869905 /usr/local/include/SFML/System/NonCopyable.hpp
 	<SFML/System/Export.hpp>
 
-1352803318 /usr/local/include/SFML/System/Mutex.hpp
+1360869905 /usr/local/include/SFML/System/Mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1352803318 /usr/local/include/SFML/System/Sleep.hpp
+1360869905 /usr/local/include/SFML/System/Sleep.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1352803318 /usr/local/include/SFML/System/String.hpp
+1360869905 /usr/local/include/SFML/System/String.hpp
 	<SFML/System/Export.hpp>
 	<locale>
 	<string>
 
-1352803318 /usr/local/include/SFML/System/Thread.hpp
+1360869905 /usr/local/include/SFML/System/Thread.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
 
-1352803318 /usr/local/include/SFML/System/Thread.inl
+1360869905 /usr/local/include/SFML/System/Thread.inl
 
-1352803318 /usr/local/include/SFML/System/ThreadLocal.hpp
+1360869905 /usr/local/include/SFML/System/ThreadLocal.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 
-1352803318 /usr/local/include/SFML/System/ThreadLocalPtr.hpp
+1360869905 /usr/local/include/SFML/System/ThreadLocalPtr.hpp
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
-1352803318 /usr/local/include/SFML/System/ThreadLocalPtr.inl
+1360869905 /usr/local/include/SFML/System/ThreadLocalPtr.inl
 
-1352803318 /usr/local/include/SFML/System/Utf.hpp
+1360869905 /usr/local/include/SFML/System/Utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -3541,17 +3541,17 @@
 	<cstdlib>
 	<SFML/System/Utf.inl>
 
-1352803318 /usr/local/include/SFML/System/Utf.inl
+1360869905 /usr/local/include/SFML/System/Utf.inl
 
-1352803318 /usr/local/include/SFML/System/Vector2.hpp
+1360869905 /usr/local/include/SFML/System/Vector2.hpp
 	<SFML/System/Vector2.inl>
 
-1352803318 /usr/local/include/SFML/System/Vector2.inl
+1360869905 /usr/local/include/SFML/System/Vector2.inl
 
-1352803318 /usr/local/include/SFML/System/Vector3.hpp
+1360869905 /usr/local/include/SFML/System/Vector3.hpp
 	<SFML/System/Vector3.inl>
 
-1352803318 /usr/local/include/SFML/System/Vector3.inl
+1360869905 /usr/local/include/SFML/System/Vector3.inl
 
 1359383732 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Application/applicationparameters.cpp
 	"applicationparameters.h"
@@ -3629,7 +3629,7 @@
 1354185410 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/precompiled/sfml_audio.h
 	<SFML/Audio.hpp>
 
-1352803318 /usr/local/include/SFML/Audio.hpp
+1360869905 /usr/local/include/SFML/Audio.hpp
 	<SFML/System.hpp>
 	<SFML/Audio/Listener.hpp>
 	<SFML/Audio/Music.hpp>
@@ -3639,14 +3639,14 @@
 	<SFML/Audio/SoundRecorder.hpp>
 	<SFML/Audio/SoundStream.hpp>
 
-1352803318 /usr/local/include/SFML/Audio/Listener.hpp
+1360869905 /usr/local/include/SFML/Audio/Listener.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Vector3.hpp>
 
-1352803318 /usr/local/include/SFML/Audio/Export.hpp
+1360869905 /usr/local/include/SFML/Audio/Export.hpp
 	<SFML/Config.hpp>
 
-1352803318 /usr/local/include/SFML/Audio/Music.hpp
+1360869905 /usr/local/include/SFML/Audio/Music.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundStream.hpp>
 	<SFML/System/Mutex.hpp>
@@ -3654,37 +3654,37 @@
 	<string>
 	<vector>
 
-1352803318 /usr/local/include/SFML/Audio/SoundStream.hpp
+1360869905 /usr/local/include/SFML/Audio/SoundStream.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Thread.hpp>
 	<SFML/System/Time.hpp>
 	<cstdlib>
 
-1352803318 /usr/local/include/SFML/Audio/SoundSource.hpp
+1360869905 /usr/local/include/SFML/Audio/SoundSource.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Vector3.hpp>
 
-1352803318 /usr/local/include/SFML/Audio/Sound.hpp
+1360869905 /usr/local/include/SFML/Audio/Sound.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundSource.hpp>
 	<SFML/System/Time.hpp>
 	<cstdlib>
 
-1352803318 /usr/local/include/SFML/Audio/SoundBuffer.hpp
+1360869905 /usr/local/include/SFML/Audio/SoundBuffer.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Time.hpp>
 	<string>
 	<vector>
 	<set>
 
-1352803318 /usr/local/include/SFML/Audio/SoundBufferRecorder.hpp
+1360869905 /usr/local/include/SFML/Audio/SoundBufferRecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/Audio/SoundBuffer.hpp>
 	<SFML/Audio/SoundRecorder.hpp>
 	<vector>
 
-1352803318 /usr/local/include/SFML/Audio/SoundRecorder.hpp
+1360869905 /usr/local/include/SFML/Audio/SoundRecorder.hpp
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Thread.hpp>
 	<vector>
@@ -4776,7 +4776,7 @@
 	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 
-1359472952 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1362408055 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"State/Console.h"
@@ -5123,7 +5123,7 @@
 	"../Recherches/Recherche.h"
 	"Utils/Exception/FileNotFound.h"
 
-1359383732 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
+1362406733 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -5706,14 +5706,15 @@
 
 1359386605 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
 
-1359473505 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
+1362407715 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
 	"layoutRTS.h"
 
-1359474135 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
+1362407497 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
 	<CEGUI.h>
 	"Engine/GameEngine/Factions/Faction.h"
 	"State/StateManager.h"
 	"State/State.h"
+	"Engine/GameEngine/Joueur/Joueur.h"
 	<iostream>
 
 1358243521 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.h
