@@ -3,12 +3,15 @@
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "../Option/SoundSetting.h"
+#include "../Option/GraphicSetting.h"
+#include "../Option/CommandSetting.h"
+#include "MenuState.h"
 
-
-OptionState::OptionState(StateManager* mgr):State(mgr),
+OptionState::OptionState(StateManager* mgr, MenuState* menu):State(mgr),
 m_visible(true),
 m_state_manager(mgr),
-m_sous_state(nullptr)
+m_sous_state(nullptr),
+m_menu(menu)
 {
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
@@ -25,7 +28,7 @@ m_sous_state(nullptr)
     m_graphics->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_graphics->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.25-(m_graphics->getSize().d_y.d_scale
                                                         /2), 0)));
-    m_graphics->setText("Graphique");
+    m_graphics->setText("Graphisme");
     m_graphics->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&OptionState::m_choix_option, this));
     m_window->addChildWindow(m_graphics);
 
@@ -43,11 +46,20 @@ m_sous_state(nullptr)
     m_control->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_control->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.75-(m_control->getSize().d_y.d_scale
                                                         /2), 0)));
-    m_control->setText("Commande");
+    m_control->setText("Commandes");
     m_control->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&OptionState::m_choix_option, this));
     m_window->addChildWindow(m_control);
 
+    m_sound_setting = new SoundSetting(m_state_manager);
+    m_graphic_setting = new GraphicSetting(m_state_manager);
+    m_command_setting = new CommandSetting(m_state_manager);
     m_window->hide();
+}
+OptionState::~OptionState()
+{
+    delete m_command_setting;
+    delete m_sound_setting;
+    delete m_graphic_setting;
 }
 
 bool OptionState::isVisible()
@@ -71,6 +83,15 @@ ret_code OptionState::work(unsigned int)
 {
     if (m_sous_state != nullptr && m_sous_state->isVisible())
         m_sous_state->work(0);
+    else if (m_sous_state != nullptr)
+    {
+        m_menu->setEscape(true);
+        m_sous_state->exit();
+        m_sous_state = nullptr;
+        m_sound->show();
+        m_graphics->show();
+        m_control->show();
+    }
 
     return CONTINUE;
 }
@@ -82,7 +103,14 @@ bool OptionState::m_choix_option(const CEGUI::EventArgs&)
     m_control->hide();
 
     if (m_sound->isPushed())
-        m_sous_state = new SoundSetting(m_state_manager);
+        m_sous_state = m_sound_setting;
+    else if (m_graphics->isPushed())
+        m_sous_state = m_graphic_setting;
+    else if (m_control->isPushed())
+    {
+        m_sous_state = m_command_setting;
+        m_menu->setEscape(false);
+    }
 
     m_sous_state->enter();
 

@@ -5,6 +5,7 @@
 #include "Engine/NetworkEngine/clientnetworkengine.h"
 #include "Engine/GameEngine/Factions/Equipe.h"
 #include "../GameEngine.h"
+#include "../Interface/Chat.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../EngineMessage/EngineMessage.h"
 #include <string>
@@ -41,37 +42,9 @@ m_game_engine(engine)
     m_rpg->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rpg);
 
-    m_chat = (CEGUI::Listbox*)(m_window_manager.createWindow("OgreTray/Listbox", "Chat"));
-    m_chat->setSize(CEGUI::UVector2(CEGUI::UDim(0.25, 0), CEGUI::UDim(0.30, 0)));
-
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_chat);
-
-    m_edit = (CEGUI::Editbox*)m_window_manager.createWindow("OgreTray/Editbox", "Champ");
-    m_edit->setSize(CEGUI::UVector2(CEGUI::UDim(0.25, 0), CEGUI::UDim(0.05, 0)));
-    m_edit->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
-                                         CEGUI::UDim((1-m_edit->getSize().d_y.d_scale), 0)));
-    m_edit->activate();
-    m_chat->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
-                                         CEGUI::UDim((1-m_chat->getSize().d_y.d_scale-m_edit->getSize().d_y.d_scale), 0)));
-    m_edit->subscribeEvent(CEGUI::Editbox::EventKeyDown, CEGUI::Event::Subscriber(&TeamState::m_send_message, this));
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_edit);
     m_window->hide();
 }
-bool TeamState::m_send_message(const CEGUI::EventArgs&)
-{
-    if (m_keyboard->isKeyDown(OIS::KeyCode::KC_RETURN))
-    {
-        ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-        net->sendChatMessage(std::string(m_edit->getText().c_str()), EngineMessageKey::TEAM_RANGE);
-        m_edit->setText("");
-    }
-    return true;
-}
-void TeamState::setMessage(const CEGUI::String& message)
-{
-    CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(message);
-    m_chat->addItem(item);
-}
+
 bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 {
     ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
@@ -81,13 +54,9 @@ bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 TeamState::~TeamState()
 {
 	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_chat);
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_edit);
 	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rts);
 	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rpg);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_chat);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_edit);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_rts);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_rpg);
 }
@@ -97,20 +66,21 @@ bool TeamState::isVisible()
 }
 void TeamState::enter()
 {
+    m_game_engine->getChat()->show();
     m_window->show();
-    //m_chat->show();
     m_visible = true;
 }
 void TeamState::exit()
 {
+    m_game_engine->getChat()->hide();
     m_window->hide();
-    //m_chat->hide();
     m_visible = false;
 }
 ret_code TeamState::work(unsigned int time)
 {
     if (m_game_engine->getCurrentJoueur()->equipe()->getRTS() != nullptr)
-            m_rts->disable();
-
+		m_rts->disable();
+	else
+		m_rts->enable();
     return CONTINUE;
 }

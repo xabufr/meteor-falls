@@ -3,18 +3,22 @@
 #include "typedefs.h"
 
 class Unite;
-class Faction;
+class Equipe;
+namespace Ogre {
+	class SceneManager;
+} // namespace Ogre
 class UniteFactory
 {
     public:
-        UniteFactory(Faction* f);
+        UniteFactory(Equipe*);
         virtual ~UniteFactory();
-
-        Unite* create(UnitId id);
+        Unite* create(Ogre::SceneManager*, UnitId idType, UnitId id=0);
+		int getNextId();
 
     protected:
     private:
-        Faction *m_faction;
+        Equipe* m_equipe;
+		UnitId m_last_id;
 };
 
 #endif // UNITEFACTORY_H

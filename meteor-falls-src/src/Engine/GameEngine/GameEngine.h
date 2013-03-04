@@ -9,18 +9,28 @@ class State;
 class Map;
 class Joueur;
 class Equipe;
+class CameraManager;
+class Chat;
 class GameEngine : public Engine
 {
     public:
         enum TypeState{
             TEAM_LIST,
-            TEAM_STATE
+            TEAM_STATE,
+			SPAWN_STATE,
+			PLAYING,
         };
         enum Type{
             CLIENT,
             SERVER
         };
-        GameEngine(EngineManager*, Type, Joueur* j=0);
+        enum EtatClient{
+			SelectTeam,
+			SelectGameplay,
+			Spawn,
+			Playing,
+		};
+		GameEngine(EngineManager*, Type, Joueur* j=0);
         virtual ~GameEngine();
         virtual void handleMessage(EngineMessage&);
         virtual void work();
@@ -36,11 +46,12 @@ class GameEngine : public Engine
 		bool tryJoinTeam(char, Joueur*);
 		Joueur* findJoueur(int);
 		void deleteJoueur(int);
-
-    protected:
-
+		Type getTypeServerClient() const;
+		CameraManager *cameraManager() const;
+        Chat* getChat(){return m_chat;}
     private:
         Map *m_map;
+        Chat* m_chat;
         Type m_type;
         TypeState m_type_sous_state;
         State *m_sous_state;
@@ -48,6 +59,8 @@ class GameEngine : public Engine
 		std::vector<Equipe*> m_teams;
 		std::vector<Joueur*> m_joueurs;
 		bool m_change_sous_state;
+		EtatClient m_etatClient;
+		CameraManager* m_camManager;
 };
 
 #endif // GAMEENGINE_H

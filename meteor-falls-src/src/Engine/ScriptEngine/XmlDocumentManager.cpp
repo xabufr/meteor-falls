@@ -6,7 +6,6 @@ XmlDocumentManager::XmlDocumentManager()
 {
     //ctor
 }
-
 XmlDocumentManager::~XmlDocumentManager()
 {
     for(auto it : m_documents)

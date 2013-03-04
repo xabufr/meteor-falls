@@ -3,10 +3,11 @@
 
 #include "Unite.h"
 
+class Equipe;
 class Mobile : public Unite
 {
     public:
-        Mobile(Ogre::SceneManager*, TypeUnite* type, int id);
+        Mobile(Ogre::SceneManager*, Equipe*, TypeUnite* type, int id);
         virtual ~Mobile();
     protected:
     private:

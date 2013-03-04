@@ -1,13 +1,13 @@
 #include "ServerClient.h"
 
-ServerClient::ServerClient(TcpConnection::pointer tcp, unsigned int id) : m_tcp(tcp), m_id(id)
+ServerClient::ServerClient(TcpConnection::pointer tcp, unsigned int id) : 
+		m_tcp(tcp), 
+		m_id(id), 
+		data(new ServerClientData)
 {
-	isConnected=false;
-	toDel=false;
 }
 ServerClient::~ServerClient()
 {
-    //dtor
 }
 TcpConnection::pointer ServerClient::tcp()
 {

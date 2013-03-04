@@ -7,11 +7,15 @@
 #include <CEGUI.h>
 #include <OIS/OIS.h>
 
+class SoundSetting;
+class GraphicSetting;
+class CommandSetting;
+class MenuState;
 class OptionState : public State
 {
     public:
-        OptionState(StateManager*);
-        ~OptionState(){}
+        OptionState(StateManager*, MenuState*);
+        ~OptionState();
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
@@ -19,9 +23,13 @@ class OptionState : public State
     private:
         bool m_visible;
         bool m_choix_option(const CEGUI::EventArgs &);
+        MenuState* m_menu;
         OIS::Keyboard *m_keyboard;
         State* m_sous_state;
         StateManager* m_state_manager;
+        SoundSetting *m_sound_setting;
+        GraphicSetting *m_graphic_setting;
+        CommandSetting *m_command_setting;
         CEGUI::TabButton *m_window;
         CEGUI::PushButton *m_graphics;
         CEGUI::PushButton *m_sound;

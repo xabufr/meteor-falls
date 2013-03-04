@@ -56,13 +56,13 @@
 			<Add directory="libs/ozcollidelib_1-1-1/include" />
 			<Add directory="libs/rapidxml" />
 			<Add directory="Hydrax/include" />
-			<Add directory="SkyX/Include" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
+			<Add option="-lOgreTerrain" />
 			<Add option="-lOIS" />
-			<Add option="-lsfml-audio" />
 			<Add option="-lsfml-system" />
+			<Add option="-lsfml-audio" />
 			<Add option="-lCEGUIBase" />
 			<Add option="-lCEGUIOgreRenderer" />
 			<Add option="-lboost_system" />
@@ -75,18 +75,13 @@
 			<Add option="-lboost_unit_test_framework" />
 			<Add option="-lpthread" />
 			<Add option="-lcrypto" />
-			<Add option="-lOgreTerrain" />
 			<Add option="-lSkyX" />
 			<Add option="-lhydrax" />
 		</Linker>
 		<Unit filename="../GlobalServer/src/Admin.cpp" />
-		<Unit filename="../GlobalServer/src/Admin.h" />
 		<Unit filename="../GlobalServer/src/Player.cpp" />
-		<Unit filename="../GlobalServer/src/Player.h" />
 		<Unit filename="../GlobalServer/src/Server.cpp" />
 		<Unit filename="../GlobalServer/src/ServerGlobalMessage.h" />
-		<Unit filename="../include/Hero_State.h" />
-		<Unit filename="../src/Hero_State.cpp" />
 		<Unit filename="src/Application/application.cpp" />
 		<Unit filename="src/Application/application.h" />
 		<Unit filename="src/Application/applicationparameters.cpp" />
@@ -124,6 +119,12 @@
 		<Unit filename="src/Engine/GameEngine/Factions/FactionManager.h" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.cpp" />
 		<Unit filename="src/Engine/GameEngine/GameEngine.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/Avatar.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/Avatar.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHero.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHero.h" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Heros/ClasseHeroManager.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.cpp" />
 		<Unit filename="src/Engine/GameEngine/Joueur/Joueur.h" />
 		<Unit filename="src/Engine/GameEngine/Joueur/JoueurLan.cpp" />
@@ -148,6 +149,8 @@
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectManager.h" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.cpp" />
 		<Unit filename="src/Engine/GameEngine/Map/WorldObjectType.h" />
+		<Unit filename="src/Engine/GameEngine/Preface/SpawnState.cpp" />
+		<Unit filename="src/Engine/GameEngine/Preface/SpawnState.h" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamList.cpp" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamList.h" />
 		<Unit filename="src/Engine/GameEngine/Preface/TeamState.cpp" />
@@ -162,8 +165,6 @@
 		<Unit filename="src/Engine/GameEngine/Unites/Batiment.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Hero.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Hero.h" />
-		<Unit filename="src/Engine/GameEngine/Unites/Hero_State.cpp" />
-		<Unit filename="src/Engine/GameEngine/Unites/Hero_State.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Mobile.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Mobile.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Terrestre.cpp" />
@@ -199,9 +200,6 @@
 		<Unit filename="src/Engine/NetworkEngine/NetworkEngine.h" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/NetworkIpAdressFinder.h" />
-		<Unit filename="src/Engine/NetworkEngine/NetworkMainTest.cpp">
-			<Option target="UnitTest" />
-		</Unit>
 		<Unit filename="src/Engine/NetworkEngine/ServerClient.cpp" />
 		<Unit filename="src/Engine/NetworkEngine/ServerClient.h" />
 		<Unit filename="src/Engine/NetworkEngine/ServerNetworkEngine.cpp" />
@@ -254,6 +252,10 @@
 		<Unit filename="src/State/Menu/OptionState.h" />
 		<Unit filename="src/State/Menu/ServerList.cpp" />
 		<Unit filename="src/State/Menu/ServerList.h" />
+		<Unit filename="src/State/Option/CommandSetting.cpp" />
+		<Unit filename="src/State/Option/CommandSetting.h" />
+		<Unit filename="src/State/Option/GraphicSetting.cpp" />
+		<Unit filename="src/State/Option/GraphicSetting.h" />
 		<Unit filename="src/State/Option/SoundSetting.cpp" />
 		<Unit filename="src/State/Option/SoundSetting.h" />
 		<Unit filename="src/State/ServerState/ServerState.cpp" />
@@ -268,6 +270,13 @@
 		<Unit filename="src/UnitTest/UnitTest.h" />
 		<Unit filename="src/Utils/Clock.cpp" />
 		<Unit filename="src/Utils/Clock.h" />
+		<Unit filename="src/Utils/Configuration/CommandConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/CommandConfig.h" />
+		<Unit filename="src/Utils/Configuration/Config.h" />
+		<Unit filename="src/Utils/Configuration/GraphicConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/GraphicConfig.h" />
+		<Unit filename="src/Utils/Configuration/SoundConfig.cpp" />
+		<Unit filename="src/Utils/Configuration/SoundConfig.h" />
 		<Unit filename="src/Utils/DataChecksum.cpp" />
 		<Unit filename="src/Utils/DataChecksum.h" />
 		<Unit filename="src/Utils/Exception/BasicException.cpp" />
@@ -281,6 +290,38 @@
 		<Unit filename="src/Utils/Vector3D.h" />
 		<Unit filename="src/Utils/singleton.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/precompiled/_rapidxml.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/asio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/bind.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/lexical_cast.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/serialization.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_audio.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/sfml_system.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/precompiled/shared_ptr.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="src/version.h" />
 		<Extensions>
 			<code_completion />

@@ -25,7 +25,14 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
         {
             m_connection_udp->socket()->set_option(boost::asio::ip::udp::socket::reuse_address(true));
             m_connection_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address_v4::any(), 8888));
-            m_connection_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+			try{
+				m_connection_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+			}
+			catch(std::exception& e)
+			{
+				std::cerr << "-----------Network problem !!!------------" << std::endl;
+				std::cerr << e.what() << std::endl;
+			}
             m_connection_udp->startListen();
         }
         break;
@@ -99,17 +106,19 @@ ret_code ServerList::work(unsigned int time)
             EngineMessage *message;
             auto data = m_connection_udp->getData();
             message = NetworkEngine::deserialize(data.second, 0);
-
-            m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
-                                                            std::string(message->strings[EngineMessageKey::SERVER_NAME]),
-                                                            std::string(""),
-                                                            message->ints[EngineMessageKey::MAX_PLAYERS],
-                                                            message->ints[EngineMessageKey::PLAYER_NUMBER],
-                                                            false,
-                                                            std::string(message->strings[EngineMessageKey::MAP_NAME]),
-                                                            std::string(""),
-                                                            0.0
-                                                            )));
+			if(message->message==EngineMessageType::SERVER_INFO)
+			{
+				m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
+								std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+								std::string(""),
+								message->ints[EngineMessageKey::MAX_PLAYERS],
+								message->ints[EngineMessageKey::PLAYER_NUMBER],
+								false,
+								std::string(message->strings[EngineMessageKey::MAP_NAME]),
+								std::string(""),
+								0.0
+								)));
+			}
             delete message;
             m_listServer->resetList();
             for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){

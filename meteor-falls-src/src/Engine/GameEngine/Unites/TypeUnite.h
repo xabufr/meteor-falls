@@ -5,6 +5,7 @@
 #include "../Ressources/Ressources.h"
 #include <string>
 #include <vector>
+#include <map>
 
 class Faction;
 class Recherche;
@@ -18,9 +19,7 @@ class TypeUnite
             AERIEN,
             BATIMENT
         };
-        struct MeshParameters{
-            std::string m_nomMesh;
-        };
+        typedef std::map<std::string, std::string> MeshParameters;
         TypeUnite(UnitId id, Type, Faction* fac);
         virtual ~TypeUnite();
 
@@ -38,6 +37,7 @@ class TypeUnite
         int attaque() const;
         float vision() const;
         float portee() const;
+		bool spawn() const;
         TypeUnite* amelioration() const;
         const std::vector<TypeUnite*>& construit() const;
         const std::vector<Recherche*>& recherches() const;
@@ -60,6 +60,7 @@ class TypeUnite
         int m_temps_construction;
         int m_attaque;
         float m_vision, m_portee;
+		bool m_spawn;
         TypeUnite* m_amelioration;
         std::vector<TypeUnite*> m_construit;
         std::vector<Recherche*> m_recherches;

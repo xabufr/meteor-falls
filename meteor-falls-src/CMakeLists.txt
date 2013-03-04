@@ -1,7 +1,7 @@
 project(MeteorFalls)
 cmake_minimum_required(VERSION 2.8)
 set(EXECUTABLE_OUTPUT_PATH ../build/)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x -ggdb")
 include_directories(src/
 		libs/ozcollidelib_1-1-1/include
 		libs/rapidxml

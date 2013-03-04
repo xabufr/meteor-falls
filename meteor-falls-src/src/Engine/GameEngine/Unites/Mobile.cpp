@@ -1,7 +1,7 @@
 #include "Mobile.h"
 
-Mobile::Mobile(Ogre::SceneManager* mng, TypeUnite* type, int id)
-: Unite(mng, type, id)
+Mobile::Mobile(Ogre::SceneManager* mng, Equipe *e, TypeUnite* type, int id)
+: Unite(mng, e, type, id)
 {
     //ctor
 }

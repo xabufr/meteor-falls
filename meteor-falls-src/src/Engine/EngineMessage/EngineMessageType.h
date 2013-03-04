@@ -21,7 +21,10 @@ enum EngineMessageType
 	KICK            = 14,
 	SELECT_TEAM     = 15,
 	SELECT_GAMEPLAY = 16,
-	SET_TIME 		= 17,
+	SET_PING 		= 17,
+	GETOBJECTSLIST  = 18,
+	ADDOBJECT       = 19,
+	SPAWN           = 20,
 };
 
 #endif // ENGINEMESSAGETYPE_H

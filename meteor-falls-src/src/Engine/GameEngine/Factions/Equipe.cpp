@@ -2,14 +2,16 @@
 #include "../Unites/TypeUnite.h"
 #include "../Unites/Unite.h"
 #include "../Joueur/JoueurRPG.h"
+#include "../Unites/UniteFactory.h"
 
-Equipe::Equipe(char i): m_id(i)
+Equipe::Equipe(GameEngine *g, char i): m_id(i), m_game(g)
 {
 	m_joueurRTS=nullptr;
+    m_factory = new UniteFactory(this);
 }
 Equipe::~Equipe()
 {
-    //dtor
+	delete m_factory;
 }
 Faction* Equipe::faction()
 {
@@ -19,58 +21,48 @@ void Equipe::setFaction(Faction* f)
 {
     m_faction=f;
 }
-
 void Equipe::create_unit(Unite* u)
 {
-    bool exists = false;
-
-    if (u->GetType()->type() == TypeUnite::Type::BATIMENT)
+    if (u->type()&&u->type()->type() == TypeUnite::Type::BATIMENT)
     {
-
+    	bool exists = false;
         for (int i=0;m_batiments_cache.size();i++)
         {
-            if(u->GetType() == m_batiments_cache[i])
+            if(u->type() == m_batiments_cache[i])
+			{
                 exists == true;
+				break;
+			}
             // batiment deja dans la liste ?
         }
-
         if (!exists)
-            m_batiments_cache.push_back(u->GetType());
+            m_batiments_cache.push_back(u->type());
     }
-
-        m_unites_construites.push_back(u);
-
-
+    m_unites_construites.push_back(u);
 }
-
-
 void Equipe::destroy_unite(Unite* u)
 {
 
-    bool exists = false;
-
-    for(int i = 0; i<m_unites_construites.size() ; i++)
+    for(auto it = m_unites_construites.begin(); it!=m_unites_construites.end() ; ++it)
     {
-        if (m_unites_construites[i] == u)
+        if (*it == u)
         {
-            m_unites_construites.erase(m_unites_construites.begin() + i);
+            m_unites_construites.erase(it);
+			break;
         }
     }
-
-
-    if (u->GetType()->type() == TypeUnite::Type::BATIMENT)
+    if (u->type()&&u->type()->type() == TypeUnite::Type::BATIMENT)
     {
-
-        for (int i=0;m_batiments_cache.size();i++)
+        for (auto it = m_batiments_cache.begin();it!=m_batiments_cache.end();++it)
         {
-            if(u->GetType() == m_batiments_cache[i])
+            if(u->type() == *it)
             {
-                m_batiments_cache.erase(m_batiments_cache.begin() + i);
+                m_batiments_cache.erase(it);
+				break;
             }
         }
     }
 }
-
 void Equipe::setJoueurRTS(JoueurRTS* joueur)
 {
 	m_joueurRTS = joueur;
@@ -89,7 +81,7 @@ char Equipe::id() const
 };
 void Equipe::removeRPG(JoueurRPG* j)
 {
-	for(auto it=m_joueursRPS.begin();it!=m_joueursRPS.end();)
+	for(auto it=m_joueursRPS.begin();it!=m_joueursRPS.end();++it)
 	{
 		if(j->joueur()==(*it)->joueur())
 		{
@@ -114,7 +106,7 @@ void Equipe::addJoueur(Joueur* j)
 }
 void Equipe::removeJoueur(Joueur* j)
 {
-	for(auto it=m_joueurs.begin();it!=m_joueurs.end();)
+	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
 	{
 		if(*it==j)
 		{
@@ -126,4 +118,25 @@ void Equipe::removeJoueur(Joueur* j)
 const std::vector<Joueur*> Equipe::joueurs() const
 {
 	return m_joueurs;
+}
+UniteFactory* Equipe::factory()
+{
+	return m_factory;
+}
+const std::vector<Unite*>& Equipe::unites() const
+{
+	return m_unites_construites;
+}
+Unite* Equipe::getUnite(int id) const
+{
+	for(Unite *u : m_unites_construites)
+	{
+		if(u->id() == id)
+			return u;
+	}
+	return nullptr;	
+}
+GameEngine* Equipe::game() const
+{
+	return m_game;
 }

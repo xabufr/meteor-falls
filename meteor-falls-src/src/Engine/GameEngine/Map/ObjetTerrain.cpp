@@ -2,24 +2,34 @@
 #include <OgreSceneNode.h>
 #include <OgreSceneManager.h>
 
-ObjetTerrain::ObjetTerrain(Ogre::SceneManager* mng)
+ObjetTerrain::ObjetTerrain(GameEngine* g, Ogre::SceneManager* mng): 
+m_game(g),
+m_sceneManager(mng)
 {
-    m_sceneNode = mng->getRootSceneNode()->createChildSceneNode();
+	if(mng!=nullptr)
+   		m_sceneNode = mng->getRootSceneNode()->createChildSceneNode();
+	else
+		m_sceneNode = nullptr;
 }
-
 ObjetTerrain::~ObjetTerrain()
 {
-    //dtor
+	if(m_sceneNode)
+	{
+		m_sceneNode->removeAndDestroyAllChildren();
+		m_sceneManager->destroySceneNode(m_sceneNode);
+	}
 }
 const Vector3D& ObjetTerrain::getPosition() const
 {
+	if(m_sceneNode)
+		return m_sceneNode->getPosition();
     return m_position;
 }
-
 void ObjetTerrain::setPosition(const Vector3D& p)
 {
     m_position=p;
-    m_sceneNode->setPosition(m_position.convert<Ogre::Vector3>());
+	if(m_sceneNode != nullptr)
+	    m_sceneNode->setPosition(m_position.convert<Ogre::Vector3>());
 }
 Ogre::SceneNode* ObjetTerrain::getNode()
 {

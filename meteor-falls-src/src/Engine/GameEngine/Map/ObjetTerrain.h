@@ -6,10 +6,11 @@ namespace Ogre{
     class SceneNode;
     class SceneManager;
 }
+class GameEngine;
 class ObjetTerrain
 {
     public:
-        ObjetTerrain(Ogre::SceneManager*);
+        ObjetTerrain(GameEngine*, Ogre::SceneManager*);
         virtual ~ObjetTerrain();
         virtual const Vector3D& getPosition() const;
         virtual void setPosition(const Vector3D&);
@@ -17,6 +18,8 @@ class ObjetTerrain
     protected:
         Vector3D m_position;
         Ogre::SceneNode *m_sceneNode;
+		Ogre::SceneManager* m_sceneManager;
+		GameEngine *m_game;
 };
 
 #endif // OBJETTERRAIN_H

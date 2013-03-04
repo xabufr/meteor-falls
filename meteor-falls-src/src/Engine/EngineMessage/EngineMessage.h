@@ -11,7 +11,8 @@
 #include "../../precompiled/serialization.h"
 #include "../EngineManager/EngineManager.h"
 
-class EngineMessage{
+class EngineMessage
+{
 
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
@@ -32,7 +33,6 @@ class EngineMessage{
 		void clearTo();
 
 		static EngineMessage* clone(EngineMessage*);
-    protected:
 
     private:
         EngineManager* m_engine_manager;
@@ -44,7 +44,7 @@ class EngineMessage{
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
-            ar & message & time & m_from_type & m_to_type & ints & doubles & strings & positions;
+            ar & message & time & m_from_type & m_to_type & ints & doubles & strings & BOOST_SERIALIZATION_NVP(positions);
 			if(m_engine_manager!=0)
 			{
 				if(m_from==0)

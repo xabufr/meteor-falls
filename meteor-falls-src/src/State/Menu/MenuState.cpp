@@ -13,7 +13,7 @@
 #include "../../Engine/SoundEngine/Playlist.h"
 
 MenuState::MenuState(StateManager* mng):
-    State(mng), m_visible(false)
+    State(mng), m_visible(false), m_escape(true)
 {
     m_transitionning=false;
     m_currentSelected = 0;
@@ -109,13 +109,12 @@ MenuState::MenuState(StateManager* mng):
     m_layout_state = new LayoutRTS(m_state_manager,nullptr);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
-    m_option_state = new OptionState(m_state_manager);
+    m_option_state = new OptionState(m_state_manager, this);
 
     m_sousState = m_login_state;
 
 
     Playlist::loadFile("data/playlist.xml");
-
 }
 MenuState::~MenuState()
 {
@@ -127,6 +126,7 @@ MenuState::~MenuState()
     delete m_login_state;
     delete m_player;
     delete m_state;
+    delete m_option_state;
 }
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
@@ -240,7 +240,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeTerre->getPosition() + Ogre::Vector3(-7,1,7);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showLanServer, this);
                 }
             }
@@ -252,7 +252,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeSoleil->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showCredit, this);
                 }
             }
@@ -264,7 +264,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = m_nodeLune->getPosition()+Ogre::Vector3(-0.1, 1.5, -0.1);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::showOption, this);
                 }
             }
@@ -276,7 +276,7 @@ ret_code MenuState::work(unsigned int time)
                     m_timerTranslation.restart();
                     m_transitionParams.from=m_camera->getPosition();
                     m_transitionParams.to = Ogre::Vector3(0,0,10);
-                    m_transitionParams.duration=2.5;
+                    m_transitionParams.duration=1.0;
                     m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
                 }
             }
@@ -301,7 +301,7 @@ ret_code MenuState::work(unsigned int time)
     else
     {
         m_sousState->work(time);
-		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape)
 		{
 			m_sousState->exit();
 			m_sousState=0;
@@ -309,13 +309,10 @@ ret_code MenuState::work(unsigned int time)
             m_timerTranslation.restart();
             m_transitionParams.from=m_camera->getPosition();
             m_transitionParams.to = Ogre::Vector3(0,0,10);
-            m_transitionParams.duration=2.5;
+            m_transitionParams.duration=1.0;
             m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
 		}
     }
-
-//    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-//        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }

@@ -31,7 +31,6 @@ FactionManager::FactionManager()
         faction->load();
     }
 }
-
 FactionManager::~FactionManager()
 {
     for(Faction* fac : m_factions)

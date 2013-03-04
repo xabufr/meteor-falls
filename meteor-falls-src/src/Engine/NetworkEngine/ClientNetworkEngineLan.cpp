@@ -5,7 +5,6 @@
 ClientNetworkEngineLan::ClientNetworkEngineLan(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     ClientNetworkEngine(mng, address, port, j,  password)
 {
-    //ctor
 }
 ClientNetworkEngineLan::~ClientNetworkEngineLan()
 {
@@ -13,7 +12,7 @@ ClientNetworkEngineLan::~ClientNetworkEngineLan()
 }
 void ClientNetworkEngineLan::sendToAllUdp(const EngineMessage& e)
 {
-
+	m_udp->send(serialize(&e));
 }
 void ClientNetworkEngineLan::logingIn()
 {

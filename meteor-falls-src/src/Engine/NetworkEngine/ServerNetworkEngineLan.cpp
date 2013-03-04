@@ -40,7 +40,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 {
 	std::string password = message->strings[EngineMessageKey::PASSWORD];
 	std::string pseudo = message->strings[EngineMessageKey::PSEUDO];
-	boost::mutex::scoped_lock(m_mutex_clients);
+	boost::recursive_mutex::scoped_lock(m_mutex_clients);
 	ServerClient* client=nullptr;
 	for(ServerClient &c : m_clients)
 	{
@@ -53,7 +53,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 		return;
 	EngineMessage *messageClient = new EngineMessage(m_manager);
 	messageClient->message       = EngineMessageType::LOGIN_RESULT;
-	if(password != NetworkEngine::SHA1(m_password+client->sel))
+	if(password != NetworkEngine::SHA1(m_password+client->data->sel))
 	{
 		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = -1;
 	}
@@ -61,8 +61,8 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
 	{
 		client->joueur = new Joueur;
 		client->joueur->setNom(pseudo);
-		client->joueur->id = client->id();
-		client->isConnected=true;
+		client->joueur->setId(client->id());
+		client->data->isConnected=true;
 		messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
 		std::cout << "New player: " << client->id() << std::endl;
 		m_manager->getGame()->addPlayer(client->joueur);
