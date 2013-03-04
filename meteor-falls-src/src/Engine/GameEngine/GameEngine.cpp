@@ -28,6 +28,12 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     m_change_sous_state(true),
 	m_camManager(nullptr)
 {
+    m_broadphase = new btDbvtBroadphase();
+    m_collisionConfiguration = new btDefaultCollisionConfiguration();
+    m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
+    m_solver = new btSequentialImpulseConstraintSolver;
+
+    m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
 	if(t==SERVER)
 		m_map = new Map(nullptr, this);
 	else
@@ -205,6 +211,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 }
 void GameEngine::work()
 {
+    m_world->stepSimulation(1.f/60, 10);
 	static sf::Clock clock;
     if(m_map->getLoaded() == true)
     {
@@ -250,9 +257,9 @@ void GameEngine::work()
 					((ClientNetworkEngine*)m_manager->getNetwork())->sendRpgPosition();
 				}
 			}
-			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
+			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
 			{
-				
+
 			}
         }
         m_map->update();

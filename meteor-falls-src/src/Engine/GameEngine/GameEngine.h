@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <bullet/BulletDynamics/btBulletDynamicsCommon.h>
+#include <bullet/BulletCollision/btBulletCollisionCommon.h>
+#include <bullet/Bullet-C-Api.h>
 #include "../Engine.h"
 
 class State;
@@ -61,6 +64,12 @@ class GameEngine : public Engine
 		bool m_change_sous_state;
 		EtatClient m_etatClient;
 		CameraManager* m_camManager;
+		//physique
+		btDbvtBroadphase* m_broadphase;
+        btDefaultCollisionConfiguration* m_collisionConfiguration;
+        btCollisionDispatcher* m_dispatcher;
+        btSequentialImpulseConstraintSolver* m_solver;
+        btDiscreteDynamicsWorld* m_world;
 };
 
 #endif // GAMEENGINE_H
