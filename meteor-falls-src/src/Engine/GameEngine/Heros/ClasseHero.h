@@ -5,16 +5,21 @@
 #include <map>
 
 class Faction;
+class HeroMesh;
 class ClasseHero
 {
 public:
+	struct HeroMesh{
+		std::string mesh;
+		std::string walk;
+	};
 	ClasseHero(int, Faction*);
 	int id() const;
 	const std::string& icone() const;
 	const std::string& nom() const;
-	std::string mesh(int level) const;
+	const HeroMesh* mesh(int level) const;
 	Faction* faction() const;
-	void addMesh(int from, int to, const std::string&);
+	void addMesh(int from, int to, const HeroMesh&);
 private:
 	int m_id;
 	std::string m_icone, m_nom;
@@ -27,7 +32,7 @@ private:
 			return o.from>from;
 		}
 	};
-	std::map<levelRange, std::string> m_meshes;
+	std::map<levelRange, HeroMesh> m_meshes;
 	friend class Faction;
 };
 
