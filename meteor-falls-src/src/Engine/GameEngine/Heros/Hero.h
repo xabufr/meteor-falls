@@ -15,10 +15,15 @@ public:
 	JoueurRPG* joueur() const;
 	Avatar *avatar() const;
 	virtual void update(unsigned int);
+	void setAvancer(bool);
+	void setReculer(bool);
+	void setGauche(bool);
+	void setDroite(bool);
 private:
 	JoueurRPG *m_joueur;
 	Avatar *m_avatar;
 	Ogre::Entity *m_entityBody;
+	bool m_avancer, m_reculer, m_droite, m_gauche;
 };
 
 #endif 

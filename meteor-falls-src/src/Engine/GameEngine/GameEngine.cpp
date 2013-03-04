@@ -6,6 +6,7 @@
 #include "Factions/Faction.h"
 #include "Preface/TeamState.h"
 #include "../NetworkEngine/ServerNetworkEngine.h"
+#include "../NetworkEngine/clientnetworkengine.h"
 #include "Map/Map.h"
 #include "Unites/UniteFactory.h"
 #include "Preface/TeamList.h"
@@ -14,18 +15,26 @@
 #include "Heros/ClasseHeroManager.h"
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
+#include "Joueur/JoueurRPG.h"
 #include "Interface/Chat.h"
 #include <CEGUIString.h>
+#include "Camera/CameraManager.h"
+#include <SFML/System.hpp>
+#include "../../Utils/Configuration/Config.h"
 
 GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
     Engine(mng),
     m_type(t),
-    m_change_sous_state(true)
+    m_change_sous_state(true),
+	m_camManager(nullptr)
 {
 	if(t==SERVER)
 		m_map = new Map(nullptr, this);
 	else
+	{
+		m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
 		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
+	}
 	m_sous_state = nullptr;
 	m_type_sous_state = TypeState::TEAM_LIST;
 	if(t==SERVER)
@@ -33,7 +42,7 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 		for(char i=0; i<3;++i)
 		{
 			m_current_joueur=nullptr;
-			Equipe *e = new Equipe(i);
+			Equipe *e = new Equipe(this, i);
 			e->setFaction(FactionManager::get()->getFaction(1));
 			addTeam(e);
 		}
@@ -53,6 +62,8 @@ GameEngine::~GameEngine()
         m_sous_state->exit();
         delete m_sous_state;
     }
+	if(m_camManager)
+		delete m_camManager;
     delete m_map;
     delete m_chat;
 	if(m_current_joueur)
@@ -194,6 +205,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 }
 void GameEngine::work()
 {
+	static sf::Clock clock;
     if(m_map->getLoaded() == true)
     {
         if (m_type == Type::CLIENT)
@@ -226,9 +238,29 @@ void GameEngine::work()
             }
 			if(m_sous_state)
 				m_sous_state->work(0);
+			CommandConfig* commandes = Config::get()->getCommandConfig();
+			if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
+			{
+				if(m_current_joueur->getRPG()->hero())
+				{
+					m_current_joueur->getRPG()->hero()->setDroite(commandes->eventActif(1, CommandConfig::KeyRPG::RPG_RIGHT));
+					m_current_joueur->getRPG()->hero()->setGauche(commandes->eventActif(1, CommandConfig::RPG_LEFT));
+					m_current_joueur->getRPG()->hero()->setAvancer(commandes->eventActif(1, CommandConfig::RPG_FORWARD));
+					m_current_joueur->getRPG()->hero()->setReculer(commandes->eventActif(1, CommandConfig::RPG_BACKWARD));
+					((ClientNetworkEngine*)m_manager->getNetwork())->sendRpgPosition();
+				}
+			}
+			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
+			{
+				
+			}
         }
         m_map->update();
     }
+	for(Equipe* e : m_teams)
+		for(Unite *u : e->unites())
+			u->update(clock.getElapsedTime().asMilliseconds());
+	clock.restart();
 }
 EngineType GameEngine::getType()
 {
@@ -319,4 +351,8 @@ void GameEngine::deleteJoueur(int id)
 GameEngine::Type GameEngine::getTypeServerClient() const
 {
 	return m_type;
+}
+CameraManager* GameEngine::cameraManager() const
+{
+	return m_camManager;
 }

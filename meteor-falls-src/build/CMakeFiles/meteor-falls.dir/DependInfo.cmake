@@ -15,6 +15,7 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/Camera.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraFPS.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraFPS.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraLibre.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraLibre.cpp.o"
+  "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraManager.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraManager.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraRTS.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Camera/CameraRTS.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/Armure.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Armure.cpp.o"
   "/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Degats/Degat.cpp" "/home/thomas/meteor-falls/meteor-falls-src/build/CMakeFiles/meteor-falls.dir/src/Engine/GameEngine/Degats/Degat.cpp.o"

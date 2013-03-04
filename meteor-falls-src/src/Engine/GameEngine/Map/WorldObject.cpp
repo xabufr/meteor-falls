@@ -4,8 +4,8 @@
 #include "OgreSceneNode.h"
 #include "OgreEntity.h"
 
-WorldObject::WorldObject(Ogre::SceneManager* mng, WorldObjectType* type):
-    ObjetTerrain(mng),
+WorldObject::WorldObject(GameEngine* g, Ogre::SceneManager* mng, WorldObjectType* type):
+    ObjetTerrain(g, mng),
     m_type(type)
 {
     m_entity = mng->createEntity(m_type->mesh_name);

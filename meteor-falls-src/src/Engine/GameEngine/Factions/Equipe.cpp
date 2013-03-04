@@ -4,7 +4,7 @@
 #include "../Joueur/JoueurRPG.h"
 #include "../Unites/UniteFactory.h"
 
-Equipe::Equipe(char i): m_id(i)
+Equipe::Equipe(GameEngine *g, char i): m_id(i), m_game(g)
 {
 	m_joueurRTS=nullptr;
     m_factory = new UniteFactory(this);
@@ -135,4 +135,8 @@ Unite* Equipe::getUnite(int id) const
 			return u;
 	}
 	return nullptr;	
+}
+GameEngine* Equipe::game() const
+{
+	return m_game;
 }

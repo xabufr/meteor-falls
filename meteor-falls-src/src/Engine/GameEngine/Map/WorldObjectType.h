@@ -5,7 +5,10 @@
 #include <OgreQuaternion.h>
 #include "../../../Utils/Vector3D.h"
 
-namespace{ class Ogre::Entity; }
+namespace Ogre
+{ 
+	class Entity; 
+}
 struct WorldObjectType
 {
     WorldObjectType(const std::string &mesh);

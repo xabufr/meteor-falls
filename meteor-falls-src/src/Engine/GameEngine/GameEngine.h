@@ -9,6 +9,7 @@ class State;
 class Map;
 class Joueur;
 class Equipe;
+class CameraManager;
 class Chat;
 class GameEngine : public Engine
 {
@@ -46,6 +47,7 @@ class GameEngine : public Engine
 		Joueur* findJoueur(int);
 		void deleteJoueur(int);
 		Type getTypeServerClient() const;
+		CameraManager *cameraManager() const;
         Chat* getChat(){return m_chat;}
     private:
         Map *m_map;
@@ -58,6 +60,7 @@ class GameEngine : public Engine
 		std::vector<Joueur*> m_joueurs;
 		bool m_change_sous_state;
 		EtatClient m_etatClient;
+		CameraManager* m_camManager;
 };
 
 #endif // GAMEENGINE_H

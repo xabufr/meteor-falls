@@ -27,6 +27,7 @@
 #include "../../../precompiled/lexical_cast.h"
 #include "WorldObjectType.h"
 #include "../GameEngine.h"
+#include "../Camera/CameraManager.h"
 #include "../../../Utils/Configuration/Config.h"
 
 using namespace rapidxml;
@@ -101,23 +102,11 @@ void Map::load(std::string p_name)
 	        }
 			if(environment->first_node("camera"))
 			{
-				rapidxml::xml_node<>* camNode = environment->first_node("camera");
-				float far, near;
-				Vector3D pos = getPosition(camNode->first_node("position"));
-				far = boost::lexical_cast<float>(camNode->first_node("clipping")->first_attribute("far")->value());
-				near = boost::lexical_cast<float>(camNode->first_node("clipping")->first_attribute("near")->value());
-				Ogre::Quaternion rotation = getRotation(camNode->first_node("rotation"));
-				std::string camName(camNode->first_attribute("name")->value());
-				m_camera = m_scene_mgr->createCamera(camName);
-				OgreContextManager::get()->getOgreApplication()->getWindow()->removeViewport(1);
-				Ogre::Viewport *vp = OgreContextManager::get()->getOgreApplication()->getWindow()->addViewport(m_camera, 1);
-
-				m_camera->setPosition(pos.convert<Ogre::Vector3>());
-				m_camera->setNearClipDistance(near);
-				m_camera->setFarClipDistance(far);
-
-				m_camera_test = new CameraLibre();
-				m_camera_test->setCamera(m_camera);
+				rapidxml::xml_node<>* camera = environment->first_node("camera");
+				Vector3D pos = getPosition(camera->first_node("position"));
+				Ogre::Quaternion q = getRotation(camera->first_node("rotation"));
+				m_game->cameraManager()->camera()->setPosition(pos.convert<Ogre::Vector3>());
+				m_game->cameraManager()->camera()->lookAt(0,0,0);
 			}
 	    }
 		rapidxml::xml_node<>* terrain = rootNode->first_node("terrain");
@@ -161,7 +150,7 @@ void Map::load(std::string p_name)
 			if(qualite == 1)
 			{
 				std::string path = hydraxNode->first_attribute("configFile")->value();
-				m_hydrax = new Hydrax::Hydrax(m_scene_mgr, m_camera, m_camera->getViewport());
+				m_hydrax = new Hydrax::Hydrax(m_scene_mgr, m_game->cameraManager()->camera(), m_game->cameraManager()->camera()->getViewport());
 				Hydrax::Module::ProjectedGrid *module = new Hydrax::Module::ProjectedGrid(m_hydrax, new Hydrax::Noise::Perlin(),
 								Ogre::Plane(Ogre::Vector3(0,1,0), Ogre::Vector3(0,0,0)),
 								Hydrax::MaterialManager::NM_VERTEX, Hydrax::Module::ProjectedGrid::Options());
@@ -250,7 +239,7 @@ void Map::load(std::string p_name)
 				m_skyx->getVCloudsManager()->getVClouds()->setNoiseScale(noiseScale);
 				m_skyx->getVCloudsManager()->getVClouds()->setWheater(0.3, 1, false);
 				m_skyx->getVCloudsManager()->setHeight(Ogre::Vector2(500,400));
-				m_skyx->getVCloudsManager()->create(m_skyx->getMeshManager()->getSkydomeRadius(m_camera));
+				m_skyx->getVCloudsManager()->create(m_skyx->getMeshManager()->getSkydomeRadius(m_game->cameraManager()->camera()));
 			}
 			m_skyx->getAtmosphereManager()->setOptions(options);
 			m_skyx->create();
@@ -289,21 +278,10 @@ void Map::update()
     Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
     CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
 
-    /* ############### Test Camera Libre et Camera RTS ############## */
-    m_camera_test->forward(keyboard->isKeyDown(OIS::KC_Z) );
-    m_camera_test->back(keyboard->isKeyDown(OIS::KC_S));
-    m_camera_test->right(keyboard->isKeyDown(OIS::KC_D));
-    m_camera_test->left(keyboard->isKeyDown(OIS::KC_Q));
-    m_camera_test->lookRightLeft(Ogre::Degree(-mouse->getMouseState().X.rel*0.1));
-    m_camera_test->lookUpDown(Ogre::Degree(-mouse->getMouseState().Y.rel*0.1));
-
-
 //    light->setDirection(-m_controller->getSunDirection());
 
 
     /* ############### Test Mouvement Heros ############## */
-    m_camera_test->update(1000/60);
-
     if(m_cycle_coef<=0.0001)
     {
         //m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));

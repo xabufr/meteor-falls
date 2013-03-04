@@ -40,8 +40,6 @@ class Map
         bool m_cycle_enable;
         float m_cycle_coef;
         int m_cycle_hour;
-        Ogre::Camera* m_camera;
-        CameraLibre* m_camera_test;
         SkyX::SkyX *m_skyx;
         SkyX::BasicController *m_controller;
         Hydrax::Hydrax *m_hydrax;

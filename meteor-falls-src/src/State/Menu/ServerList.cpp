@@ -99,17 +99,19 @@ ret_code ServerList::work(unsigned int time)
             EngineMessage *message;
             auto data = m_connection_udp->getData();
             message = NetworkEngine::deserialize(data.second, 0);
-
-            m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
-                                                            std::string(message->strings[EngineMessageKey::SERVER_NAME]),
-                                                            std::string(""),
-                                                            message->ints[EngineMessageKey::MAX_PLAYERS],
-                                                            message->ints[EngineMessageKey::PLAYER_NUMBER],
-                                                            false,
-                                                            std::string(message->strings[EngineMessageKey::MAP_NAME]),
-                                                            std::string(""),
-                                                            0.0
-                                                            )));
+			if(message->message==EngineMessageType::SERVER_INFO)
+			{
+				m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
+								std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+								std::string(""),
+								message->ints[EngineMessageKey::MAX_PLAYERS],
+								message->ints[EngineMessageKey::PLAYER_NUMBER],
+								false,
+								std::string(message->strings[EngineMessageKey::MAP_NAME]),
+								std::string(""),
+								0.0
+								)));
+			}
             delete message;
             m_listServer->resetList();
             for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){
