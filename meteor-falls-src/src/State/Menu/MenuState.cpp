@@ -106,7 +106,7 @@ MenuState::MenuState(StateManager* mng):
     m_player = new Joueur();
 
     m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, &m_player);
-    m_layout_state = new LayoutRTS(m_state_manager);
+    m_layout_state = new LayoutRTS(m_state_manager,nullptr);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
     m_option_state = new OptionState(m_state_manager, this);

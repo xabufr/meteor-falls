@@ -258,9 +258,9 @@ void GameEngine::work()
 					m_current_joueur->getRPG()->hero()->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
 				}
 			}
-			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS) 
+			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
 			{
-				
+
 			}
         }
         m_map->update();
