@@ -304,6 +304,10 @@ ret_code MenuState::work(unsigned int time)
 		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape)
 		{
 			m_sousState->exit();
+			if(m_sousState==m_login_state)
+			{
+				return EXIT_PROGRAM;
+			}
 			m_sousState=0;
 			m_transitionning=true;
             m_timerTranslation.restart();
