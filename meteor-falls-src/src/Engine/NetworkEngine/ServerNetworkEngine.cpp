@@ -86,7 +86,7 @@ void ServerNetworkEngine::work()
 									EngineMessage *player = new EngineMessage(m_manager);
 									player->message = EngineMessageType::NEW_PLAYER;
 									player->ints[EngineMessageKey::TEAM_ID] = e->id();
-									player->ints[EngineMessageKey::PLAYER_NUMBER] = j->id;
+									player->ints[EngineMessageKey::PLAYER_NUMBER] = j->id();
 									player->strings[EngineMessageKey::PSEUDO] = j->getNom();
 									player->ints[EngineMessageKey::GAMEPLAY_TYPE] = j->getTypeGameplay();
 									if(j->getTypeGameplay() == Joueur::RPG)
@@ -203,7 +203,7 @@ void ServerNetworkEngine::work()
 										continue;
 									EngineMessage messageHero(m_manager);
 									messageHero.message = EngineMessageType::SPAWN;
-									messageHero.ints[EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id;
+									messageHero.ints[EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id();
 									j->hero()->avatar()->serialize(&messageHero);
 									messageHero.ints[EngineMessageKey::OBJECT_ID] = j->hero()->id();
 									messageHero.positions[EngineMessageKey::OBJECT_POSITION] = j->hero()->getPosition();
@@ -226,6 +226,15 @@ void ServerNetworkEngine::work()
 							if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
 							{
 								j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+								Equipe *e = m_manager->getGame()->getEquipe(message->ints[EngineMessageKey::TEAM_ID]);
+								if(e)
+								{
+									Hero *h = dynamic_cast<Hero*>(e->getUnite(message->ints[EngineMessageKey::OBJECT_ID]));
+									if(h)
+									{
+										h->deserializeComportement(message);
+									}
+								}
 								sendToAllExcluding(client.id(), message);
 							}
 						}
@@ -299,7 +308,7 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
 {
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::DEL_PLAYER;
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id();
 	{
 		boost::recursive_mutex::scoped_lock l(m_mutex_clients);
 		for(auto it=m_clients.begin(); it!=m_clients.end(); ++it)
@@ -426,7 +435,7 @@ void ServerNetworkEngine::sendSetPing(ServerClient& c)
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::SET_PING;
 	mess.ints[EngineMessageKey::TIME] = c.joueur->ping;
-	mess.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id;
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = c.joueur->id();
 	sendToAllTcp(&mess);
 }
 void ServerNetworkEngine::sendToTcp(Joueur* j, EngineMessage* message)

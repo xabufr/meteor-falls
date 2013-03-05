@@ -1,6 +1,8 @@
 #include "GameEngine.h"
 #include "../EngineManager/EngineManager.h"
 #include "../GraphicEngine/GraphicEngine.h"
+#include "../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Factions/Equipe.h"
 #include "Factions/FactionManager.h"
 #include "Factions/Faction.h"
@@ -19,6 +21,7 @@
 #include "Interface/Chat.h"
 #include <CEGUIString.h>
 #include "Camera/CameraManager.h"
+#include "Camera/CameraRPG.h"
 #include <SFML/System.hpp>
 #include "../../Utils/Configuration/Config.h"
 
@@ -89,7 +92,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 			   	Equipe *equipe = nullptr;
 			   	int playerId = message.ints[EngineMessageKey::PLAYER_NUMBER];
 			   	for(Joueur *j : m_joueurs)
-			   		if(j->id == playerId)
+			   		if(j->id() == playerId)
 			   			equipe = j->equipe();
 			   	if(equipe==nullptr)
 			   			return;
@@ -198,7 +201,11 @@ void GameEngine::handleMessage(EngineMessage& message)
 						message.ints[EngineMessageKey::OBJECT_ID], m_world);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				if(m_current_joueur==j)
+				{
 					setSousStateType(TypeState::PLAYING);
+					CameraRPG *cam = new CameraRPG(hero);
+					m_camManager->setCameraContener(cam);
+				}
 			}
 			else if(m_sous_state!=nullptr)
 			{
@@ -257,6 +264,7 @@ void GameEngine::work()
 					m_current_joueur->getRPG()->hero()->setAvancer(commandes->eventActif(1, CommandConfig::RPG_FORWARD));
 					m_current_joueur->getRPG()->hero()->setReculer(commandes->eventActif(1, CommandConfig::RPG_BACKWARD));
 					((ClientNetworkEngine*)m_manager->getNetwork())->sendRpgPosition();
+					m_current_joueur->getRPG()->hero()->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
 				}
 			}
 			else if(m_current_joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
@@ -333,11 +341,11 @@ bool GameEngine::tryJoinTeam(char id, Joueur* j)
 }
 Joueur* GameEngine::findJoueur(int id)
 {
-    if (m_current_joueur!=nullptr && m_current_joueur->id == id)
+    if (m_current_joueur!=nullptr && m_current_joueur->id() == id)
         return m_current_joueur;
 	for(Joueur *j : m_joueurs)
     {
-		if(j->id==id)
+		if(j->id()==id)
 				return j;
     }
 	return nullptr;

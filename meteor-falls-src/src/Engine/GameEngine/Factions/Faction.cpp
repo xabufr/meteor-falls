@@ -163,7 +163,10 @@ void Faction::load()
 				int from, to;
 				from = boost::lexical_cast<int>(meshes->first_attribute("from")->value());
 				to   = boost::lexical_cast<int>(meshes->first_attribute("to")->value());
-				classe->addMesh(from, to, meshes->value());
+				ClasseHero::HeroMesh data;
+				data.mesh = meshes->first_attribute("mesh")->value();
+				data.walk = meshes->first_node("walk")->value();
+				classe->addMesh(from, to,data);
 			}
 		}
     }

@@ -40,7 +40,7 @@ class ClientNetworkEngine : public NetworkEngine
 		char teamId() const;
 
 		void sendRpgPosition();
-		void sendRpgModification();
+		void sendRpgModification(bool checkTimer=true);
 
     protected:
         TcpConnection::pointer m_tcp;

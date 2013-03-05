@@ -122,6 +122,7 @@ void OgreApplication::m_bootstrapCegui()
 
     CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
     CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
+    CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
     m_ceguiStarted = true;
 }
 /*

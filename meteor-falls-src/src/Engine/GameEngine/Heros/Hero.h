@@ -5,6 +5,7 @@
 #include <btBulletDynamicsCommon.h>
 
 class JoueurRPG;
+class EngineMessage;
 class Avatar;
 namespace Ogre {
 	class Entity;
@@ -22,6 +23,10 @@ public:
 	void setReculer(bool);
 	void setGauche(bool);
 	void setDroite(bool);
+	void serializeComportement(EngineMessage*, bool all=true);
+	void deserializeComportement(EngineMessage*, bool all=true);
+	const Ogre::Entity* entity() const;
+	void tournerGaucheDroite(float angle);
 private:
 	JoueurRPG *m_joueur;
     btDynamicsWorld* m_world;
@@ -30,6 +35,8 @@ private:
 	Avatar *m_avatar;
 	Ogre::Entity *m_entityBody;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
+	bool m_isModified;
+	void m_comportementModifie();
 };
 
 #endif

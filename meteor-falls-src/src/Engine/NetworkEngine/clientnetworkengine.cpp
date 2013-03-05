@@ -13,8 +13,7 @@
 #include "../GameEngine/Heros/Hero.h"
 #include "../GameEngine/Heros/Avatar.h"
 #include "../GameEngine/Unites/Unite.h"
-
-#include <iostream>
+#include <SFML/System/Clock.hpp>
 
 ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& address, unsigned short port, Joueur* j, const std::string& password):
     NetworkEngine(mng),
@@ -63,7 +62,7 @@ void ClientNetworkEngine::work()
 					if(m_playerNumber!=-1)
 					{
 						m_state = CONNECTED;
-						m_joueur->id = m_playerNumber;
+						m_joueur->setId(m_playerNumber);
 						EngineMessage messageTeam(m_manager);
 						messageTeam.message = EngineMessageType::GETTEAMLIST;
 						m_tcp->send(serialize(&messageTeam));
@@ -90,7 +89,7 @@ void ClientNetworkEngine::work()
 					Equipe* e = m_manager->getGame()->getEquipe(message->ints[TEAM_ID]);
 					Joueur *j = new Joueur;
 					j->setNom(message->strings[PSEUDO]);
-					j->id = message->ints[EngineMessageKey::PLAYER_NUMBER];
+					j->setId(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 					j->changeTeam(e);
 					m_manager->getGame()->addPlayer(j);
 					j->setTypeGamplay(Joueur::TypeGameplay::NONE_GAMEPLAY);
@@ -184,8 +183,7 @@ void ClientNetworkEngine::work()
 					Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
 					if(j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
 					{
-						j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
-						std::cout << message->positions[EngineMessageKey::OBJECT_POSITION].x << std::endl;
+						j->getRPG()->hero()->deserializeComportement(message);
 					}
 				}
 				break;
@@ -200,11 +198,12 @@ void ClientNetworkEngine::work()
 		{
 			case EngineMessageType::PLAYER_POSITION:
 				{
-					Joueur* j = m_manager->getGame()->findJoueur(mess->ints[EngineMessageKey::PLAYER_NUMBER]);
-					if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&
-							j->getRPG()->hero() && j != m_joueur)
+					Equipe *e = m_manager->getGame()->getEquipe(mess->ints[EngineMessageKey::TEAM_ID]);
+					if(e)
 					{
-						j->getRPG()->hero()->setPosition(mess->positions[EngineMessageKey::OBJECT_POSITION]);
+						Hero *h = dynamic_cast<Hero*>(e->getUnite(mess->ints[EngineMessageKey::OBJECT_ID]));
+						if(h)
+							h->deserializeComportement(mess, false);
 					}
 				}
 				break;
@@ -253,7 +252,7 @@ void ClientNetworkEngine::logingIn()
 void ClientNetworkEngine::sendChatMessage(std::string mes, int porte)
 {
 	EngineMessage message(m_manager);
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
 	message.message = EngineMessageType::CHAT_MESSAGE;
 	message.strings[EngineMessageKey::MESSAGE] = mes;
 	message.ints[EngineMessageKey::RANGE] = porte;
@@ -264,7 +263,7 @@ void ClientNetworkEngine::trySelectTeam(char id)
 	m_teamId = id;
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::SELECT_TEAM;
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
 	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
 	m_tcp->send(serialize(&message));
 }
@@ -273,7 +272,7 @@ void ClientNetworkEngine::trySelectGameplay(int gameplay)
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::SELECT_GAMEPLAY;
 	message.ints[EngineMessageKey::GAMEPLAY_TYPE] = gameplay;
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
 	m_tcp->send(serialize(&message));
 }
 char ClientNetworkEngine::teamId() const
@@ -292,7 +291,7 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 {
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::SPAWN;
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
 	message.ints[EngineMessageKey::CLASS_ID] = av->classe()->id();
 	message.ints[EngineMessageKey::OBJECT_ID] = unit->id();
 	av->serialize(&message);
@@ -301,23 +300,26 @@ void ClientNetworkEngine::trySpawn(Unite* unit, Avatar* av)
 }
 void ClientNetworkEngine::sendRpgPosition()
 {
-	if(m_joueur->getTypeGameplay()!=Joueur::TypeGameplay::RPG||!m_joueur->getRPG()->hero())
+	static sf::Clock timerUdpPosition;
+	if(m_joueur->getTypeGameplay()!=Joueur::TypeGameplay::RPG||!m_joueur->getRPG()->hero() || timerUdpPosition.getElapsedTime().asMilliseconds() < 1000/30)
 		return;
+	timerUdpPosition.restart();
 	Hero *hero = m_joueur->getRPG()->hero();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
-	mess.positions[EngineMessageKey::OBJECT_POSITION] = hero->getPosition();
-	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
+	hero->serializeComportement(&mess, false);
 	sendToAllUdp(mess);
 }
-void ClientNetworkEngine::sendRpgModification()
+void ClientNetworkEngine::sendRpgModification(bool checkTimer)
 {
-	if(m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())
+	static sf::Clock timer;
+	if((m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())||(timer.getElapsedTime().asMilliseconds() < 1000/2 && checkTimer))
 		return;
+	timer.restart();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
-	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id;
-	mess.positions[EngineMessageKey::OBJECT_POSITION] = m_joueur->getRPG()->hero()->getPosition();
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
+	m_joueur->getRPG()->hero()->serializeComportement(&mess);
 
 	m_tcp->send(serialize(&mess));
 }

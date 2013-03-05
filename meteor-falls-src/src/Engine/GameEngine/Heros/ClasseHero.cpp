@@ -15,16 +15,16 @@ const std::string& ClasseHero::nom() const
 {
 	return m_nom;
 }
-std::string ClasseHero::mesh(int level) const
+const ClasseHero::HeroMesh* ClasseHero::mesh(int level) const
 {
-	for(auto mesh : m_meshes)
+	for(auto &mesh : m_meshes)
 	{
 		if(mesh.first.from<=level&&mesh.first.to>=level)
-			return mesh.second;
+			return &mesh.second;
 	}
-	return "";
+	return nullptr;
 }
-void ClasseHero::addMesh(int from, int to, const std::string& mesh)
+void ClasseHero::addMesh(int from, int to, const HeroMesh& hm)
 {
 	for(auto it : m_meshes)
 	{
@@ -34,5 +34,5 @@ void ClasseHero::addMesh(int from, int to, const std::string& mesh)
 	levelRange range;
 	range.from      = from;
 	range.to        = to;
-	m_meshes[range] = mesh;
+	m_meshes[range] = hm;
 }

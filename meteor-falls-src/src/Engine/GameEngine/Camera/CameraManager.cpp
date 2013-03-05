@@ -28,4 +28,6 @@ void CameraManager::setCameraContener(Camera *cam)
 	if(m_cameraContener)
 		delete m_cameraContener;
 	m_cameraContener = cam;
+	if(m_cameraContener)
+		m_cameraContener->setCamera(m_camera);
 }

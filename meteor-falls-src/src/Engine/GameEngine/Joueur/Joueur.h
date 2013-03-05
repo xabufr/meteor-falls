@@ -40,8 +40,8 @@ class Joueur
 		void addAvatar(Avatar*);
 		void clearAvatars();
 		Avatar* avatar(int) const;
-
-		int id;
+		int id() const;
+		void setId(int);
 		long ping;
     private:
 		void setRTS(JoueurRTS* rts){m_rts=rts;}
@@ -51,6 +51,7 @@ class Joueur
 		std::string m_num_session;
 		TypeGameplay m_type_gamplay;
 		int m_level;
+		int m_id;
 		JoueurRPG* m_rpg;
 		JoueurRTS* m_rts;
 		Equipe *m_equipe;

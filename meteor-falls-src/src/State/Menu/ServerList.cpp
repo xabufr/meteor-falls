@@ -25,7 +25,14 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
         {
             m_connection_udp->socket()->set_option(boost::asio::ip::udp::socket::reuse_address(true));
             m_connection_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address_v4::any(), 8888));
-            m_connection_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+			try{
+				m_connection_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+			}
+			catch(std::exception& e)
+			{
+				std::cerr << "-----------Network problem !!!------------" << std::endl;
+				std::cerr << e.what() << std::endl;
+			}
             m_connection_udp->startListen();
         }
         break;
@@ -46,7 +53,7 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("OgreTray/Listbox", "ListServerLan");
+    m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("TaharezLook/Listbox", "ListServerLan");
     m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
     m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim((m_listServer->getSize().d_y.d_scale
