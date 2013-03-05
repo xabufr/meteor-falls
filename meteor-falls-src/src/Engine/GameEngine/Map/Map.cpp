@@ -10,6 +10,8 @@
 
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
+#include <fstream>
+
 #include <OIS/OIS.h>
 #include "../../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../../GraphicEngine/Ogre/OgreApplication.h"
@@ -29,6 +31,7 @@
 #include "../GameEngine.h"
 #include "../Camera/CameraManager.h"
 #include "../../../Utils/Configuration/Config.h"
+#include "../../../Utils/Exception/FileNotFound.h"
 
 using namespace rapidxml;
 
@@ -52,6 +55,11 @@ Map::~Map()
 		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
 		delete m_skyx;
 	}
+	for (auto it=m_shape.begin(); it!=m_shape.end(); ++it)
+        delete (*it);
+
+    for (auto it=m_body.begin(); it!=m_body.end(); ++it)
+        delete (*it);
 }
 void Map::load(std::string p_name)
 {
@@ -132,16 +140,63 @@ void Map::load(std::string p_name)
 
 			m_terrainGroup = OGRE_NEW Ogre::TerrainGroup(m_scene_mgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
 			//m_terrainGroup->setResourceGroup("Maps");
-
+			bool first=true;
+            int minx, miny, maxx, maxy;
+            minx = miny = maxx = maxy = 0;
 			for(nodePage=nodePages->first_node("terrainPage");nodePage;nodePage=nodePage->next_sibling("terrainPage"))
 			{
-					std::string fileName = nodePage->first_attribute("name")->value();
-					int px,py;
-					px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
-					py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
-					m_terrainGroup->defineTerrain(px,py,fileName);
+                std::string fileName = nodePage->first_attribute("name")->value();
+                int px,py;
+                px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
+                py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
+                m_terrainGroup->defineTerrain(px,py,fileName);
+                std::cout << "X: " << px << " Y: " << py << std::endl;
+                minx = (first)?px:(px<minx)?px:minx;
+                miny = (first)?py:(py<miny)?py:miny;
+                maxx = (first)?px:(px>maxx)?px:maxx;
+                maxy = (first)?py:(py>maxy)?py:maxy;
+                first = false;
 			}
 			m_terrainGroup->loadAllTerrains(true);
+			for (int x=minx; x<=maxx; ++x)
+            {
+                for (int y=miny; y<=maxy; ++y)
+                {
+                    std::ifstream file;
+                    std::string nom = "X"+boost::lexical_cast<std::string>(x)+"Y"+boost::lexical_cast<std::string>(y);
+                    int taille;
+                    float maxHeight=0;
+                    std::cout << nom << std::endl;
+                    file.open("data/maps/default2/heightmap/Page"+nom+".f32");
+                    if (!file)
+                        throw FileNotFound("data/maps/default2/heightmap/Page"+nom+".f32");
+
+                    file.seekg(0, std::ios_base::end);
+                    taille = sqrt(file.tellg()/4);
+                    file.close();
+                    float *data = new float[int(taille*taille)];
+                    for (int i=0; i < taille; ++i)
+                    {
+                        file.open("data/maps/default2/heightmap/Page"+nom+".f32");
+                        if (!file)
+                            throw FileNotFound("data/maps/default2/heightmap/Page"+nom+".f32");
+
+                        file.seekg(i*sizeof(float),std::ios_base::beg);
+                        file.read((char *)(&data[i]), sizeof(float));
+                        maxHeight = (data[i]>maxHeight)?data[i]:maxHeight;
+                        file.close();
+                    }
+
+                    btScalar scalar = maxHeight/256;
+                    btHeightfieldTerrainShape *shape = new btHeightfieldTerrainShape(worldSize, worldSize, data, scalar, 0, btScalar(maxHeight), 1, PHY_FLOAT, false);
+                    btVector3 inertia;
+                    shape->calculateLocalInertia(0, inertia);
+                    btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape, inertia);
+                    btRigidBody *body = new btRigidBody(BodyCI);
+                    m_shape.push_back(shape);
+                    m_body.push_back(body);
+                }
+            }
 	    }
 		rapidxml::xml_node<>* hydraxNode = rootNode->first_node("hydrax");
 		if(hydraxNode)
@@ -411,3 +466,13 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		}
 	}
 }
+std::list<btCollisionShape*>& Map::getShape()
+{
+    return m_shape;
+}
+
+std::list<btRigidBody*>& Map::getBody()
+{
+    return m_body;
+}
+

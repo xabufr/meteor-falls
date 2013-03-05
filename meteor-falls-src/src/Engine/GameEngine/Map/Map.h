@@ -6,6 +6,10 @@
 #include <Hydrax/Hydrax.h>
 #include <string>
 #include <iostream>
+#include <btBulletDynamicsCommon.h>
+#include <Bullet-C-Api.h>
+#include <btBulletCollisionCommon.h>
+#include <bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include "../Camera/CameraLibre.h"
 #include <SkyX/SkyX.h>
 #include <vector>
@@ -28,6 +32,8 @@ class Map
         bool getLoaded();
         float getHeightAt(float x, float z);
         Vector3D getNormalAt(float x, float z);
+        std::list<btCollisionShape*>& getShape();
+        std::list<btRigidBody*>& getBody();
 
     private:
         Ogre::SceneManager *m_scene_mgr;
@@ -35,8 +41,6 @@ class Map
 		Ogre::TerrainGroup *m_terrainGroup;
         bool m_loaded;
         std::string m_name;
-        int m_size_x;
-        int m_size_y;
         bool m_cycle_enable;
         float m_cycle_coef;
         int m_cycle_hour;
@@ -53,6 +57,9 @@ class Map
 		static Ogre::Quaternion getRotation(rapidxml::xml_node<>*);
 		void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
 		void processNodeServer(rapidxml::xml_node<>*);
+
+		std::list<btCollisionShape*> m_shape;
+        std::list<btRigidBody*> m_body;
 };
 
 #endif // MAP_H

@@ -40,6 +40,8 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 	{
 		m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
 		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
+		for (auto it=m_map->getBody().begin(); it != m_map->getBody().end(); ++it)
+            m_world->addRigidBody(((btRigidBody*)(*it)));
 	}
 	m_sous_state = nullptr;
 	m_type_sous_state = TypeState::TEAM_LIST;
@@ -177,7 +179,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 				{
 					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-							id);
+							id, m_world);
 					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				}
 			}
@@ -193,7 +195,7 @@ void GameEngine::handleMessage(EngineMessage& message)
 				}
 				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(),
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-						message.ints[EngineMessageKey::OBJECT_ID]);
+						message.ints[EngineMessageKey::OBJECT_ID], m_world);
 				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 				if(m_current_joueur==j)
 					setSousStateType(TypeState::PLAYING);

@@ -56,6 +56,7 @@
 			<Add directory="libs/ozcollidelib_1-1-1/include" />
 			<Add directory="libs/rapidxml" />
 			<Add directory="Hydrax/include" />
+			<Add directory="../../../../../../usr/include/bullet" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -77,6 +78,7 @@
 			<Add option="-lcrypto" />
 			<Add option="-lSkyX" />
 			<Add option="-lhydrax" />
+			<Add option="-lBulletCollision" />
 		</Linker>
 		<Unit filename="../GlobalServer/src/Admin.cpp" />
 		<Unit filename="../GlobalServer/src/Player.cpp" />
@@ -291,6 +293,9 @@
 		<Unit filename="src/Utils/File.h" />
 		<Unit filename="src/Utils/MessageDialog.cpp" />
 		<Unit filename="src/Utils/MessageDialog.h" />
+		<Unit filename="src/Utils/Physique/ChargeBinaryMap.cpp" />
+		<Unit filename="src/Utils/Physique/ChargeBinaryMap.h" />
+		<Unit filename="src/Utils/Physique/MotionState.h" />
 		<Unit filename="src/Utils/Random.cpp" />
 		<Unit filename="src/Utils/Random.h" />
 		<Unit filename="src/Utils/Vector3D.h" />
