@@ -27,7 +27,9 @@ m_isModified(true)
 		m_entityBody = mng->createEntity(meshName);
 		m_sceneNode->attachObject(m_entityBody);
 		m_sceneNode->setScale(0.1, 0.1, 0.1);
-		Ogre::SkeletonInstance *ske = m_entityBody->getSkeleton();
+		Ogre::AnimationState* anim = m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk);
+		anim->setEnabled(true);
+		anim->setLoop(true);
 	}
 }
 Hero::~Hero()
@@ -59,8 +61,8 @@ void Hero::update(unsigned int time)
 		Ogre::AnimationState *anim = m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk);
 		if(m_avancer)
 		{
-			anim->setLoop(true);
 			anim->setEnabled(true);
+			m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk)->addTime(float(time)/1000.f);
 		}
 		else
 		{

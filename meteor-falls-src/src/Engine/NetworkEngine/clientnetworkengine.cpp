@@ -203,7 +203,7 @@ void ClientNetworkEngine::work()
 					{
 						Hero *h = dynamic_cast<Hero*>(e->getUnite(mess->ints[EngineMessageKey::OBJECT_ID]));
 						if(h)
-							h->deserializeComportement(mess);
+							h->deserializeComportement(mess, false);
 					}
 				}
 				break;
