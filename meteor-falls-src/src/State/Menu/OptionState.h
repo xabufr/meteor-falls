@@ -30,7 +30,7 @@ class OptionState : public State
         SoundSetting *m_sound_setting;
         GraphicSetting *m_graphic_setting;
         CommandSetting *m_command_setting;
-        CEGUI::TabButton *m_window;
+        CEGUI::Window *m_window;
         CEGUI::PushButton *m_graphics;
         CEGUI::PushButton *m_sound;
         CEGUI::PushButton *m_control;

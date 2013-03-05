@@ -16,7 +16,7 @@ m_state_manager(mgr)
     int nb = 0;
     for (Ogre::ConfigOption m : Config::get()->getGraphicConfig()->getConfig())
     {
-        CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
+        CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
         elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
         elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                          CEGUI::UDim(0.06+(nb*(0.08)), 0)));
@@ -27,7 +27,7 @@ m_state_manager(mgr)
         elem->hide();
         CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(elem);
 
-        CEGUI::Combobox *comb = (CEGUI::Combobox*)m_window_manager.createWindow("OgreTray/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
+        CEGUI::Combobox *comb = (CEGUI::Combobox*)m_window_manager.createWindow("TaharezLook/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
         for (std::string s : m.possibleValues)
         {
             CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(s);
@@ -45,7 +45,7 @@ m_state_manager(mgr)
         ++nb;
     }
 
-    CEGUI::Window *elem = m_window_manager.createWindow("OgreTray/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
+    CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
     elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
     elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                      CEGUI::UDim(0.06+(nb*(0.08)), 0)));
@@ -57,7 +57,7 @@ m_state_manager(mgr)
     CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(elem);
 
     std::string tab[3] = {"Haute", "Moyenne", "Basse"};
-    m_water = (CEGUI::Combobox*)m_window_manager.createWindow("OgreTray/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
+    m_water = (CEGUI::Combobox*)m_window_manager.createWindow("TaharezLook/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
     for (int i=0; i<3; ++i)
     {
         CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(tab[i]);
@@ -73,7 +73,7 @@ m_state_manager(mgr)
     m_water->hide();
     CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_water);
 
-    m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonCancel2");
+    m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonCancel2");
     m_cancel->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
     m_cancel->setPosition(CEGUI::UVector2(CEGUI::UDim(0.95-m_cancel->getSize().d_x.d_scale, 0),
                                          CEGUI::UDim(0.95-m_cancel->getSize().d_y.d_scale
@@ -83,7 +83,7 @@ m_state_manager(mgr)
     CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_cancel);
     m_cancel->hide();
 
-    m_accept = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonOk2");
+    m_accept = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonOk2");
     m_accept->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
     m_accept->setPosition(CEGUI::UVector2(CEGUI::UDim(0.85-(m_accept->getSize().d_x.d_scale+m_cancel->getSize().d_x.d_scale), 0),
                                          CEGUI::UDim(0.95-m_accept->getSize().d_y.d_scale
@@ -112,12 +112,10 @@ GraphicSetting::~GraphicSetting()
     CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_cancel);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_cancel);
 }
-
 bool GraphicSetting::isVisible()
 {
     return m_visible;
 }
-
 void GraphicSetting::enter()
 {
     m_visible = true;
@@ -136,7 +134,6 @@ void GraphicSetting::enter()
                                          CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
                                                         /2), 0)));
 }
-
 void GraphicSetting::exit()
 {
     m_visible = false;
@@ -155,12 +152,10 @@ void GraphicSetting::exit()
                                          CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
                                                         /2), 0)));
 }
-
 ret_code GraphicSetting::work(unsigned int)
 {
     return CONTINUE;
 }
-
 bool GraphicSetting::m_button_pushed(const CEGUI::EventArgs&)
 {
     if (m_cancel->isPushed())

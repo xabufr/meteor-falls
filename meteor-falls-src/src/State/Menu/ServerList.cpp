@@ -53,7 +53,7 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("OgreTray/Listbox", "ListServerLan");
+    m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("TaharezLook/Listbox", "ListServerLan");
     m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
     m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim((m_listServer->getSize().d_y.d_scale

@@ -12,7 +12,7 @@ m_game_engine(engine),
 m_isSelectingTeam(false)
 {
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
-    m_list_team = (CEGUI::Listbox*)m_window_manager.createWindow("OgreTray/Listbox", "ListTeam");
+    m_list_team = (CEGUI::Listbox*)m_window_manager.createWindow("TaharezLook/Listbox", "ListTeam");
     m_list_team->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
     m_list_team->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_list_team->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim((m_list_team->getSize().d_y.d_scale
