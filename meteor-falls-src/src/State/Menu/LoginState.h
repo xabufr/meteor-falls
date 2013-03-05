@@ -18,6 +18,7 @@ class LoginState : public State
         virtual void enter();
         virtual void exit();
         virtual ret_code work(unsigned int time);
+		Joueur** joueur();
   private:
         Joueur **m_player;
         CEGUI::Window *m_playLan;
@@ -36,7 +37,7 @@ class LoginState : public State
         bool m_connection(const CEGUI::EventArgs &);
         bool m_connection_lan(const CEGUI::EventArgs &);
         bool send(const CEGUI::EventArgs &);
-
+		State *m_sousState;
 };
 
 #endif // LOGINSTATE_H_INCLUDED

@@ -1,4 +1,5 @@
 #include "LoginState.h"
+#include "LanLoginState.h"
 #include "State/Console.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -8,12 +9,12 @@
 
  LoginState::~LoginState()
 {
-
 }
 
  LoginState::LoginState(StateManager *mgr, Joueur **j) : State(mgr),
  m_visible(false),
- m_player(j)
+ m_player(j),
+ m_sousState(nullptr)
 {
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
@@ -80,14 +81,24 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
 }
 bool LoginState::m_connection_lan(const CEGUI::EventArgs&)
 {
-	delete *m_player;
+/*	delete *m_player;
     *m_player = new JoueurLan();
     (*m_player)->setNom("Test");
-    this->exit();
+    this->exit();*/
+	m_sousState = new LanLoginState(nullptr, this);
+	m_sousState->enter();
+	m_sheet->setVisible(false);
     return true;
 }
 ret_code LoginState::work(unsigned int time)
 {
+	if(m_sousState)
+		if(m_sousState->work(time)!=ret_code::CONTINUE)
+		{
+			m_sousState->exit();
+			delete m_sousState;
+			m_sousState=nullptr;
+		}
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;
     return CONTINUE;
@@ -145,9 +156,15 @@ void LoginState::exit()
 {
     m_sheet->hide();
     m_visible = false;
+	if(m_sousState)
+		m_sousState->exit();
 }
 void LoginState::enter()
 {
     m_sheet->show();
     m_visible = true;
+}
+Joueur** LoginState::joueur()
+{
+	return m_player;
 }
