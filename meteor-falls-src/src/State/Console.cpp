@@ -13,7 +13,6 @@ Console::~Console()
     delete m_sheet;
     delete m_console;
 }
-
 Console::Console() : m_visible(false), m_lines(""), m_id(0), m_admin(false)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
@@ -21,7 +20,7 @@ Console::Console() : m_visible(false), m_lines(""), m_id(0), m_admin(false)
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "FenetreConsole");
 
 
-    m_console = m_window_mgr.createWindow("OgreTray/MultiLineEditbox", "Console");
+    m_console = m_window_mgr.createWindow("TaharezLook/MultiLineEditbox", "Console");
     m_console->setSize(CEGUI::UVector2(CEGUI::UDim(1, 0), CEGUI::UDim(0.2, 0)));
     m_console->setAlwaysOnTop(true);
     m_sheet->addChildWindow(m_console);
@@ -30,7 +29,6 @@ Console::Console() : m_visible(false), m_lines(""), m_id(0), m_admin(false)
     m_pattern = "$";
     m_sheet->hide();
 }
-
 void Console::start()
 {
     if (m_lines == std::string(m_console->getText().c_str()))
@@ -68,7 +66,6 @@ void Console::start()
 
     m_console->setProperty("CaratIndex", oss.str());
 }
-
 void Console::m_auto_completion()
 {
     int debut = m_lines.find_last_of(m_pattern);
@@ -101,7 +98,6 @@ void Console::m_auto_completion()
 
     m_console->setProperty("CaratIndex", oss.str());
 }
-
 void Console::m_show_old_command(const OIS::KeyEvent &arg)
 {
     char pattern;
@@ -125,26 +121,21 @@ void Console::m_show_old_command(const OIS::KeyEvent &arg)
 
     m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
 }
-
 bool Console::isVisible()
 {
     return m_visible;
 }
-
 void Console::setAdmin(const bool admin)
 {
     m_admin = admin;
     m_pattern = (m_admin)?"#":"$";
 }
-
-
 void Console::hide()
 {
     m_sheet->hide();
     m_visible = false;
     m_console->setText("");
 }
-
 void Console::show()
 {
     m_console->setText(m_pattern);
@@ -154,18 +145,15 @@ void Console::show()
     m_console->activate();
     m_visible = true;
 }
-
 void Console::addCommand(Command *c)
 {
     m_commands.push_back(c);
 }
-
 void Console::clearCommands()
 {
     while (!m_commands.empty())
         m_commands.pop_back();
 }
-
 bool Console::keyPressed(const OIS::KeyEvent& arg)
 {
     if (arg.key == OIS::KeyCode::KC_UNASSIGNED)
@@ -205,34 +193,28 @@ bool Console::keyPressed(const OIS::KeyEvent& arg)
 
     return true;
 }
-
 bool Console::keyReleased(const OIS::KeyEvent& arg)
 {
     if (arg.key == OIS::KeyCode::KC_UP || arg.key == OIS::KeyCode::KC_DOWN)
         m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
-
 bool Console::mouseMoved(const OIS::MouseEvent& arg)
 {
     return true;
 }
-
 bool Console::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
 {
     if (boost::lexical_cast<int>(m_console->getProperty("CaratIndex")) <= m_console->getText().find_last_of(m_pattern))
                 m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
-
 bool Console::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id )
 {
     if (boost::lexical_cast<int>(m_console->getProperty("CaratIndex")) <= m_console->getText().find_last_of(m_pattern))
                 m_console->setProperty("CaratIndex", boost::lexical_cast<std::string>(m_console->getText().size()));
     return true;
 }
-
-
 CEGUI::Window *Console::getConsole()
 {
     return m_console;
