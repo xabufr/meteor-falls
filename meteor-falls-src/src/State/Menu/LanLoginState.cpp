@@ -57,6 +57,7 @@ void LanLoginState::updateProfileList()
 		list->addItem(item);
 		item->setUserData(j);
 		item->setSelected(j==m_lastSelected);
+		item->setSelectionBrushImage("TaharezLook", "ListboxSelectionBrush");
 		first=false;
 	}
 }

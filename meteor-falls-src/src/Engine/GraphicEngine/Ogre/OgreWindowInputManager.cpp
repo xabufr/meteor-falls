@@ -73,6 +73,8 @@ bool OgreWindowInputManager::frameStarted(const Ogre::FrameEvent& event)
         m_keyboard->capture();
     for(OIS::Object* o : m_personalizedDevices)
         o->capture();
+	if(m_injectWindowEvent)
+		CEGUI::System::getSingleton().injectTimePulse(event.timeSinceLastFrame);
     return true;
 }
 OIS::Mouse* OgreWindowInputManager::getMouse()

@@ -102,6 +102,7 @@ void SpawnState::updateSpawns()
 			CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(e->type()->nom());
 			item->setUserData((void*)e);
 			item->setSelectionColours(CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0));
+			item->setSelectionBrushImage("TaharezLook", "ListboxSelectionBrush");
 			m_spawns->addItem(item);
 			if(e==m_last_selected_u)
 				item->setSelected(true);
