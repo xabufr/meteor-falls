@@ -1,11 +1,11 @@
 #ifndef LOGINSTATE_H_INCLUDED
 #define LOGINSTATE_H_INCLUDED
 
-#include "State/State.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GameEngine/Joueur/JoueurLan.h"
-#include "Engine/GameEngine/Joueur/JoueurWan.h"
-#include "Engine/GameEngine/Joueur/Joueur.h"
+#include "../State.h"
+#include "../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../Engine/GameEngine/Joueur/JoueurLan.h"
+#include "../../Engine/GameEngine/Joueur/JoueurWan.h"
+#include "../../Engine/GameEngine/Joueur/Joueur.h"
 #include <CEGUI.h>
 #include <OIS/OIS.h>
 

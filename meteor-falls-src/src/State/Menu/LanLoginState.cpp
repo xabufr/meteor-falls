@@ -2,6 +2,11 @@
 #include "LoginState.h"
 #include "../../Engine/GameEngine/Joueur/JoueurLan.h"
 #include <CEGUI.h>
+#include <boost/filesystem.hpp>
+#include "../../Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../Utils/Exception/FileNotFound.h"
+#include <rapidxml_print.hpp>
+#include <fstream>
 
 LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_parentState(p), m_lastSelected(nullptr)
 {
@@ -63,12 +68,32 @@ void LanLoginState::updateProfileList()
 }
 void LanLoginState::loadProfilesList()
 {
-	JoueurLan* j = new JoueurLan;
-	j->setNom("test");
-	m_profiles.push_back(j);
-	j = new JoueurLan;
-	j->setNom("test 1");
-	m_profiles.push_back(j);
+	boost::filesystem::path pathProfiles("profiles");
+	if(!boost::filesystem::exists(pathProfiles))
+	{
+		boost::filesystem::create_directory("profiles");
+		pathProfiles = boost::filesystem::path("profiles");
+	}
+	for(boost::filesystem::directory_iterator it(pathProfiles);it!=boost::filesystem::directory_iterator();++it)
+	{
+		if(boost::filesystem::is_directory(it->path()))
+		{
+			boost::filesystem::path profile = it->path();
+			profile/= profile.filename();
+			try
+			{
+				rapidxml::xml_document<> *doc = XmlDocumentManager::get()->getDocument(profile.string()+".profile");
+				rapidxml::xml_node<> *root = doc->first_node("profile");
+				JoueurLan *j = new JoueurLan;
+				j->setNom(root->first_attribute("name")->value());
+				m_profiles.push_back(j);
+			}
+			catch (FileNotFound &e)
+			{
+				continue;
+			}
+		}
+	}
 }
 bool LanLoginState::profilesSelectionChanged(const CEGUI::EventArgs&)
 {
@@ -89,25 +114,43 @@ bool LanLoginState::showCreateProfile(const CEGUI::EventArgs&)
 			CEGUI::Event::Subscriber(&LanLoginState::createNewProfile, this));
 	m_windowCreate->getChild("fenCreerProfils/annuler")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::createNewProfile, this));
+	return true;
 }
 bool LanLoginState::createNewProfile(const CEGUI::EventArgs& e)
 {
 	const CEGUI::WindowEventArgs *event = static_cast<const CEGUI::WindowEventArgs*>(&e);
-	if(event->window != m_windowCreate->getChild("fenCreerProfils/annuler"))
+	std::string pseudo = m_windowCreate->getChild("fenCreerProfils/pseudo")->getText().c_str();
+	if(!profileExists(pseudo))
 	{
-		std::string pseudo = m_windowCreate->getChild("fenCreerProfils/pseudo")->getText().c_str();
-		JoueurLan *j = new JoueurLan;
-		j->setNom(pseudo);
-		m_profiles.push_back(j);
-		updateProfileList();
+		boost::filesystem::path pathProfiles("profiles");
+		pathProfiles/=pseudo;
+		boost::filesystem::create_directory(pathProfiles);
+		if(event->window != m_windowCreate->getChild("fenCreerProfils/annuler"))
+		{
+			rapidxml::xml_document<> doc;
+			rapidxml::xml_node<>* root = doc.allocate_node(rapidxml::node_type::node_element);
+			root->name("profile");
+			root->append_attribute(doc.allocate_attribute("name", pseudo.c_str()));
+			doc.append_node(root);
+			pathProfiles/=pseudo;
+			std::ofstream f((pathProfiles.string()+".profile").c_str());
+			f<<doc;
+			f.close();
+			JoueurLan *j = new JoueurLan;
+			j->setNom(pseudo);
+			m_profiles.push_back(j);
+			updateProfileList();
+		}
+		CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_windowCreate);
+		CEGUI::WindowManager::getSingleton().destroyWindow(m_windowCreate);
+		m_windowCreate=nullptr;
+		m_window->setVisible(true);
 	}
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_windowCreate);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_windowCreate);
-	m_windowCreate=nullptr;
-	m_window->setVisible(true);
+	return true;
 }
 bool LanLoginState::deleteProfile(const CEGUI::EventArgs& e)
 {
+	boost::filesystem::remove_all("profiles/"+m_lastSelected->getNom());
 	for(auto it=m_profiles.begin();it!=m_profiles.end();++it)
 	{
 		if(*it==m_lastSelected)
@@ -125,4 +168,16 @@ bool LanLoginState::useProfile(const CEGUI::EventArgs& e)
 {
 	*m_parentState->joueur() = m_lastSelected;
 	m_parentState->exit();
+	return true;
+}
+bool LanLoginState::profileExists(const std::string& pseudo)
+{
+	boost::filesystem::path pathProfiles("profiles");
+	pathProfiles/=pseudo;
+	if(boost::filesystem::exists(pathProfiles))
+	{
+		pathProfiles/=pseudo+".profile";
+		return boost::filesystem::is_regular_file(pathProfiles);
+	}
+	return false;
 }

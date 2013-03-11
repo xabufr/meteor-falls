@@ -2,6 +2,7 @@
 #define _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_STATE_MENU_LANLOGINSTATE_HPP__
 
 #include "../State.h"
+#include <string>
 
 class StateManager;
 class LoginState;
@@ -34,6 +35,7 @@ private:
 	void updateProfileList();
 	void loadProfilesList();
 	bool useProfile(const CEGUI::EventArgs&);
+	bool profileExists(const std::string&);
 };
 
 #endif 
