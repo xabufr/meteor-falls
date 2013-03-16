@@ -56,6 +56,7 @@ class ServerList : public State, public OIS::MouseListener
 		void addServer(Server*);
 		void addServerView(Server *);
 		void updateServer(Server *);
+		void reloadViewWithFiltre();
         void m_run();
 		bool m_retour;
         bool m_visible;
@@ -66,6 +67,12 @@ class ServerList : public State, public OIS::MouseListener
 		bool close(const CEGUI::EventArgs&);
 		bool join(const CEGUI::EventArgs&);
 		bool serverSelected(const CEGUI::EventArgs&);
+		bool updateFiltre(const CEGUI::EventArgs&);
+
+		struct Filtre{
+			bool operator()(Server *);
+			bool full, empty, password;
+		}m_filtre;
 };
 
 #endif // SERVERLIST_H_INCLUDED

@@ -78,8 +78,15 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 			CEGUI::Event::Subscriber(&ServerList::serverSelected, this));
 	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventMouseDoubleClick,
 			CEGUI::Event::Subscriber(&ServerList::join, this));
+	m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
+			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
+	m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
+			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
+	m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
+			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
 	m_window->hide();
+	updateFiltre(CEGUI::EventArgs());
 }
 ServerList::~ServerList()
 {
@@ -260,7 +267,8 @@ void ServerList::addServer(Server* s)
 		}
 	}
 	m_serveurs.push_back(s);
-	addServerView(s);
+	if(m_filtre(s))
+		addServerView(s);
 }
 void ServerList::addServerView(Server *s)
 {
@@ -325,4 +333,32 @@ void ServerList::updateServer(Server *s)
 		item->setText((s->passwd) ?"OUI":"NON");
 		m_listeServeurs->handleUpdatedItemData();
 	}
+}
+void ServerList::reloadViewWithFiltre()
+{
+	m_listeServeurs->resetList();
+	for(Server *s : m_serveurs)
+	{
+		if(m_filtre(s))
+		{
+			addServerView(s);
+		}
+	}
+}
+bool ServerList::updateFiltre(const CEGUI::EventArgs&)
+{
+	m_filtre.full      = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull"))->isSelected();
+	m_filtre.empty     = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty"))->isSelected();
+	m_filtre.password  = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword"))->isSelected();
+	reloadViewWithFiltre();
+}
+bool ServerList::Filtre::operator()(Server *s)
+{
+	if(!empty && s->nombre_joueurs_connectes==0)
+		return false;
+	if(!full && s->nombre_joueurs_max==s->nombre_joueurs_connectes)
+		return false;
+	if(!password && s->passwd)
+		return false;
+	return true;
 }
