@@ -8,12 +8,14 @@
 #include <rapidxml_print.hpp>
 #include <fstream>
 
-LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_parentState(p), m_lastSelected(nullptr)
+LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_parentState(p), m_lastSelected(nullptr), m_continue(true)
 {
 	m_window = CEGUI::WindowManager::getSingleton().loadWindowLayout("profiles.layout");
 	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
 	m_btn_utiliser = m_window->getChild("fenProfils/jouer");
 	m_btn_supp = m_window->getChild("fenProfils/supprimer");
+	m_window->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
+			CEGUI::Event::Subscriber(&LanLoginState::retour, this));
 	m_window->getChild("fenProfils/listeProfils")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged,
 			CEGUI::Event::Subscriber(&LanLoginState::profilesSelectionChanged, this));
 	m_window->getChild("fenProfils/creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -22,6 +24,8 @@ LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_p
 			CEGUI::Event::Subscriber(&LanLoginState::deleteProfile, this));
 	m_window->getChild("fenProfils/jouer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::useProfile, this));
+	m_window->getChild("fenProfils/retour")->subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(&LanLoginState::retour, this));
 	m_window->setVisible(false);
 	loadProfilesList();
 	updateProfileList();
@@ -43,7 +47,7 @@ ret_code LanLoginState::work(unsigned int t)
 {
 	m_btn_utiliser->setEnabled(m_lastSelected);
 	m_btn_supp->setEnabled(m_lastSelected);
-	return ret_code::CONTINUE;
+	return (m_continue) ? ret_code::CONTINUE:ret_code::FINISHED;
 }
 bool LanLoginState::isVisible()
 {
@@ -180,4 +184,9 @@ bool LanLoginState::profileExists(const std::string& pseudo)
 		return boost::filesystem::is_regular_file(pathProfiles);
 	}
 	return false;
+}
+bool LanLoginState::retour(const CEGUI::EventArgs& e)
+{
+	m_continue=false;
+	return true;
 }

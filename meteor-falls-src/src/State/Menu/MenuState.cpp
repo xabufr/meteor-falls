@@ -300,8 +300,8 @@ ret_code MenuState::work(unsigned int time)
     }
     else
     {
-        m_sousState->work(time);
-		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape)
+        ret_code code = m_sousState->work(time);
+		if((m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape) || code==ret_code::FINISHED)
 		{
 			m_sousState->exit();
 			if(m_sousState==m_login_state)

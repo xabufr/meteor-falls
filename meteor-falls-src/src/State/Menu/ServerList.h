@@ -11,10 +11,14 @@
 #include "../../precompiled/asio.h"
 #include "../../../../GlobalServer/src/ServerGlobalMessage.h"
 #include "../../../../GlobalServer/src/Server.h"
-#include <map>
-#include <CEGUI.h>
+#include <list>
 #include <OIS/OIS.h>
 
+namespace CEGUI {
+	class Window;
+	class EventArgs;
+	class  MultiColumnList;
+} // namespace CEGUI
 class ServerList : public State, public OIS::MouseListener
 {
     public:
@@ -35,18 +39,33 @@ class ServerList : public State, public OIS::MouseListener
         Joueur **m_player;
         UdpConnection::pointer m_connection_udp;
         SslConnection::pointer m_connection_ssl;
-        CEGUI::Listbox *m_listServer;
-        std::map<std::string, Server*> m_servers;
+		CEGUI::Window *m_wFiltres;
+		CEGUI::Window *m_window, *m_btnJoindre;
+		CEGUI::MultiColumnList *m_listeServeurs;
+		std::list<Server*> m_serveurs;
+		Server* m_selectedServer;
         boost::thread m_service_thread;
         boost::shared_ptr<boost::asio::io_service> m_service;
         boost::shared_ptr<boost::asio::io_service::work> m_work;
+        StateManager *m_state_mgr;
+        Type m_type;
+
         std::string m_serialize(const ServerGlobalMessage *);
         ServerGlobalMessage* m_deserialize(const std::string &);
-        StateManager *m_state_mgr;
+
+		void addServer(Server*);
+		void addServerView(Server *);
+		void updateServer(Server *);
         void m_run();
+		bool m_retour;
         bool m_visible;
         bool m_item_selected(const CEGUI::EventArgs &);
-        Type m_type;
+		bool showFiltre(const CEGUI::EventArgs &);
+		bool hideFiltre(const CEGUI::EventArgs &);
+		bool refresh(const CEGUI::EventArgs &);
+		bool close(const CEGUI::EventArgs&);
+		bool join(const CEGUI::EventArgs&);
+		bool serverSelected(const CEGUI::EventArgs&);
 };
 
 #endif // SERVERLIST_H_INCLUDED
