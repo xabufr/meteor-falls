@@ -24,6 +24,8 @@ LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_p
 			CEGUI::Event::Subscriber(&LanLoginState::deleteProfile, this));
 	m_window->getChild("fenProfils/jouer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::useProfile, this));
+	m_window->getChild("fenProfils/listeProfils")->subscribeEvent(CEGUI::Listbox::EventMouseDoubleClick,
+			CEGUI::Event::Subscriber(&LanLoginState::useProfile, this));
 	m_window->getChild("fenProfils/retour")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::retour, this));
 	m_window->setVisible(false);
@@ -170,8 +172,11 @@ bool LanLoginState::deleteProfile(const CEGUI::EventArgs& e)
 }
 bool LanLoginState::useProfile(const CEGUI::EventArgs& e)
 {
-	*m_parentState->joueur() = m_lastSelected;
-	m_parentState->exit();
+	if(m_lastSelected)
+	{
+		*m_parentState->joueur() = m_lastSelected;
+		m_parentState->exit();
+	}
 	return true;
 }
 bool LanLoginState::profileExists(const std::string& pseudo)
