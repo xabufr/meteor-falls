@@ -240,7 +240,8 @@ bool ServerList::refresh(const CEGUI::EventArgs &)
 }
 bool ServerList::join(const CEGUI::EventArgs&)
 {
-	m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, m_selectedServer->ip, "", *m_player));
+	if(m_selectedServer)
+		m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, m_selectedServer->ip, "", *m_player));
 	return true;
 }
 bool ServerList::close(const CEGUI::EventArgs&)
@@ -274,29 +275,13 @@ void ServerList::addServerView(Server *s)
 {
 	unsigned int row = m_listeServeurs->addRow();
 	CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("", 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
-	item->setUserData(s);
-	m_listeServeurs->setItem(item, 0, row);
-
-	item = new CEGUI::ListboxTextItem(s->ip, 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
-	item->setUserData(s);
-	m_listeServeurs->setItem(item, 1, row);
-
-	item = new CEGUI::ListboxTextItem("", 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
-	item->setUserData(s);
-	m_listeServeurs->setItem(item, 2, row);
-
-	item = new CEGUI::ListboxTextItem("", 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
-	item->setUserData(s);
-	m_listeServeurs->setItem(item, 3, row);
-
-	item = new CEGUI::ListboxTextItem("", 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
-	item->setUserData(s);
-	m_listeServeurs->setItem(item, 4, row);
+	for(size_t i=0;i<6;++i)
+	{
+		item = new CEGUI::ListboxTextItem("", 0);
+		item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+		item->setUserData(s);
+		m_listeServeurs->setItem(item, i, row);
+	}
 	updateServer(s);
 }
 void ServerList::updateServer(Server *s)
@@ -327,9 +312,12 @@ void ServerList::updateServer(Server *s)
 		item->setText(joueurs);
 
 		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 3));
-		item->setText(boost::lexical_cast<std::string>(0));
+		item->setText(s->carte_jouee);
 
 		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 4));
+		item->setText(boost::lexical_cast<std::string>(0));
+
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 5));
 		item->setText((s->passwd) ?"OUI":"NON");
 		m_listeServeurs->handleUpdatedItemData();
 	}
