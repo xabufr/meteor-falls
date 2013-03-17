@@ -55,6 +55,7 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
     	m_graphic = new GraphicEngine(this);
     if(t==Type::CLIENT||t==Type::CLIENT_LAN)
     {
+		OgreContextManager::get()->getOgreApplication()->LoadRessources("skyx_hydrax.cfg");
         OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(this);
     }
 

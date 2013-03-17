@@ -19,7 +19,7 @@ namespace CEGUI {
 	class EventArgs;
 	class  MultiColumnList;
 } // namespace CEGUI
-class ServerList : public State, public OIS::MouseListener
+class ServerList : public State
 {
     public:
         enum Type{
@@ -32,9 +32,6 @@ class ServerList : public State, public OIS::MouseListener
         virtual void enter();
         virtual void exit();
         virtual ret_code work(unsigned int time);
-        virtual bool mouseMoved(const OIS::MouseEvent &arg);
-		virtual bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id );
     private:
         Joueur **m_player;
         UdpConnection::pointer m_connection_udp;

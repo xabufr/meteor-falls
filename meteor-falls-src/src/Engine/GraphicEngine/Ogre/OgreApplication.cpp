@@ -1,9 +1,10 @@
 #include "OgreApplication.h"
-#include "Utils/Exception/BasicException.h"
+#include "../../../Utils/Exception/BasicException.h"
 #include <OgreConfigFile.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreResourceBackgroundQueue.h>
 #include "LoadingScreen.h"
+#include <CEGUI/ScriptingModules/LuaScriptModule/CEGUILua.h>
 
 OgreApplication::OgreApplication(bool createWindow)
 {
@@ -90,6 +91,8 @@ void OgreApplication::m_ParcourirRessource(std::string &fileName, bool add)
             Ogre::ResourceGroupManager::getSingleton().loadResourceGroup(group);
         }
         m_listener.finished();
+		if(load)
+			delete load;
     }
 }
 bool OgreApplication::RenderOneFrame()
@@ -111,19 +114,18 @@ CEGUI::Renderer* OgreApplication::getCEGUI()
 }
 void OgreApplication::m_bootstrapCegui()
 {
-    m_ceguiRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
     LoadRessources("bootstrap.cfg");
-
-    CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
-    CEGUI::Font::setDefaultResourceGroup("Fonts");
-    CEGUI::Scheme::setDefaultResourceGroup("Schemes");
-    CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
-    CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
-
-    CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
-    CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
-    CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
-	CEGUI::System::getSingleton().setDefaultTooltip("TaharezLook/Tooltip");
+	CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create();
+	CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
+	CEGUI::OgreImageCodec& ic = CEGUI::OgreRenderer::createOgreImageCodec();
+	CEGUI::ScriptModule& sm = CEGUI::LuaScriptModule::create();
+	CEGUI::System::create(renderer,
+			reinterpret_cast<CEGUI::ResourceProvider*>(&rp),
+			static_cast<CEGUI::XMLParser*>(nullptr), 
+			reinterpret_cast<CEGUI::ImageCodec*>(&ic),
+			static_cast<CEGUI::ScriptModule*>(&sm),
+			"cegui.xml");
+    m_ceguiRenderer = &renderer;
     m_ceguiStarted = true;
 }
 /*

@@ -13,7 +13,7 @@ class LoadingScreen
     protected:
     private:
         int m_count, m_sum;
-        CEGUI::Window *m_window;
+        CEGUI::Window *m_window, *m_ancWindow;
         CEGUI::Window *m_loadingText, *m_loadingCurrent;
         CEGUI::ProgressBar *m_progress_bar;
 };

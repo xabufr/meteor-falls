@@ -37,10 +37,11 @@ LoadingScreen::LoadingScreen(int sum):m_count(0), m_sum(sum)
 
     m_window->show();
 }
-
 LoadingScreen::~LoadingScreen()
 {
-    //dtor
+	//CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
+	CEGUI::System::getSingleton().setGUISheet(m_ancWindow);
 }
 void LoadingScreen::update(std::string s)
 {
@@ -53,9 +54,9 @@ void LoadingScreen::setGroup(std::string s)
     update(s);
     ++m_count;
 }
-
 void LoadingScreen::show()
 {
+	m_ancWindow = CEGUI::System::getSingleton().getGUISheet();
     CEGUI::System::getSingleton().setGUISheet(m_window);
     OgreContextManager::get()->getOgreApplication()->RenderOneFrame();
 }

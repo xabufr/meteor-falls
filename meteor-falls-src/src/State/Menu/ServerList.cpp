@@ -58,12 +58,6 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 
 	m_window   = m_window_mgr.loadWindowLayout("serveurs.layout");
 	m_wFiltres = m_window->getChild("fenServeurs/fenFiltres");
-	m_window->getChild("fenServeurs/btnFiltres")->subscribeEvent(CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(&ServerList::showFiltre, this));
-	m_wFiltres->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
-			CEGUI::Event::Subscriber(&ServerList::hideFiltre, this));
-	m_wFiltres->getChild("fenServeurs/fenFiltres/btnOK")->subscribeEvent(CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(&ServerList::hideFiltre, this));
 	m_window->getChild("fenServeurs/btnRefresh")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&ServerList::refresh, this));
 	m_window->getChild("fenServeurs/btnRetour")->subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -207,18 +201,6 @@ ServerGlobalMessage* ServerList::m_deserialize(const std::string &data)
     boost::archive::text_iarchive archive(iss);
     archive >> *message;
     return message;
-}
-bool ServerList::mouseMoved(const OIS::MouseEvent& arg)
-{
-    return true;
-}
-bool ServerList::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
-{
-    return true;
-}
-bool ServerList::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
-{
-    return true;
 }
 bool ServerList::showFiltre(const CEGUI::EventArgs&)
 {
