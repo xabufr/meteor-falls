@@ -32,6 +32,8 @@ class ServerList : public State
         virtual void enter();
         virtual void exit();
         virtual ret_code work(unsigned int time);
+		void updateFiltre();
+		static ServerList* instance();
     private:
         Joueur **m_player;
         UdpConnection::pointer m_connection_udp;

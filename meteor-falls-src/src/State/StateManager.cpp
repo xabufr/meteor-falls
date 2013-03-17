@@ -66,3 +66,7 @@ void StateManager::removeState()
 {
     m_states.pop();
 }
+State* StateManager::current() const
+{
+	return m_states.top();
+}

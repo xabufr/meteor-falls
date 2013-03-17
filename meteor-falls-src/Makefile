@@ -1818,6 +1818,30 @@ src/Engine/PhysicalEngine/PhysicalEngine.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.s
 .PHONY : src/Engine/PhysicalEngine/PhysicalEngine.cpp.s
 
+src/Engine/ScriptEngine/LuaScript.o: src/Engine/ScriptEngine/LuaScript.cpp.o
+.PHONY : src/Engine/ScriptEngine/LuaScript.o
+
+# target to build an object file
+src/Engine/ScriptEngine/LuaScript.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.o
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.o
+
+src/Engine/ScriptEngine/LuaScript.i: src/Engine/ScriptEngine/LuaScript.cpp.i
+.PHONY : src/Engine/ScriptEngine/LuaScript.i
+
+# target to preprocess a source file
+src/Engine/ScriptEngine/LuaScript.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.i
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.i
+
+src/Engine/ScriptEngine/LuaScript.s: src/Engine/ScriptEngine/LuaScript.cpp.s
+.PHONY : src/Engine/ScriptEngine/LuaScript.s
+
+# target to generate assembly for a file
+src/Engine/ScriptEngine/LuaScript.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.s
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.s
+
 src/Engine/ScriptEngine/ScriptEngine.o: src/Engine/ScriptEngine/ScriptEngine.cpp.o
 .PHONY : src/Engine/ScriptEngine/ScriptEngine.o
 
@@ -1961,6 +1985,30 @@ src/Engine/SoundEngine/soundbuffermanager.s: src/Engine/SoundEngine/soundbufferm
 src/Engine/SoundEngine/soundbuffermanager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.s
 .PHONY : src/Engine/SoundEngine/soundbuffermanager.cpp.s
+
+src/Lua/LuaInterface.o: src/Lua/LuaInterface.cpp.o
+.PHONY : src/Lua/LuaInterface.o
+
+# target to build an object file
+src/Lua/LuaInterface.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.o
+.PHONY : src/Lua/LuaInterface.cpp.o
+
+src/Lua/LuaInterface.i: src/Lua/LuaInterface.cpp.i
+.PHONY : src/Lua/LuaInterface.i
+
+# target to preprocess a source file
+src/Lua/LuaInterface.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.i
+.PHONY : src/Lua/LuaInterface.cpp.i
+
+src/Lua/LuaInterface.s: src/Lua/LuaInterface.cpp.s
+.PHONY : src/Lua/LuaInterface.s
+
+# target to generate assembly for a file
+src/Lua/LuaInterface.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.s
+.PHONY : src/Lua/LuaInterface.cpp.s
 
 src/State/Command/Command.o: src/State/Command/Command.cpp.o
 .PHONY : src/State/Command/Command.o
@@ -2952,6 +3000,9 @@ help:
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.o"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.i"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.s"
+	@echo "... src/Engine/ScriptEngine/LuaScript.o"
+	@echo "... src/Engine/ScriptEngine/LuaScript.i"
+	@echo "... src/Engine/ScriptEngine/LuaScript.s"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.o"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.i"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.s"
@@ -2970,6 +3021,9 @@ help:
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.o"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.i"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.s"
+	@echo "... src/Lua/LuaInterface.o"
+	@echo "... src/Lua/LuaInterface.i"
+	@echo "... src/Lua/LuaInterface.s"
 	@echo "... src/State/Command/Command.o"
 	@echo "... src/State/Command/Command.i"
 	@echo "... src/State/Command/Command.s"

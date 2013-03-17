@@ -50,5 +50,6 @@ target_link_libraries(meteor-falls
 		crypto
 		SkyX
 		hydrax
+		tolua++
 		)
 

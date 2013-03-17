@@ -72,12 +72,6 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 			CEGUI::Event::Subscriber(&ServerList::serverSelected, this));
 	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventMouseDoubleClick,
 			CEGUI::Event::Subscriber(&ServerList::join, this));
-	m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
-			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
-	m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
-			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
-	m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword")->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged,
-			CEGUI::Event::Subscriber(&ServerList::updateFiltre, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
 	m_window->hide();
 	updateFiltre(CEGUI::EventArgs());
@@ -331,4 +325,8 @@ bool ServerList::Filtre::operator()(Server *s)
 	if(!password && s->passwd)
 		return false;
 	return true;
+}
+void ServerList::updateFiltre()
+{
+	updateFiltre(CEGUI::EventArgs());
 }

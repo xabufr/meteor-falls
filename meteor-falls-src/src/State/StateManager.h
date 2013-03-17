@@ -16,7 +16,7 @@ class StateManager
         bool isEmpty();
         void setAudio(bool a){ m_audio=a; }
         void setGraphic(bool g){ m_graphic=g; }
-
+		State *current() const;
         StateManager();
 
     protected:

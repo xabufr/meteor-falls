@@ -5,6 +5,7 @@
 #include <OgreResourceBackgroundQueue.h>
 #include "LoadingScreen.h"
 #include <CEGUI/ScriptingModules/LuaScriptModule/CEGUILua.h>
+#include "../../ScriptEngine/LuaScript.h"
 
 OgreApplication::OgreApplication(bool createWindow)
 {
@@ -119,6 +120,8 @@ void OgreApplication::m_bootstrapCegui()
 	CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
 	CEGUI::OgreImageCodec& ic = CEGUI::OgreRenderer::createOgreImageCodec();
 	CEGUI::ScriptModule& sm = CEGUI::LuaScriptModule::create();
+	LuaScriptEngine::setCEGUIScriptModule(&sm);
+	LuaScriptEngine::get();
 	CEGUI::System::create(renderer,
 			reinterpret_cast<CEGUI::ResourceProvider*>(&rp),
 			static_cast<CEGUI::XMLParser*>(nullptr), 

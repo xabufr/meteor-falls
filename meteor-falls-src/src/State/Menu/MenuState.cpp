@@ -324,3 +324,7 @@ bool MenuState::isVisible()
 {
     return m_visible;
 }
+State* MenuState::sousState() const
+{
+	return m_sousState;
+}
