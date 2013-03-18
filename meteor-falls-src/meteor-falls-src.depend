@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/application.cpp
+1363539795 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/application.cpp
 	"application.h"
 	<iostream>
 	"../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"../State/Menu/MenuState.h"
 	"../State/ServerState/ServerState.h"
+	"Utils/Configuration/Config.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Application/application.h
+1363539286 /home/thomas/meteor-falls/meteor-falls-src/src/Application/application.h
 	"applicationparameters.h"
 
 1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Application/applicationparameters.h
@@ -20,7 +21,7 @@
 
 1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/singleton.h
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
+1363539061 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
 	<OgreRectangle2D.h>
 	<OgreSceneNode.h>
 	<OgreCamera.h>
@@ -154,7 +155,7 @@
 1346563635 /usr/include/OGRE/OgreConfig.h
 	"OgreBuildSettings.h"
 
-1359160881 /usr/include/OGRE/OgreBuildSettings.h
+1357773062 /usr/include/OGRE/OgreBuildSettings.h
 
 1346563635 /usr/include/OGRE/Threading/OgreThreadDefines.h
 	"OgreThreadDefinesNone.h"
@@ -318,8 +319,9 @@
 1346563635 /usr/include/OGRE/OgreColourValue.h
 	"OgrePrerequisites.h"
 
-1346563635 /usr/include/OGRE/OgreSharedPtr.h
+1357773055 /usr/include/OGRE/OgreSharedPtr.h
 	"OgrePrerequisites.h"
+	"Threading/OgreThreadHeaders.h"
 
 1346563635 /usr/include/OGRE/OgreStringVector.h
 	"OgrePrerequisites.h"
@@ -449,15 +451,17 @@
 	"OgreString.h"
 	"OgreCommon.h"
 
-1346563635 /usr/include/OGRE/OgreCommon.h
+1357773055 /usr/include/OGRE/OgreCommon.h
 	"OgreString.h"
 	<utility>
 	<sstream>
+	"Threading/OgreThreadHeaders.h"
 
-1346563635 /usr/include/OGRE/OgreAtomicWrappers.h
+1357773055 /usr/include/OGRE/OgreAtomicWrappers.h
 	<signal.h>
 	"OgrePrerequisites.h"
 	"OgreException.h"
+	"Threading/OgreThreadHeaders.h"
 	<windows.h>
 	<intrin.h>
 
@@ -726,7 +730,7 @@
 	"OgrePrerequisites.h"
 	"OgreCommon.h"
 
-1346563635 /usr/include/OGRE/OgreEntity.h
+1362133805 /usr/include/OGRE/OgreEntity.h
 	"OgrePrerequisites.h"
 	"OgreCommon.h"
 	"OgreString.h"
@@ -815,9 +819,10 @@
 	"OgreSingleton.h"
 	"OgreString.h"
 
-1346563635 /usr/include/OGRE/OgreLog.h
+1357773055 /usr/include/OGRE/OgreLog.h
 	"OgrePrerequisites.h"
 	"OgreString.h"
+	"Threading/OgreThreadHeaders.h"
 
 1346563635 /usr/include/OGRE/OgreManualObject.h
 	"OgrePrerequisites.h"
@@ -1331,9 +1336,10 @@
 	"OgrePrerequisites.h"
 	"OgreVector3.h"
 
-1346563635 /usr/include/OGRE/OgreConvexBody.h
+1357773055 /usr/include/OGRE/OgreConvexBody.h
 	"OgrePrerequisites.h"
 	"OgrePolygon.h"
+	"Threading/OgreThreadHeaders.h"
 
 1346563635 /usr/include/OGRE/OgreShadowCameraSetupLiSPSM.h
 	"OgrePrerequisites.h"
@@ -1347,18 +1353,19 @@
 	"OgrePrerequisites.h"
 	"OgreShadowCameraSetupLiSPSM.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h
+1363603077 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.h
 	<OIS/OIS.h>
 	<CEGUI.h>
 	<OgreRenderWindow.h>
 	<OgreWindowEventUtilities.h>
 	<OgreFrameListener.h>
+	"RepeatKey.h"
 
 1360577723 /home/thomas/meteor-falls/meteor-falls-src/src/State/State.h
 	"StateManager.h"
 	<vector>
 
-1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/StateManager.h
+1363538067 /home/thomas/meteor-falls/meteor-falls-src/src/State/StateManager.h
 	<stack>
 	"State.h"
 
@@ -1381,7 +1388,7 @@
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Application/parameterparserexception.cpp
 	"parameterparserexception.h"
 
-1358254642 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
+1363520228 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineManager/EngineManager.cpp
 	"EngineManager.h"
 	"../NetworkEngine/NetworkEngine.h"
 	"../SoundEngine/SoundEngine.h"
@@ -1403,7 +1410,7 @@
 
 1358254553 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineType.h
 
-1359966707 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
+1361284234 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.h
 	"../Engine.h"
 	"../../precompiled/asio.h"
 	"../../precompiled/shared_ptr.h"
@@ -1432,15 +1439,15 @@
 
 1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Fade.h
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
+1362128205 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.h
 	"clientnetworkengine.h"
 
-1360679049 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
+1362388742 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h
 	"NetworkEngine.h"
 	"TcpConnection.h"
 	"UdpConnection.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
+1361283899 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.h
 	"../../precompiled/asio.h"
 	"../../precompiled/shared_ptr.h"
 	"Connection.h"
@@ -1454,11 +1461,12 @@
 	"Connection.h"
 	"../../precompiled/asio.h"
 
-1361197208 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
+1361278397 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.h
 	"NetworkEngine.h"
 	"ServerClient.h"
 	<vector>
 	<boost/asio.hpp>
+	<boost/thread/recursive_mutex.hpp>
 
 1359479672 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.h
 	"TcpConnection.h"
@@ -1470,7 +1478,7 @@
 	"../Engine.h"
 	<OgreSceneManager.h>
 
-1361208117 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
+1361806881 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.h
 	<string>
 	<vector>
 	"../Engine.h"
@@ -1499,9 +1507,9 @@
 	<OgreVector3.h>
 	<cmath>
 
-1361187008 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
+1362398024 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageKey.h
 
-1360679207 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
+1362133320 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessageType.h
 
 1360661825 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.h
 	<OgreRenderWindow.h>
@@ -1510,14 +1518,15 @@
 	<RendererModules/Ogre/CEGUIOgreRenderer.h>
 	"LoadingListener.h"
 
-1359385319 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
+1360071538 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/EngineMessage/EngineMessage.cpp
 	"EngineMessage.h"
 	"../EngineManager/EngineManager.h"
+	"../NetworkEngine/NetworkEngine.h"
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.cpp
 	"Camera.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.h
+1362393807 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/Camera.h
 	<OgreCamera.h>
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraFPS.cpp
@@ -1564,7 +1573,7 @@
 	"../../../Utils/singleton.h"
 	<unordered_map>
 
-1360079826 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
+1361209135 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.h
 	<string>
 	<map>
 	"../../precompiled/_rapidxml.h"
@@ -1576,26 +1585,29 @@
 	<new>
 	<exception>
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
+1362142102 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.cpp
 	"Equipe.h"
 	"../Unites/TypeUnite.h"
 	"../Unites/Unite.h"
 	"../Joueur/JoueurRPG.h"
+	"../Unites/UniteFactory.h"
 
-1360681800 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
+1362142085 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Equipe.h
 	<string>
 	<vector>
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
+1362407426 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.cpp
 	"Faction.h"
 	"../Unites/UniteFactory.h"
-	"Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../ScriptEngine/XmlDocumentManager.h"
 	"../Unites/typedefs.h"
 	"../Unites/TypeUnite.h"
 	"../Degats/DegatManager.h"
-	"precompiled/lexical_cast.h"
+	"../../../precompiled/lexical_cast.h"
 	"../Recherches/Recherche.h"
-	"Utils/Exception/FileNotFound.h"
+	"../../../Utils/Exception/FileNotFound.h"
+	"../Heros/ClasseHero.h"
+	"../Heros/Avatar.h"
 
 1360666711 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/Faction.h
 	<string>
@@ -1606,14 +1618,15 @@
 
 1359988403 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/typedefs.h
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
+1362141934 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.h
 	"typedefs.h"
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
+1360581042 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.h
 	"typedefs.h"
 	"../Ressources/Ressources.h"
 	<string>
 	<vector>
+	<map>
 
 1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.h
 
@@ -1626,7 +1639,7 @@
 	<exception>
 	<string>
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp
+1359985753 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Factions/FactionManager.cpp
 	"FactionManager.h"
 	"Faction.h"
 	"Engine/ScriptEngine/XmlDocumentManager.h"
@@ -1636,35 +1649,54 @@
 	"../../../Utils/singleton.h"
 	<vector>
 
-1359458480 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
+1362479698 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/GameEngine.cpp
 	"GameEngine.h"
 	"../EngineManager/EngineManager.h"
 	"../GraphicEngine/GraphicEngine.h"
+	"../GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Factions/Equipe.h"
 	"Factions/FactionManager.h"
+	"Factions/Faction.h"
 	"Preface/TeamState.h"
 	"../NetworkEngine/ServerNetworkEngine.h"
+	"../NetworkEngine/clientnetworkengine.h"
 	"Map/Map.h"
+	"Unites/UniteFactory.h"
 	"Preface/TeamList.h"
+	"Preface/SpawnState.h"
 	"../EngineMessage/EngineMessage.h"
+	"Heros/ClasseHeroManager.h"
+	"Heros/Hero.h"
+	"Unites/Unite.h"
+	"Joueur/JoueurRPG.h"
+	"Interface/Chat.h"
 	<CEGUIString.h>
+	"Camera/CameraManager.h"
+	"Camera/CameraRPG.h"
+	<SFML/System.hpp>
+	"../../Utils/Configuration/Config.h"
 
-1359453738 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp
+1362405782 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.cpp
 	"Joueur.h"
 	<iostream>
 	"JoueurRPG.h"
 	"JoueurRTS.h"
 	"../Factions/Equipe.h"
+	"../Factions/Faction.h"
+	"../Heros/Avatar.h"
 
-1361199670 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.h
+1362405721 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/Joueur.h
 	<string>
 	<vector>
 
-1359454338 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.cpp
+1361285896 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.cpp
 	"JoueurRPG.h"
 	"Joueur.h"
+	"../Heros/Hero.h"
+	<iostream>
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.h
+1361285663 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRPG.h
 
 1359454354 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurRTS.cpp
 	"JoueurRTS.h"
@@ -1710,12 +1742,12 @@
 	"OgreVector3.h"
 	"OgreDataStream.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
+1362146084 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.cpp
 	"ObjetTerrain.h"
 	<OgreSceneNode.h>
 	<OgreSceneManager.h>
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.h
+1362141487 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/ObjetTerrain.h
 	"../../../Utils/Vector3D.h"
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Recherches/Recherche.cpp
@@ -1724,28 +1756,33 @@
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Ressources/Ressources.cpp
 	"Ressources.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
+1362142516 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.cpp
 	"Aerien.h"
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
+1362142526 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Aerien.h
 	"Mobile.h"
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
+1362142433 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.h
 	"Unite.h"
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
+1362142201 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.h
 	"../Map/ObjetTerrain.h"
 	"TypeUnite.h"
+	"../../../Utils/Vector3D.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
+1362142384 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.cpp
 	"Batiment.h"
+	"TypeUnite.h"
+	<OgreSceneManager.h>
+	<OgreEntity.h>
+	"../Factions/Equipe.h"
+	"../../../precompiled/lexical_cast.h"
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
+1362142392 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Batiment.h
 	"Unite.h"
 	<string>
 	<iostream>
-	<OgreSceneManager.h>
-	"../../../Utils/Vector3D.h"
+	<OgreTimer.h>
 
 1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Hero.cpp
 	"Hero.h"
@@ -1763,25 +1800,28 @@
 	"Engine/ScriptEngine/XmlDocumentManager.h"
 	<boost/lexical_cast.hpp>
 
-1359470574 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
+1362142476 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.h
 	"Mobile.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
+1362142421 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Mobile.cpp
 	"Mobile.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
+1362142465 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Terrestre.cpp
 	"Terrestre.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
+1360581243 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/TypeUnite.cpp
 	"TypeUnite.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
+1362142232 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/Unite.cpp
 	"Unite.h"
+	"../Factions/Equipe.h"
 
-1359370682 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
+1361199305 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Unites/UniteFactory.cpp
 	"UniteFactory.h"
+	"../Factions/Equipe.h"
 	"../Factions/Faction.h"
 	"TypeUnite.h"
+	"Batiment.h"
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/GraphicEngine.cpp
 	"GraphicEngine.h"
@@ -1800,20 +1840,22 @@
 	<OgreRay.h>
 	<OgreSceneQuery.h>
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
+1363534192 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreApplication.cpp
 	"OgreApplication.h"
-	"Utils/Exception/BasicException.h"
+	"../../../Utils/Exception/BasicException.h"
 	<OgreConfigFile.h>
 	<OgreWindowEventUtilities.h>
 	<OgreResourceBackgroundQueue.h>
 	"LoadingScreen.h"
+	<CEGUI/ScriptingModules/LuaScriptModule/CEGUILua.h>
+	"../../ScriptEngine/LuaScript.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
+1363520876 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp
 	"ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
+1363603317 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp
 	"OgreWindowInputManager.h"
 	"precompiled/lexical_cast.h"
 	<CEGUI.h>
@@ -1821,24 +1863,29 @@
 	"ogrecontextmanager.h"
 	"OgreApplication.h"
 
-1359469735 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
+1362415577 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp
 	"clientnetworkengine.h"
 	"NetworkIpAdressFinder.h"
 	"../../Utils/Exception/BasicException.h"
 	"../EngineMessage/EngineMessage.h"
+	"../EngineManager/EngineManager.h"
 	"../../precompiled/serialization.h"
 	"../GameEngine/GameEngine.h"
 	"../GameEngine/Joueur/Joueur.h"
+	"../GameEngine/Joueur/JoueurRPG.h"
 	"../GameEngine/Factions/Equipe.h"
 	"../GameEngine/Factions/FactionManager.h"
-	"../EngineMessage/EngineMessage.h"
-	<iostream>
+	"../GameEngine/Heros/ClasseHero.h"
+	"../GameEngine/Heros/Hero.h"
+	"../GameEngine/Heros/Avatar.h"
+	"../GameEngine/Unites/Unite.h"
+	<SFML/System/Clock.hpp>
 
 1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.h
 	"../../precompiled/asio.h"
 	<string>
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
+1362134299 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ClientNetworkEngineLan.cpp
 	"ClientNetworkEngineLan.h"
 	"../EngineMessage/EngineMessage.h"
 	"../GameEngine/Joueur/Joueur.h"
@@ -1846,7 +1893,7 @@
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/Connection.cpp
 	"Connection.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
+1361284585 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkEngine.cpp
 	"NetworkEngine.h"
 	"../../precompiled/serialization.h"
 	"../EngineMessage/EngineMessage.h"
@@ -1856,10 +1903,10 @@
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/NetworkIpAdressFinder.cpp
 	"NetworkIpAdressFinder.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
+1359479692 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerClient.cpp
 	"ServerClient.h"
 
-1359468519 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
+1362406031 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngine.cpp
 	"ServerNetworkEngine.h"
 	<iostream>
 	"../EngineMessage/EngineMessage.h"
@@ -1871,6 +1918,9 @@
 	"../GameEngine/Joueur/JoueurRTS.h"
 	"../GameEngine/Joueur/Joueur.h"
 	"../GameEngine/Factions/Equipe.h"
+	"../GameEngine/Unites/Unite.h"
+	"../GameEngine/Heros/Hero.h"
+	"../GameEngine/Heros/Avatar.h"
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/SslConnection.cpp
 	"SslConnection.h"
@@ -1881,7 +1931,7 @@
 	"../../precompiled/shared_ptr.h"
 	"Connection.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
+1361284043 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/TcpConnection.cpp
 	"TcpConnection.h"
 	"../../precompiled/bind.h"
 	<iomanip>
@@ -1895,7 +1945,7 @@
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp
 
-1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
+1361209216 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/XmlDocumentManager.cpp
 	"XmlDocumentManager.h"
 	"Utils/Exception/FileNotFound.h"
 	<fstream>
@@ -1904,10 +1954,14 @@
 	"Fade.h"
 	<cmath>
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
+1360661825 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.cpp
 	"Playlist.h"
 	"../ScriptEngine/XmlDocumentManager.h"
+	"../../precompiled/lexical_cast.h"
 	"Utils/File.h"
+	"Utils/Configuration/Config.h"
+	"Utils/Exception/FileNotFound.h"
+	<iostream>
 
 1360079826 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/SoundEngine/Playlist.h
 	<string.h>
@@ -1938,12 +1992,13 @@
 	"../Engine/SoundEngine/SoundEngine.h"
 	<boost/test/unit_test.hpp>
 
-1358242048 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Game/GameState.cpp
+1359480956 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Game/GameState.cpp
 	"GameState.h"
 	"../StateManager.h"
-	"Engine/EngineManager/EngineManager.h"
-	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"../../Engine/EngineManager/EngineManager.h"
+	"../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"../../Engine/NetworkEngine/clientnetworkengine.h"
 
 1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/Game/GameState.h
 	"../State.h"
@@ -1951,8 +2006,9 @@
 	"../../Engine/GameEngine/Joueur/Joueur.h"
 	<OIS/OIS.h>
 
-1358243633 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
+1363431926 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.cpp
 	"LoginState.h"
+	"LanLoginState.h"
 	"State/Console.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -1960,16 +2016,16 @@
 	"Engine/NetworkEngine/ClientLogin.h"
 	"State/Game/GameState.h"
 
-1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.h
-	"State/State.h"
-	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-	"Engine/GameEngine/Joueur/JoueurLan.h"
-	"Engine/GameEngine/Joueur/JoueurWan.h"
-	"Engine/GameEngine/Joueur/Joueur.h"
+1363015109 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LoginState.h
+	"../State.h"
+	"../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../Engine/GameEngine/Joueur/JoueurLan.h"
+	"../../Engine/GameEngine/Joueur/JoueurWan.h"
+	"../../Engine/GameEngine/Joueur/Joueur.h"
 	<CEGUI.h>
 	<OIS/OIS.h>
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
+1363604374 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.cpp
 	<string>
 	"MenuState.h"
 	"State/Console.h"
@@ -1987,7 +2043,7 @@
 1358171583 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/State.cpp
 	"State.h"
 
-1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
+1363539686 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/StateManager.cpp
 	"StateManager.h"
 	"../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"../Engine/GraphicEngine/Ogre/OgreApplication.h"
@@ -2162,18 +2218,18 @@
 1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.h
 	<OgreResourceGroupManager.h>
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
+1363520628 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingListener.cpp
 	"LoadingListener.h"
 	<iostream>
 	"LoadingScreen.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
+1363556947 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.cpp
 	"LoadingScreen.h"
 	<iostream>
 	"OgreApplication.h"
 	"ogrecontextmanager.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.h
+1363556127 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/LoadingScreen.h
 	<CEGUI.h>
 
 1358171583 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/File.cpp
@@ -2185,7 +2241,7 @@
 	<list>
 	<string>
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraLibre.cpp
+1361783024 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraLibre.cpp
 	"CameraLibre.h"
 	<OIS/OIS.h>
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -2195,7 +2251,7 @@
 	<Ogre.h>
 	"Camera.h"
 
-1361182101 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
+1361287629 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.h
 	<OgreSceneManager.h>
 	<OgreCamera.h>
 	<Hydrax/Hydrax.h>
@@ -2208,10 +2264,9 @@
 	<Terrain/OgreTerrainGroup.h>
 	"../../ScriptEngine/XmlDocumentManager.h"
 
-1359470574 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
+1361806824 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/Map.cpp
 	"Map.h"
 	"../../ScriptEngine/XmlDocumentManager.h"
-	"precompiled/lexical_cast.h"
 	<OgreSceneManager.h>
 	<OgreCamera.h>
 	<OgreQuaternion.h>
@@ -2227,9 +2282,15 @@
 	<Hydrax/Modules/ProjectedGrid/ProjectedGrid.h>
 	"WorldObject.h"
 	"WorldObjectManager.h"
+	"../Factions/Equipe.h"
+	"../Unites/UniteFactory.h"
+	"../Unites/Unite.h"
 	"../../../Utils/Random.h"
 	"../../../precompiled/lexical_cast.h"
 	"WorldObjectType.h"
+	"../GameEngine.h"
+	"../Camera/CameraManager.h"
+	"../../../Utils/Configuration/Config.h"
 
 1349001474 /home/thomas/meteor-falls/meteor-falls-src/SkyX/Include/SkyX.h
 	"Prerequisites.h"
@@ -5780,7 +5841,7 @@
 	"Engine/GameEngine/Joueur/Joueur.h"
 	<iostream>
 
-1358243521 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.h
+1363536827 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.h
 	"../../Engine/NetworkEngine/UdpConnection.h"
 	"../../Engine/NetworkEngine/SslConnection.h"
 	"../../Engine/EngineMessage/EngineMessage.h"
@@ -5791,8 +5852,7 @@
 	"../../precompiled/asio.h"
 	"../../../../GlobalServer/src/ServerGlobalMessage.h"
 	"../../../../GlobalServer/src/Server.h"
-	<map>
-	<CEGUI.h>
+	<list>
 	<OIS/OIS.h>
 
 1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.h
@@ -5806,18 +5866,19 @@
 	"../StateManager.h"
 	<CEGUI.h>
 
-1360661825 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
+1362479071 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.h
 	"../State.h"
 	"../StateManager.h"
 	<vector>
 	<CEGUI.h>
 	<OIS/OIS.h>
 
-1359479868 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
+1362479698 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
 	<CEGUI.h>
 	"Engine/GameEngine/Factions/Faction.h"
 	"State/StateManager.h"
 	"State/State.h"
+	"Engine/GameEngine/Joueur/Joueur.h"
 	<iostream>
 
 1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/ServerState/ServerState.h
@@ -5834,23 +5895,23 @@
 	"ServerNetworkEngine.h"
 	"SslConnection.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
+1360664071 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurLan.cpp
 	"JoueurLan.h"
 
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Joueur/JoueurWan.cpp
 	"JoueurWan.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.cpp
+1362142600 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.cpp
 	"WorldObject.h"
 	"WorldObjectType.h"
 	"OgreSceneManager.h"
 	"OgreSceneNode.h"
 	"OgreEntity.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.h
+1362142583 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObject.h
 	"ObjetTerrain.h"
 
-1358171581 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.h
+1361291021 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.h
 	<string>
 	<OgreQuaternion.h>
 	"../../../Utils/Vector3D.h"
@@ -5868,13 +5929,13 @@
 1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Map/WorldObjectType.cpp
 	"WorldObjectType.h"
 
-1358241050 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
+1362406161 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineLan.cpp
 	"ServerNetworkEngineLan.h"
 	"../EngineMessage/EngineMessage.h"
 	"../GameEngine/Joueur/Joueur.h"
 	"../GameEngine/GameEngine.h"
 
-1358171581 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp
+1359479060 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/ServerNetworkEngineWan.cpp
 	"ServerNetworkEngineWan.h"
 	"../../../../GlobalServer/src/Server.h"
 	"../../../../GlobalServer/src/ServerGlobalMessage.h"
@@ -5893,7 +5954,7 @@
 1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Command/Command.cpp
 	"Command.h"
 
-1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/Command/Command.h
+1363599158 /home/thomas/meteor-falls/meteor-falls-src/src/State/Command/Command.h
 	<string>
 	<vector>
 
@@ -5919,12 +5980,13 @@
 	<boost/shared_ptr.hpp>
 	<boost/thread.hpp>
 
-1358171582 /home/thomas/meteor-falls/meteor-falls-src/src/State/Console.h
+1363599121 /home/thomas/meteor-falls/meteor-falls-src/src/State/Console.h
 	<string>
 	<vector>
+	<list>
 	<iostream>
-	"Utils/singleton.h"
-	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../Utils/singleton.h"
+	"../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	<CEGUI.h>
 	<OIS/OIS.h>
 	"Command/Command.h"
@@ -5950,13 +6012,13 @@
 	"State/State.h"
 	"State/StateManager.h"
 
-1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Console.cpp
-	"State/Console.h"
-	"Engine/ScriptEngine/XmlDocumentManager.h"
-	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
-	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-	"Engine/GraphicEngine/Ogre/OgreApplication.h"
-	"State/Game/GameState.h"
+1363601433 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Console.cpp
+	"Console.h"
+	"../Engine/ScriptEngine/XmlDocumentManager.h"
+	"../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"Game/GameState.h"
 	<boost/regex.hpp>
 	<boost/lexical_cast.hpp>
 	<sstream>
@@ -5964,19 +6026,22 @@
 1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/CreditState.cpp
 	"CreditState.h"
 
-1359381546 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
+1362479058 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/OptionState.cpp
 	"OptionState.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 	"Engine/GraphicEngine/Ogre/OgreApplication.h"
 	"../Option/SoundSetting.h"
+	"../Option/GraphicSetting.h"
+	"../Option/CommandSetting.h"
+	"MenuState.h"
 
-1359381546 /home/thomas/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.h
+1360079826 /home/thomas/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.h
 	"../State.h"
 	"../StateManager.h"
 	<CEGUI.h>
 
-1358243554 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.cpp
+1363537263 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.cpp
 	"ServerList.h"
 	"../../State/Game/GameState.h"
 	"../../Engine/NetworkEngine/NetworkEngine.h"
@@ -5987,9 +6052,18 @@
 	<boost/regex.hpp>
 	<boost/lexical_cast.hpp>
 	<sstream>
+	<CEGUI/CEGUI.h>
 
-1359381546 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.cpp
+1362478511 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Option/SoundSetting.cpp
 	"SoundSetting.h"
+	"../../Engine/SoundEngine/Playlist.h"
+	"../../precompiled/_rapidxml.h"
+	"../../precompiled/lexical_cast.h"
+	"Engine/ScriptEngine/XmlDocumentManager.h"
+	"Utils/Exception/FileNotFound.h"
+	"Utils/Configuration/Config.h"
+	<fstream>
+	<rapidxml_print.hpp>
 
 1358171582 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/ServerState/ServerState.cpp
 	"ServerState.h"
@@ -6011,7 +6085,7 @@
 	"Engine/GameEngine/Unites/Hero.h"
 	<OgreSceneManager.h>
 
-1359458367 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.h
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.h
 	"../../../State/State.h"
 	"../../../State/StateManager.h"
 	<vector>
@@ -6027,7 +6101,7 @@
 	"OgreTerrainMaterialGenerator.h"
 	"OgreGpuProgramParams.h"
 
-1359458259 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
+1362476357 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamList.cpp
 	"TeamList.h"
 	"../Factions/Equipe.h"
 	<boost/lexical_cast.hpp>
@@ -6036,7 +6110,7 @@
 	"../GameEngine.h"
 	<CEGUI.h>
 
-1359458349 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
+1362477295 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/TeamState.cpp
 	"TeamState.h"
 	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -6044,6 +6118,7 @@
 	"Engine/NetworkEngine/clientnetworkengine.h"
 	"Engine/GameEngine/Factions/Equipe.h"
 	"../GameEngine.h"
+	"../Interface/Chat.h"
 	"../../EngineManager/EngineManager.h"
 	"../../EngineMessage/EngineMessage.h"
 	<string>
@@ -7630,6 +7705,239 @@
 	"MessageDialog.h"
 
 1362408422 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/MessageDialog.h
+	"singleton.h"
+	<CEGUI.h>
+
+1363603089 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/RepeatKey.h
+	<OIS/OIS.h>
+
+1360661825 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/Config.h
+	"../singleton.h"
+	"SoundConfig.h"
+	"GraphicConfig.h"
+	"CommandConfig.h"
+
+1361209135 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.h
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/GraphicConfig.h
+	<OgreConfigOptionMap.h>
+	<vector>
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.h
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
+	<OIS/OIS.h>
+	<vector>
+
+1362407637 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.h
+	<string>
+	<map>
+
+1361270801 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Avatar.h
+	<string>
+
+1361195844 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/SpawnState.h
+	"../../../State/State.h"
+	"../../../State/StateManager.h"
+	<unordered_map>
+
+1362410465 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Hero.h
+	"../Unites/Unite.h"
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Interface/Chat.h
+	<OIS/OIS.h>
+
+1361782010 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraManager.h
+
+1362394587 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraRPG.h
+	"Camera.h"
+
+1361270837 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Avatar.cpp
+	"Avatar.h"
+	"ClasseHero.h"
+	"../../EngineMessage/EngineMessage.h"
+
+1362407673 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHero.cpp
+	"ClasseHero.h"
+
+1360659879 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/ClasseHeroManager.cpp
+	"ClasseHeroManager.h"
+	"ClasseHero.h"
+
+1362479698 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
+	"layoutRTS.h"
+
+1362848992 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Preface/SpawnState.cpp
+	"SpawnState.h"
+	"../GameEngine.h"
+	"../Joueur/Joueur.h"
+	"../Factions/Equipe.h"
+	"../Factions/Faction.h"
+	"../Unites/Unite.h"
+	"../Unites/TypeUnite.h"
+	<CEGUI.h>
+	<string>
+	"../../../precompiled/lexical_cast.h"
+	"../Heros/ClasseHeroManager.h"
+	"../Heros/ClasseHero.h"
+	"../Heros/Avatar.h"
+	"../Camera/CameraManager.h"
+	<OgreCamera.h>
+	"../../EngineManager/EngineManager.h"
+	"../../NetworkEngine/clientnetworkengine.h"
+
+1363534229 /home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.h
+	"../../Utils/singleton.h"
+
+1363431943 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LanLoginState.h
+	"../State.h"
+	<string>
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/State/Option/GraphicSetting.h
+	"../State.h"
+	"../StateManager.h"
+	<CEGUI.h>
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.h
+	"../State.h"
+	"../StateManager.h"
+	<CEGUI.h>
+	<OIS/OIS.h>
+
+1362478585 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Option/CommandSetting.cpp
+	"CommandSetting.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"../../Utils/Configuration/Config.h"
+	"../../Utils/Configuration/CommandConfig.h"
+	"../../precompiled/lexical_cast.h"
+
+1362478561 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Option/GraphicSetting.cpp
+	"GraphicSetting.h"
+	"../../Utils/Configuration/Config.h"
+	"../../precompiled/lexical_cast.h"
+	<OgreRoot.h>
+	<OgreRenderSystem.h>
+	<string>
+	<iostream>
+
+1360079826 /home/thomas/meteor-falls/meteor-falls-src/libs/rapidxml/rapidxml_print.hpp
+	"rapidxml.hpp"
+	<ostream>
+	<iterator>
+
+1361806762 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/CommandConfig.cpp
+	"CommandConfig.h"
+	"../../precompiled/lexical_cast.h"
+	"Utils/Exception/FileNotFound.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	<rapidxml_print.hpp>
+	<fstream>
+
+1361806762 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/GraphicConfig.cpp
+	"GraphicConfig.h"
+	"../../precompiled/lexical_cast.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../precompiled/lexical_cast.h"
+	"Utils/Exception/FileNotFound.h"
+	<iostream>
+	<rapidxml_print.hpp>
+	<OgreRoot.h>
+	<CEGUI.h>
+	<string>
+
+1361209135 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/Configuration/SoundConfig.cpp
+	"SoundConfig.h"
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../precompiled/lexical_cast.h"
+	"Utils/Exception/FileNotFound.h"
+	<rapidxml_print.hpp>
+	<iostream>
+	<CEGUI.h>
+
+1363539161 source:/home/thomas/meteor-falls/meteor-falls-src/src/Lua/LuaInterface.cpp
+	"stdlib.h"
+	"string.h"
+	"tolua++.h"
+	"../State/Menu/ServerList.h"
+	"../Application/application.h"
+	"../State/StateManager.h"
+	"../State/State.h"
+	"../State/Menu/MenuState.h"
+
+1363451392 source:/home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/LanLoginState.cpp
+	"LanLoginState.h"
+	"LoginState.h"
+	"../../Engine/GameEngine/Joueur/JoueurLan.h"
+	<CEGUI.h>
+	<boost/filesystem.hpp>
+	"../../Engine/ScriptEngine/XmlDocumentManager.h"
+	"../../Utils/Exception/FileNotFound.h"
+	<rapidxml_print.hpp>
+	<fstream>
+
+1362394375 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraManager.cpp
+	"CameraManager.h"
+	"Camera.h"
+	<OgreSceneManager.h>
+	<OgreCamera.h>
+	"../../GraphicEngine/Ogre/ogrecontextmanager.h"
+	"../../GraphicEngine/Ogre/OgreApplication.h"
+
+1362396052 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Camera/CameraRPG.cpp
+	"CameraRPG.h"
+	"../Heros/Hero.h"
+	<OgreSceneNode.h>
+	<OgreCamera.h>
+	<OgreSceneManager.h>
+	<OgreEntity.h>
+
+1362411277 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Hero.cpp
+	"Hero.h"
+	"Avatar.h"
+	"ClasseHero.h"
+	"../Joueur/JoueurRPG.h"
+	"../Joueur/Joueur.h"
+	"../Factions/Equipe.h"
+	<OgreSceneManager.h>
+	<OgreEntity.h>
+	<OgreSubEntity.h>
+	"../GameEngine.h"
+	"../../EngineManager/EngineManager.h"
+	"../../NetworkEngine/clientnetworkengine.h"
+	"../../EngineMessage/EngineMessage.h"
+
+1361806762 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Interface/Chat.cpp
+	"Chat.h"
+	"Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+	"Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+	"Engine/GraphicEngine/Ogre/OgreApplication.h"
+	"Engine/NetworkEngine/clientnetworkengine.h"
+	"../../EngineManager/EngineManager.h"
+	"../../EngineMessage/EngineMessage.h"
+	"../GameEngine.h"
+	"../../../Utils/Configuration/Config.h"
+	<CEGUI.h>
+
+1363602995 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/GraphicEngine/Ogre/RepeatKey.cpp
+	"RepeatKey.h"
+
+1363534288 source:/home/thomas/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.cpp
+	"LuaScript.h"
+	"../../Lua/LuaInterface.h"
+	<CEGUI/CEGUI.h>
+	<CEGUI/ScriptingModules/LuaScriptModule/CEGUILua.h>
+
+1363537397 /home/thomas/meteor-falls/meteor-falls-src/src/Lua/LuaInterface.h
+	<tolua++.h>
+
+1361806762 source:/home/thomas/meteor-falls/meteor-falls-src/src/Utils/MessageDialog.cpp
+	"MessageDialog.h"
+
+1361806762 /home/thomas/meteor-falls/meteor-falls-src/src/Utils/MessageDialog.h
 	"singleton.h"
 	<CEGUI.h>
 

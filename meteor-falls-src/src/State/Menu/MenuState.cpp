@@ -91,10 +91,7 @@ MenuState::MenuState(StateManager* mng):
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
 
-    m_state = m_window_mgr.createWindow("OgreTray/StaticText", "TextState");
-    m_state->setSize(CEGUI::UVector2(CEGUI::UDim(0.10, 0), CEGUI::UDim(0.10, 0)));
-    m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
-    m_state->setProperty("HorzFormatting", "WordWrapCentred");
+    m_state = m_window_mgr.loadWindowLayout("menu_player_widget.layout");
     m_sheet->addChildWindow(m_state);
     m_state->hide();
 
@@ -127,6 +124,7 @@ MenuState::~MenuState()
     delete m_player;
     delete m_state;
     delete m_option_state;
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_state);
 }
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
@@ -216,8 +214,6 @@ ret_code MenuState::work(unsigned int time)
         if (!m_player->getNom().empty())
         {
             m_state->setText(m_player->getNom());
-            m_state->setSize(CEGUI::UVector2(CEGUI::UDim((m_state->getText().size()*0.05), 0), CEGUI::UDim(0.10, 0)));
-            m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
         }
         m_state->show();
         CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
