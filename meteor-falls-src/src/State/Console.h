@@ -3,9 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include <iostream>
-#include "Utils/singleton.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../Utils/singleton.h"
+#include "../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include <CEGUI.h>
 #include <OIS/OIS.h>
 #include "Command/Command.h"
@@ -33,15 +34,15 @@ class Console : public Singleton<Console>, public OIS::KeyListener, public OIS::
     private:
         void m_auto_completion();
         void m_show_old_command(const OIS::KeyEvent &arg);
-        std::string m_pattern;
-        bool m_visible;
         bool m_admin;
-        std::string m_lines;
-        std::vector<std::string> m_old_command;
+        std::list<CEGUI::String> m_old_command;
+		std::list<CEGUI::String> m_iteratorOld;
         size_t m_id;
         std::vector<Command*> m_commands;
+
         CEGUI::Window *m_sheet;
-        CEGUI::Window *m_console;
+        CEGUI::MultiLineEditbox *m_console;
+		CEGUI::Editbox *m_lineCommand;
 };
 
 #endif // CONSOLE_H_INCLUDED
