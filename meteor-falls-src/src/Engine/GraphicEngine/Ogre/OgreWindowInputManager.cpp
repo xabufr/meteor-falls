@@ -75,6 +75,8 @@ bool OgreWindowInputManager::frameStarted(const Ogre::FrameEvent& event)
         o->capture();
 	if(m_injectWindowEvent)
 		CEGUI::System::getSingleton().injectTimePulse(event.timeSinceLastFrame);
+	if(m_injectKeyboard)
+		update(event.timeSinceLastFrame);
     return true;
 }
 OIS::Mouse* OgreWindowInputManager::getMouse()
@@ -204,6 +206,7 @@ bool OgreWindowInputManager::keyPressed(const OIS::KeyEvent& arg)
     {
         CEGUI::System::getSingleton().injectKeyDown(arg.key);
         CEGUI::System::getSingleton().injectChar(arg.text);
+		begin(arg);
     }
     for(OIS::KeyListener *l : m_keyboardListeners)
     {
@@ -217,6 +220,7 @@ bool OgreWindowInputManager::keyReleased(const OIS::KeyEvent& arg)
     if(m_injectKeyboard)
     {
         CEGUI::System::getSingleton().injectKeyUp(arg.key);
+		end(arg);
     }
     for(OIS::KeyListener *l : m_keyboardListeners)
     {
@@ -224,4 +228,12 @@ bool OgreWindowInputManager::keyReleased(const OIS::KeyEvent& arg)
             return false;
     }
     return true;
+}
+void OgreWindowInputManager::repeatKey(OIS::KeyCode code, unsigned int text)
+{
+	if(!m_injectKeyboard)
+		return;
+	CEGUI::System::getSingleton().injectKeyUp(code);
+	CEGUI::System::getSingleton().injectKeyDown(code);
+	CEGUI::System::getSingleton().injectChar(text);
 }
