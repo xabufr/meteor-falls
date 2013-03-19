@@ -42,6 +42,9 @@ class ClientNetworkEngine : public NetworkEngine
 		void sendRpgPosition();
 		void sendRpgModification(bool checkTimer=true);
 
+		bool isWaitingSpawn() const;
+		bool isWaitingSelectTeam() const;
+
     protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
@@ -56,6 +59,9 @@ class ClientNetworkEngine : public NetworkEngine
 		char m_teamId;
 		Clock m_timeSinceLastSync, m_timeSinceLastSyncReq;
 		ClientNetworkEngineState m_state;
+	private:
+		bool m_waitingSpawn;
+		bool m_waitingSelectTeam;
 };
 
 #endif // CLIENTNETWORKENGINE_H

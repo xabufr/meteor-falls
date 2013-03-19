@@ -27,6 +27,7 @@ class Faction
         TypeUnite* getType(UnitId);
 		const ClasseHeroManager& getClassesManager() const;
 		const std::vector<Avatar*> defaultAvatars() const;
+		const std::string& nom() const;
     protected:
     private:
         const std::string m_nom;
