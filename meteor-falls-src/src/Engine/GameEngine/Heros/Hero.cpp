@@ -26,7 +26,7 @@ m_isModified(true)
 		std::string meshName = a->classe()->mesh(j->joueur()->getLevel())->mesh;
 		m_entityBody = mng->createEntity(meshName);
 		m_sceneNode->attachObject(m_entityBody);
-		m_sceneNode->setScale(0.1, 0.1, 0.1);
+		m_sceneNode->setScale(0.02, 0.02, 0.02);
 		Ogre::AnimationState* anim = m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk);
 		anim->setEnabled(true);
 		anim->setLoop(true);

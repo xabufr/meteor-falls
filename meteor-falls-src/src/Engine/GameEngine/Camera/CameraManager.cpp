@@ -10,6 +10,8 @@ CameraManager::CameraManager(Ogre::SceneManager* mng): m_mng(mng)
 	m_cameraContener = nullptr;
 	m_camera = m_mng->createCamera("camera_jeu");
 	m_camera->setNearClipDistance(0.01);
+	m_camera->setUseRenderingDistance(true);
+	m_camera->setRenderingDistance(128);
 	Ogre::RenderWindow *window = OgreContextManager::get()->getOgreApplication()->getWindow();
 	window->addViewport(m_camera, 1);
 }

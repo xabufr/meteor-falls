@@ -17,8 +17,12 @@ using namespace rapidxml;
 
 class WorldObject;
 class GameEngine;
+namespace Forests {
+	class PagedGeometry;
+} // namespace Forest
 class Map
 {
+	class GrassVisitorChecker;
     public:
         Map(Ogre::SceneManager*, GameEngine*);
         virtual ~Map();
@@ -27,7 +31,9 @@ class Map
         void update();
         bool getLoaded();
         float getHeightAt(float x, float z);
+		static Ogre::Real staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map);
         Vector3D getNormalAt(float x, float z);
+		GameEngine* game() const;
 
     private:
         Ogre::SceneManager *m_scene_mgr;
@@ -43,6 +49,7 @@ class Map
         SkyX::SkyX *m_skyx;
         SkyX::BasicController *m_controller;
         Hydrax::Hydrax *m_hydrax;
+		Forests::PagedGeometry *m_pageGrass;
 
 		GameEngine *m_game;
 
@@ -54,5 +61,4 @@ class Map
 		void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
 		void processNodeServer(rapidxml::xml_node<>*);
 };
-
 #endif // MAP_H

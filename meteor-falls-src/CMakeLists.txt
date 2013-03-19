@@ -51,5 +51,6 @@ target_link_libraries(meteor-falls
 		SkyX
 		hydrax
 		tolua++
+		PagedGeometry
 		)
 
