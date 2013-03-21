@@ -30,3 +30,9 @@ void Clock::reset()
 {
 	*m_start = boost::posix_time::microsec_clock::local_time();
 }
+Clock& Clock::operator=(const Clock& o)
+{
+	delete m_start;
+	m_start = new boost::posix_time::ptime(*o.m_start);
+	return *this;
+}
