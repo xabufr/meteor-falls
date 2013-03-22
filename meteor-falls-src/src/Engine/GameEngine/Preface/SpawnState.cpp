@@ -1,5 +1,5 @@
 #include "SpawnState.h"
-#include "../GameEngine.h"
+#include "../ClientGameEngine.h"
 #include "../Joueur/Joueur.h"
 #include "../Factions/Equipe.h"
 #include "../Factions/Faction.h"
@@ -16,7 +16,7 @@
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
 
-SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(game)
+SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m_game(game)
 {
 	CEGUI::WindowManager &windowManager = CEGUI::WindowManager::getSingleton();
 	m_window = windowManager.createWindow("TaharezLook/FrameWindow","spawn_screen");
@@ -121,15 +121,15 @@ bool SpawnState::spawnSelected(const CEGUI::EventArgs& a)
 			return true;
 	m_last_selected_u = (Unite*) m_spawns->getFirstSelectedItem()->getUserData();
 	std::string infos;
-	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().x);
-	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().y);
-	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().z);
+	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->position().x);
+	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->position().y);
+	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->position().z);
 	infos += " id: " + boost::lexical_cast<std::string>(m_last_selected_u->id());
 	m_infosSpawn->setText(infos);
 
 	Ogre::Camera *cam = m_game->cameraManager()->camera();
-	cam->setPosition(m_last_selected_u->getPosition().convert<Ogre::Vector3>()+Ogre::Vector3(1, 100, 1));
-	cam->lookAt(m_last_selected_u->getPosition().convert<Ogre::Vector3>());
+	cam->setPosition(m_last_selected_u->position().convert<Ogre::Vector3>()+Ogre::Vector3(1, 100, 1));
+	cam->lookAt(m_last_selected_u->position());
 
 	return true;
 }

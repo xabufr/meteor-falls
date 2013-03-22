@@ -1,23 +1,8 @@
-#ifndef WORLDOBJECTTYPE_H
-#define WORLDOBJECTTYPE_H
+#ifndef H_WORLD_OBJECT_TYPE_H
+#define H_WORLD_OBJECT_TYPE_H
 
-#include <string>
-#include <OgreQuaternion.h>
-#include "../../../Utils/Vector3D.h"
-
-namespace Ogre
-{ 
-	class Entity; 
-}
-struct WorldObjectType
+class WorldObjectType
 {
-    WorldObjectType(const std::string &mesh);
-    const std::string mesh_name;
-    Ogre::Quaternion quaternion;
-    Vector3D offset;
-    bool follow_normals, static_mesh;
-    float scale;
-    Ogre::Entity *entity;
-};
 
-#endif // WORLDOBJECTTYPE_H
+};
+#endif 

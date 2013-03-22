@@ -11,12 +11,10 @@ CommandConfig::CommandConfig()
 {
     loadConfig();
 }
-
 CommandConfig::~CommandConfig()
 {
 
 }
-
 void CommandConfig::defaultCommandConfig()
 {
     m_map_key[0] = new KeyAction[KeyGlobal::GLOBAL_COUNT];
@@ -187,7 +185,6 @@ void CommandConfig::defaultCommandConfig()
     current.action[1].type = KeyAction::Key::Type::KEYBOARD;
     m_map_key[1][23] = current;
 }
-
 void CommandConfig::loadConfig()
 {
     try
@@ -205,19 +202,19 @@ void CommandConfig::loadConfig()
         for (current = command->first_node("global")->first_node("action");current;current=current->next_sibling("action"))
         {
             nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(0, nb, current);
+            addKey(GLOBAL_KEY, nb, current);
         }
 
         for (current = command->first_node("rpg")->first_node("action");current;current=current->next_sibling("action"))
         {
             nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(1, nb, current);
+            addKey(RPG_KEY, nb, current);
         }
 
         for (current = command->first_node("rts")->first_node("action");current;current=current->next_sibling("action"))
         {
             nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(2, nb, current);
+            addKey(RTS_KEY, nb, current);
         }
     }
     catch(FileNotFound &e)
@@ -225,7 +222,6 @@ void CommandConfig::loadConfig()
         defaultCommandConfig();
     }
 }
-
 void CommandConfig::saveConfig()
 {
     rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("config.cfg");
@@ -335,7 +331,6 @@ void CommandConfig::saveConfig()
     file << *document;
     file.close();
 }
-
 std::string CommandConfig::toString(OIS::MouseButtonID c)
 {
     switch (c)
@@ -400,7 +395,6 @@ bool CommandConfig::eventExist(OIS::MouseButtonID c, OIS::MouseButtonID old, int
 
     return res;
 }
-
 bool CommandConfig::eventExist(OIS::KeyCode c, OIS::KeyCode old, int rang)
 {
     bool res=false;
@@ -434,7 +428,6 @@ bool CommandConfig::eventExist(OIS::KeyCode c, OIS::KeyCode old, int rang)
 
     return res;
 }
-
 bool CommandConfig::eventActif(int rang, int pos)
 {
     OIS::Keyboard *keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
@@ -444,8 +437,6 @@ bool CommandConfig::eventActif(int rang, int pos)
 
     return false;
 }
-
-
 void CommandConfig::addKey(int rang, int pos, rapidxml::xml_node<>* current)
 {
     KeyAction current_key;

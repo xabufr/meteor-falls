@@ -4,7 +4,7 @@
 #include "../../../State/State.h"
 #include <vector>
 
-class GameEngine;
+class ClientGameEngine;
 class Equipe;
 class Joueur;
 namespace CEGUI {
@@ -15,7 +15,7 @@ namespace CEGUI {
 class TeamList : public State
 {
     public:
-        TeamList(StateManager*, GameEngine *);
+        TeamList(StateManager*, ClientGameEngine *);
         ~TeamList();
         virtual bool isVisible();
         virtual void enter();
@@ -28,7 +28,7 @@ class TeamList : public State
 		void setCommandant(Joueur*);
 		void join();
     private:
-        GameEngine *m_game_engine;
+        ClientGameEngine *m_game_engine;
         CEGUI::Window *m_window, *m_commandant;
 		CEGUI::MultiColumnList *m_list_team, *m_list_joueurs;
 		CEGUI::Window *m_btnJoin;

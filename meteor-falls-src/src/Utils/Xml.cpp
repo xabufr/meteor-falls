@@ -6,8 +6,8 @@ namespace XmlUtils
 	{
 		Vector3D position;
 		position.x = getDouble(node->first_attribute((prefixe+"x").c_str()));
-		position.y = getDouble(node->first_attribute((prefixe+"x").c_str()));
-		position.z = getDouble(node->first_attribute((prefixe+"x").c_str()));
+		position.y = getDouble(node->first_attribute((prefixe+"y").c_str()));
+		position.z = getDouble(node->first_attribute((prefixe+"z").c_str()));
 		return position;
 	}
 	Ogre::ColourValue getRGBA(rapidxml::xml_node<>* node)

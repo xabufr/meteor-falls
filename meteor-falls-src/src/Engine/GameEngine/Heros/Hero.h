@@ -5,13 +5,10 @@
 class JoueurRPG;
 class EngineMessage;
 class Avatar;
-namespace Ogre {
-	class Entity;
-} // namespace Ogre
 class Hero: public Unite
 {
 public:
-	Hero(Ogre::SceneManager*, JoueurRPG*, Avatar*, int id);
+	Hero(JoueurRPG*, Avatar*, int id);
 	virtual ~Hero();
 	JoueurRPG* joueur() const;
 	Avatar *avatar() const;
@@ -22,12 +19,10 @@ public:
 	void setDroite(bool);
 	void serializeComportement(EngineMessage*, bool all=true);
 	void deserializeComportement(EngineMessage*, bool all=true);
-	const Ogre::Entity* entity() const;
 	void tournerGaucheDroite(float angle);
 private:
 	JoueurRPG *m_joueur;
 	Avatar *m_avatar;
-	Ogre::Entity *m_entityBody;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
 	bool m_isModified;
 	void m_comportementModifie();

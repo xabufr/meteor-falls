@@ -4,14 +4,14 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/NetworkEngine/clientnetworkengine.h"
 #include "Engine/GameEngine/Factions/Equipe.h"
-#include "../GameEngine.h"
+#include "../ClientGameEngine.h"
 #include "../Interface/Chat.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../EngineMessage/EngineMessage.h"
 #include <string>
 #include <CEGUI.h>
 
-TeamState::TeamState(StateManager* mgr, GameEngine* engine):State(mgr),
+TeamState::TeamState(StateManager* mgr, ClientGameEngine* engine):State(mgr),
 m_visible(true),
 m_game_engine(engine)
 {

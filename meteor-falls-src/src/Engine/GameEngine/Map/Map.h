@@ -1,44 +1,34 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <OgreSceneManager.h>
-#include <OgreCamera.h>
-#include <Hydrax/Hydrax.h>
 #include <string>
-#include <iostream>
-#include "../Camera/CameraLibre.h"
-#include <SkyX/SkyX.h>
 #include <vector>
+#include <list>
 #include "../../../Utils/Vector3D.h"
-#include <Terrain/OgreTerrainGroup.h>
 #include "../../ScriptEngine/XmlDocumentManager.h"
-
-using namespace rapidxml;
 
 class WorldObject;
 class GameEngine;
-namespace Forests {
-	class PagedGeometry;
-} // namespace Forest
+class MapListener;
 class Map
 {
-	class GrassVisitorChecker;
     public:
-        Map(Ogre::SceneManager*, GameEngine*);
+        Map(GameEngine*);
         virtual ~Map();
-        void load(std::string p_name);
-        std::string getName();
+        void load(const std::string& p_name);
+        const std::string& getName() const;
+		void addListener(MapListener*);
+		void delListener(MapListener*);
+
         void update();
-        bool getLoaded();
-        float getHeightAt(float x, float z);
-		static Ogre::Real staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map);
+        bool getLoaded() const;
+        float getHeightAt(float x, float z) const;
         Vector3D getNormalAt(float x, float z);
 		GameEngine* game() const;
+		rapidxml::xml_document<>* getXmlMap() const;
+		std::string mapRootPath() const;
 
     private:
-        Ogre::SceneManager *m_scene_mgr;
-        Ogre::TerrainGlobalOptions *m_globals;
-		Ogre::TerrainGroup *m_terrainGroup;
         bool m_loaded;
         std::string m_name;
         int m_size_x;
@@ -46,19 +36,14 @@ class Map
         bool m_cycle_enable;
         float m_cycle_coef;
         int m_cycle_hour;
-        SkyX::SkyX *m_skyx;
-        SkyX::BasicController *m_controller;
-        Hydrax::Hydrax *m_hydrax;
-		Forests::PagedGeometry *m_pageGrass;
 
 		GameEngine *m_game;
 
         std::vector<WorldObject*> m_worldObjects;
 
-        static Ogre::ColourValue getRGBA(rapidxml::xml_node<>*);
-		static Vector3D getPosition(rapidxml::xml_node<>*, const std::string& = "");
-		static Ogre::Quaternion getRotation(rapidxml::xml_node<>*);
-		void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
+		void processNode(rapidxml::xml_node<>* n);
 		void processNodeServer(rapidxml::xml_node<>*);
+
+		std::list<MapListener*> m_listeners;
 };
 #endif // MAP_H

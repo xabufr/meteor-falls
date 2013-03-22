@@ -6,7 +6,8 @@
 #include "../NetworkEngine/ServerNetworkEngineLan.h"
 #include "../NetworkEngine/ServerNetworkEngineWan.h"
 #include "../GraphicEngine/GraphicEngine.h"
-#include "../GameEngine/GameEngine.h"
+#include "../GameEngine/ServerGameEngine.h"
+#include "../GameEngine/ClientGameEngine.h"
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreApplication.h"
 #include "../EngineMessage/EngineMessage.h"
@@ -74,8 +75,8 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
         m_network = new ServerNetworkEngineLan(this, 8888);
         break;
     }
-    m_game = (t==CLIENT||t==CLIENT_LAN)?new GameEngine(this, GameEngine::Type::CLIENT, j)
-                                      : new GameEngine(this, GameEngine::Type::SERVER);
+    m_game = (t==CLIENT||t==CLIENT_LAN)?(GameEngine*)new ClientGameEngine(this, j)
+                                      : (GameEngine*)new ServerGameEngine(this);
 }
 EngineManager::~EngineManager()
 {

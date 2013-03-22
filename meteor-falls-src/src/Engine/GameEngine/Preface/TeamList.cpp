@@ -5,10 +5,10 @@
 #include <boost/lexical_cast.hpp>
 #include "../../NetworkEngine/clientnetworkengine.h"
 #include "../../EngineManager/EngineManager.h"
-#include "../GameEngine.h"
+#include "../ClientGameEngine.h"
 #include <CEGUI.h>
 
-TeamList::TeamList(StateManager* mgr, GameEngine* engine) : State(mgr),
+TeamList::TeamList(StateManager* mgr, ClientGameEngine* engine) : State(mgr),
 m_visible(true),
 m_game_engine(engine),
 m_isSelectingTeam(false)
@@ -57,7 +57,7 @@ ret_code TeamList::work(unsigned int time)
 		{
 			if(m_equipe == m_game_engine->getCurrentJoueur()->equipe())
 			{
-				m_game_engine->setSousStateType(GameEngine::TypeState::TEAM_STATE);
+				m_game_engine->setSousStateType(ClientGameEngine::TypeState::TEAM_STATE);
 			}
 		}
 		for(Joueur *j : m_equipe->joueurs())
@@ -112,7 +112,7 @@ void TeamList::addPlayer(Joueur *j)
 {
 	for(Joueur *jj : m_joueurs)
 	{
-		if(jj=j)
+		if(jj==j)
 			return;
 	}
 	m_joueurs.push_back(j);
@@ -157,4 +157,5 @@ void TeamList::join()
 bool TeamList::m_join(const CEGUI::EventArgs&)
 {
 	join();
+	return true;
 }

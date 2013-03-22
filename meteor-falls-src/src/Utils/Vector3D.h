@@ -18,15 +18,15 @@ public:
     {}
     template<class T>
     Vector3D(const T &vec): x(vec.x), y(vec.y), z(vec.z) {}
-	operator sf::Vector3f()
+	operator sf::Vector3f() const
 	{
 		return convert<sf::Vector3f>();
 	}
-	operator Ogre::Vector3()
+	operator Ogre::Vector3() const
 	{
 		return convert<Ogre::Vector3>();
 	}
-	operator btVector3()
+	operator btVector3() const
 	{
 		return convert<btVector3>();
 	}

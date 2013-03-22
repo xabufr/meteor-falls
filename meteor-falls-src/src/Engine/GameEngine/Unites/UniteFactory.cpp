@@ -11,7 +11,7 @@ UniteFactory::UniteFactory(Equipe* e): m_equipe(e)
 UniteFactory::~UniteFactory()
 {
 }
-Unite* UniteFactory::create(Ogre::SceneManager* scene, UnitId idType, UnitId id)
+Unite* UniteFactory::create(UnitId idType, UnitId id)
 {
 	if(id==0)
 		id = getNextId();
@@ -25,7 +25,7 @@ Unite* UniteFactory::create(Ogre::SceneManager* scene, UnitId idType, UnitId id)
     {
     case TypeUnite::BATIMENT:
 		{
-			Batiment *bat = new Batiment(scene, m_equipe, type, id);
+			Batiment *bat = new Batiment(m_equipe, type, id);
 			unit          = static_cast<Unite*>(bat);
 		}
         break;

@@ -12,7 +12,7 @@ class UniteFactory
     public:
         UniteFactory(Equipe*);
         virtual ~UniteFactory();
-        Unite* create(Ogre::SceneManager*, UnitId idType, UnitId id=0);
+        Unite* create(UnitId idType, UnitId id=0);
 		int getNextId();
 
     protected:
