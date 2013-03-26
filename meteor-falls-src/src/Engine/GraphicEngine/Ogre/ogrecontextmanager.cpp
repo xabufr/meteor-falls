@@ -33,7 +33,6 @@ OgreContextManager* OgreContextManager::get()
 {
     return Singleton<OgreContextManager>::get();
 }
-
 void OgreContextManager::reinitialise()
 {
     Ogre::WindowEventUtilities::removeWindowEventListener(m_application->getWindow(), m_inputManager);

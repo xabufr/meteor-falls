@@ -51,7 +51,7 @@ void StateManager::startLoop()
 
         if(m_graphic&&!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
             exit();
-		if(time < 1000.f/100.f)
+		else if(!m_graphic&&time < 1000.f/100.f)
 		{
 			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - time));
 		}
@@ -65,4 +65,8 @@ void StateManager::exit()
 void StateManager::removeState()
 {
     m_states.pop();
+}
+State* StateManager::current() const
+{
+	return m_states.top();
 }

@@ -24,6 +24,7 @@
 
 build/Debug/*
 build/Release/*
+build/meteor-falls
 obj/*
 *bin/*
 meteor-falls-src/meteor-falls-src.layout

@@ -36,6 +36,7 @@ target_link_libraries(meteor-falls
 		sfml-audio
 		sfml-system
 		CEGUIBase
+		CEGUILuaScriptModule
 		CEGUIOgreRenderer
 		boost_system
 		boost_serialization
@@ -49,5 +50,7 @@ target_link_libraries(meteor-falls
 		crypto
 		SkyX
 		hydrax
+		tolua++
+		PagedGeometry
 		)
 

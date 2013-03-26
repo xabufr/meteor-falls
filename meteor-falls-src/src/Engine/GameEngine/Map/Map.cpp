@@ -7,7 +7,6 @@
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
 #include <Terrain/OgreTerrainMaterialGeneratorA.h>
-
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
 #include <fstream>
@@ -33,15 +32,19 @@
 #include "../../../Utils/Configuration/Config.h"
 #include "../../../Utils/Exception/FileNotFound.h"
 
+#include <PagedGeometry/PagedGeometry.h>
+#include <PagedGeometry/GrassLoader.h>
+
 using namespace rapidxml;
 
 Map::Map(Ogre::SceneManager *p_scene_mgr, GameEngine *game, btDynamicsWorld* world): m_game(game), m_world(world)
 {
-    m_scene_mgr = p_scene_mgr;
-    m_loaded = false;
+	m_scene_mgr = p_scene_mgr;
+	m_loaded = false;
 
 	m_hydrax = nullptr;
 	m_skyx   = nullptr;
+	m_pageGrass = nullptr;
 }
 Map::~Map()
 {
@@ -55,16 +58,25 @@ Map::~Map()
 		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
 		delete m_skyx;
 	}
+	if(m_pageGrass)
+		delete m_pageGrass;
 }
 void Map::load(std::string p_name)
 {
-    m_loaded = true;
+	m_loaded = true;
 	bool server = m_game->getTypeServerClient() == GameEngine::SERVER;
-    m_name = p_name;
-    rapidxml::xml_document<> *map_params = XmlDocumentManager::get()->getDocument("data/maps/" + p_name + "/" + p_name + ".scene");
-    rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
+	m_name = p_name;
+	rapidxml::xml_document<> *map_params = XmlDocumentManager::get()->getDocument("data/maps/" + p_name + "/" + p_name + ".scene");
+	rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
 	if(!server)
 	{
+		m_pageGrass = new Forests::PagedGeometry(m_game->cameraManager()->camera(), 50);
+		m_pageGrass->addDetailLevel<Forests::GrassPage>(100);
+		Forests::GrassLoader* grassLoader = new Forests::GrassLoader(m_pageGrass);
+		m_pageGrass->setPageLoader(grassLoader);
+		grassLoader->setHeightFunction(&Map::staticGetHeightAt, this);
+		m_pageGrass->setVisible(true);
+
 		rapidxml::xml_node<>* resources = rootNode->first_node("resourceLocations");
 		if(resources)
 		{
@@ -76,33 +88,32 @@ void Map::load(std::string p_name)
 				locationsVec.push_back(std::make_pair<std::string, std::string>(std::string(path), std::string(resource->first_attribute("type")->value())));
 			}
 			OgreContextManager::get()->getOgreApplication()->AddResourceLocation(locationsVec);
-			OgreContextManager::get()->getOgreApplication()->getRoot()->addResourceLocation("data/maps/"+p_name+"/"+"Hydrax/", "FileSystem", "Hydrax");
 			Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 		}
 		rapidxml::xml_node<>* environment = rootNode->first_node("environment");
-	    if(environment)
-	    {
-	        if(environment->first_node("colourAmbient"))
-	        {
-	            m_scene_mgr->setAmbientLight(getRGBA(environment->first_node("colourAmbient")));
-	        }
-	        if(environment->first_node("fog"))
-	        {
-	            rapidxml::xml_node<>* fog = environment->first_node("fog");
-	            Ogre::FogMode fogm;
-	            std::string fogstr(fog->first_attribute("mode")->value());
-	            if(fogstr=="none")
-	                fogm = Ogre::FogMode::FOG_NONE;
-	            else
-	                fogm = Ogre::FogMode::FOG_LINEAR;
-	            float start, end, density;
-	            start = boost::lexical_cast<float>(fog->first_attribute("start")->value());
-	            end = boost::lexical_cast<float>(fog->first_attribute("end")->value());
-	            density = boost::lexical_cast<float>(fog->first_attribute("density")->value());
-	            Ogre::ColourValue color;
-	            color = getRGBA(fog->first_node("colour"));
-	            m_scene_mgr->setFog(fogm, color, density, start, end);
-	        }
+		if(environment)
+		{
+			if(environment->first_node("colourAmbient"))
+			{
+				m_scene_mgr->setAmbientLight(getRGBA(environment->first_node("colourAmbient")));
+			}
+			if(environment->first_node("fog"))
+			{
+				rapidxml::xml_node<>* fog = environment->first_node("fog");
+				Ogre::FogMode fogm;
+				std::string fogstr(fog->first_attribute("mode")->value());
+				if(fogstr=="none")
+					fogm = Ogre::FogMode::FOG_NONE;
+				else
+					fogm = Ogre::FogMode::FOG_LINEAR;
+				float start, end, density;
+				start = boost::lexical_cast<float>(fog->first_attribute("start")->value());
+				end = boost::lexical_cast<float>(fog->first_attribute("end")->value());
+				density = boost::lexical_cast<float>(fog->first_attribute("density")->value());
+				Ogre::ColourValue color;
+				color = getRGBA(fog->first_node("colour"));
+				m_scene_mgr->setFog(fogm, color, density, start, end);
+			}
 			if(environment->first_node("camera"))
 			{
 				rapidxml::xml_node<>* camera = environment->first_node("camera");
@@ -111,10 +122,10 @@ void Map::load(std::string p_name)
 				m_game->cameraManager()->camera()->setPosition(pos.convert<Ogre::Vector3>());
 				m_game->cameraManager()->camera()->lookAt(0,0,0);
 			}
-	    }
+		}
 		rapidxml::xml_node<>* terrain = rootNode->first_node("terrain");
-	    if(terrain)
-	    {
+		if(terrain)
+		{
 			float worldSize, mapSize, compositeDistance;
 			int maxPixelError, maxBatch, minBatch;
 			worldSize = boost::lexical_cast<float>(terrain->first_attribute("worldSize")->value());
@@ -125,7 +136,6 @@ void Map::load(std::string p_name)
 			compositeDistance = boost::lexical_cast<int>(terrain->first_attribute("tuningCompositeMapDistance")->value());
 
 			rapidxml::xml_node<>* nodePages = terrain->first_node("terrainPages");
-			rapidxml::xml_node<>* nodePage;
 
 			m_globals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
@@ -203,6 +213,90 @@ void Map::load(std::string p_name)
                 }
             }
 	    }
+=======
+			std::list<rapidxml::xml_node<>*> nodesGrass;
+			for(rapidxml::xml_node<>* nodePage=nodePages->first_node("terrainPage");
+					nodePage;nodePage=nodePage->next_sibling("terrainPage"))
+			{
+				std::string fileName = nodePage->first_attribute("name")->value();
+				int px,py;
+				px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
+				py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
+				m_terrainGroup->defineTerrain(px,py,fileName);
+				rapidxml::xml_node<>* grassLayers = nodePage->first_node("grassLayers");
+				if(grassLayers)
+				{
+					nodesGrass.push_back(nodePage);
+				}
+			}
+			m_terrainGroup->loadAllTerrains(true);
+			for(rapidxml::xml_node<>* nodePage : nodesGrass)
+			{
+				rapidxml::xml_node<>* grassLayers = nodePage->first_node("grassLayers");
+				std::string densityMapName = grassLayers->first_attribute("densityMap")->value();
+
+				int px,py;
+				px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
+				py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
+
+
+				rapidxml::xml_node<>* grassLayerNode;
+				for(grassLayerNode=grassLayers->first_node("grassLayer");grassLayerNode;
+						grassLayerNode=grassLayerNode->next_sibling("grassLayer")) 
+				{
+					float top = boost::lexical_cast<float>(
+							grassLayerNode->first_node("mapBounds")->first_attribute("top")->value());
+					float bottom = boost::lexical_cast<float>(
+							grassLayerNode->first_node("mapBounds")->first_attribute("bottom")->value());
+					float left = boost::lexical_cast<float>(
+							grassLayerNode->first_node("mapBounds")->first_attribute("left")->value());
+					float right = boost::lexical_cast<float>(
+							grassLayerNode->first_node("mapBounds")->first_attribute("right")->value());
+					std::string material = grassLayerNode->first_attribute("material")->value();
+					Forests::GrassLayer* layer = grassLoader->addLayer(material);
+					layer->setMapBounds(Forests::TBounds(left, top, right, bottom));
+					layer->setDensity(boost::lexical_cast<float>(
+								grassLayerNode->first_node("densityMapProps")->first_attribute("density")->value()));
+					layer->setMaxSlope(boost::lexical_cast<float>(
+								grassLayerNode->first_attribute("maxSlope")->value()));
+					layer->setRenderTechnique(Forests::GrassTechnique::GRASSTECH_CROSSQUADS);
+					layer->setMinimumSize(
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("grassSizes")->first_attribute("minWidth")->value()),
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("grassSizes")->first_attribute("minHeight")->value())
+							);
+					layer->setMaximumSize(
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("grassSizes")->first_attribute("maxWidth")->value()),
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("grassSizes")->first_attribute("maxHeight")->value())
+							);
+					layer->setFadeTechnique(Forests::FADETECH_GROW);
+					layer->setAnimationEnabled(true);
+					layer->setSwayLength(
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("animation")->first_attribute("swayLength")->value()));
+					layer->setSwaySpeed(
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("animation")->first_attribute("swaySpeed")->value()));
+					layer->setSwayDistribution(
+							boost::lexical_cast<float>(
+								grassLayerNode->first_node("animation")->first_attribute("swayDistribution")->value()));
+
+					std::string sChannel=grassLayerNode->first_node("densityMapProps")->first_attribute("channel")->value();
+					Forests::MapChannel channel;
+					if(sChannel=="RED")
+						channel = Forests::MapChannel::CHANNEL_RED;
+					else if(sChannel=="GREEN") 
+						channel = Forests::MapChannel::CHANNEL_GREEN;
+					else if(sChannel=="BLUE") 
+						channel = Forests::MapChannel::CHANNEL_BLUE;
+					layer->setDensityMap(densityMapName, channel);
+				}
+			}
+			//Chargement de l'herbe
+		}
 		rapidxml::xml_node<>* hydraxNode = rootNode->first_node("hydrax");
 		if(hydraxNode)
 		{
@@ -212,8 +306,8 @@ void Map::load(std::string p_name)
 				std::string path = hydraxNode->first_attribute("configFile")->value();
 				m_hydrax = new Hydrax::Hydrax(m_scene_mgr, m_game->cameraManager()->camera(), m_game->cameraManager()->camera()->getViewport());
 				Hydrax::Module::ProjectedGrid *module = new Hydrax::Module::ProjectedGrid(m_hydrax, new Hydrax::Noise::Perlin(),
-								Ogre::Plane(Ogre::Vector3(0,1,0), Ogre::Vector3(0,0,0)),
-								Hydrax::MaterialManager::NM_VERTEX, Hydrax::Module::ProjectedGrid::Options());
+						Ogre::Plane(Ogre::Vector3(0,1,0), Ogre::Vector3(0,0,0)),
+						Hydrax::MaterialManager::NM_VERTEX, Hydrax::Module::ProjectedGrid::Options());
 				m_hydrax->setModule(static_cast<Hydrax::Module::Module*>(module));
 				m_hydrax->loadCfg(path);
 				m_hydrax->create();
@@ -325,32 +419,33 @@ void Map::load(std::string p_name)
 }
 std::string Map::getName()
 {
-    return m_name;
+	return m_name;
 }
 void Map::update()
 {
 	if(m_game->getTypeServerClient() == GameEngine::SERVER)
 		return;
 
-    OIS::Mouse* mouse;
-    mouse = OgreContextManager::get()->getInputManager()->getMouse();
-    OIS::Keyboard* keyboard;
-    keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
-    Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
-    CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
+	OIS::Mouse* mouse;
+	mouse = OgreContextManager::get()->getInputManager()->getMouse();
+	OIS::Keyboard* keyboard;
+	keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
+	Ogre::RenderWindow* window = OgreContextManager::get()->getOgreApplication()->getWindow();
+	CEGUI::Point mouse_pos = CEGUI::MouseCursor::getSingleton().getPosition();
+	//    light->setDirection(-m_controller->getSunDirection());
+	if(m_pageGrass)
+		m_pageGrass->update();
 
-//    light->setDirection(-m_controller->getSunDirection());
 
-
-    /* ############### Test Mouvement Heros ############## */
-    if(m_cycle_coef<=0.0001)
-    {
-        //m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
-    }
+	/* ############### Test Mouvement Heros ############## */
+	if(m_cycle_coef<=0.0001)
+	{
+		//m_controller->setTime(Ogre::Vector3(m_cycle_hour/100.f,6,22));
+	}
 }
 bool Map::getLoaded()
 {
-    return m_loaded;
+	return m_loaded;
 }
 float Map::getHeightAt(float x, float z)
 {
@@ -358,35 +453,35 @@ float Map::getHeightAt(float x, float z)
 }
 Vector3D Map::getNormalAt(float x, float z)
 {
-    //On prend un triangle très proche
-    Vector3D pts[3];
+	//On prend un triangle très proche
+	Vector3D pts[3];
 
-    for(int i=0; i<3; ++i)
-    {
-        pts[i].x = x;
-        pts[i].z = z;
-    }
-    pts[0].x-=0.1;
-    pts[2].z-=0.1;
-    for(int i=0; i<3; ++i)
-    {
-        pts[i].y = getHeightAt(pts[i].x, pts[i].z);
-    }
-    // 2 vecteurs du triangle
-    Vector3D vec[2];
-    vec[0] = pts[1]-pts[0];
-    vec[1] = pts[1]-pts[2];
+	for(int i=0; i<3; ++i)
+	{
+		pts[i].x = x;
+		pts[i].z = z;
+	}
+	pts[0].x-=0.1;
+	pts[2].z-=0.1;
+	for(int i=0; i<3; ++i)
+	{
+		pts[i].y = getHeightAt(pts[i].x, pts[i].z);
+	}
+	// 2 vecteurs du triangle
+	Vector3D vec[2];
+	vec[0] = pts[1]-pts[0];
+	vec[1] = pts[1]-pts[2];
 
-    return Vector3D::produit_vectoriel(vec[0],vec[1]);
+	return Vector3D::produit_vectoriel(vec[0],vec[1]);
 }
 Ogre::ColourValue Map::getRGBA(rapidxml::xml_node<>* color)
 {
-    Ogre::ColourValue c;
-    c.r = boost::lexical_cast<float>(color->first_attribute("r")->value());
-    c.g = boost::lexical_cast<float>(color->first_attribute("g")->value());
-    c.b = boost::lexical_cast<float>(color->first_attribute("b")->value());
-    c.a = boost::lexical_cast<float>(color->first_attribute("a")->value());
-    return c;
+	Ogre::ColourValue c;
+	c.r = boost::lexical_cast<float>(color->first_attribute("r")->value());
+	c.g = boost::lexical_cast<float>(color->first_attribute("g")->value());
+	c.b = boost::lexical_cast<float>(color->first_attribute("b")->value());
+	c.a = boost::lexical_cast<float>(color->first_attribute("a")->value());
+	return c;
 }
 Vector3D Map::getPosition(rapidxml::xml_node<>* n, const std::string& prefix)
 {
@@ -471,4 +566,12 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 			nodes=nodes->next_sibling("node");
 		}
 	}
+}
+GameEngine* Map::game() const
+{
+	return m_game;
+}
+Ogre::Real Map::staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map)
+{
+	return static_cast<Map*>(map)->getHeightAt(x,z);
 }

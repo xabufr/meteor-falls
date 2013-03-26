@@ -21,7 +21,7 @@ void CameraRPG::setCamera(Ogre::Camera* c)
 	Camera::setCamera(c);
 	c->setPosition(0,0,0);
 	m_sceneNode->attachObject(m_camera);
-	m_camera->setAutoTracking(true, m_hero->getNode(), Ogre::Vector3(0, 10, 0)); 
+	m_camera->setAutoTracking(true, m_hero->getNode(), Ogre::Vector3(0, 0, 0)); 
 }
 void CameraRPG::update(int)
 {

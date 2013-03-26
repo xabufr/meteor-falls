@@ -6,12 +6,14 @@
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreFrameListener.h>
+#include "RepeatKey.h"
 
 class OgreWindowInputManager :
     public Ogre::WindowEventListener,
     public Ogre::FrameListener,
     public OIS::MouseListener,
-    public OIS::KeyListener
+    public OIS::KeyListener,
+	public RepeatKey
 {
     public:
         OgreWindowInputManager(Ogre::RenderWindow *window);
@@ -45,6 +47,8 @@ class OgreWindowInputManager :
 
 		virtual bool keyPressed(const OIS::KeyEvent &arg);
 		virtual bool keyReleased(const OIS::KeyEvent &arg);
+	protected:
+		virtual void repeatKey(OIS::KeyCode code, unsigned int text);
 
     private:
         void m_initOIS();

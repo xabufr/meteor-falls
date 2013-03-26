@@ -98,6 +98,7 @@ ret_code LoginState::work(unsigned int time)
 			m_sousState->exit();
 			delete m_sousState;
 			m_sousState=nullptr;
+			m_sheet->setVisible(true);
 		}
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;

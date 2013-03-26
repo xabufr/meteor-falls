@@ -293,3 +293,7 @@ const std::vector<Avatar*> Faction::defaultAvatars() const
 {
 	return m_avatarDefault;
 }
+const std::string& Faction::nom() const
+{
+	return m_nom;
+}

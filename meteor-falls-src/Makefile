@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/meteor-falls/meteor-falls-src
+CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src
+CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/CMakeFiles /home/thomas/meteor-falls/meteor-falls-src/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/meteor-falls-src/CMakeFiles /home/zequiel/software/c++/meteor-falls/meteor-falls-src/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/meteor-falls-src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -114,77 +114,77 @@ meteor-falls/fast:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/build
 .PHONY : meteor-falls/fast
 
-home/thomas/meteor-falls/GlobalServer/src/Admin.o: home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.o: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.o
 
 # target to build an object file
-home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.o
 
-home/thomas/meteor-falls/GlobalServer/src/Admin.i: home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.i: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.i
 
 # target to preprocess a source file
-home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.i
 
-home/thomas/meteor-falls/GlobalServer/src/Admin.s: home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.s: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.s
 
 # target to generate assembly for a file
-home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Admin.cpp.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.cpp.s
 
-home/thomas/meteor-falls/GlobalServer/src/Player.o: home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.o: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.o
 
 # target to build an object file
-home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.cpp.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.o
 
-home/thomas/meteor-falls/GlobalServer/src/Player.i: home/thomas/meteor-falls/GlobalServer/src/Player.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.i: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.i
 
 # target to preprocess a source file
-home/thomas/meteor-falls/GlobalServer/src/Player.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.cpp.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.i
 
-home/thomas/meteor-falls/GlobalServer/src/Player.s: home/thomas/meteor-falls/GlobalServer/src/Player.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.s: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.s
 
 # target to generate assembly for a file
-home/thomas/meteor-falls/GlobalServer/src/Player.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Player.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Player.cpp.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.cpp.s
 
-home/thomas/meteor-falls/GlobalServer/src/Server.o: home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.o: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.o
 
 # target to build an object file
-home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.cpp.o
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.o
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.o
 
-home/thomas/meteor-falls/GlobalServer/src/Server.i: home/thomas/meteor-falls/GlobalServer/src/Server.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.i: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.i
 
 # target to preprocess a source file
-home/thomas/meteor-falls/GlobalServer/src/Server.cpp.i:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.i
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.cpp.i
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.i
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.i
 
-home/thomas/meteor-falls/GlobalServer/src/Server.s: home/thomas/meteor-falls/GlobalServer/src/Server.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.s: home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.s
 
 # target to generate assembly for a file
-home/thomas/meteor-falls/GlobalServer/src/Server.cpp.s:
-	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/thomas/meteor-falls/GlobalServer/src/Server.cpp.s
-.PHONY : home/thomas/meteor-falls/GlobalServer/src/Server.cpp.s
+home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.s
+.PHONY : home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.cpp.s
 
 src/Application/application.o: src/Application/application.cpp.o
 .PHONY : src/Application/application.o
@@ -1458,6 +1458,30 @@ src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.s
 .PHONY : src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.cpp.s
 
+src/Engine/GraphicEngine/Ogre/RepeatKey.o: src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.o
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.o
+
+# target to build an object file
+src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.o
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.o
+
+src/Engine/GraphicEngine/Ogre/RepeatKey.i: src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.i
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.i
+
+# target to preprocess a source file
+src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.i
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.i
+
+src/Engine/GraphicEngine/Ogre/RepeatKey.s: src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.s
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.s
+
+# target to generate assembly for a file
+src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.s
+.PHONY : src/Engine/GraphicEngine/Ogre/RepeatKey.cpp.s
+
 src/Engine/GraphicEngine/Ogre/ogrecontextmanager.o: src/Engine/GraphicEngine/Ogre/ogrecontextmanager.cpp.o
 .PHONY : src/Engine/GraphicEngine/Ogre/ogrecontextmanager.o
 
@@ -1818,6 +1842,30 @@ src/Engine/PhysicalEngine/PhysicalEngine.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/PhysicalEngine.cpp.s
 .PHONY : src/Engine/PhysicalEngine/PhysicalEngine.cpp.s
 
+src/Engine/ScriptEngine/LuaScript.o: src/Engine/ScriptEngine/LuaScript.cpp.o
+.PHONY : src/Engine/ScriptEngine/LuaScript.o
+
+# target to build an object file
+src/Engine/ScriptEngine/LuaScript.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.o
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.o
+
+src/Engine/ScriptEngine/LuaScript.i: src/Engine/ScriptEngine/LuaScript.cpp.i
+.PHONY : src/Engine/ScriptEngine/LuaScript.i
+
+# target to preprocess a source file
+src/Engine/ScriptEngine/LuaScript.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.i
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.i
+
+src/Engine/ScriptEngine/LuaScript.s: src/Engine/ScriptEngine/LuaScript.cpp.s
+.PHONY : src/Engine/ScriptEngine/LuaScript.s
+
+# target to generate assembly for a file
+src/Engine/ScriptEngine/LuaScript.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.s
+.PHONY : src/Engine/ScriptEngine/LuaScript.cpp.s
+
 src/Engine/ScriptEngine/ScriptEngine.o: src/Engine/ScriptEngine/ScriptEngine.cpp.o
 .PHONY : src/Engine/ScriptEngine/ScriptEngine.o
 
@@ -1961,6 +2009,30 @@ src/Engine/SoundEngine/soundbuffermanager.s: src/Engine/SoundEngine/soundbufferm
 src/Engine/SoundEngine/soundbuffermanager.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/SoundEngine/soundbuffermanager.cpp.s
 .PHONY : src/Engine/SoundEngine/soundbuffermanager.cpp.s
+
+src/Lua/LuaInterface.o: src/Lua/LuaInterface.cpp.o
+.PHONY : src/Lua/LuaInterface.o
+
+# target to build an object file
+src/Lua/LuaInterface.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.o
+.PHONY : src/Lua/LuaInterface.cpp.o
+
+src/Lua/LuaInterface.i: src/Lua/LuaInterface.cpp.i
+.PHONY : src/Lua/LuaInterface.i
+
+# target to preprocess a source file
+src/Lua/LuaInterface.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.i
+.PHONY : src/Lua/LuaInterface.cpp.i
+
+src/Lua/LuaInterface.s: src/Lua/LuaInterface.cpp.s
+.PHONY : src/Lua/LuaInterface.s
+
+# target to generate assembly for a file
+src/Lua/LuaInterface.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Lua/LuaInterface.cpp.s
+.PHONY : src/Lua/LuaInterface.cpp.s
 
 src/State/Command/Command.o: src/State/Command/Command.cpp.o
 .PHONY : src/State/Command/Command.o
@@ -2682,6 +2754,30 @@ src/Utils/MessageDialog.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/MessageDialog.cpp.s
 .PHONY : src/Utils/MessageDialog.cpp.s
 
+src/Utils/Physique/ChargeBinaryMap.o: src/Utils/Physique/ChargeBinaryMap.cpp.o
+.PHONY : src/Utils/Physique/ChargeBinaryMap.o
+
+# target to build an object file
+src/Utils/Physique/ChargeBinaryMap.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/ChargeBinaryMap.cpp.o
+.PHONY : src/Utils/Physique/ChargeBinaryMap.cpp.o
+
+src/Utils/Physique/ChargeBinaryMap.i: src/Utils/Physique/ChargeBinaryMap.cpp.i
+.PHONY : src/Utils/Physique/ChargeBinaryMap.i
+
+# target to preprocess a source file
+src/Utils/Physique/ChargeBinaryMap.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/ChargeBinaryMap.cpp.i
+.PHONY : src/Utils/Physique/ChargeBinaryMap.cpp.i
+
+src/Utils/Physique/ChargeBinaryMap.s: src/Utils/Physique/ChargeBinaryMap.cpp.s
+.PHONY : src/Utils/Physique/ChargeBinaryMap.s
+
+# target to generate assembly for a file
+src/Utils/Physique/ChargeBinaryMap.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/ChargeBinaryMap.cpp.s
+.PHONY : src/Utils/Physique/ChargeBinaryMap.cpp.s
+
 src/Utils/Random.o: src/Utils/Random.cpp.o
 .PHONY : src/Utils/Random.o
 
@@ -2739,15 +2835,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... meteor-falls"
 	@echo "... rebuild_cache"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Admin.o"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Admin.i"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Admin.s"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Player.o"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Player.i"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Player.s"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Server.o"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Server.i"
-	@echo "... home/thomas/meteor-falls/GlobalServer/src/Server.s"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.o"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.i"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Admin.s"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.o"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.i"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Player.s"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.o"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.i"
+	@echo "... home/zequiel/software/c++/meteor-falls/GlobalServer/src/Server.s"
 	@echo "... src/Application/application.o"
 	@echo "... src/Application/application.i"
 	@echo "... src/Application/application.s"
@@ -2907,6 +3003,9 @@ help:
 	@echo "... src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.o"
 	@echo "... src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.i"
 	@echo "... src/Engine/GraphicEngine/Ogre/OgreWindowInputManager.s"
+	@echo "... src/Engine/GraphicEngine/Ogre/RepeatKey.o"
+	@echo "... src/Engine/GraphicEngine/Ogre/RepeatKey.i"
+	@echo "... src/Engine/GraphicEngine/Ogre/RepeatKey.s"
 	@echo "... src/Engine/GraphicEngine/Ogre/ogrecontextmanager.o"
 	@echo "... src/Engine/GraphicEngine/Ogre/ogrecontextmanager.i"
 	@echo "... src/Engine/GraphicEngine/Ogre/ogrecontextmanager.s"
@@ -2952,6 +3051,9 @@ help:
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.o"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.i"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.s"
+	@echo "... src/Engine/ScriptEngine/LuaScript.o"
+	@echo "... src/Engine/ScriptEngine/LuaScript.i"
+	@echo "... src/Engine/ScriptEngine/LuaScript.s"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.o"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.i"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.s"
@@ -2970,6 +3072,9 @@ help:
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.o"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.i"
 	@echo "... src/Engine/SoundEngine/soundbuffermanager.s"
+	@echo "... src/Lua/LuaInterface.o"
+	@echo "... src/Lua/LuaInterface.i"
+	@echo "... src/Lua/LuaInterface.s"
 	@echo "... src/State/Command/Command.o"
 	@echo "... src/State/Command/Command.i"
 	@echo "... src/State/Command/Command.s"
@@ -3060,6 +3165,9 @@ help:
 	@echo "... src/Utils/MessageDialog.o"
 	@echo "... src/Utils/MessageDialog.i"
 	@echo "... src/Utils/MessageDialog.s"
+	@echo "... src/Utils/Physique/ChargeBinaryMap.o"
+	@echo "... src/Utils/Physique/ChargeBinaryMap.i"
+	@echo "... src/Utils/Physique/ChargeBinaryMap.s"
 	@echo "... src/Utils/Random.o"
 	@echo "... src/Utils/Random.i"
 	@echo "... src/Utils/Random.s"

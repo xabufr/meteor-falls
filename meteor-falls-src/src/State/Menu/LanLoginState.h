@@ -2,6 +2,7 @@
 #define _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_STATE_MENU_LANLOGINSTATE_HPP__
 
 #include "../State.h"
+#include <string>
 
 class StateManager;
 class LoginState;
@@ -26,6 +27,7 @@ private:
 	std::vector<JoueurLan*> m_profiles;
 	JoueurLan* m_lastSelected;
 	CEGUI::Window *m_btn_utiliser, *m_btn_supp;
+	bool m_continue;
 
 	bool profilesSelectionChanged(const CEGUI::EventArgs&);
 	bool createNewProfile(const CEGUI::EventArgs&);
@@ -34,6 +36,8 @@ private:
 	void updateProfileList();
 	void loadProfilesList();
 	bool useProfile(const CEGUI::EventArgs&);
+	bool profileExists(const std::string&);
+	bool retour(const CEGUI::EventArgs&);
 };
 
 #endif 

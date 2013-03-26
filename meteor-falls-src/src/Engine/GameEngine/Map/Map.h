@@ -21,8 +21,12 @@ using namespace rapidxml;
 
 class WorldObject;
 class GameEngine;
+namespace Forests {
+	class PagedGeometry;
+} // namespace Forest
 class Map
 {
+	class GrassVisitorChecker;
     public:
         Map(Ogre::SceneManager*, GameEngine*, btDynamicsWorld*);
         virtual ~Map();
@@ -31,14 +35,14 @@ class Map
         void update();
         bool getLoaded();
         float getHeightAt(float x, float z);
+		static Ogre::Real staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map);
         Vector3D getNormalAt(float x, float z);
-        std::list<btCollisionShape*>& getShape();
-        std::list<btRigidBody*>& getBody();
+	GameEngine* game() const;
 
     private:
         Ogre::SceneManager *m_scene_mgr;
         Ogre::TerrainGlobalOptions *m_globals;
-		Ogre::TerrainGroup *m_terrainGroup;
+	Ogre::TerrainGroup *m_terrainGroup;
         bool m_loaded;
         std::string m_name;
         bool m_cycle_enable;
@@ -47,8 +51,9 @@ class Map
         SkyX::SkyX *m_skyx;
         SkyX::BasicController *m_controller;
         Hydrax::Hydrax *m_hydrax;
+	Forests::PagedGeometry *m_pageGrass;
 
-		GameEngine *m_game;
+	GameEngine *m_game;
 
         std::vector<WorldObject*> m_worldObjects;
 
@@ -60,5 +65,4 @@ class Map
 
 		btDynamicsWorld* m_world;
 };
-
 #endif // MAP_H
