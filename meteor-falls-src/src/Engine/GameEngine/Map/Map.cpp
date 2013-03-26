@@ -35,7 +35,7 @@
 
 using namespace rapidxml;
 
-Map::Map(Ogre::SceneManager *p_scene_mgr, GameEngine *game): m_game(game)
+Map::Map(Ogre::SceneManager *p_scene_mgr, GameEngine *game, btDynamicsWorld* world): m_game(game), m_world(world)
 {
     m_scene_mgr = p_scene_mgr;
     m_loaded = false;
@@ -55,11 +55,6 @@ Map::~Map()
 		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
 		delete m_skyx;
 	}
-	for (auto it=m_shape.begin(); it!=m_shape.end(); ++it)
-        delete (*it);
-
-    for (auto it=m_body.begin(); it!=m_body.end(); ++it)
-        delete (*it);
 }
 void Map::load(std::string p_name)
 {
@@ -150,7 +145,6 @@ void Map::load(std::string p_name)
                 px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
                 py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
                 m_terrainGroup->defineTerrain(px,py,fileName);
-                std::cout << "X: " << px << " Y: " << py << std::endl;
                 minx = (first)?px:(px<minx)?px:minx;
                 miny = (first)?py:(py<miny)?py:miny;
                 maxx = (first)?px:(px>maxx)?px:maxx;
@@ -165,8 +159,8 @@ void Map::load(std::string p_name)
                     std::ifstream file;
                     std::string nom = "X"+boost::lexical_cast<std::string>(x)+"Y"+boost::lexical_cast<std::string>(y);
                     int taille;
-                    float maxHeight=0;
-                    std::cout << nom << std::endl;
+                    float posx, posz;
+                    float maxHeight=0, minHeight=0;
                     file.open("data/maps/default2/heightmap/Page"+nom+".f32");
                     if (!file)
                         throw FileNotFound("data/maps/default2/heightmap/Page"+nom+".f32");
@@ -175,7 +169,7 @@ void Map::load(std::string p_name)
                     taille = sqrt(file.tellg()/4);
                     file.close();
                     float *data = new float[int(taille*taille)];
-                    for (int i=0; i < taille; ++i)
+                    for (int i=0; i < (taille*taille); ++i)
                     {
                         file.open("data/maps/default2/heightmap/Page"+nom+".f32");
                         if (!file)
@@ -184,17 +178,28 @@ void Map::load(std::string p_name)
                         file.seekg(i*sizeof(float),std::ios_base::beg);
                         file.read((char *)(&data[i]), sizeof(float));
                         maxHeight = (data[i]>maxHeight)?data[i]:maxHeight;
+                        minHeight = (data[i]<minHeight)?data[i]:minHeight;
                         file.close();
                     }
 
-                    btScalar scalar = maxHeight/256;
-                    btHeightfieldTerrainShape *shape = new btHeightfieldTerrainShape(worldSize, worldSize, data, scalar, 0, btScalar(maxHeight), 1, PHY_FLOAT, false);
+                    btHeightfieldTerrainShape *shape = new btHeightfieldTerrainShape(taille, taille, data, btScalar(maxHeight), 1, true, false);
                     btVector3 inertia;
+                    shape->setLocalScaling(btVector3(worldSize/taille,1,worldSize/taille));
                     shape->calculateLocalInertia(0, inertia);
                     btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape, inertia);
                     btRigidBody *body = new btRigidBody(BodyCI);
-                    m_shape.push_back(shape);
-                    m_body.push_back(body);
+                    posx = worldSize*(float(x));
+                    posz = -(worldSize*(float(y)));
+                    btTransform tr;
+                    tr.setIdentity();
+                    btQuaternion quat;
+                    quat.setEuler((3.14f/2)+3.14f,0,0);
+                    tr.setRotation(quat);
+                    tr.setOrigin(btVector3(posx, 0, posz));
+
+                    body->setCenterOfMassTransform(tr);
+                    //body->translate(btVector3(posx,0, posz));
+                    m_world->addCollisionObject(body);
                 }
             }
 	    }
@@ -315,6 +320,7 @@ void Map::load(std::string p_name)
 			node = node->next_sibling("node");
 		}
 	}
+
 
 }
 std::string Map::getName()
@@ -466,13 +472,3 @@ void Map::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		}
 	}
 }
-std::list<btCollisionShape*>& Map::getShape()
-{
-    return m_shape;
-}
-
-std::list<btRigidBody*>& Map::getBody()
-{
-    return m_body;
-}
-

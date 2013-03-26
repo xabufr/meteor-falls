@@ -38,13 +38,11 @@ GameEngine::GameEngine(EngineManager* mng, Type t, Joueur* j):
 
     m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
 	if(t==SERVER)
-		m_map = new Map(nullptr, this);
+		m_map = new Map(nullptr, this, m_world);
 	else
 	{
 		m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
-		m_map = new Map(mng->getGraphic()->getSceneManager(), this);
-		for (auto it=m_map->getBody().begin(); it != m_map->getBody().end(); ++it)
-            m_world->addRigidBody(((btRigidBody*)(*it)));
+		m_map = new Map(mng->getGraphic()->getSceneManager(), this, m_world);
 	}
 	m_sous_state = nullptr;
 	m_type_sous_state = TypeState::TEAM_LIST;
@@ -181,9 +179,11 @@ void GameEngine::handleMessage(EngineMessage& message)
 				if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 				{
+					btVector3 vect = btVector3(message.positions[EngineMessageKey::OBJECT_POSITION].x,
+                                message.positions[EngineMessageKey::OBJECT_POSITION].y+100,
+                                message.positions[EngineMessageKey::OBJECT_POSITION].z);
 					hero = new Hero(nullptr, j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-							id, m_world);
-					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+							id, m_world, vect);
 				}
 			}
 		}
@@ -196,10 +196,12 @@ void GameEngine::handleMessage(EngineMessage& message)
 				if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 				{
 				}
+				btVector3 vect = btVector3(message.positions[EngineMessageKey::OBJECT_POSITION].x,
+                                message.positions[EngineMessageKey::OBJECT_POSITION].y+100,
+                                message.positions[EngineMessageKey::OBJECT_POSITION].z);
 				Hero *hero = new Hero(m_manager->getGraphic()->getSceneManager(), j->getRPG(),
 						j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-						message.ints[EngineMessageKey::OBJECT_ID], m_world);
-				hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+						message.ints[EngineMessageKey::OBJECT_ID], m_world, vect);
 				if(m_current_joueur==j)
 				{
 					setSousStateType(TypeState::PLAYING);

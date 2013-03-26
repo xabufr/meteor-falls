@@ -57,6 +57,7 @@
 			<Add directory="libs/rapidxml" />
 			<Add directory="Hydrax/include" />
 			<Add directory="../../../../../../usr/include/bullet" />
+			<Add directory="../../../../../../usr/local/include/OGRE" />
 		</Compiler>
 		<Linker>
 			<Add option="-lOgreMain" />
@@ -79,6 +80,8 @@
 			<Add option="-lSkyX" />
 			<Add option="-lhydrax" />
 			<Add option="-lBulletCollision" />
+			<Add option="-lBulletDynamics" />
+			<Add option="-lLinearMath" />
 		</Linker>
 		<Unit filename="../GlobalServer/src/Admin.cpp" />
 		<Unit filename="../GlobalServer/src/Player.cpp" />
@@ -104,6 +107,10 @@
 		<Unit filename="src/Engine/GameEngine/Camera/CameraFPS.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraLibre.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraManager.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraManager.h" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraRPG.cpp" />
+		<Unit filename="src/Engine/GameEngine/Camera/CameraRPG.h" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.cpp" />
 		<Unit filename="src/Engine/GameEngine/Camera/CameraRTS.h" />
 		<Unit filename="src/Engine/GameEngine/Degats/Armure.cpp" />
@@ -169,8 +176,6 @@
 		<Unit filename="src/Engine/GameEngine/Unites/Aerien.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Batiment.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Batiment.h" />
-		<Unit filename="src/Engine/GameEngine/Unites/Hero.cpp" />
-		<Unit filename="src/Engine/GameEngine/Unites/Hero.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Mobile.cpp" />
 		<Unit filename="src/Engine/GameEngine/Unites/Mobile.h" />
 		<Unit filename="src/Engine/GameEngine/Unites/Terrestre.cpp" />
@@ -250,6 +255,8 @@
 		<Unit filename="src/State/Game/GameState.h" />
 		<Unit filename="src/State/Menu/CreditState.cpp" />
 		<Unit filename="src/State/Menu/CreditState.h" />
+		<Unit filename="src/State/Menu/LanLoginState.cpp" />
+		<Unit filename="src/State/Menu/LanLoginState.h" />
 		<Unit filename="src/State/Menu/LoginState.cpp" />
 		<Unit filename="src/State/Menu/LoginState.h" />
 		<Unit filename="src/State/Menu/MenuState.cpp" />
@@ -293,8 +300,6 @@
 		<Unit filename="src/Utils/File.h" />
 		<Unit filename="src/Utils/MessageDialog.cpp" />
 		<Unit filename="src/Utils/MessageDialog.h" />
-		<Unit filename="src/Utils/Physique/ChargeBinaryMap.cpp" />
-		<Unit filename="src/Utils/Physique/ChargeBinaryMap.h" />
 		<Unit filename="src/Utils/Physique/MotionState.h" />
 		<Unit filename="src/Utils/Random.cpp" />
 		<Unit filename="src/Utils/Random.h" />

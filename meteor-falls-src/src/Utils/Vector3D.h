@@ -1,6 +1,7 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 #include "../precompiled/serialization.h"
+#include <btBulletDynamicsCommon.h>
 #include <SFML/System/Vector3.hpp>
 #include <OgreVector3.h>
 #include <cmath>
@@ -19,6 +20,12 @@ public:
         z(_z)
     {
     }
+    Vector3D(const btVector3& vec)
+    {
+        x = vec[0];
+        y = vec[1];
+        z = vec[2];
+    }
     template<class T>
     Vector3D(const T &vec)
     {
@@ -32,6 +39,13 @@ public:
         x = vec.x;
         y = vec.y;
         z = vec.z;
+        return *this;
+    }
+    Vector3D& operator=(const btVector3& vec)
+    {
+        x = vec[0];
+        y = vec[1];
+        z = vec[2];
         return *this;
     }
     template<class T>

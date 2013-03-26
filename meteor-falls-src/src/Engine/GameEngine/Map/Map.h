@@ -24,7 +24,7 @@ class GameEngine;
 class Map
 {
     public:
-        Map(Ogre::SceneManager*, GameEngine*);
+        Map(Ogre::SceneManager*, GameEngine*, btDynamicsWorld*);
         virtual ~Map();
         void load(std::string p_name);
         std::string getName();
@@ -58,8 +58,7 @@ class Map
 		void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
 		void processNodeServer(rapidxml::xml_node<>*);
 
-		std::list<btCollisionShape*> m_shape;
-        std::list<btRigidBody*> m_body;
+		btDynamicsWorld* m_world;
 };
 
 #endif // MAP_H
