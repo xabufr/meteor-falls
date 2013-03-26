@@ -22,6 +22,9 @@ Map::Map(GameEngine *game): m_game(game)
 }
 Map::~Map()
 {
+	for(MapListener *l : m_listeners)
+		if(l->autoDelete())
+			delete l;
 }
 rapidxml::xml_document<>* Map::getXmlMap() const
 {
@@ -120,7 +123,7 @@ void Map::processNode(rapidxml::xml_node<>* n)
 				Equipe *equipe = m_game->getEquipe(teamId);
 				if(equipe != nullptr)
 				{
-					Unite *u = equipe->factory()->create(0);
+					Unite *u = equipe->factory()->create(UnitId(0));
 					u->setPosition(position);
 				}
 			}

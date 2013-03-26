@@ -4,6 +4,7 @@
 #include "GameEngine.h"
 
 class MapView;
+class WorldObjectView;
 class ClientGameEngine : public GameEngine
 {
 public:
@@ -22,6 +23,7 @@ public:
 	CameraManager *cameraManager() const;
 	Joueur* getCurrentJoueur();
 	void setSousStateType(TypeState);
+	virtual void addTeam(Equipe*);
 
 	virtual Type getTypeServerClient() const;
 private:

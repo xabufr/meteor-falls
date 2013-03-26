@@ -10,5 +10,6 @@ public:
 	virtual void handleMessage(EngineMessage&);
 	virtual Type getTypeServerClient() const;
 	bool tryJoinTeam(char, Joueur*);
+	virtual void addTeam(Equipe *e);
 };
 #endif 

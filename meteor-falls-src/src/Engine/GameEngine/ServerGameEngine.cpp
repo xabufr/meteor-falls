@@ -6,7 +6,9 @@
 #include "Unites/UniteFactory.h"
 #include "Heros/ClasseHeroManager.h"
 #include "Heros/Hero.h"
+#include "Heros/ClasseHero.h"
 #include "Unites/Unite.h"
+#include "Unites/ServerUniteFactory.h"
 #include "Factions/Faction.h"
 #include "Factions/FactionManager.h"
 
@@ -64,15 +66,12 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
 		case SPAWN:
 			{
 				Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-				std::cout << "SPAWN 1" << j << std::endl;
 				if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
 					return;
 				Unite *unit = j->equipe()->getUnite(message.ints[EngineMessageKey::OBJECT_ID]);
 				ClasseHero* cl = j->equipe()->faction()->getClassesManager().classe(message.ints[EngineMessageKey::CLASS_ID]);
-				std::cout << "SPAWN 2" << std::endl;
 				if(cl==nullptr||unit==nullptr)
 				{
-				std::cout << "SPAWN 3" << std::endl;
 					message.ints.clear();
 					message.ints[EngineMessageKey::RESULT] = 0;
 					/**
@@ -83,22 +82,21 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
 				}
 				else
 				{
-				std::cout << "SPAWN 4" << std::endl;
 					Vector3D position(unit->position());
 					message.ints[EngineMessageKey::RESULT] = 1;
 					message.positions[EngineMessageKey::OBJECT_POSITION] = unit->position();
-					int id = j->equipe()->factory()->getNextId();
-					message.ints[EngineMessageKey::OBJECT_ID] = id;
 					net->sendToAllTcp(&message);
 
-					Hero *hero;
+					Unite *hero;
 					if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
 							j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 					{
-						hero = new Hero(j->getRPG(), j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
-								id);
+						Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
+						hero = j->equipe()->factory()->create(j, avatar, cl);
 						hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 					}
+					int id = hero->id();
+					message.ints[EngineMessageKey::OBJECT_ID] = id;
 				}
 			}
 			break;
@@ -182,4 +180,9 @@ bool ServerGameEngine::tryJoinTeam(char id, Joueur* j)
 	j->changeTeam(eJoueur);
 
 	return true;
+}
+void ServerGameEngine::addTeam(Equipe* e)
+{
+	e->setFactory(new ServerUniteFactory(e));
+	GameEngine::addTeam(e);
 }

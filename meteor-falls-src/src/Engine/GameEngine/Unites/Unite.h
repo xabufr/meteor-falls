@@ -2,7 +2,6 @@
 #define UNITE_H
 #include "../Map/WorldObject.h"
 #include "TypeUnite.h"
-#include "../../../Utils/Vector3D.h"
 
 class Equipe;
 class Unite : public WorldObject

@@ -5,6 +5,7 @@
 #include <vector>
 #include "../Unites/typedefs.h"
 #include "../Heros/ClasseHeroManager.h"
+#include "../../../precompiled/_rapidxml.h"
 
 typedef unsigned char FactionId;
 typedef unsigned short RechercheId;
@@ -33,14 +34,12 @@ class Faction
         const std::string m_nom;
         const FactionId m_id;
         const bool m_jouable;
+		void processUnit(rapidxml::xml_node<>*);
 		ClasseHeroManager m_classeHeroManager;
         std::unordered_map<UnitId, TypeUnite*> m_typesUnites;
         std::unordered_map<RechercheId, Recherche*> m_recherches;
 		std::vector<Avatar*> m_avatarDefault;
         std::vector<std::string> m_paths;
-        std::vector<std::string> m_batiments;
-        std::vector<std::string> m_terrestre;
-        std::vector<std::string> m_aerien;
 };
 
 #endif // FACTION_H

@@ -26,7 +26,7 @@ class GameEngine : public Engine
 
 		virtual void loadMap(const std::string &);
 		const std::vector<Equipe*>& getTeams() const;
-		void addTeam(Equipe*);
+		virtual void addTeam(Equipe*);
 		void addPlayer(Joueur*);
 		Equipe* getEquipe(char);
 		virtual Joueur* findJoueur(int);

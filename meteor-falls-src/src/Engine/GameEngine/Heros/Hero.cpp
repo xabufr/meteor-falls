@@ -32,7 +32,25 @@ Avatar* Hero::avatar() const
 }
 void Hero::update(unsigned int time)
 {
-	m_comportementModifie();
+	if(m_avancer||m_reculer||m_droite||m_gauche)
+	{
+		Vector3D dep;
+		if(m_reculer)
+			dep.z = 1;
+		else if(m_avancer)
+			dep.z = -1;
+		if(m_droite)
+			dep.x = 1;
+		else if(m_gauche) 
+			dep.x       = -1;
+		dep         = m_rotation * dep;
+		setPosition(m_position+dep);
+	}
+	if(m_isModified)
+	{
+		m_comportementModifie();
+		m_isModified=false;
+	}
 }
 void Hero::setAvancer(bool a)
 {
@@ -60,14 +78,13 @@ void Hero::setDroite(bool d)
 }
 void Hero::m_comportementModifie()
 {
-//	if(m_sceneNode) // CLIENT
-//	{
+	//if(m_sceneNode) // CLIENT
+	//{
 //		if(m_equipe->game()->getCurrentJoueur() == this->joueur()->joueur())
 //		{
 //			((ClientNetworkEngine*)m_equipe->game()->getManager()->getNetwork())->sendRpgModification(!m_isModified);
 //		}
 //	}
-	m_isModified=false;
 }
 void Hero::serializeComportement(EngineMessage* mess, bool all)
 {
@@ -103,4 +120,5 @@ void Hero::deserializeComportement(EngineMessage* mess, bool all)
 }
 void Hero::tournerGaucheDroite(float angle)
 {
+	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
 }

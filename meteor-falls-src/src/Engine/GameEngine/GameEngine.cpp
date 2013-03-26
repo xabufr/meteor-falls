@@ -17,6 +17,8 @@
 #include <CEGUIString.h>
 #include <SFML/System.hpp>
 #include "../../Utils/Configuration/Config.h"
+#include "Unites/Builder/BasicUniteBuilder.h"
+#include "Unites/Builder/HeroBuilder.h"
 
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
@@ -53,6 +55,8 @@ const std::vector<Equipe*>& GameEngine::getTeams() const
 }
 void GameEngine::addTeam(Equipe* e)
 {
+	e->factory()->addBuilder<BatimentBuilder>();
+	e->factory()->addBuilder<HeroBuilder>();
 	m_teams.push_back(e);
 }
 void GameEngine::addPlayer(Joueur* j)

@@ -31,6 +31,7 @@ public:
 	virtual void mapLoaded(const std::string&);
 	virtual void mapUnloaded();
 	virtual void update();
+	virtual bool autoDelete() const;
 private:
 	Ogre::SceneManager *m_scene_mgr;
 	Ogre::TerrainGlobalOptions *m_globals;

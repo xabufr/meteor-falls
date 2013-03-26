@@ -15,10 +15,13 @@
 #include "Factions/Equipe.h"
 #include "Unites/UniteFactory.h"
 #include "Heros/Hero.h"
+#include "Heros/Avatar.h"
+#include "Heros/ClasseHero.h"
 #include "Joueur/JoueurRPG.h"
 #include "../../Utils/Configuration/Config.h"
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "Unites/ClientUniteFactory.h"
 
 ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j):
 	GameEngine(mng),
@@ -44,6 +47,11 @@ ClientGameEngine::~ClientGameEngine()
     delete m_chat;
 	if(m_current_joueur)
 		m_current_joueur->changeTeam(nullptr);
+}
+void ClientGameEngine::addTeam(Equipe *e)
+{
+	e->setFactory(new ClientUniteFactory(e, m_manager->getGraphic()->getSceneManager()));
+	GameEngine::addTeam(e);
 }
 void ClientGameEngine::handleMessage(EngineMessage& message)
 {
@@ -95,7 +103,6 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 		Equipe *e   = getEquipe(teamId);
 		Unite *unit = e->factory()->create(type, id);
 		unit->setPosition(position);
-		std::cout << "adding :" << type << std::endl;
 	}
 	else if (message.message==EngineMessageType::SPAWN)
 	{
@@ -109,8 +116,8 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 			if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
 			{
 			}
-			Hero *hero = new Hero(j->getRPG(),
-					j->avatar(message.ints[EngineMessageKey::AVATAR_ID]),
+			Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
+			Unite* hero = j->equipe()->factory()->create(j, avatar, avatar->classe(),
 					message.ints[EngineMessageKey::OBJECT_ID]);
 			hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
 			if(m_current_joueur==j)
@@ -190,9 +197,8 @@ void ClientGameEngine::work()
 				hero->setAvancer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_FORWARD));
 				hero->setReculer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_BACKWARD));
 				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
-				std::cout << hero->position().x << hero->position().y << std::endl;
-				m_camManager->camera()->setPosition(hero->position());
-				m_camManager->camera()->lookAt(0,10,0);
+				m_camManager->camera()->setPosition(hero->position()+Vector3D(0,0,10));
+				m_camManager->camera()->setOrientation(hero->rotation());
 			}
 		}
 		else if(m_current_joueur->getTypeGameplay() == Joueur::RTS) 

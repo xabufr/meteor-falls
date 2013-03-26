@@ -31,14 +31,13 @@
 #include <Terrain/OgreTerrainMaterialGeneratorA.h>
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
-MapView::MapView(Map* map): m_map(map)
+MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pageGrass(nullptr)
 {
 	m_map->addListener(this);
 	m_scene_mgr = m_map->game()->getManager()->getGraphic()->getSceneManager();
 }
 MapView::~MapView()
 {
-	m_map->delListener(this);
 	if(m_hydrax != nullptr)
 	{
 		delete m_hydrax;
@@ -367,4 +366,8 @@ void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 Ogre::Real MapView::staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map)
 {
 	return static_cast<MapView*>(map)->m_map->getHeightAt(x,z);
+}
+bool MapView::autoDelete() const
+{
+	return true;
 }

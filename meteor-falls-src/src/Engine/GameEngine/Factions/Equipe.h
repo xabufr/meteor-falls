@@ -34,7 +34,9 @@ class Equipe
 		void addJoueur(Joueur*);
 		void removeJoueur(Joueur*);
 		const std::vector<Joueur*> joueurs() const;
-		UniteFactory* factory();
+
+		UniteFactory* factory() const;
+		void setFactory(UniteFactory*);
 
 		Unite* getUnite(int) const;
 		GameEngine* game() const;
