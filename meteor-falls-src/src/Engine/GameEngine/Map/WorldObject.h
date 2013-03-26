@@ -13,7 +13,7 @@ class WorldObject
         WorldObject(GameEngine*, WorldObjectType*);
         virtual ~WorldObject();
 
-        void setPosition(const Vector3D&);
+        virtual void setPosition(const Vector3D&);
 		const Vector3D& position() const;
 		void setRotation(const Quaternion&);
 		const Quaternion& rotation() const;

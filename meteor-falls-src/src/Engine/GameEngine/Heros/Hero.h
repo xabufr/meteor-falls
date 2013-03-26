@@ -1,6 +1,10 @@
 #ifndef _HOME_THOMAS_METEOR_FALLS_SRC_ENGINE_GAMEENGINE_HEROS_HERO_H__
 #define _HOME_THOMAS_METEOR_FALLS_SRC_ENGINE_GAMEENGINE_HEROS_HERO_H__
 #include "../Unites/Unite.h"
+#include <btBulletCollisionCommon.h>
+#include <btBulletDynamicsCommon.h>
+#include "BulletCollision/CollisionDispatch/btGhostObject.h"
+#include "BulletDynamics/Character/btKinematicCharacterController.h"
 
 class JoueurRPG;
 class EngineMessage;
@@ -13,6 +17,7 @@ public:
 	JoueurRPG* joueur() const;
 	Avatar *avatar() const;
 	virtual void update(unsigned int);
+	virtual void setPosition(const Vector3D& pos);
 	void setAvancer(bool);
 	void setReculer(bool);
 	void setGauche(bool);
@@ -22,10 +27,14 @@ public:
 	void tournerGaucheDroite(float angle);
 private:
 	JoueurRPG *m_joueur;
+    btDynamicsWorld* m_world;
 	Avatar *m_avatar;
+	btPairCachingGhostObject *m_ghost_object;
+	btKinematicCharacterController *m_character_controller;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
 	bool m_isModified;
 	void m_comportementModifie();
+	void m_move(const btVector3& vect);
 };
 
-#endif 
+#endif

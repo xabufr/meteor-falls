@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <bullet/BulletDynamics/btBulletDynamicsCommon.h>
+#include <bullet/BulletCollision/btBulletCollisionCommon.h>
+#include <bullet/Bullet-C-Api.h>
 #include "../Engine.h"
 
 class State;
@@ -32,10 +35,18 @@ class GameEngine : public Engine
 		virtual Joueur* findJoueur(int);
 		void deleteJoueur(int);
 		virtual Type getTypeServerClient() const=0;
+		btDiscreteDynamicsWorld* bulletWorld() const;
 	protected:
         Map *m_map;
 		std::vector<Equipe*> m_teams;
 		std::vector<Joueur*> m_joueurs;
+
+		//physique
+		btDbvtBroadphase* m_broadphase;
+        btDefaultCollisionConfiguration* m_collisionConfiguration;
+        btCollisionDispatcher* m_dispatcher;
+        btSequentialImpulseConstraintSolver* m_solver;
+        btDiscreteDynamicsWorld* m_world;
 };
 
 #endif // GAMEENGINE_H

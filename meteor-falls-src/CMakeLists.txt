@@ -6,6 +6,7 @@ include_directories(src/
 		libs/ozcollidelib_1-1-1/include
 		libs/rapidxml
 		/usr/include/CEGUI
+		/usr/include/bullet
 		)
 file(
 		GLOB_RECURSE
@@ -52,5 +53,7 @@ target_link_libraries(meteor-falls
 		hydrax
 		tolua++
 		PagedGeometry
+		BulletDynamics
+		#BtOgre
 		)
 

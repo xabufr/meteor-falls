@@ -9,6 +9,7 @@ namespace CEGUI{
     class String;
 };
 
+class Joueur;
 class GameEngine;
 class Chat: public OIS::KeyListener, public OIS::MouseListener
 {
@@ -17,7 +18,7 @@ public:
     ~Chat();
     void show();
     void hide();
-    void addMessage(std::string);
+    void addMessage(std::string, Joueur*);
     bool isVisible() const;
     bool isListen() {return m_listen;}
 

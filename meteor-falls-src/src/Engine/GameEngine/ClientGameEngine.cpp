@@ -35,6 +35,9 @@ ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j):
 	m_current_joueur = j;
 	addPlayer(j);
 	setSousStateType(TypeState::TEAM_LIST);
+	//debug = new BtOgre::DebugDrawer(mng->getGraphic()->getSceneManager()->getRootSceneNode(), m_world);
+	//m_world->setDebugDrawer(debug);
+	//debug->setDebugMode(true);
 }
 ClientGameEngine::~ClientGameEngine()
 {
@@ -58,7 +61,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 	if(message.message==EngineMessageType::CHAT_MESSAGE)
 	{
 		std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
-		m_chat->addMessage(nom);
+		//m_chat->addMessage(nom);
 	}
 	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)
     {
@@ -119,7 +122,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 			Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
 			Unite* hero = j->equipe()->factory()->create(j, avatar, avatar->classe(),
 					message.ints[EngineMessageKey::OBJECT_ID]);
-			hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]);
+			hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,10,0));
 			if(m_current_joueur==j)
 			{
 				setSousStateType(TypeState::PLAYING);
@@ -206,4 +209,8 @@ void ClientGameEngine::work()
 			
 		}
 	}
+	//OIS::Keyboard* key = OgreContextManager::get()->getInputManager()->getKeyboard();
+	//debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
+	//m_world->debugDrawWorld();
+	//debug->step();
 }

@@ -3,20 +3,48 @@
 #include "ClasseHero.h"
 #include "../Joueur/JoueurRPG.h"
 #include "../Joueur/Joueur.h"
+#include "../../../Utils/Physique/MotionState.h"
 #include "../Factions/Equipe.h"
 #include "../GameEngine.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
 #include "../../EngineMessage/EngineMessage.h"
 
-Hero::Hero(JoueurRPG *j, Avatar *a, int id):
+Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
 m_avatar(a),
+m_world(j->joueur()->equipe()->game()->bulletWorld()), 
 m_isModified(true)
 {
+	btVector3 vect(0,0,0);
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	j->setHero(this);
+
+	btTransform startTransform;
+    startTransform.setIdentity();
+    startTransform.setOrigin (vect);
+
+    m_ghost_object = new btPairCachingGhostObject();
+    m_ghost_object->setWorldTransform(startTransform);
+
+    btScalar characterHeight=1;
+
+    btScalar characterWidth =1;
+
+    btConvexShape* capsule = new btCapsuleShape(characterWidth, characterHeight);
+    m_ghost_object->setCollisionShape (capsule);
+    m_ghost_object->setCollisionFlags (btCollisionObject::CF_CHARACTER_OBJECT);
+    m_world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+
+    btScalar stepHeight = btScalar(1);
+
+    m_character_controller = new btKinematicCharacterController(m_ghost_object, capsule, stepHeight);
+    m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
+
+    m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
+    m_world->addAction(m_character_controller);
+    m_world->getDispatchInfo().m_allowedCcdPenetration=0.0001f;
 }
 Hero::~Hero()
 {
@@ -32,9 +60,9 @@ Avatar* Hero::avatar() const
 }
 void Hero::update(unsigned int time)
 {
+	Vector3D dep;
 	if(m_avancer||m_reculer||m_droite||m_gauche)
 	{
-		Vector3D dep;
 		if(m_reculer)
 			dep.z = 1;
 		else if(m_avancer)
@@ -43,14 +71,15 @@ void Hero::update(unsigned int time)
 			dep.x = 1;
 		else if(m_gauche) 
 			dep.x       = -1;
-		dep         = m_rotation * dep;
-		setPosition(m_position+dep);
+		dep = m_rotation * dep;
 	}
+	m_character_controller->setWalkDirection(dep);
 	if(m_isModified)
 	{
 		m_comportementModifie();
 		m_isModified=false;
 	}
+	setPosition(m_ghost_object->getWorldTransform().getOrigin());
 }
 void Hero::setAvancer(bool a)
 {
@@ -88,10 +117,7 @@ void Hero::m_comportementModifie()
 }
 void Hero::serializeComportement(EngineMessage* mess, bool all)
 {
-	//mess->positions[EngineMessageKey::OBJECT_POSITION] = m_sceneNode->getPosition();
-	//mess->positions[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation();
-	//mess->doubles[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation().w;
-	mess->ints[EngineMessageKey::OBJECT_ID] = this->id(); 
+	mess->ints[EngineMessageKey::OBJECT_ID] = this->id();
 	mess->ints[EngineMessageKey::TEAM_ID] = m_equipe->id();
 	if(all)
 	{
@@ -121,4 +147,15 @@ void Hero::deserializeComportement(EngineMessage* mess, bool all)
 void Hero::tournerGaucheDroite(float angle)
 {
 	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
+}
+void Hero::m_move(const btVector3& vect)
+{
+    m_character_controller->setWalkDirection(vect);
+    Vector3D ogre_vect;
+    ogre_vect = m_ghost_object->getWorldTransform().getOrigin();
+}
+void Hero::setPosition(const Vector3D& pos)
+{
+	m_character_controller->warp(pos);
+	WorldObject::setPosition(pos);
 }

@@ -2,7 +2,6 @@
 #include "MapListener.h"
 #include "../../ScriptEngine/XmlDocumentManager.h"
 
-
 #include "WorldObject.h"
 #include "WorldObjectManager.h"
 #include "../Factions/Equipe.h"
@@ -10,18 +9,22 @@
 #include "../Unites/Unite.h"
 #include "../../../Utils/Xml.h"
 #include "../../../precompiled/lexical_cast.h"
+#include "../../../Utils/Exception/FileNotFound.h"
 #include "WorldObjectType.h"
 #include "../GameEngine.h"
+
+#include <cstring>
 
 
 using namespace rapidxml;
 
-Map::Map(GameEngine *game): m_game(game)
+Map::Map(GameEngine *game, btDynamicsWorld* world): m_game(game), m_world(world)
 {
 	m_loaded = false;
 }
 Map::~Map()
 {
+	unload();
 	for(MapListener *l : m_listeners)
 		if(l->autoDelete())
 			delete l;
@@ -36,11 +39,90 @@ std::string Map::mapRootPath() const
 }
 void Map::load(const std::string& p_name)
 {
+	if(m_loaded)
+		unload();
 	m_loaded = true;
 	bool server = m_game->getTypeServerClient() == GameEngine::SERVER;
 	m_name = p_name;
 	rapidxml::xml_document<> *map_params = getXmlMap();
 	rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
+	rapidxml::xml_node<>* terrain = rootNode->first_node("terrain");
+	if(terrain)
+	{
+		float worldSize, mapSize, compositeDistance;
+		int maxPixelError, maxBatch, minBatch;
+		worldSize = boost::lexical_cast<float>(terrain->first_attribute("worldSize")->value());
+		mapSize = boost::lexical_cast<float>(terrain->first_attribute("mapSize")->value());
+		maxPixelError = boost::lexical_cast<int>(terrain->first_attribute("tuningMaxPixelError")->value());
+		maxBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMaxBatchSize")->value());
+		minBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMinBatchSize")->value());
+		compositeDistance = boost::lexical_cast<int>(terrain->first_attribute("tuningCompositeMapDistance")->value());
+
+		rapidxml::xml_node<>* nodePages = terrain->first_node("terrainPages");
+		rapidxml::xml_node<>* nodePage;
+
+		bool first=true;
+		int minx, miny, maxx, maxy;
+		minx = miny = maxx = maxy = 0;
+		for(nodePage=nodePages->first_node("terrainPage");nodePage;nodePage=nodePage->next_sibling("terrainPage"))
+		{
+			int px,py;
+			px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
+			py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
+			minx = (first)?px:(px<minx)?px:minx;
+			miny = (first)?py:(py<miny)?py:miny;
+			maxx = (first)?px:(px>maxx)?px:maxx;
+			maxy = (first)?py:(py>maxy)?py:maxy;
+			first = false;
+		}
+		for (int x=minx; x<=maxx; ++x)
+		{
+			for (int y=miny; y<=maxy; ++y)
+			{
+				std::ifstream file;
+				std::string nom = "X"+boost::lexical_cast<std::string>(x)+"Y"+boost::lexical_cast<std::string>(y);
+				int taille = mapSize;
+				float posx, posz;
+				float maxHeight=-1000, minHeight=1000;
+				float *data = new float[int(taille*taille)];
+				std::string path = mapRootPath();
+				file.open(path+"heightmap/Page"+nom+".f32");
+				if (!file)
+					throw FileNotFound(path+"heightmap/Page"+nom+".f32");
+
+				file.read((char *)(data), sizeof(float)*taille*taille);
+				file.close();
+				for (int i=0; i < (taille*taille); ++i)
+				{
+					maxHeight = (data[i]>maxHeight)?data[i]:maxHeight;
+					minHeight = (data[i]<minHeight)?data[i]:minHeight;
+				}
+				float *dataReverse = new float[taille*taille]; //On renverse le terrain en Z
+				for(int i=0;i<taille;++i)
+					memcpy(dataReverse+i*taille,
+							data+taille*(taille-1-i),
+							sizeof(float)*taille);
+				m_terrainData.push_back(dataReverse);
+				delete[] data;
+
+				btHeightfieldTerrainShape *shape = new btHeightfieldTerrainShape(taille, taille, dataReverse, btScalar(maxHeight), 1, true, false);
+				shape->setLocalScaling(btVector3(worldSize/(taille-1),1,worldSize/(taille-1))); // On le met à la bonne dimention
+
+				btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape);
+				btRigidBody *body = new btRigidBody(BodyCI);
+
+				posx = worldSize*(float(x));
+				posz = -(worldSize*(float(y)));
+				btTransform tr;
+				tr.setIdentity();
+				tr.setOrigin(btVector3(0, (maxHeight-minHeight)/2, 0));// On centre l'origine au milieu, en bas
+
+				body->setCenterOfMassTransform(tr);
+				body->translate(btVector3(posx,0, posz)); // On position le terrain dans le monde
+				m_world->addCollisionObject(body);
+			}
+		}
+	}
 	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
 	if(nodes)
 	{
@@ -148,4 +230,17 @@ void Map::delListener(MapListener* li)
 			return;
 		}
 	}
+}
+void Map::unload()
+{
+	m_loaded = false;
+	m_name="";
+	for(WorldObject* o : m_worldObjects)
+		delete o;
+	for(float *data : m_terrainData)
+		delete[] data;
+	m_worldObjects.clear();
+	m_terrainData.clear();
+	for(MapListener *l : m_listeners)
+		l->mapUnloaded();
 }

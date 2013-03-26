@@ -23,7 +23,13 @@
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
 {
-	m_map = new Map(this);
+    m_broadphase = new btDbvtBroadphase();
+    m_collisionConfiguration = new btDefaultCollisionConfiguration();
+    m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
+    m_solver = new btSequentialImpulseConstraintSolver;
+
+    m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
+	m_map = new Map(this, m_world);
 }
 GameEngine::~GameEngine()
 {
@@ -32,6 +38,7 @@ GameEngine::~GameEngine()
 void GameEngine::work()
 {
 	static sf::Clock clock;
+    m_world->stepSimulation(clock.getElapsedTime().asSeconds(), 5);
     if(m_map->getLoaded() == true)
     {
         m_map->update();
@@ -95,4 +102,8 @@ void GameEngine::deleteJoueur(int id)
 		}
 	}
 	delete joueur;
+}
+btDiscreteDynamicsWorld* GameEngine::bulletWorld() const
+{
+	return m_world;
 }

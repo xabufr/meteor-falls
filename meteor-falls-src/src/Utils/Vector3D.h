@@ -1,6 +1,7 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 #include "../precompiled/serialization.h"
+#include <btBulletDynamicsCommon.h>
 #include <SFML/System/Vector3.hpp>
 #include <OgreVector3.h>
 #include <cmath>
@@ -18,6 +19,7 @@ public:
     {}
     template<class T>
     Vector3D(const T &vec): x(vec.x), y(vec.y), z(vec.z) {}
+	Vector3D(const btVector3& vec): x(vec.x()), y(vec.y()), z(vec.z()) { }
 	operator sf::Vector3f() const
 	{
 		return convert<sf::Vector3f>();

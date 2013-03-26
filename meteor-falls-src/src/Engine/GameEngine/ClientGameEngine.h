@@ -3,6 +3,7 @@
 
 #include "GameEngine.h"
 
+//#include <BtOgreExtras.h>
 class MapView;
 class WorldObjectView;
 class ClientGameEngine : public GameEngine
@@ -27,6 +28,7 @@ public:
 
 	virtual Type getTypeServerClient() const;
 private:
+	//BtOgre::DebugDrawer *debug ;
 	MapView *m_map_view;
 	Joueur *m_current_joueur;
 	State *m_sous_state;
