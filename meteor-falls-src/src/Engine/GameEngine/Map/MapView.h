@@ -8,6 +8,7 @@ class Map;
 class GraphicEngine;
 namespace Forests {
 	class PagedGeometry;
+	class TreeLoader3D;
 } // namespace Forest
 namespace Ogre {
 	class SceneManager;
@@ -41,10 +42,12 @@ private:
 	SkyX::BasicController *m_controller;
 	Hydrax::Hydrax *m_hydrax;
 	Forests::PagedGeometry *m_pageGrass;
+	std::list<Forests::PagedGeometry*> m_pages;
 
 	Map *m_map;
 
 	void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
+	void loadPagedFile(const std::string& path, Forests::TreeLoader3D *, Ogre::Entity* ent);
 };
 
 #endif 
