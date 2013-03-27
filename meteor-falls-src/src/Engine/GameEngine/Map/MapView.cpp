@@ -44,18 +44,6 @@ MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pa
 }
 MapView::~MapView()
 {
-	if(m_hydrax != nullptr)
-	{
-		delete m_hydrax;
-	}
-	if(m_skyx != nullptr)
-	{
-		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
-		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
-		delete m_skyx;
-	}
-	if(m_pageGrass)
-		delete m_pageGrass;
 }
 void MapView::mapLoaded(const std::string& mapName)
 {
@@ -336,14 +324,22 @@ void MapView::mapLoaded(const std::string& mapName)
 }
 void MapView::mapUnloaded()
 {
+	if(m_hydrax != nullptr)
+	{
+		delete m_hydrax;
+	}
+	if(m_skyx != nullptr)
+	{
+		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
+		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
+		delete m_skyx;
+	}
 	if(m_pageGrass)
 	{
-		delete m_pageGrass->getPageLoader();
 		delete m_pageGrass;
 	}
 	for(Forests::PagedGeometry *g : m_pages)
 	{
-		delete g->getPageLoader();
 		delete g;
 	}
 }
