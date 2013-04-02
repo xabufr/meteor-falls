@@ -2,15 +2,14 @@
 #define MAP_H
 
 #include <string>
-#include <btBulletDynamicsCommon.h>
-#include <Bullet-C-Api.h>
-#include <btBulletCollisionCommon.h>
-#include <bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include <vector>
 #include <list>
 #include "../../../Utils/Vector3D.h"
 #include "../../ScriptEngine/XmlDocumentManager.h"
 
+class btCollisionShape;
+class btDynamicsWorld;
+class btRigidBody;
 class WorldObject;
 class GameEngine;
 class MapListener;
@@ -41,6 +40,8 @@ private:
 	float m_cycle_coef;
 	int m_cycle_hour;
 	std::list<float*> m_terrainData;
+	std::list<btRigidBody*> m_bodies;
+	std::list<btCollisionShape*> m_shapes;
 
 	GameEngine *m_game;
 

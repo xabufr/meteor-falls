@@ -39,6 +39,7 @@
 
 MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pageGrass(nullptr)
 {
+	m_temp_dir = "data/temp/";
 	m_map->addListener(this);
 	m_scene_mgr = m_map->game()->getManager()->getGraphic()->getSceneManager();
 }
@@ -50,6 +51,7 @@ void MapView::mapLoaded(const std::string& mapName)
 	rapidxml::xml_document<> *map_params = m_map->getXmlMap();
 	rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
 	m_pageGrass = new Forests::PagedGeometry(((ClientGameEngine*)m_map->game())->cameraManager()->camera(), 50);
+	m_pageGrass->setTempDir(m_temp_dir);
 	m_pageGrass->addDetailLevel<Forests::GrassPage>(100);
 	Forests::GrassLoader* grassLoader = new Forests::GrassLoader(m_pageGrass);
 	m_pageGrass->setPageLoader(grassLoader);
@@ -407,6 +409,7 @@ void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 				boost::lexical_cast<int>(boundsStrings[3]));
 		bool castShadow = std::string(pagedNode->first_attribute("castShadows")->value())=="true";
 		Forests::PagedGeometry *pagedGeometry = new Forests::PagedGeometry(((ClientGameEngine*)m_map->game())->cameraManager()->camera(), pageSize);
+		pagedGeometry->setTempDir(m_temp_dir);
 		m_pages.push_back(pagedGeometry);
 		pagedGeometry->addDetailLevel<Forests::BatchPage>(batchDistance);
 		pagedGeometry->addDetailLevel<Forests::ImpostorPage>(impostorDistance);
@@ -420,7 +423,7 @@ void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 }
 Ogre::Real MapView::staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map)
 {
-	return static_cast<MapView*>(map)->m_map->getHeightAt(x,z);
+	return static_cast<MapView*>(map)->getHeightAt(x,z);
 }
 bool MapView::autoDelete() const
 {
@@ -452,4 +455,8 @@ void MapView::loadPagedFile(const std::string& path, Forests::TreeLoader3D* load
 		loader->addTree(ent, pos, Ogre::Radian(yaw), scale);
 	}
 	file.close();
+}
+float MapView::getHeightAt(float x, float z) const
+{
+	return m_terrainGroup->getHeightAtWorldPosition(x,0,z);
 }

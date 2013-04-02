@@ -13,6 +13,11 @@
 #include "WorldObjectType.h"
 #include "../GameEngine.h"
 
+#include <bullet/btBulletDynamicsCommon.h>
+#include <Bullet-C-Api.h>
+#include <bullet/btBulletCollisionCommon.h>
+#include <bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
+
 #include <cstring>
 
 
@@ -107,9 +112,11 @@ void Map::load(const std::string& p_name)
 
 				btHeightfieldTerrainShape *shape = new btHeightfieldTerrainShape(taille, taille, dataReverse, btScalar(maxHeight), 1, true, false);
 				shape->setLocalScaling(btVector3(worldSize/(taille-1),1,worldSize/(taille-1))); // On le met à la bonne dimention
+				m_shapes.push_back(shape);
 
 				btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape);
 				btRigidBody *body = new btRigidBody(BodyCI);
+				m_bodies.push_back(body);
 
 				posx = worldSize*(float(x));
 				posz = -(worldSize*(float(y)));
@@ -122,6 +129,15 @@ void Map::load(const std::string& p_name)
 				m_world->addCollisionObject(body);
 			}
 		}
+	}
+	{
+		btStaticPlaneShape* plan = new btStaticPlaneShape(btVector3(0,1,0), 1);
+		m_shapes.push_back(plan);
+		btRigidBody::btRigidBodyConstructionInfo info(0, nullptr, plan);
+		btRigidBody *body = new btRigidBody(info); 
+		body->translate(btVector3(0, -100, 0));
+		m_bodies.push_back(body);
+		m_world->addRigidBody(body);
 	}
 	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
 	if(nodes)
@@ -241,6 +257,15 @@ void Map::unload()
 		delete[] data;
 	m_worldObjects.clear();
 	m_terrainData.clear();
+	for(btRigidBody *b : m_bodies)
+	{
+		m_world->removeRigidBody(b);
+		delete b;
+	}
+	for(btCollisionShape* shape : m_shapes)
+		delete shape;
+	m_bodies.clear();
+	m_shapes.clear();
 	for(MapListener *l : m_listeners)
 		l->mapUnloaded();
 }

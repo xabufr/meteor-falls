@@ -33,10 +33,12 @@ public:
 	virtual void mapUnloaded();
 	virtual void update();
 	virtual bool autoDelete() const;
+	float getHeightAt(float x, float z) const;
 private:
 	Ogre::SceneManager *m_scene_mgr;
 	Ogre::TerrainGlobalOptions *m_globals;
 	Ogre::TerrainGroup *m_terrainGroup;
+	std::string m_temp_dir;
 
 	SkyX::SkyX *m_skyx;
 	SkyX::BasicController *m_controller;
