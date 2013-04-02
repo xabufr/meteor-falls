@@ -2608,7 +2608,7 @@
 
 1353340741 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Utils/singleton.h
 
-1362408422 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
+1364887163 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/State/Menu/MenuState.h
 	<OgreRectangle2D.h>
 	<OgreSceneNode.h>
 	<OgreCamera.h>
@@ -2625,7 +2625,6 @@
 	"../../Engine/GameEngine/Joueur/Joueur.h"
 	"../../precompiled/sfml_system.h"
 	<boost/function.hpp>
-	"Engine/GameEngine/Layout/layoutRTS.h"
 
 1337975324 /usr/local/include/OGRE/OgreRectangle2D.h
 	"OgrePrerequisites.h"
@@ -5769,16 +5768,19 @@
 
 1359386605 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRPG.cpp
 
-1362407715 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
+1364886752 source:/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.cpp
 	"layoutRTS.h"
 
-1362407497 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
+1363708702 /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Layout/layoutRTS.h
 	<CEGUI.h>
 	"Engine/GameEngine/Factions/Faction.h"
 	"State/StateManager.h"
 	"State/State.h"
 	"Engine/GameEngine/Joueur/Joueur.h"
+	"Engine/GameEngine/Factions/Equipe.h"
+	"Engine/GameEngine/Unites/TypeUnite.h"
 	<iostream>
+	<vector>
 
 1358243521 /home/thomas/meteor-falls/meteor-falls-src/src/State/Menu/ServerList.h
 	"../../Engine/NetworkEngine/UdpConnection.h"

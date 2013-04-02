@@ -13,13 +13,31 @@ LayoutRTS::LayoutRTS(StateManager* mgr, Joueur *j)
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_info_ressources);
 
     /**
-        Grille batiments
+        Grille batiments Général
     **/
 
     m_grille_batiments = m_window_manager.createWindow("OgreTray/TabButtonPane", "WindowGrilleBatiment");
     m_grille_batiments->setSize(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3,0)));
     m_grille_batiments->setPosition(CEGUI::UVector2(CEGUI::UDim(0.7,0), CEGUI::UDim(0.7,0)));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batiments);
+
+    m_grille_batimentsPartieA = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONm_grille_batimentsPartieA");
+    m_grille_batimentsPartieA->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batimentsPartieA->setPosition(CEGUI::UVector2(CEGUI::UDim(0.7,0), CEGUI::UDim(0.9,0)));
+    m_grille_batimentsPartieA->setText(j->equipe()->faction()->getType(0)->nom());
+    m_grille_batimentsPartieA->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grilleBase, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batimentsPartieA);
+
+    m_grille_batimentsPartieB = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONm_grille_batimentsPartieB");
+    m_grille_batimentsPartieB->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batimentsPartieB->setPosition(CEGUI::UVector2(CEGUI::UDim(0.8,0), CEGUI::UDim(0.9,0)));
+    m_grille_batimentsPartieB->setText("Bâtiments Avancés");
+    m_grille_batimentsPartieB->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grilleBase, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batimentsPartieB);
+
+    /**
+        Batiments
+    **/
 
     m_grille_batimentsA = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONGrilleBatiment_LettreA");
     m_grille_batimentsA->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
@@ -84,6 +102,35 @@ LayoutRTS::LayoutRTS(StateManager* mgr, Joueur *j)
     m_grille_batimentsC->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grille, this));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batimentsC);
 
+    m_grille_batiments2A = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONGrilleBatiment2_LettreA");
+    m_grille_batiments2A->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batiments2A->setPosition(CEGUI::UVector2(CEGUI::UDim(0.7,0), CEGUI::UDim(0.7,0)));
+    m_grille_batiments2A->setText("Batiment special 1");
+    m_grille_batiments2A->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grille, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batiments2A);
+
+    m_grille_batiments2Z = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONGrilleBatiment2_LettreZ");
+    m_grille_batiments2Z->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batiments2Z->setPosition(CEGUI::UVector2(CEGUI::UDim(0.8,0), CEGUI::UDim(0.7,0)));
+    m_grille_batiments2Z->setText("Batiment special 2");
+    m_grille_batiments2Z->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grille, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batiments2Z);
+
+    m_grille_batiments2E = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONGrilleBatiment2_LettreE");
+    m_grille_batiments2E->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batiments2E->setPosition(CEGUI::UVector2(CEGUI::UDim(0.9,0), CEGUI::UDim(0.7,0)));
+    m_grille_batiments2E->setText("centre tech avancé");
+    m_grille_batiments2E->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grille, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batiments2E);
+
+    m_grille_batiments2Q = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONGrilleBatiment2_LettreQ");
+    m_grille_batiments2Q->setSize(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    m_grille_batiments2Q->setPosition(CEGUI::UVector2(CEGUI::UDim(0.7,0), CEGUI::UDim(0.8,0)));
+    m_grille_batiments2Q->setText("batiment final");
+    m_grille_batiments2Q->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grille, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_grille_batiments2Q);
+
+
 
     /**
         Général
@@ -98,22 +145,26 @@ LayoutRTS::LayoutRTS(StateManager* mgr, Joueur *j)
     m_infos_unite->setSize(CEGUI::UVector2(CEGUI::UDim(0.4,0), CEGUI::UDim(0.17,0)));
     m_infos_unite->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.83,0)));
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_infos_unite);
-// setenable()=false
-//
 
     m_position_map->hide();
     m_infos_unite->hide();
+    m_info_ressources->hide();
     m_grille_batiments->hide();
+    m_grille_batimentsPartieA->hide();
+    m_grille_batimentsPartieB->hide();
     m_grille_batimentsA->hide();
     m_grille_batimentsZ->hide();
     m_grille_batimentsE->hide();
     m_grille_batimentsQ->hide();
+    m_grille_batiments2A->hide();
+    m_grille_batiments2Z->hide();
+    m_grille_batiments2E->hide();
+    m_grille_batiments2Q->hide();
     m_grille_batimentsS->hide();
     m_grille_batimentsD->hide();
     m_grille_batimentsW->hide();
     m_grille_batimentsX->hide();
     m_grille_batimentsC->hide();
-    m_info_ressources->hide();
 
 }
 
@@ -150,6 +201,12 @@ void LayoutRTS::exit()
     m_grille_batimentsW->hide();
     m_grille_batimentsX->hide();
     m_grille_batimentsC->hide();
+    m_grille_batiments2A->hide();
+    m_grille_batiments2Z->hide();
+    m_grille_batiments2E->hide();
+    m_grille_batiments2Q->hide();
+    m_grille_batimentsPartieA->hide();
+    m_grille_batimentsPartieB->hide();
     m_position_map->hide();
     m_infos_unite->hide();
 }
@@ -158,7 +215,111 @@ void LayoutRTS::enter()
 {
     m_visible = true;
     m_info_ressources->show();
+    m_position_map->show();
+    m_infos_unite->show();
     m_grille_batiments->show();
+    m_grille_batimentsPartieA->show();
+    m_grille_batimentsPartieB->show();
+}
+
+
+bool LayoutRTS::isVisible()
+{
+    return m_visible;
+}
+
+bool LayoutRTS::m_choix_grilleBase(const CEGUI::EventArgs&)
+{
+
+    if (m_grille_batimentsPartieA->isPushed())
+        AfficherPremiereListeConstruction();
+
+    if (m_grille_batimentsPartieB->isPushed())
+        AfficherSecondeListeConstruction();
+
+    return true;
+}
+
+void LayoutRTS::hide_grille_constructionsShowGrilleGen()
+{
+    m_grille_batimentsA->hide();
+    m_grille_batimentsZ->hide();
+    m_grille_batimentsE->hide();
+    m_grille_batimentsQ->hide();
+    m_grille_batimentsS->hide();
+    m_grille_batimentsD->hide();
+    m_grille_batiments2A->hide();
+    m_grille_batiments2Z->hide();
+    m_grille_batiments2E->hide();
+    m_grille_batiments2Q->hide();
+    m_grille_batimentsW->hide();
+    m_grille_batimentsX->hide();
+    m_grille_batimentsC->hide();
+    m_grille_batimentsPartieA->show();
+    m_grille_batimentsPartieB->show();
+}
+
+
+bool LayoutRTS::m_choix_grille(const CEGUI::EventArgs&)
+{
+
+    if (m_grille_batimentsA->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsZ->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsE->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsQ->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batiments2A->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batiments2Z->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batiments2E->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batiments2Q->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsS->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsD->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsW->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsX->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+    if (m_grille_batimentsC->isPushed())
+        hide_grille_constructionsShowGrilleGen();
+
+
+    return true;
+}
+
+
+void LayoutRTS::UpdateBatimentsPossiblesALaConstruction()
+{
+    /*  update  m_batiments_possible_pour_construire
+        avec
+                m_batiments_construits;
+    */
+}
+
+void LayoutRTS::AfficherPremiereListeConstruction()
+{
+
+    m_grille_batimentsPartieA->hide();
+    m_grille_batimentsPartieB->hide();
     m_grille_batimentsA->show();
     m_grille_batimentsZ->show();
     m_grille_batimentsE->show();
@@ -168,46 +329,32 @@ void LayoutRTS::enter()
     m_grille_batimentsW->show();
     m_grille_batimentsX->show();
     m_grille_batimentsC->show();
-    m_position_map->show();
-    m_infos_unite->show();
+
+
 }
 
-
-bool LayoutRTS::isVisible()
+void LayoutRTS::AfficherSecondeListeConstruction()
 {
-    return m_visible;
+    m_grille_batimentsPartieA->hide();
+    m_grille_batimentsPartieB->hide();
+    m_grille_batiments2A->show();
+    m_grille_batiments2Z->show();
+    m_grille_batiments2E->show();
+    m_grille_batiments2Q->show();
 }
 
-bool LayoutRTS::m_choix_grille(const CEGUI::EventArgs&)
+void LayoutRTS::SetConstruction(int batiment_construit)
 {
-
-    if (m_grille_batimentsA->isPushed())
-        m_grille_batimentsA->setEnabled(false);
-
-    if (m_grille_batimentsZ->isPushed())
-        m_grille_batimentsZ->setEnabled(false);
-
-    if (m_grille_batimentsE->isPushed())
-        m_grille_batimentsE->setEnabled(false);
-
-    if (m_grille_batimentsQ->isPushed())
-        m_grille_batimentsQ->setEnabled(false);
-
-    if (m_grille_batimentsS->isPushed())
-        m_grille_batimentsS->setEnabled(false);
-
-    if (m_grille_batimentsD->isPushed())
-        m_grille_batimentsD->setEnabled(false);
-
-    if (m_grille_batimentsW->isPushed())
-        m_grille_batimentsW->setEnabled(false);
-
-    if (m_grille_batimentsX->isPushed())
-        m_grille_batimentsX->setEnabled(false);
-
-    if (m_grille_batimentsC->isPushed())
-        m_grille_batimentsC->setEnabled(false);
-
-
-    return true;
+    m_batiments_construits.push_back(batiment_construit);
 }
+
+void LayoutRTS::update()
+{
+    UpdateBatimentsPossiblesALaConstruction();
+}
+
+
+
+
+
+
