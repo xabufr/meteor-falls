@@ -12,7 +12,7 @@ LayoutRTS::LayoutRTS(Joueur *j)
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_info_ressources);
 
     /**
-        Grille batiments Général
+        Grille batiments Générale
     **/
 
     m_grille_batiments = m_window_manager.createWindow("OgreTray/TabButtonPane", "WindowGrilleBatiment");
