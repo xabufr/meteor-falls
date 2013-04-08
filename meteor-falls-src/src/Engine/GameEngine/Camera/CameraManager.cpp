@@ -7,7 +7,7 @@
 
 CameraManager::CameraManager(Ogre::SceneManager* mng): m_mng(mng)
 {
-	m_cameraContener = nullptr;
+	m_cameraContainer = nullptr;
 	m_camera = m_mng->createCamera("camera_jeu");
 	m_camera->setNearClipDistance(0.01);
 	m_camera->setUseRenderingDistance(true);
@@ -25,11 +25,15 @@ Ogre::Camera* CameraManager::camera() const
 {
 	return m_camera;
 }
+Camera* CameraManager::cameraContainer() const
+{
+    return m_cameraContainer;
+}
 void CameraManager::setCameraContener(Camera *cam)
 {
-	if(m_cameraContener)
-		delete m_cameraContener;
-	m_cameraContener = cam;
-	if(m_cameraContener)
-		m_cameraContener->setCamera(m_camera);
+	if(m_cameraContainer)
+		delete m_cameraContainer;
+	m_cameraContainer = cam;
+	if(m_cameraContainer)
+		m_cameraContainer->setCamera(m_camera);
 }

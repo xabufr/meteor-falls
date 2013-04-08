@@ -11,4 +11,5 @@ public:
 private:
 	Ogre::SceneNode *m_sceneNode;
 	Hero *m_hero;
+	float m_distance;
 };

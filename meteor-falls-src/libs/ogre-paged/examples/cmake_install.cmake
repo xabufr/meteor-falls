@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/examples
+# Install script for directory: /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/examples
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

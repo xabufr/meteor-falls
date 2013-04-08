@@ -4,27 +4,31 @@
 #include <OgreCamera.h>
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
+#include "../../GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../GraphicEngine/Ogre/OgreWindowInputManager.h"
 
-CameraRPG::CameraRPG(Hero* h): m_hero(h)
+CameraRPG::CameraRPG(Hero* h): m_hero(h), m_distance(10)
 {
-	//TODO revoir le système de caméra
-	//m_sceneNode = m_hero->getNode()->createChildSceneNode();
-	//m_sceneNode->setPosition(0.f, m_hero->entity()->getBoundingBox().getHalfSize().y, 400);
+
 }
 CameraRPG::~CameraRPG()
 {
-	//m_hero->getNode()->removeChild(m_sceneNode);
-//	m_camera->setAutoTracking(false);
-//	m_sceneNode->getCreator()->destroySceneNode(m_sceneNode);
+
 }
 void CameraRPG::setCamera(Ogre::Camera* c)
 {
 	Camera::setCamera(c);
-	c->setPosition(0,0,0);
-	//m_sceneNode->attachObject(m_camera);
-	//m_camera->setAutoTracking(true, m_hero->getNode(), Ogre::Vector3(0, 0, 0)); 
+	float posz = m_hero->position().z + m_distance;
+	c->setPosition(m_hero->position().x,m_hero->position().y,posz);
+	c->lookAt(m_hero->position());
 }
 void CameraRPG::update(int)
 {
+    if (OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Z.rel>0)
+        m_distance = (m_distance==0)?0:--m_distance;
+    else if (OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Z.rel<0)
+        m_distance = (m_distance==10)?10:++m_distance;
 
+    float posz = m_hero->position().z + m_distance;
+	m_camera->setPosition(m_hero->position().x,m_hero->position().y,posz);
 }

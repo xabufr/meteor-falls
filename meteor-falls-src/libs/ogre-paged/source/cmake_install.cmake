@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/source
+# Install script for directory: /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/source
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,14 +33,14 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/lib/libPagedGeometry.a")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/lib/libPagedGeometry.a")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/PagedGeometry" TYPE DIRECTORY FILES "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/include/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/PagedGeometry" TYPE DIRECTORY FILES "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/include/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/PagedGeometry" TYPE DIRECTORY FILES "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/include/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/PagedGeometry" TYPE DIRECTORY FILES "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/include/" FILES_MATCHING REGEX "/[^/]*\\.h$" REGEX "/\\.svn$" EXCLUDE)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

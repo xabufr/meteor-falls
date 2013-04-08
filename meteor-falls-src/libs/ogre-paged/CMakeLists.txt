@@ -13,7 +13,8 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-
+set(OGRE_SOURCE /usr/local/include/OGRE/)
+set(OGRE_BUILD /usr/local/lib/OGRE/)
 # add some functions we use that are shipped with cmake
 INCLUDE(CheckLibraryExists)
 INCLUDE(CheckIncludeFile)

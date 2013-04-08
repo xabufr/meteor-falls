@@ -1,7 +1,7 @@
 project(MeteorFalls)
 cmake_minimum_required(VERSION 2.8)
 set(EXECUTABLE_OUTPUT_PATH ../build/)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x -ggdb")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x -ggdb -msse")
 include_directories(src/
 		libs/ozcollidelib_1-1-1/include
 		libs/rapidxml
@@ -13,9 +13,9 @@ file(
 		source_files
 		src/*
 		)
-include_directories(/usr/include/OGRE /usr/local/include/)
+include_directories(/usr/include/OGRE /usr/local/include/ /usr/local/include/OGRE/)
 file(
-		GLOB 
+		GLOB
 		server_files
 		../GlobalServer/src/Admin.cpp
 		../GlobalServer/src/Admin.h
@@ -55,5 +55,8 @@ target_link_libraries(meteor-falls
 		PagedGeometry
 		BulletDynamics
 		#BtOgre
+		lua5.1
+		BulletCollision
+		LinearMath
 		)
 

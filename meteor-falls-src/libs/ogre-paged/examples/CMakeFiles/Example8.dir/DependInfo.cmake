@@ -4,26 +4,28 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/Example8.cpp" "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/CMakeFiles/Example8.dir/Example8.o"
+  "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/Example8.cpp" "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/CMakeFiles/Example8.dir/Example8.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
   "HAVE_GCC_VISIBILITY"
+  "HAVE_GCC_VISIBILITY"
   )
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/source/CMakeFiles/PagedGeometry.dir/DependInfo.cmake"
+  "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/source/CMakeFiles/PagedGeometry.dir/DependInfo.cmake"
   )
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "include"
-  "/usr/include/OGRE"
-  "/usr/include/OGRE/Terrain"
-  "/usr/include/OGRE/Paging"
+  "/usr/local/include"
+  "/usr/local/include/OGRE"
+  "/usr/local/include/OGRE/Terrain"
+  "/usr/local/include/OGRE/Paging"
   "/usr/include/OIS"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

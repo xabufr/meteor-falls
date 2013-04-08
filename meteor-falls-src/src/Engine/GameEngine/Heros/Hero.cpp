@@ -14,7 +14,7 @@ Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
 m_avatar(a),
-m_world(j->joueur()->equipe()->game()->bulletWorld()), 
+m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
 	btVector3 vect(0,0,0);
@@ -69,7 +69,7 @@ void Hero::update(unsigned int time)
 			dep.z = -1;
 		if(m_droite)
 			dep.x = 1;
-		else if(m_gauche) 
+		else if(m_gauche)
 			dep.x       = -1;
 		dep = m_rotation * dep;
 	}

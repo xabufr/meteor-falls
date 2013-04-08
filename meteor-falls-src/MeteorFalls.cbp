@@ -37,6 +37,7 @@
             <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.7.2/include" />
             <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.7.2/include-fixed" />
             <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/OGRE" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/zequiel/software/c++/meteor-falls/meteor-falls-src/Makefile&quot;  VERBOSE=1 meteor-falls" />
@@ -65,6 +66,7 @@
             <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.7.2/include" />
             <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.7.2/include-fixed" />
             <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/OGRE" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/zequiel/software/c++/meteor-falls/meteor-falls-src/Makefile&quot;  VERBOSE=1 meteor-falls/fast" />
@@ -251,6 +253,8 @@
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/MeshManager.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.cpp">
       </Unit>
@@ -525,6 +529,8 @@
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/MeshManager.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/ScriptEngine.h">
       </Unit>

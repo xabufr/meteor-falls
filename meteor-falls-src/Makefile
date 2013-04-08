@@ -2130,6 +2130,30 @@ src/Engine/ScriptEngine/LuaScript.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/LuaScript.cpp.s
 .PHONY : src/Engine/ScriptEngine/LuaScript.cpp.s
 
+src/Engine/ScriptEngine/MeshManager.o: src/Engine/ScriptEngine/MeshManager.cpp.o
+.PHONY : src/Engine/ScriptEngine/MeshManager.o
+
+# target to build an object file
+src/Engine/ScriptEngine/MeshManager.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/MeshManager.cpp.o
+.PHONY : src/Engine/ScriptEngine/MeshManager.cpp.o
+
+src/Engine/ScriptEngine/MeshManager.i: src/Engine/ScriptEngine/MeshManager.cpp.i
+.PHONY : src/Engine/ScriptEngine/MeshManager.i
+
+# target to preprocess a source file
+src/Engine/ScriptEngine/MeshManager.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/MeshManager.cpp.i
+.PHONY : src/Engine/ScriptEngine/MeshManager.cpp.i
+
+src/Engine/ScriptEngine/MeshManager.s: src/Engine/ScriptEngine/MeshManager.cpp.s
+.PHONY : src/Engine/ScriptEngine/MeshManager.s
+
+# target to generate assembly for a file
+src/Engine/ScriptEngine/MeshManager.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/ScriptEngine/MeshManager.cpp.s
+.PHONY : src/Engine/ScriptEngine/MeshManager.cpp.s
+
 src/Engine/ScriptEngine/ScriptEngine.o: src/Engine/ScriptEngine/ScriptEngine.cpp.o
 .PHONY : src/Engine/ScriptEngine/ScriptEngine.o
 
@@ -3399,6 +3423,9 @@ help:
 	@echo "... src/Engine/ScriptEngine/LuaScript.o"
 	@echo "... src/Engine/ScriptEngine/LuaScript.i"
 	@echo "... src/Engine/ScriptEngine/LuaScript.s"
+	@echo "... src/Engine/ScriptEngine/MeshManager.o"
+	@echo "... src/Engine/ScriptEngine/MeshManager.i"
+	@echo "... src/Engine/ScriptEngine/MeshManager.s"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.o"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.i"
 	@echo "... src/Engine/ScriptEngine/ScriptEngine.s"

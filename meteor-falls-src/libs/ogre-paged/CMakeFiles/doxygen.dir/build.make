@@ -38,10 +38,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 # Utility rule file for doxygen.
 
@@ -49,7 +49,7 @@ CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
 include CMakeFiles/doxygen.dir/progress.make
 
 CMakeFiles/doxygen:
-	/usr/bin/doxygen /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/docs/Doxyfile
+	/usr/bin/doxygen /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/docs/Doxyfile
 
 doxygen: CMakeFiles/doxygen
 doxygen: CMakeFiles/doxygen.dir/build.make
@@ -64,6 +64,6 @@ CMakeFiles/doxygen.dir/clean:
 .PHONY : CMakeFiles/doxygen.dir/clean
 
 CMakeFiles/doxygen.dir/depend:
-	cd /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doxygen.dir/depend
 

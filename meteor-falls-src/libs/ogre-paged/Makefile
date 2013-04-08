@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -114,7 +114,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -133,9 +133,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
