@@ -1,0 +1,8 @@
+class Application
+{
+public:
+	static Application* instance();
+	State* currentState() const;
+	MenuState* menuState() const;
+	StateManager* manager() const;
+};

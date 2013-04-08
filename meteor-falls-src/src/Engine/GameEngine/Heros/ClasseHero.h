@@ -3,10 +3,12 @@
 
 #include <string>
 #include <map>
+#include "../Unites/TypeUnite.h"
 
 class Faction;
 class HeroMesh;
-class ClasseHero
+
+class ClasseHero: public TypeUnite
 {
 public:
 	struct HeroMesh{
@@ -16,14 +18,10 @@ public:
 	ClasseHero(int, Faction*);
 	int id() const;
 	const std::string& icone() const;
-	const std::string& nom() const;
 	const HeroMesh* mesh(int level) const;
-	Faction* faction() const;
 	void addMesh(int from, int to, const HeroMesh&);
 private:
-	int m_id;
-	std::string m_icone, m_nom;
-	Faction *m_faction;
+	std::string m_icone;
 	struct levelRange{
 		int from,
 			to;

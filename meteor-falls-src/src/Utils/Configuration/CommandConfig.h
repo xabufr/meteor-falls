@@ -64,6 +64,11 @@ public:
             return *this;
         }
     };
+	enum KeyType{
+		GLOBAL_KEY = 0,
+		RPG_KEY = 1,
+		RTS_KEY = 2,
+	};
     CommandConfig();
     ~CommandConfig();
     void defaultCommandConfig();

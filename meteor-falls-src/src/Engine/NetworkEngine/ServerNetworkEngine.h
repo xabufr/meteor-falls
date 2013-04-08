@@ -33,7 +33,7 @@ class ServerNetworkEngine : public NetworkEngine
 		void setServerName(const std::string&);
 		void setMaxClients(unsigned short);
 		void setMapName(const std::string&);
-		void announcePlayerConnectionTeam(ServerClient &c);
+		void announcePlayerConnectionTeam(Joueur*);
 
 		ServerClient* findClient(client_id);
 		void pingClients();

@@ -1,24 +1,35 @@
 #ifndef WORLDOBJECT_H
 #define WORLDOBJECT_H
+#include <list>
+#include "../../../Utils/Vector3D.h"
+#include "../../../Utils/Quaternion.h"
 
-#include "ObjetTerrain.h"
-
+class GameEngine;
+class WorldObjectListener;
 class WorldObjectType;
-namespace Ogre{
-    class Entity;
-}
-class WorldObject : public ObjetTerrain
+class WorldObject
 {
     public:
-        WorldObject(GameEngine*, Ogre::SceneManager*, WorldObjectType*);
+        WorldObject(GameEngine*, WorldObjectType*);
         virtual ~WorldObject();
-        virtual WorldObjectType* getType() const;
 
         virtual void setPosition(const Vector3D&);
+		const Vector3D& position() const;
+		void setRotation(const Quaternion&);
+		const Quaternion& rotation() const;
+		WorldObjectType* type() const;
+
+		virtual void update(float time);
+
+		void addListener(WorldObjectListener*);
     protected:
-    private:
-        WorldObjectType *m_type;
-        Ogre::Entity *m_entity;
+		void notify();
+		GameEngine *m_game;
+		Vector3D m_position;
+		Quaternion m_rotation;
+	private:
+		std::list<WorldObjectListener*> m_listeners;
+		WorldObjectType *m_type;
 };
 
 #endif // WORLDOBJECT_H

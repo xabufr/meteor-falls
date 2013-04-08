@@ -1,11 +1,8 @@
 #include "Aerien.h"
 
-Aerien::Aerien(Ogre::SceneManager* mng, Equipe *e, TypeUnite* type, int id) : Mobile(mng, e, type, id)
+Aerien::Aerien(Equipe *e, TypeUnite* type, int id) : Mobile(e, type, id)
 {
-    //ctor
 }
-
 Aerien::~Aerien()
 {
-    //dtor
 }

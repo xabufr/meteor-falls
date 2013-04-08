@@ -1,5 +1,4 @@
 #include "ServerNetworkEngine.h"
-#include <iostream>
 #include "../EngineMessage/EngineMessage.h"
 #include "../../precompiled/lexical_cast.h"
 #include "../GameEngine/GameEngine.h"
@@ -102,68 +101,6 @@ void ServerNetworkEngine::work()
 							}
 						}
 						break;
-					case EngineMessageType::CHAT_MESSAGE:
-						{
-							message->setFrom(this);
-							EngineMessage *messageGameEngine = EngineMessage::clone(message);
-							messageGameEngine->clearTo();
-							messageGameEngine->addToType(EngineType::GameEngineType);
-							m_manager->addMessage(messageGameEngine);
-						}
-						break;
-					case EngineMessageType::SELECT_TEAM:
-						{
-							char teamId  = message->ints[EngineMessageKey::TEAM_ID];
-							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
-							if(client==nullptr)
-								break;
-							bool alertOther = client->joueur->equipe() == nullptr;
-							bool canJoin = m_manager->getGame()->tryJoinTeam(teamId, client->joueur);
-							EngineMessage messageTeam(m_manager);
-							messageTeam.message = EngineMessageType::SELECT_TEAM;
-							messageTeam.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
-							if(canJoin)
-							{
-								if(alertOther)
-									announcePlayerConnectionTeam(*client);
-								messageTeam.ints[EngineMessageKey::TEAM_ID] = teamId;
-								sendToAllTcp(&messageTeam);
-							}
-							else
-							{
-								messageTeam.ints[EngineMessageKey::TEAM_ID] = -1;
-								sendToTcp(*client, &messageTeam);
-							}
-
-						}
-						break;
-					case EngineMessageType::SELECT_GAMEPLAY:
-						{
-							ServerClient *client = findClient(message->ints[EngineMessageKey::PLAYER_NUMBER]);
-							EngineMessage messageRep(m_manager);
-							messageRep.message = EngineMessageType::SELECT_GAMEPLAY;
-							messageRep.ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
-							if(message->ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY)
-							{
-								if(client->joueur->equipe()->getRTS() == nullptr)
-								{
-									messageRep.ints[EngineMessageKey::RESULT] = 1;
-								}
-								else
-								{
-									messageRep.ints[EngineMessageKey::RESULT] = 0;
-								}
-							}
-							else
-							{
-								messageRep.ints[EngineMessageKey::RESULT] = 1;
-							}
-							messageRep.ints[EngineMessageKey::GAMEPLAY_TYPE] = message->ints[EngineMessageKey::GAMEPLAY_TYPE];
-							sendToAllTcp(&messageRep);
-							messageRep.addToType(EngineType::GameEngineType);
-							m_manager->addMessage(EngineMessage::clone(&messageRep));
-						}
-						break;
 					case EngineMessageType::SYNC_TIME:
 						{
 							EngineMessage messageTime(m_manager);
@@ -190,7 +127,7 @@ void ServerNetworkEngine::work()
 										continue;
 									EngineMessage messageUnit(m_manager);
 									messageUnit.message = EngineMessageType::ADDOBJECT;
-									messageUnit.positions[EngineMessageKey::OBJECT_POSITION] = u->getPosition();
+									messageUnit.positions[EngineMessageKey::OBJECT_POSITION] = u->position();
 									messageUnit.ints[EngineMessageKey::TEAM_ID] = e->id();
 									messageUnit.ints[EngineMessageKey::OBJECT_ID] = u->id();
 									messageUnit.ints[EngineMessageKey::OBJECT_TYPE] = u->type()->id();
@@ -206,18 +143,12 @@ void ServerNetworkEngine::work()
 									messageHero.ints[EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id();
 									j->hero()->avatar()->serialize(&messageHero);
 									messageHero.ints[EngineMessageKey::OBJECT_ID] = j->hero()->id();
-									messageHero.positions[EngineMessageKey::OBJECT_POSITION] = j->hero()->getPosition();
+									messageHero.positions[EngineMessageKey::OBJECT_POSITION] = j->hero()->position();
 									messageHero.addToType(EngineType::GameEngineType);
 									messageHero.ints[EngineMessageKey::RESULT] = 1;
 									sendToTcp(client, &messageHero);
 								}
 							}
-						}
-						break;
-					case EngineMessageType::SPAWN:
-						{
-							EngineMessage *messageSpawn = EngineMessage::clone(message);
-							m_manager->addMessage(messageSpawn);
 						}
 						break;
 					case EngineMessageType::PLAYER_POSITION:
@@ -238,6 +169,12 @@ void ServerNetworkEngine::work()
 								sendToAllExcluding(client.id(), message);
 							}
 						}
+						break;
+					default:
+						EngineMessage *messageCopy = EngineMessage::clone(message);
+						messageCopy->clearTo();
+						messageCopy->addToType(EngineType::GameEngineType);
+						m_manager->addMessage(messageCopy);
 						break;
 				}
 				delete message;
@@ -400,20 +337,20 @@ ServerClient* ServerNetworkEngine::findClient(client_id id)
 	}
 	return nullptr;
 }
-void ServerNetworkEngine::announcePlayerConnectionTeam(ServerClient &c)
+void ServerNetworkEngine::announcePlayerConnectionTeam(Joueur *joueur)
 {
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::NEW_PLAYER;
-	message.ints[EngineMessageKey::PLAYER_NUMBER] = c.id();
-	message.strings[EngineMessageKey::PSEUDO] = c.joueur->getNom();
-	message.ints[EngineMessageKey::TEAM_ID] = c.joueur->equipe()->id();
-	if(c.joueur->getTypeGameplay() == Joueur::RPG)
+	message.ints[EngineMessageKey::PLAYER_NUMBER] = joueur->id();
+	message.strings[EngineMessageKey::PSEUDO] = joueur->getNom();
+	message.ints[EngineMessageKey::TEAM_ID] = joueur->equipe()->id();
+	if(joueur->getTypeGameplay() == Joueur::RPG)
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RPG_GAMEPLAY;
-	else if(c.joueur->getTypeGameplay() == Joueur::RTS)
+	else if(joueur->getTypeGameplay() == Joueur::RTS)
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::RTS_GAMEPLAY;
 	else
 		message.ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
-	sendToAllExcluding(c.id(), &message);
+	sendToAllExcluding(joueur->id(), &message);
 }
 void ServerNetworkEngine::pingClients()
 {

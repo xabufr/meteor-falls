@@ -3,6 +3,7 @@
 #include "../Factions/Faction.h"
 #include "TypeUnite.h"
 #include "Batiment.h"
+#include "Builder/UniteBuilder.h"
 
 UniteFactory::UniteFactory(Equipe* e): m_equipe(e)
 {
@@ -10,37 +11,44 @@ UniteFactory::UniteFactory(Equipe* e): m_equipe(e)
 }
 UniteFactory::~UniteFactory()
 {
+	for(UniteBuilder* b : m_builders)
+		delete b;
 }
-Unite* UniteFactory::create(Ogre::SceneManager* scene, UnitId idType, UnitId id)
+Unite* UniteFactory::create(UnitId idType, UnitId id)
+{
+    TypeUnite *type = m_equipe->faction()->getType(idType);
+	return create(type, id);
+}
+Unite* UniteFactory::create(TypeUnite* t, UnitId id)
+{
+	return create(nullptr, nullptr, t, id);
+}
+Unite* UniteFactory::create(Joueur* j, Avatar* a, TypeUnite* t, UnitId id)
 {
 	if(id==0)
 		id = getNextId();
-
-    TypeUnite *type = m_equipe->faction()->getType(idType);
-	Unite *unit = nullptr;		
-
-    if(type==0)
-        return unit;
-    switch(type->type())
-    {
-    case TypeUnite::BATIMENT:
-		{
-			Batiment *bat = new Batiment(scene, m_equipe, type, id);
-			unit          = static_cast<Unite*>(bat);
-		}
-        break;
-    case TypeUnite::AERIEN:
-        break;
-    case TypeUnite::TERRESTE:
-        break;
-    }
-	if(unit!=nullptr)
+	if(t)
 	{
-
+		UniteBuilder* builder = getBuilder(t);
+		if(builder)
+			return create_impl(builder, j, a, t, id);
 	}
-    return unit;
+	return nullptr;
+}
+UniteBuilder* UniteFactory::getBuilder(TypeUnite* t) const
+{
+	for(UniteBuilder* builder: m_builders)
+	{
+		if(builder->canCreate(t))
+			return builder;
+	}
+	return nullptr;
 }
 int UniteFactory::getNextId()
 {
 	return m_last_id++;
+}
+Equipe* UniteFactory::equipe() const
+{
+	return m_equipe;
 }

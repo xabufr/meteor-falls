@@ -1,5 +1,5 @@
 #include "SpawnState.h"
-#include "../GameEngine.h"
+#include "../ClientGameEngine.h"
 #include "../Joueur/Joueur.h"
 #include "../Factions/Equipe.h"
 #include "../Factions/Faction.h"
@@ -16,34 +16,39 @@
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
 
-SpawnState::SpawnState(StateManager *mng, GameEngine* game): State(mng), m_game(game)
+SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m_game(game)
 {
 	CEGUI::WindowManager &windowManager = CEGUI::WindowManager::getSingleton();
-	m_window = windowManager.createWindow("OgreTray/TabButtonPane","spawn_screen");
+	m_window = windowManager.createWindow("TaharezLook/FrameWindow","spawn_screen");
 	m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.8, 0.f), CEGUI::UDim(0.8, 0.f)));
 	m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_window->getSize().d_x.d_scale*0.5), 0), 
 							CEGUI::UDim(0.5-(m_window->getSize().d_y.d_scale*0.5), 0)));
-	m_buttonSpawn = (CEGUI::PushButton*) windowManager.createWindow("OgreTray/Button", "btn_spawn");
+	CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
+	frame->setCloseButtonEnabled(false);
+	frame->setRollupEnabled(false);
+	frame->setDragMovingEnabled(false);
+	frame->setSizingEnabled(false);
+	m_buttonSpawn = (CEGUI::PushButton*) windowManager.createWindow("TaharezLook/Button", "btn_spawn");
 	m_buttonSpawn->setText((CEGUI::utf8*)"Apparaître");
 	m_buttonSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.15,0), CEGUI::UDim(0.10,0)));
 	m_buttonSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.8250,0), CEGUI::UDim(0.875, 0)));
 	m_buttonSpawn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::trySpawn, this));
 
-	m_spawns = (CEGUI::Listbox*) windowManager.createWindow("OgreTray/Listbox", "spawns_list");
+	m_spawns = (CEGUI::Listbox*) windowManager.createWindow("TaharezLook/Listbox", "spawns_list");
 	m_spawns->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4, 0)));
 	m_spawns->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.025, 0)));
 
-	m_groupCarte = (CEGUI::GroupBox*)windowManager.createWindow("OgreTray/Group", "groupe_spawn_carte");
+	m_groupCarte = (CEGUI::GroupBox*)windowManager.createWindow("TaharezLook/GroupBox", "groupe_spawn_carte");
 	m_groupCarte->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4,0)));
 	m_groupCarte->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5125, 0), CEGUI::UDim(0.025, 0)));
 	m_groupCarte->setText("Carte");
 
-	m_infosSpawn = windowManager.createWindow("OgreTray/StaticText", "infos_spawn");
+	m_infosSpawn = windowManager.createWindow("TaharezLook/StaticText", "infos_spawn");
 	m_infosSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8,0)));
 	m_infosSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1, 0), CEGUI::UDim(0.1, 0)));
 	m_infosSpawn->setText("infos spawn");
 
-	m_tabClasses = (CEGUI::TabControl*) windowManager.createWindow("OgreTray/TabControl", "tab_classes");
+	m_tabClasses = (CEGUI::TabControl*) windowManager.createWindow("TaharezLook/TabControl", "tab_classes");
 	m_tabClasses->setSize(CEGUI::UVector2(CEGUI::UDim(0.95, 0), CEGUI::UDim(0.4, 0)));
 	m_tabClasses->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.45, 0)));
 	m_tabClasses->subscribeEvent(CEGUI::TabControl::EventSelectionChanged, CEGUI::Event::Subscriber(&SpawnState::classChanged, this));
@@ -97,6 +102,7 @@ void SpawnState::updateSpawns()
 			CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(e->type()->nom());
 			item->setUserData((void*)e);
 			item->setSelectionColours(CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0));
+			item->setSelectionBrushImage("TaharezLook", "ListboxSelectionBrush");
 			m_spawns->addItem(item);
 			if(e==m_last_selected_u)
 				item->setSelected(true);
@@ -115,15 +121,15 @@ bool SpawnState::spawnSelected(const CEGUI::EventArgs& a)
 			return true;
 	m_last_selected_u = (Unite*) m_spawns->getFirstSelectedItem()->getUserData();
 	std::string infos;
-	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().x);
-	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().y);
-	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->getPosition().z);
+	infos = "x: " + boost::lexical_cast<std::string>(m_last_selected_u->position().x);
+	infos += " y: " + boost::lexical_cast<std::string>(m_last_selected_u->position().y);
+	infos += " z: " + boost::lexical_cast<std::string>(m_last_selected_u->position().z);
 	infos += " id: " + boost::lexical_cast<std::string>(m_last_selected_u->id());
 	m_infosSpawn->setText(infos);
 
 	Ogre::Camera *cam = m_game->cameraManager()->camera();
-	cam->setPosition(m_last_selected_u->getPosition().convert<Ogre::Vector3>()+Ogre::Vector3(1, 100, 1));
-	cam->lookAt(m_last_selected_u->getPosition().convert<Ogre::Vector3>());
+	cam->setPosition(m_last_selected_u->position().convert<Ogre::Vector3>()+Ogre::Vector3(1, 100, 1));
+	cam->lookAt(m_last_selected_u->position());
 
 	return true;
 }
@@ -133,12 +139,12 @@ void SpawnState::m_loadClasses()
 	const ClasseHeroManager& classesMng = fac->getClassesManager(); 
 	for(ClasseHero *classe : classesMng.classes())
 	{
-		CEGUI::Window* tab = CEGUI::WindowManager::getSingleton().createWindow("OgreTray/TabButtonPane", "tab_classe_"+classe->nom());
+		CEGUI::Window* tab = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/TabButtonPane", "tab_classe_"+classe->nom());
 		tab->setText(classe->nom());
 		m_tabClasses->addTab(tab);
 		tab->setUserData(classe);
 
-		CEGUI::ScrollablePane* scroll = (CEGUI::ScrollablePane*)CEGUI::WindowManager::getSingleton().createWindow("OgreTray/ScrollablePane");
+		CEGUI::ScrollablePane* scroll = (CEGUI::ScrollablePane*)CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/ScrollablePane");
 		int i=0;
 		for(Avatar* ava : m_game->getCurrentJoueur()->avatars())
 		{
@@ -167,7 +173,7 @@ CEGUI::PushButton* SpawnState::m_loadClasse(ClasseHero* classe, Avatar* ava)
 {
 	if(ava->classe() == classe)
 	{
-		CEGUI::PushButton* btn = (CEGUI::PushButton*)CEGUI::WindowManager::getSingleton().createWindow("OgreTray/Button");
+		CEGUI::PushButton* btn = (CEGUI::PushButton*)CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/Button");
 		btn->setText(ava->nom());
 		btn->setSize(CEGUI::UVector2(CEGUI::UDim(0.2, 0), CEGUI::UDim(0.8, 0)));
 		btn->setUserData(ava);

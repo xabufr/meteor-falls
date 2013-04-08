@@ -4,25 +4,22 @@
 #include "Unite.h"
 #include <string>
 #include <iostream>
-#include <OgreTimer.h>
 
 class Equipe;
-namespace Ogre{
-    class Entity;
-	class SceneManager;
-}
 class Batiment: public Unite
 {
     public:
-        Batiment(Ogre::SceneManager*, Equipe*, TypeUnite* type, int id);
+        Batiment(Equipe*, TypeUnite* type, int id);
 
-        bool Is_Constructed();
-        bool Can_beConstructed();
+        bool isConstructed();
+        bool canBeConstructed();
 
     private:
         bool m_isconstructed;
-        Ogre::Timer m_timer;
-		Ogre::Entity* m_entite;
+		/*
+		 * TODO: Utiliser un timer perso
+		 * */
+//        Ogre::Timer m_timer;
 };
 
 #endif // BATIMENT_H

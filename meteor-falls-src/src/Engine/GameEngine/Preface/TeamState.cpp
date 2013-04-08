@@ -4,28 +4,32 @@
 #include "Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "Engine/NetworkEngine/clientnetworkengine.h"
 #include "Engine/GameEngine/Factions/Equipe.h"
-#include "../GameEngine.h"
+#include "../ClientGameEngine.h"
 #include "../Interface/Chat.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../EngineMessage/EngineMessage.h"
 #include <string>
 #include <CEGUI.h>
 
-TeamState::TeamState(StateManager* mgr, GameEngine* engine):State(mgr),
+TeamState::TeamState(StateManager* mgr, ClientGameEngine* engine):State(mgr),
 m_visible(true),
 m_game_engine(engine)
 {
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
-    m_window = (CEGUI::TabButton*)m_window_manager.createWindow("OgreTray/TabButtonPane", "TeamState");
+    m_window = (CEGUI::TabButton*)m_window_manager.createWindow("TaharezLook/FrameWindow", "TeamState");
     m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.20, 0)));
     m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_window->getSize().d_y.d_scale
                                                         /2), 0)));
+	CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
+	frame->setSizingEnabled(false);
+	frame->setCloseButtonEnabled(false);
+	frame->setDragMovingEnabled(false);
     CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
 
-    m_rts = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRTS");
+    m_rts = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonRTS");
     m_rts->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
     m_rts->setPosition(CEGUI::UVector2(CEGUI::UDim(0.25-(m_rts->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_rts->getSize().d_y.d_scale
@@ -33,7 +37,7 @@ m_game_engine(engine)
     m_rts->setText("RTS");
     m_rts->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
     m_window->addChildWindow(m_rts);
-    m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "ButtonRPG");
+    m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonRPG");
     m_rpg->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
     m_rpg->setPosition(CEGUI::UVector2(CEGUI::UDim(0.75-(m_rpg->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_rpg->getSize().d_y.d_scale
@@ -44,7 +48,6 @@ m_game_engine(engine)
 
     m_window->hide();
 }
-
 bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 {
     ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();

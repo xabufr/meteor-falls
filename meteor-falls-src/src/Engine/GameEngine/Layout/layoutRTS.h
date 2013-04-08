@@ -10,10 +10,10 @@
 #include <iostream>
 #include <vector>
 
-class LayoutRTS : public State
+class LayoutRTS
 {
     public:
-        LayoutRTS(StateManager*, Joueur*);
+        LayoutRTS(Joueur*);
         ~LayoutRTS();
         virtual bool isVisible();
         virtual void enter();
@@ -27,7 +27,6 @@ class LayoutRTS : public State
         void SetIdBatimentFromButton();
         void AfficherPremiereListeConstruction();
         void AfficherSecondeListeConstruction();
-        StateManager *m_state_manager;
         bool m_visible;
         bool m_choix_grille(const CEGUI::EventArgs&);
         bool m_choix_grilleBase(const CEGUI::EventArgs&);

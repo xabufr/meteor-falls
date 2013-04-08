@@ -16,7 +16,9 @@ TypeUnite::Type TypeUnite::typeFromString(const std::string& type)
         return TERRESTE;
     else if(type=="AIR")
         return AERIEN;
-    return BATIMENT;
+	else if(type=="HER") 
+		return HERO;
+    return UNKNOW;
 }
 UnitId TypeUnite::id() const
 {

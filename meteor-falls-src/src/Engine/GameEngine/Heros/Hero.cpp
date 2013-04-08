@@ -3,38 +3,52 @@
 #include "ClasseHero.h"
 #include "../Joueur/JoueurRPG.h"
 #include "../Joueur/Joueur.h"
+#include "../../../Utils/Physique/MotionState.h"
 #include "../Factions/Equipe.h"
-#include <OgreSceneManager.h>
-#include <OgreEntity.h>
-#include <OgreSubEntity.h>
 #include "../GameEngine.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../../NetworkEngine/clientnetworkengine.h"
 #include "../../EngineMessage/EngineMessage.h"
 
-Hero::Hero(Ogre::SceneManager* mng, JoueurRPG *j, Avatar *a, int id):
-Unite(mng, j->joueur()->equipe(), nullptr, id),
+Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
+Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
 m_avatar(a),
-m_entityBody(nullptr),
+m_world(j->joueur()->equipe()->game()->bulletWorld()), 
 m_isModified(true)
 {
+	btVector3 vect(0,0,0);
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	j->setHero(this);
-	if(mng)
-	{
-		std::string meshName = a->classe()->mesh(j->joueur()->getLevel())->mesh;
-		m_entityBody = mng->createEntity(meshName);
-		m_sceneNode->attachObject(m_entityBody);
-		m_sceneNode->setScale(0.1, 0.1, 0.1);
-		Ogre::SkeletonInstance *ske = m_entityBody->getSkeleton();
-	}
+
+	btTransform startTransform;
+    startTransform.setIdentity();
+    startTransform.setOrigin (vect);
+
+    m_ghost_object = new btPairCachingGhostObject();
+    m_ghost_object->setWorldTransform(startTransform);
+
+    btScalar characterHeight=1;
+
+    btScalar characterWidth =1;
+
+    btConvexShape* capsule = new btCapsuleShape(characterWidth, characterHeight);
+    m_ghost_object->setCollisionShape (capsule);
+    m_ghost_object->setCollisionFlags (btCollisionObject::CF_CHARACTER_OBJECT);
+    m_world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+
+    btScalar stepHeight = btScalar(1);
+
+    m_character_controller = new btKinematicCharacterController(m_ghost_object, capsule, stepHeight);
+    m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
+
+    m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
+    m_world->addAction(m_character_controller);
+    m_world->getDispatchInfo().m_allowedCcdPenetration=0.0001f;
 }
 Hero::~Hero()
 {
 	m_joueur->setHero(nullptr);
-	if(m_sceneManager)
-		m_sceneManager->destroyEntity(m_entityBody);
 }
 JoueurRPG* Hero::joueur() const
 {
@@ -46,28 +60,26 @@ Avatar* Hero::avatar() const
 }
 void Hero::update(unsigned int time)
 {
-	if(m_sceneNode)
+	Vector3D dep;
+	if(m_avancer||m_reculer||m_droite||m_gauche)
 	{
-		if(m_avancer)
-			m_sceneNode->translate(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_LOCAL);
-		else if(m_reculer) 
-			m_sceneNode->translate(Ogre::Vector3(0, 0, 1), Ogre::Node::TS_LOCAL);
+		if(m_reculer)
+			dep.z = 1;
+		else if(m_avancer)
+			dep.z = -1;
 		if(m_droite)
-			m_sceneNode->translate(Ogre::Vector3(1, 0, 0), Ogre::Node::TS_LOCAL);
+			dep.x = 1;
 		else if(m_gauche) 
-			m_sceneNode->translate(Ogre::Vector3(-1, 0, 0), Ogre::Node::TS_LOCAL);
-		Ogre::AnimationState *anim = m_entityBody->getAnimationState(m_avatar->classe()->mesh(1)->walk);
-		if(m_avancer)
-		{
-			anim->setLoop(true);
-			anim->setEnabled(true);
-		}
-		else
-		{
-			anim->setEnabled(false);
-		}
+			dep.x       = -1;
+		dep = m_rotation * dep;
 	}
-	m_comportementModifie();
+	m_character_controller->setWalkDirection(dep);
+	if(m_isModified)
+	{
+		m_comportementModifie();
+		m_isModified=false;
+	}
+	setPosition(m_ghost_object->getWorldTransform().getOrigin());
 }
 void Hero::setAvancer(bool a)
 {
@@ -95,25 +107,17 @@ void Hero::setDroite(bool d)
 }
 void Hero::m_comportementModifie()
 {
-	if(m_sceneNode) // CLIENT
-	{
-		if(m_equipe->game()->getCurrentJoueur() == this->joueur()->joueur())
-		{
-			((ClientNetworkEngine*)m_equipe->game()->getManager()->getNetwork())->sendRpgModification(!m_isModified);
-		}
-	}
-	else  // SERVEUR
-	{
-	
-	}
-	m_isModified=false;
+	//if(m_sceneNode) // CLIENT
+	//{
+//		if(m_equipe->game()->getCurrentJoueur() == this->joueur()->joueur())
+//		{
+//			((ClientNetworkEngine*)m_equipe->game()->getManager()->getNetwork())->sendRpgModification(!m_isModified);
+//		}
+//	}
 }
 void Hero::serializeComportement(EngineMessage* mess, bool all)
 {
-	mess->positions[EngineMessageKey::OBJECT_POSITION] = m_sceneNode->getPosition();
-	mess->positions[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation();
-	mess->doubles[EngineMessageKey::OBJECT_ROTATION] = m_sceneNode->getOrientation().w;
-	mess->ints[EngineMessageKey::OBJECT_ID] = this->id(); 
+	mess->ints[EngineMessageKey::OBJECT_ID] = this->id();
 	mess->ints[EngineMessageKey::TEAM_ID] = m_equipe->id();
 	if(all)
 	{
@@ -132,8 +136,6 @@ void Hero::deserializeComportement(EngineMessage* mess, bool all)
 	q.y          = axe.y;
 	q.z          = axe.z;
 	q.w          = mess->doubles[EngineMessageKey::OBJECT_ROTATION];
-	if(m_sceneNode)
-		m_sceneNode->setOrientation(q);
 	if(all)
 	{
 		m_reculer = static_cast<bool>(mess->ints[EngineMessageKey::HERO_RECULE]);
@@ -142,11 +144,18 @@ void Hero::deserializeComportement(EngineMessage* mess, bool all)
 		m_gauche = static_cast<bool>(mess->ints[EngineMessageKey::HERO_GAUCHE]);
 	}
 }
-const Ogre::Entity* Hero::entity() const
-{
-	return m_entityBody;
-}
 void Hero::tournerGaucheDroite(float angle)
 {
-	m_sceneNode->yaw(Ogre::Radian(angle));
+	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
+}
+void Hero::m_move(const btVector3& vect)
+{
+    m_character_controller->setWalkDirection(vect);
+    Vector3D ogre_vect;
+    ogre_vect = m_ghost_object->getWorldTransform().getOrigin();
+}
+void Hero::setPosition(const Vector3D& pos)
+{
+	m_character_controller->warp(pos);
+	WorldObject::setPosition(pos);
 }

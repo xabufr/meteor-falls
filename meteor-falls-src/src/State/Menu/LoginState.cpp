@@ -1,4 +1,5 @@
 #include "LoginState.h"
+#include "LanLoginState.h"
 #include "State/Console.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -8,50 +9,31 @@
 
  LoginState::~LoginState()
 {
-
 }
 
  LoginState::LoginState(StateManager *mgr, Joueur **j) : State(mgr),
  m_visible(false),
- m_player(j)
+ m_player(j),
+ m_sousState(nullptr)
 {
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
-
-    m_sheet = m_window_mgr.createWindow("TaharezLook/StaticImage", "FenetreMenu");
-    m_sheet->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.50, 0)));
-    m_sheet->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_sheet->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0.30, 0)));
-
-    m_playLan = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouerLAN");
-    m_playLan->setText("Jouer (LAN)");
-    m_playLan->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
-    m_playLan->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this));
-    m_sheet->addChildWindow(m_playLan);
-
-    m_playOnline = m_window_mgr.createWindow("OgreTray/Button", "BoutonJouer");
-    m_playOnline->setText("Jouer (Online)");
-    m_playOnline->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
-    m_playOnline->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this));
-    m_sheet->addChildWindow(m_playOnline);
-
-    m_playLan->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_playLan->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-    m_playOnline->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_playOnline->getSize().d_x.d_scale/2), 0),
-                                           CEGUI::UDim(0.12+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
-    m_sheet->hide();
+	m_sheet = m_window_mgr.loadWindowLayout("login.layout");
+	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
+	m_sheet->getChild("FenetreLogin/BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this)); 
+	m_sheet->getChild("FenetreLogin/BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this)); 
+	m_sheet->hide();
 }
 bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_sheet->removeChildWindow("BoutonJouerLAN");
-    m_sheet->removeChildWindow("BoutonJouer");
+    m_sheet->removeChildWindow("FenetreLogin/BoutonJouerLan");
+    m_sheet->removeChildWindow("FenetreLogin/BoutonJouerWan");
 
-    m_loginText = m_window_mgr.createWindow("OgreTray/StaticText", "StaticTextLogin");
+    m_loginText = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticTextLogin");
     m_loginText->setText("Login:");
     m_loginText->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_loginText->setProperty("FrameEnabled", "false");
@@ -59,11 +41,11 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
     m_loginText->setProperty("VertFormatting", "TopAligned");
     m_sheet->addChildWindow(m_loginText);
 
-    m_login = m_window_mgr.createWindow("OgreTray/Editbox", "EditBoxLogin");
+    m_login = m_window_mgr.createWindow("TaharezLook/Editbox", "EditBoxLogin");
     m_login->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_sheet->addChildWindow(m_login);
 
-    m_passwdText = m_window_mgr.createWindow("OgreTray/StaticText", "StaticTextPassword");
+    m_passwdText = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticTextPassword");
     m_passwdText->setText("Password:");
     m_passwdText->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_passwdText->setProperty("FrameEnabled", "false");
@@ -71,18 +53,18 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
     m_passwdText->setProperty("VertFormatting", "TopAligned");
     m_sheet->addChildWindow(m_passwdText);
 
-    m_passwd = m_window_mgr.createWindow("OgreTray/Editbox", "EditBoxPassword");
+    m_passwd = m_window_mgr.createWindow("TaharezLook/Editbox", "EditBoxPassword");
     m_passwd->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_passwd->setProperty("MaskText", "True");
     m_sheet->addChildWindow(m_passwd);
 
-    m_connect = m_window_mgr.createWindow("OgreTray/Button", "BoutonConnect");
+    m_connect = m_window_mgr.createWindow("TaharezLook/Button", "BoutonConnect");
     m_connect->setText("Connexion");
     m_connect->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_connect->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::send, this));
     m_sheet->addChildWindow(m_connect);
 
-    m_message = m_window_mgr.createWindow("OgreTray/StaticText", "StaticText");
+    m_message = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticText");
 
     m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_x.d_scale/2), 0),
                                          CEGUI::UDim(0+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
@@ -99,14 +81,25 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
 }
 bool LoginState::m_connection_lan(const CEGUI::EventArgs&)
 {
-	delete *m_player;
+/*	delete *m_player;
     *m_player = new JoueurLan();
     (*m_player)->setNom("Test");
-    this->exit();
+    this->exit();*/
+	m_sousState = new LanLoginState(nullptr, this);
+	m_sousState->enter();
+	m_sheet->setVisible(false);
     return true;
 }
 ret_code LoginState::work(unsigned int time)
 {
+	if(m_sousState)
+		if(m_sousState->work(time)!=ret_code::CONTINUE)
+		{
+			m_sousState->exit();
+			delete m_sousState;
+			m_sousState=nullptr;
+			m_sheet->setVisible(true);
+		}
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;
     return CONTINUE;
@@ -164,9 +157,15 @@ void LoginState::exit()
 {
     m_sheet->hide();
     m_visible = false;
+	if(m_sousState)
+		m_sousState->exit();
 }
 void LoginState::enter()
 {
     m_sheet->show();
     m_visible = true;
+}
+Joueur** LoginState::joueur()
+{
+	return m_player;
 }

@@ -7,10 +7,8 @@ class Equipe;
 class Terrestre: public Mobile
 {
     public:
-        Terrestre(Ogre::SceneManager*, Equipe*, TypeUnite* type, int id);
+        Terrestre(Equipe*, TypeUnite* type, int id);
         virtual ~Terrestre();
-    protected:
-    private:
 };
 
 #endif // TERRESTRE_H

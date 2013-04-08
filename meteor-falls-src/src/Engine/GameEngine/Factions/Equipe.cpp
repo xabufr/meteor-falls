@@ -7,7 +7,7 @@
 Equipe::Equipe(GameEngine *g, char i): m_id(i), m_game(g)
 {
 	m_joueurRTS=nullptr;
-    m_factory = new UniteFactory(this);
+	m_factory = nullptr;
 }
 Equipe::~Equipe()
 {
@@ -119,9 +119,13 @@ const std::vector<Joueur*> Equipe::joueurs() const
 {
 	return m_joueurs;
 }
-UniteFactory* Equipe::factory()
+UniteFactory* Equipe::factory() const
 {
 	return m_factory;
+}
+void Equipe::setFactory(UniteFactory* fac)
+{
+	m_factory=fac;
 }
 const std::vector<Unite*>& Equipe::unites() const
 {

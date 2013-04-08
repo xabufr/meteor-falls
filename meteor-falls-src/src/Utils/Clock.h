@@ -12,6 +12,7 @@ class Clock
 		Clock();
 		~Clock();
 		Clock(const Clock&);
+		Clock& operator=(const Clock&);
 		void reset();
 	private:
 		boost::posix_time::ptime *m_start;

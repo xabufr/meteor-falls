@@ -8,6 +8,7 @@
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 #include <sstream>
+#include <CEGUI/CEGUI.h>
 
 ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
     m_service(new boost::asio::io_service),
@@ -15,7 +16,9 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
     m_visible(false),
     m_state_mgr(mgr),
     m_player(j),
-    m_type(t)
+    m_type(t),
+	m_selectedServer(nullptr),
+	m_retour(false)
 {
     m_connection_udp = UdpConnection::create(m_service);
     m_connection_ssl = SslConnection::create(m_service, SslConnection::Type::CLIENT);
@@ -53,22 +56,33 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_listServer = (CEGUI::Listbox*)m_window_mgr.createWindow("OgreTray/Listbox", "ListServerLan");
-    m_listServer->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
-    m_listServer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_listServer->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim((m_listServer->getSize().d_y.d_scale
-                                                        /2), 0)));
-    m_listServer->setMultiselectEnabled(false);
-    m_listServer->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&ServerList::m_item_selected, this));
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_listServer);
-    m_listServer->hide();
+	m_window   = m_window_mgr.loadWindowLayout("serveurs.layout");
+	m_wFiltres = m_window->getChild("fenServeurs/fenFiltres");
+	m_window->getChild("fenServeurs/btnRefresh")->subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(&ServerList::refresh, this));
+	m_window->getChild("fenServeurs/btnRetour")->subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(&ServerList::close, this));
+	m_window->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
+			CEGUI::Event::Subscriber(&ServerList::close, this));
+	m_btnJoindre = m_window->getChild("fenServeurs/btnJoindre");
+	m_btnJoindre->subscribeEvent(CEGUI::PushButton::EventClicked,
+			CEGUI::Event::Subscriber(&ServerList::join, this));
+	m_listeServeurs = (CEGUI::MultiColumnList*)m_window->getChild("fenServeurs/serveurs");
+	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventSelectionChanged,
+			CEGUI::Event::Subscriber(&ServerList::serverSelected, this));
+	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventMouseDoubleClick,
+			CEGUI::Event::Subscriber(&ServerList::join, this));
+    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+	m_window->hide();
+	updateFiltre(CEGUI::EventArgs());
 }
 ServerList::~ServerList()
 {
     m_work.reset();
     m_service->stop();
     m_service_thread.join();
-    delete m_listServer;
+	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 }
 void ServerList::m_run()
 {
@@ -80,16 +94,19 @@ bool ServerList::isVisible()
 }
 void ServerList::enter()
 {
-    m_listServer->show();
+	m_window->setVisible(true);
+	m_wFiltres->hide();
     m_visible = true;
+	m_retour=false;
 }
 void ServerList::exit()
 {
-    m_listServer->hide();
+	m_window->hide();
     m_visible = false;
 }
 ret_code ServerList::work(unsigned int time)
 {
+	m_btnJoindre->setEnabled(m_selectedServer);
     switch (m_type)
     {
         case LAN:
@@ -101,36 +118,26 @@ ret_code ServerList::work(unsigned int time)
                 std::cout << std::endl << m_connection_udp->getError().message() << std::endl;
                 return CONTINUE;
             }
-            if(!m_connection_udp->hasData())
-               return CONTINUE;
-            EngineMessage *message;
-            auto data = m_connection_udp->getData();
-            message = NetworkEngine::deserialize(data.second, 0);
-			if(message->message==EngineMessageType::SERVER_INFO)
+			while(m_connection_udp->hasData()) 
 			{
-				m_servers.insert(std::pair<std::string, Server*>(data.first.address().to_string(), new Server(data.first.address().to_string(),
-								std::string(message->strings[EngineMessageKey::SERVER_NAME]),
-								std::string(""),
-								message->ints[EngineMessageKey::MAX_PLAYERS],
-								message->ints[EngineMessageKey::PLAYER_NUMBER],
-								false,
-								std::string(message->strings[EngineMessageKey::MAP_NAME]),
-								std::string(""),
-								0.0
-								)));
-			}
-            delete message;
-            m_listServer->resetList();
-            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){
-				CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
-                                      +") "+(*it).second->nom
-                                      +" "+(*it).second->carte_jouee
-                                      +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
-                                      +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
-                                      +")", m_listServer->getItemCount()+1, static_cast<void*>((*it).second));
-                item->setSelected(false);
-                m_listServer->addItem(item);
-				item->setUserData(it->second);
+				EngineMessage *message;
+				auto data = m_connection_udp->getData();
+				message = NetworkEngine::deserialize(data.second, 0);
+				if(message->message==EngineMessageType::SERVER_INFO)
+				{
+					Server *s =  new Server(data.first.address().to_string(),
+							std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+							std::string(""),
+							message->ints[EngineMessageKey::MAX_PLAYERS],
+							message->ints[EngineMessageKey::PLAYER_NUMBER],
+							false,
+							std::string(message->strings[EngineMessageKey::MAP_NAME]),
+							std::string(""),
+							0.0
+							);
+					addServer(s);
+				}
+				delete message;
 			}
         }
         break;
@@ -143,34 +150,23 @@ ret_code ServerList::work(unsigned int time)
                 std::cout << std::endl << m_connection_ssl->getError().message() << std::endl;
                 return CONTINUE;
             }
-            if (!m_connection_ssl->hasData())
-                return CONTINUE;
-            ServerGlobalMessage* message;
-            message = m_deserialize(m_connection_ssl->getData());
-            for (Server s : message->servers)
-                m_servers.insert(std::pair<std::string, Server*>(s.ip, &s));
+			while(m_connection_ssl->hasData()) 
+			{
+				ServerGlobalMessage* message;
+				message = m_deserialize(m_connection_ssl->getData());
+				for (Server s : message->servers)
+					addServer(new Server(s));
 
-            delete message;
-            m_listServer->resetList();
-            for (auto it=m_servers.begin() ; it != m_servers.end(); ++it ){
-				CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("Server ("+(*it).second->ip
-                                      +") "+(*it).second->nom
-                                      +" "+(*it).second->carte_jouee
-                                      +"("+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_connectes)
-                                      +"/"+boost::lexical_cast<std::string>((*it).second->nombre_joueurs_max)
-                                      +")", m_listServer->getItemCount()+1, (*it).second);
-                item->setSelected(false);
-                m_listServer->addItem(item);
-				item->setUserData(it->second);
+				delete message;
 			}
         }
         break;
     }
-    return CONTINUE;
+    return (m_retour) ?ret_code::FINISHED:ret_code::CONTINUE;
 }
 bool ServerList::m_item_selected(const CEGUI::EventArgs&)
 {
-    for (size_t i=0; i<m_listServer->getItemCount(); ++i)
+    /*for (size_t i=0; i<m_listServer->getItemCount(); ++i)
         if (m_listServer->getListboxItemFromIndex(i)->isSelected())
         {
             Server *server = static_cast<Server*>(m_listServer->getListboxItemFromIndex(i)->getUserData());
@@ -182,7 +178,7 @@ bool ServerList::m_item_selected(const CEGUI::EventArgs&)
                 case WAN:
                     break;
             }
-        }
+        }*/
     return true;
 }
 std::string ServerList::m_serialize(const ServerGlobalMessage *message)
@@ -200,15 +196,137 @@ ServerGlobalMessage* ServerList::m_deserialize(const std::string &data)
     archive >> *message;
     return message;
 }
-bool ServerList::mouseMoved(const OIS::MouseEvent& arg)
+bool ServerList::showFiltre(const CEGUI::EventArgs&)
 {
-    return true;
+	m_wFiltres->show();
+	return true;
 }
-bool ServerList::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+bool ServerList::hideFiltre(const CEGUI::EventArgs&)
 {
-    return true;
+	m_wFiltres->hide();
+	return true;
 }
-bool ServerList::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+bool ServerList::refresh(const CEGUI::EventArgs &)
 {
-    return true;
+	for(Server *s : m_serveurs)
+		delete s;
+	m_serveurs.clear();
+	m_listeServeurs->resetList();
+	return true;
+}
+bool ServerList::join(const CEGUI::EventArgs&)
+{
+	if(m_selectedServer)
+		m_state_mgr->addState(new GameState(m_state_mgr, EngineManager::Type::CLIENT_LAN, m_selectedServer->ip, "", *m_player));
+	return true;
+}
+bool ServerList::close(const CEGUI::EventArgs&)
+{
+	m_retour=true;
+	return true;
+}
+bool ServerList::serverSelected(const CEGUI::EventArgs&)
+{
+	m_selectedServer = (m_listeServeurs->getFirstSelectedItem()) ?
+		(Server*)m_listeServeurs->getFirstSelectedItem()->getUserData():nullptr;
+	return true;
+}
+void ServerList::addServer(Server* s)
+{
+	for(Server *s_stored : m_serveurs)
+	{
+		if(s->ip == s_stored->ip)
+		{
+			*s_stored = *s;
+			delete s;
+			updateServer(s_stored);
+			return;
+		}
+	}
+	m_serveurs.push_back(s);
+	if(m_filtre(s))
+		addServerView(s);
+}
+void ServerList::addServerView(Server *s)
+{
+	unsigned int row = m_listeServeurs->addRow();
+	CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem("", 0);
+	for(size_t i=0;i<6;++i)
+	{
+		item = new CEGUI::ListboxTextItem("", 0);
+		item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+		item->setUserData(s);
+		m_listeServeurs->setItem(item, i, row);
+	}
+	updateServer(s);
+}
+void ServerList::updateServer(Server *s)
+{
+	size_t rows = m_listeServeurs->getRowCount();
+	int row = -1;
+	for(size_t i=0;i<rows;++i)
+	{
+		if(m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(i, 0))->getUserData() == s)
+		{
+			row = i;
+			break;
+		}
+	}
+	if(row != -1)
+	{
+		CEGUI::ListboxTextItem *item;
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 0));
+		item->setText(s->nom);
+
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 1));
+		item->setText(s->ip);
+
+		std::string joueurs = boost::lexical_cast<std::string>(s->nombre_joueurs_connectes);
+		joueurs += "/";
+		joueurs += boost::lexical_cast<std::string>(s->nombre_joueurs_max);
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 2));
+		item->setText(joueurs);
+
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 3));
+		item->setText(s->carte_jouee);
+
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 4));
+		item->setText(boost::lexical_cast<std::string>(0));
+
+		item = (CEGUI::ListboxTextItem*)m_listeServeurs->getItemAtGridReference(CEGUI::MCLGridRef(row, 5));
+		item->setText((s->passwd) ?"OUI":"NON");
+		m_listeServeurs->handleUpdatedItemData();
+	}
+}
+void ServerList::reloadViewWithFiltre()
+{
+	m_listeServeurs->resetList();
+	for(Server *s : m_serveurs)
+	{
+		if(m_filtre(s))
+		{
+			addServerView(s);
+		}
+	}
+}
+bool ServerList::updateFiltre(const CEGUI::EventArgs&)
+{
+	m_filtre.full      = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull"))->isSelected();
+	m_filtre.empty     = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty"))->isSelected();
+	m_filtre.password  = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword"))->isSelected();
+	reloadViewWithFiltre();
+}
+bool ServerList::Filtre::operator()(Server *s)
+{
+	if(!empty && s->nombre_joueurs_connectes==0)
+		return false;
+	if(!full && s->nombre_joueurs_max==s->nombre_joueurs_connectes)
+		return false;
+	if(!password && s->passwd)
+		return false;
+	return true;
+}
+void ServerList::updateFiltre()
+{
+	updateFiltre(CEGUI::EventArgs());
 }

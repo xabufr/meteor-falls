@@ -7,10 +7,8 @@ class Equipe;
 class Mobile : public Unite
 {
     public:
-        Mobile(Ogre::SceneManager*, Equipe*, TypeUnite* type, int id);
+        Mobile(Equipe*, TypeUnite* type, int id);
         virtual ~Mobile();
-    protected:
-    private:
 };
 
 #endif // MOBILE_H

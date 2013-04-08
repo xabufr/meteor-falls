@@ -26,6 +26,8 @@ ClientNetworkEngine::ClientNetworkEngine(EngineManager* mng, const std::string& 
 	m_teamId = -1;
 	m_state = WAITING;
 	connect(address, port);
+	m_waitingSpawn      = false;
+	m_waitingSelectTeam = false;
 }
 ClientNetworkEngine::~ClientNetworkEngine()
 {
@@ -112,6 +114,7 @@ void ClientNetworkEngine::work()
 					EngineMessage *messageGame = EngineMessage::clone(message);
 					messageGame->addToType(EngineType::GameEngineType);
 					m_manager->addMessage(messageGame);
+					m_waitingSelectTeam = message->ints[EngineMessageKey::PLAYER_NUMBER] != m_joueur->id();
 				}
 				break;
 			case EngineMessageType::SELECT_GAMEPLAY:
@@ -203,7 +206,7 @@ void ClientNetworkEngine::work()
 					{
 						Hero *h = dynamic_cast<Hero*>(e->getUnite(mess->ints[EngineMessageKey::OBJECT_ID]));
 						if(h)
-							h->deserializeComportement(mess);
+							h->deserializeComportement(mess, false);
 					}
 				}
 				break;
@@ -260,12 +263,12 @@ void ClientNetworkEngine::sendChatMessage(std::string mes, int porte)
 }
 void ClientNetworkEngine::trySelectTeam(char id)
 {
-	m_teamId = id;
 	EngineMessage message(m_manager);
 	message.message = EngineMessageType::SELECT_TEAM;
 	message.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
-	message.ints[EngineMessageKey::TEAM_ID] = m_teamId;
+	message.ints[EngineMessageKey::TEAM_ID] = id;
 	m_tcp->send(serialize(&message));
+	m_waitingSelectTeam = true;
 }
 void ClientNetworkEngine::trySelectGameplay(int gameplay)
 {
@@ -322,4 +325,12 @@ void ClientNetworkEngine::sendRpgModification(bool checkTimer)
 	m_joueur->getRPG()->hero()->serializeComportement(&mess);
 
 	m_tcp->send(serialize(&mess));
+}
+bool ClientNetworkEngine::isWaitingSpawn() const
+{
+	return m_waitingSpawn;
+}
+bool ClientNetworkEngine::isWaitingSelectTeam() const
+{
+	return m_waitingSelectTeam;
 }

@@ -11,13 +11,16 @@ class Faction;
 class Recherche;
 class Armure;
 class Degat;
+class Avatar;
 class TypeUnite
 {
     public:
         enum Type{
             TERRESTE,
             AERIEN,
-            BATIMENT
+            BATIMENT,
+			HERO,
+			UNKNOW
         };
         typedef std::map<std::string, std::string> MeshParameters;
         TypeUnite(UnitId id, Type, Faction* fac);
@@ -48,7 +51,7 @@ class TypeUnite
         Armure* armure() const;
         const MeshParameters& meshParameters() const;
 
-    private:
+	protected:
         friend class Faction;
         const UnitId m_id;
         Type m_type;

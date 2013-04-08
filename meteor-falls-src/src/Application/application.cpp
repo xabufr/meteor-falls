@@ -5,17 +5,20 @@
 #include "../State/ServerState/ServerState.h"
 #include "Utils/Configuration/Config.h"
 
-Application::Application(int argc, char **argv): m_params(argc, argv)
+Application* Application::m_instance = nullptr;
+Application::Application(int argc, char **argv): m_params(argc, argv), m_menu(nullptr)
 {
+	m_instance = this;
+    StateManager manager;
+	m_manager = &manager;
     if(!m_params.parametres.server){
-        StateManager manager;
         Config::get();
         manager.setAudio(true);
-        manager.addState(new MenuState(&manager));
+		m_menu = new MenuState(&manager);
+        manager.addState(m_menu);
         manager.startLoop();
     }
     else{
-		StateManager manager;
 		manager.setAudio(false);
 		manager.setGraphic(false);
 
@@ -25,4 +28,20 @@ Application::Application(int argc, char **argv): m_params(argc, argv)
 }
 Application::~Application()
 {
+}
+Application* Application::instance()
+{
+	return m_instance;
+}
+MenuState* Application::menuState() const
+{
+	return m_menu;
+}
+State* Application::currentState() const
+{
+	return m_manager->current();
+}
+StateManager* Application::manager() const
+{
+	return m_manager;
 }

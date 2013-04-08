@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 class Unite;
-class GameEngine;
+class ClientGameEngine;
 namespace CEGUI {
 	class Window;
 	class PushButton;
@@ -24,7 +24,7 @@ public:
 	{
 		INVALID_SPAWN = 0,
 	};
-	SpawnState(StateManager*, GameEngine*);
+	SpawnState(StateManager*, ClientGameEngine*);
 	~SpawnState();
 	virtual bool isVisible();
     virtual void enter();
@@ -37,7 +37,7 @@ public:
 	bool trySpawn(const CEGUI::EventArgs&);
 	void notifySpawnError(ErrorMessages);
 private:
-	GameEngine* m_game;
+	ClientGameEngine* m_game;
 	CEGUI::Window *m_window;
 	CEGUI::PushButton *m_buttonSpawn;
 	CEGUI::Listbox *m_spawns;
