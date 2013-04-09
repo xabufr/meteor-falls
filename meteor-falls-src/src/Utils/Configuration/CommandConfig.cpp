@@ -17,6 +17,10 @@ CommandConfig::~CommandConfig()
 }
 void CommandConfig::defaultCommandConfig()
 {
+    //paramètre de la souri
+    m_mouse_sensibility = 0.01;
+    m_axes_invers = true;
+
     m_map_key[0] = new KeyAction[KeyGlobal::GLOBAL_COUNT];
     m_map_key[1] = new KeyAction[KeyRPG::RPG_COUNT];
     m_map_key[2] =  new KeyAction[KeyRTS::RTS_COUNT];
@@ -216,6 +220,8 @@ void CommandConfig::loadConfig()
             nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
             addKey(RTS_KEY, nb, current);
         }
+        m_axes_invers = boost::lexical_cast<bool>(command->first_node("mouse")->first_attribute("inverse")->value());
+        m_mouse_sensibility = boost::lexical_cast<float>(command->first_node("mouse")->first_attribute("sensibility")->value());
     }
     catch(FileNotFound &e)
     {
@@ -228,6 +234,7 @@ void CommandConfig::saveConfig()
     rapidxml::xml_node<>* root;
     rapidxml::xml_node<>* command;
     rapidxml::xml_node<>* global;
+    rapidxml::xml_node<>* mouse;
     rapidxml::xml_node<>* rpg;
     rapidxml::xml_node<>* rts;
     rapidxml::xml_node<>* current;
@@ -241,6 +248,7 @@ void CommandConfig::saveConfig()
     }
     else
         root = document->first_node("configuration");
+
 
     if (!root->first_node("command"))
     {
@@ -322,6 +330,19 @@ void CommandConfig::saveConfig()
                 }
             }
         }
+    }
+    if (!command->first_node("mouse"))
+    {
+        mouse = document->allocate_node(rapidxml::node_type::node_element, "mouse");
+        mouse->append_attribute(document->allocate_attribute("inverse",document->allocate_string(boost::lexical_cast<std::string>(m_axes_invers).c_str())));
+        mouse->append_attribute(document->allocate_attribute("sensibility",document->allocate_string(boost::lexical_cast<std::string>(m_mouse_sensibility).c_str())));
+        command->append_node(mouse);
+    }
+    else
+    {
+        mouse = command->first_node("mouse");
+        mouse->first_attribute("inverse")->value(document->allocate_string(boost::lexical_cast<std::string>(m_axes_invers).c_str()));
+        mouse->first_attribute("sensibility")->value(document->allocate_string(boost::lexical_cast<std::string>(m_mouse_sensibility).c_str()));
     }
 
     std::ofstream file;

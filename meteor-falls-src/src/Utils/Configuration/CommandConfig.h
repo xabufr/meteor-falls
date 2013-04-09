@@ -74,17 +74,23 @@ public:
     void defaultCommandConfig();
     void loadConfig();
     void saveConfig();
+    void setMouseSensibility(float value){m_mouse_sensibility = value;}
+    void setAxesInvers(bool value){m_axes_invers = value;}
     static std::string toString(OIS::MouseButtonID);
     bool eventExist(OIS::MouseButtonID, OIS::MouseButtonID, int);
     bool eventExist(OIS::KeyCode, OIS::KeyCode, int);
     bool eventActif(int, int);
+    const bool axesInvers(){return m_axes_invers;}
     void addKey(int, int, rapidxml::xml_node<>*);
     KeyAction** getKeyMap(){return m_map_key;}
     KeyAction* getKeyGlobal(){return m_map_key[0];}
     KeyAction* getKeyRTS(){return m_map_key[2];}
     KeyAction* getKeyRPG(){return m_map_key[1];}
+    const float getMouseSensibility(){return m_mouse_sensibility;}
 private:
     KeyAction* m_map_key[3];
+    float m_mouse_sensibility;
+    bool m_axes_invers;
 
 };
 #endif // COMMANDCONFIG_H_INCLUDED

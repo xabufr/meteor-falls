@@ -16,7 +16,7 @@ Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
 m_avatar(a),
-m_world(j->joueur()->equipe()->game()->bulletWorld()), 
+m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
 	btVector3 vect(0,0,0);
@@ -77,7 +77,7 @@ void Hero::update(float time)
 			dep.z = -1;
 		if(m_droite)
 			dep.x = 1;
-		else if(m_gauche) 
+		else if(m_gauche)
 			dep.x       = -1;
 		dep = m_rotation * dep;
 		dep *= time*100;
@@ -148,6 +148,16 @@ void Hero::tournerGaucheDroite(float angle)
 {
 	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
 }
+void Hero::lookUpDown(float angle)
+{
+    if (m_look.getPitch().valueRadians()+angle < (3.14/2) && m_look.getPitch().valueRadians()+angle > -(3.14/2))
+        m_look = Quaternion::fromAngleAxis(1,0,0,angle) * m_look;
+}
+const Quaternion& Hero::look() const
+{
+    return m_look;
+}
+
 void Hero::m_move(const btVector3& vect)
 {
     m_character_controller->setWalkDirection(vect);

@@ -27,6 +27,8 @@ class CommandSetting : public State, public OIS::KeyListener, public OIS::MouseL
         OIS::MouseButtonID m_old_mouse;
         bool m_button_pushed(const CEGUI::EventArgs&);
         bool m_box_pushed(const CEGUI::EventArgs&);
+        bool m_checkbox_pushed(const CEGUI::EventArgs&);
+        bool m_slider_pushed(const CEGUI::EventArgs&);
         OIS::Keyboard *m_keyboard ;
         OIS::Mouse *m_mouse;
         CEGUI::Editbox *m_box_selected;

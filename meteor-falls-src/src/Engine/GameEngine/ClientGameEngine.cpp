@@ -140,8 +140,8 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 					if(m_current_joueur==j)
 					{
 						setSousStateType(TypeState::PLAYING_RPG);
-						//CameraRPG *cam = new CameraRPG(hero);
-						//m_camManager->setCameraContener(cam);
+						m_camManager->setCameraContener(new CameraRPG(m_current_joueur->getRPG()->hero()));
+						m_camManager->cameraContainer()->setCamera(m_camManager->camera());
 					}
 				}
 				else if(m_sous_state!=nullptr)
@@ -238,6 +238,10 @@ void ClientGameEngine::work()
 				m_camManager->camera()->setOrientation(hero->rotation());
 				ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_manager->getNetwork());
 				net->sendRpgPosition();
+				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
+                hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
+
+				m_camManager->cameraContainer()->update(0);
 			}
 		}
 		else if(m_current_joueur->getTypeGameplay() == Joueur::RTS)
