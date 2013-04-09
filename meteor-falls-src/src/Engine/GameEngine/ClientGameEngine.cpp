@@ -201,8 +201,8 @@ void ClientGameEngine::work()
 				hero->setDroite(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_RIGHT));
 				hero->setAvancer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_FORWARD));
 				hero->setReculer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_BACKWARD));
-				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
-                hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel*-0.005);
+				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
+                hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
 
 				m_camManager->cameraContainer()->update(0);
 			}

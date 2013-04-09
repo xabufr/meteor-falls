@@ -112,6 +112,46 @@ m_box_selected(nullptr)
 
             ++nb;
         }
+
+        if (i==0)
+        {
+            CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi));
+            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
+                                             CEGUI::UDim(0.06+(3*(0.10)), 0)));
+            elem->setText((CEGUI::utf8*)"Axe inversé");
+            elem->setProperty("FrameEnabled", "false");
+            elem->setProperty("BackgroundEnabled", "false");
+            elem->setProperty("VertFormatting", "TopAligned");
+            text->addChildWindow(elem);
+
+            CEGUI::Checkbox *box = (CEGUI::Checkbox*)m_window_manager.createWindow("TaharezLook/Checkbox", "CheckBox");
+            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
+                                             CEGUI::UDim(0.05+(3*(0.10)), 0)));
+            box->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged, CEGUI::Event::Subscriber(&CommandSetting::m_checkbox_pushed, this));
+            box->setSelected(Config::get()->getCommandConfig()->axesInvers());
+            text->addChildWindow(box);
+
+            elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi+1));
+            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
+                                             CEGUI::UDim(0.06+(4*(0.10)), 0)));
+            elem->setText((CEGUI::utf8*)"Sensibilité");
+            elem->setProperty("FrameEnabled", "false");
+            elem->setProperty("BackgroundEnabled", "false");
+            elem->setProperty("VertFormatting", "TopAligned");
+            text->addChildWindow(elem);
+
+            CEGUI::Slider* slide = (CEGUI::Slider*)m_window_manager.createWindow("TaharezLook/Slider", "Slider");
+            slide->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            slide->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
+                                             CEGUI::UDim(0.05+(4*(0.10)), 0)));
+            slide->subscribeEvent(CEGUI::Slider::EventValueChanged, CEGUI::Event::Subscriber(&CommandSetting::m_slider_pushed, this));
+            slide->setMaxValue(1);
+            slide->setCurrentValue(Config::get()->getCommandConfig()->getMouseSensibility());
+            text->addChildWindow(slide);
+        }
     }
 
     m_pane->hide();
@@ -180,6 +220,18 @@ bool CommandSetting::m_box_pushed(const CEGUI::EventArgs& arg)
 
     return true;
 }
+bool CommandSetting::m_checkbox_pushed(const CEGUI::EventArgs& arg)
+{
+    Config::get()->getCommandConfig()->setAxesInvers(((CEGUI::Checkbox*)((CEGUI::WindowEventArgs&)arg).window)->isSelected());
+    return true;
+}
+
+bool CommandSetting::m_slider_pushed(const CEGUI::EventArgs& arg)
+{
+    Config::get()->getCommandConfig()->setMouseSensibility(((CEGUI::Slider*)((CEGUI::WindowEventArgs&)arg).window)->getCurrentValue());
+    return true;
+}
+
 bool CommandSetting::mouseMoved(const OIS::MouseEvent& arg)
 {
     return true;
