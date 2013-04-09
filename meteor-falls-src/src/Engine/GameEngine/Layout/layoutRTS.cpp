@@ -23,14 +23,14 @@ LayoutRTS::LayoutRTS(Joueur *j)
     m_grille_batimentsPartieA = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONm_grille_batimentsPartieA");
     m_grille_batimentsPartieA->setSize(CEGUI::UVector2(CEGUI::UDim(0.33,0), CEGUI::UDim(0.33,0)));
     m_grille_batimentsPartieA->setPosition(CEGUI::UVector2(CEGUI::UDim(0.01,0), CEGUI::UDim(0.66,0)));
-    m_grille_batimentsPartieA->setText("Bâtiments Basiques");
+    m_grille_batimentsPartieA->setText((CEGUI::utf8*)"Bâtiments Basiques");
     m_grille_batimentsPartieA->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grilleBase, this));
     m_grille_batiments->addChildWindow(m_grille_batimentsPartieA);
 
     m_grille_batimentsPartieB = (CEGUI::PushButton*)m_window_manager.createWindow("OgreTray/Button", "BUTTONm_grille_batimentsPartieB");
     m_grille_batimentsPartieB->setSize(CEGUI::UVector2(CEGUI::UDim(0.33,0), CEGUI::UDim(0.33,0)));
     m_grille_batimentsPartieB->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35,0), CEGUI::UDim(0.66,0)));
-    m_grille_batimentsPartieB->setText("Bâtiments Avancés");
+    m_grille_batimentsPartieB->setText((CEGUI::utf8*)"Bâtiments Avancés");
     m_grille_batimentsPartieB->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LayoutRTS::m_choix_grilleBase, this));
     m_grille_batiments->addChildWindow(m_grille_batimentsPartieB);
 
