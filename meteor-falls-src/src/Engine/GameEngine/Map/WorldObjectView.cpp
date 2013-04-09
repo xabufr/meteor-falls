@@ -1,5 +1,7 @@
 #include "WorldObjectView.h"
 #include "WorldObject.h"
+#include <OgreSceneNode.h>
+#include <OgreSceneManager.h>
 
 WorldObjectView::WorldObjectView(WorldObject* model, Ogre::SceneNode* node): m_node(node), m_model(model)
 {
@@ -7,4 +9,5 @@ WorldObjectView::WorldObjectView(WorldObject* model, Ogre::SceneNode* node): m_n
 }
 WorldObjectView::~WorldObjectView()
 {
+	m_node->getCreator()->destroySceneNode(m_node);
 }

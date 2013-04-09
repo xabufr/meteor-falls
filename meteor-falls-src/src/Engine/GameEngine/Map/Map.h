@@ -13,6 +13,7 @@ class btRigidBody;
 class WorldObject;
 class GameEngine;
 class MapListener;
+struct BulletRelationPtr;
 class Map
 {
 public:
@@ -52,5 +53,6 @@ private:
 
 	std::list<MapListener*> m_listeners;
 	btDynamicsWorld* m_world;
+	std::list<BulletRelationPtr*> m_liensPhysique;
 };
 #endif // MAP_H

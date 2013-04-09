@@ -2082,6 +2082,30 @@ src/Engine/NetworkEngine/clientnetworkengine.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/NetworkEngine/clientnetworkengine.cpp.s
 .PHONY : src/Engine/NetworkEngine/clientnetworkengine.cpp.s
 
+src/Engine/PhysicalEngine/BulletRelationPtr.o: src/Engine/PhysicalEngine/BulletRelationPtr.cpp.o
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.o
+
+# target to build an object file
+src/Engine/PhysicalEngine/BulletRelationPtr.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/BulletRelationPtr.cpp.o
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.cpp.o
+
+src/Engine/PhysicalEngine/BulletRelationPtr.i: src/Engine/PhysicalEngine/BulletRelationPtr.cpp.i
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.i
+
+# target to preprocess a source file
+src/Engine/PhysicalEngine/BulletRelationPtr.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/BulletRelationPtr.cpp.i
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.cpp.i
+
+src/Engine/PhysicalEngine/BulletRelationPtr.s: src/Engine/PhysicalEngine/BulletRelationPtr.cpp.s
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.s
+
+# target to generate assembly for a file
+src/Engine/PhysicalEngine/BulletRelationPtr.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Engine/PhysicalEngine/BulletRelationPtr.cpp.s
+.PHONY : src/Engine/PhysicalEngine/BulletRelationPtr.cpp.s
+
 src/Engine/PhysicalEngine/PhysicalEngine.o: src/Engine/PhysicalEngine/PhysicalEngine.cpp.o
 .PHONY : src/Engine/PhysicalEngine/PhysicalEngine.o
 
@@ -3417,6 +3441,9 @@ help:
 	@echo "... src/Engine/NetworkEngine/clientnetworkengine.o"
 	@echo "... src/Engine/NetworkEngine/clientnetworkengine.i"
 	@echo "... src/Engine/NetworkEngine/clientnetworkengine.s"
+	@echo "... src/Engine/PhysicalEngine/BulletRelationPtr.o"
+	@echo "... src/Engine/PhysicalEngine/BulletRelationPtr.i"
+	@echo "... src/Engine/PhysicalEngine/BulletRelationPtr.s"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.o"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.i"
 	@echo "... src/Engine/PhysicalEngine/PhysicalEngine.s"

@@ -11,9 +11,15 @@
 #include "Unites/ServerUniteFactory.h"
 #include "Factions/Faction.h"
 #include "Factions/FactionManager.h"
+#include "../PhysicalEngine/BulletRelationPtr.h"
+
+extern ContactAddedCallback gContactAddedCallback;
+ServerGameEngine* ServerGameEngine::m_instance = nullptr;
 
 ServerGameEngine::ServerGameEngine(EngineManager* mng): GameEngine(mng)
 {
+	m_instance = this;
+	gContactAddedCallback = ServerGameEngine::contactAddedCallback;
 	for(char i=0; i<3;++i)
 	{
 		Equipe *e = new Equipe(this, i);
@@ -85,7 +91,6 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
 					Vector3D position(unit->position());
 					message.ints[EngineMessageKey::RESULT] = 1;
 					message.positions[EngineMessageKey::OBJECT_POSITION] = unit->position();
-					net->sendToAllTcp(&message);
 
 					Unite *hero;
 					if(static_cast<bool>(message.ints[EngineMessageKey::AVATAR_DEFAULT])&&
@@ -97,6 +102,7 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
 					}
 					int id = hero->id();
 					message.ints[EngineMessageKey::OBJECT_ID] = id;
+					net->sendToAllTcp(&message);
 				}
 			}
 			break;
@@ -185,4 +191,43 @@ void ServerGameEngine::addTeam(Equipe* e)
 {
 	e->setFactory(new ServerUniteFactory(e));
 	GameEngine::addTeam(e);
+}
+void ServerGameEngine::uniteSubirDegats(Unite *unite, int degats)
+{
+	unite->subirDegats(degats);
+	EngineMessage mes(m_manager);
+	mes.message = EngineMessageType::SUBIR_DEGATS;
+	mes.ints[TEAM_ID] = unite->equipe()->id();
+	mes.ints[OBJECT_ID] = unite->id();
+}
+void ServerGameEngine::tuerUnite(Unite *unite)
+{
+	unite->tuer();
+	EngineMessage mes(m_manager);
+	mes.message         = EngineMessageType::KILL;
+	mes.ints[OBJECT_ID] = unite->id();
+	mes.ints[TEAM_ID] = unite->equipe()->id();
+	m_net()->sendToAllTcp(&mes);
+}
+bool ServerGameEngine::contactAddedCallback(btManifoldPoint &cp, const btCollisionObjectWrapper *colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper *colObj1Wrap, int partId1, int index1)
+{
+	BulletRelationPtr *ptr1 = static_cast<BulletRelationPtr*>(colObj0Wrap->getCollisionObject()->getUserPointer());
+	BulletRelationPtr *ptr2 = static_cast<BulletRelationPtr*>(colObj1Wrap->getCollisionObject()->getUserPointer());
+
+	if(!ptr1||!ptr2) return false;
+	if(ptr1->type==ptr2->type) return false;
+	if(ptr1->type==BulletRelationPtr::Type::UNITE ||
+	   ptr2->type==BulletRelationPtr::Type::UNITE)
+	{
+		Unite *u = static_cast<Unite*>((ptr1->type==BulletRelationPtr::Type::UNITE) ?ptr1->obj_ptr:ptr2->obj_ptr);
+		if(ptr1->type == BulletRelationPtr::Type::DEATH_OBJ || ptr2->type==BulletRelationPtr::Type::DEATH_OBJ)
+		{
+			m_instance->tuerUnite(u);
+		}
+	}
+	return false;
+}
+ServerNetworkEngine* ServerGameEngine::m_net() const
+{
+	return static_cast<ServerNetworkEngine*>(m_manager->getNetwork());
 }

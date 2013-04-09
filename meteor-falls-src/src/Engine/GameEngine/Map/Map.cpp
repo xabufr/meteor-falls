@@ -18,6 +18,8 @@
 #include <bullet/btBulletCollisionCommon.h>
 #include <bullet/BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 
+#include "../../PhysicalEngine/BulletRelationPtr.h"
+
 #include <cstring>
 
 
@@ -127,6 +129,9 @@ void Map::load(const std::string& p_name)
 				body->setCenterOfMassTransform(tr);
 				body->translate(btVector3(posx,0, posz)); // On position le terrain dans le monde
 				m_world->addCollisionObject(body);
+
+				BulletRelationPtr *lien = new BulletRelationPtr(body, this, BulletRelationPtr::Type::MAP);
+				m_liensPhysique.push_back(lien);
 			}
 		}
 	}
@@ -138,6 +143,7 @@ void Map::load(const std::string& p_name)
 		body->translate(btVector3(0, -100, 0));
 		m_bodies.push_back(body);
 		m_world->addRigidBody(body);
+		m_liensPhysique.push_back(new BulletRelationPtr(body, this, BulletRelationPtr::Type::DEATH_OBJ));
 	}
 	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
 	if(nodes)
@@ -268,4 +274,7 @@ void Map::unload()
 	m_shapes.clear();
 	for(MapListener *l : m_listeners)
 		l->mapUnloaded();
+	for(BulletRelationPtr *l : m_liensPhysique)
+		delete l;
+	m_liensPhysique.clear();
 }

@@ -4,7 +4,7 @@ import ConfigParser
 import sys
 from UI import mainwindow
 import Preferences
-import ObjectFile
+from editors import ObjectFile, UniteFile, FileEditor
 
 class Application:
 	fichiersOuverts = {}
@@ -22,7 +22,7 @@ class Application:
 		fichiers.header().hideSection(1)
 		fichiers.header().hideSection(3)
 		self.modelFiles.setNameFilterDisables(False)
-		self.modelFiles.setNameFilters(["*.xml", "*.models"])
+		self.modelFiles.setNameFilters(["*.xml", "*.models", "*.mfu"])
 		
 		self.fenPreferences = Preferences.Preferences(self.config)
 		self.fenPreferences.accepted.connect(self.reloadConfig)
@@ -64,4 +64,7 @@ class Application:
 		if file.suffix() == "models":
 			widget = QtGui.QWidget()
 			return ObjectFile.ObjectFile(widget, file)
+		elif file.suffix() == "mfu":
+			widget = QtGui.QWidget()
+			return UniteFile.UniteEditor(widget, file)
 		return False

@@ -227,6 +227,7 @@ void Faction::processUnit(rapidxml::xml_node<>* nodeUnit)
 	unite->m_vision = boost::lexical_cast<float>(nodeUnit->first_node("vision")->value());
 	unite->m_portee = boost::lexical_cast<float>(nodeUnit->first_node("portee")->value());
 	unite->m_temps_construction = boost::lexical_cast<int>(nodeUnit->first_node("temps")->value());
+	unite->m_vie = boost::lexical_cast<int>(nodeUnit->first_node("vie")->value());
 
 	unite->m_typeDegats = DegatManager::get()->getDegat(boost::lexical_cast<DegatId>(nodeUnit->first_node("type-degat")->value()));
 	unite->m_armure = DegatManager::get()->getArmure(boost::lexical_cast<ArmureId>(nodeUnit->first_node("armure")->value()));

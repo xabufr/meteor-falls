@@ -209,6 +209,24 @@ void ServerNetworkEngine::work()
 		EngineMessage *message = deserialize(data.second);
 		switch(message->message)
 		{
+			case EngineMessageType::PLAYER_POSITION:
+				{
+					Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
+					{
+						j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+						Equipe *e = m_manager->getGame()->getEquipe(message->ints[EngineMessageKey::TEAM_ID]);
+						if(e)
+						{
+							Hero *h = dynamic_cast<Hero*>(e->getUnite(message->ints[EngineMessageKey::OBJECT_ID]));
+							if(h)
+							{
+								h->deserializeComportement(message);
+							}
+						}
+					}
+				}
+				break;
 		}
 		delete message;
 	}

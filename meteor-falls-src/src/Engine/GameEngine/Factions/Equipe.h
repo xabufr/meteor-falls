@@ -41,6 +41,8 @@ class Equipe
 		Unite* getUnite(int) const;
 		GameEngine* game() const;
 
+		void update(float seconds);
+
     protected:
     private:
         Faction *m_faction;

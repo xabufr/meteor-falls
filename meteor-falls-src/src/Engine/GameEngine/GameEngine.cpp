@@ -20,6 +20,7 @@
 #include "Unites/Builder/BasicUniteBuilder.h"
 #include "Unites/Builder/HeroBuilder.h"
 
+
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
 {
@@ -49,8 +50,7 @@ void GameEngine::work()
         m_map->update();
     }
 	for(Equipe* e : m_teams)
-		for(Unite *u : e->unites())
-			u->update(clock.getElapsedTime().asMilliseconds());
+		e->update(clock.getElapsedTime().asSeconds());
 	clock.restart();
 }
 EngineType GameEngine::getType()

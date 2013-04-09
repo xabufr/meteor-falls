@@ -190,6 +190,14 @@ void ClientNetworkEngine::work()
 					}
 				}
 				break;
+			default:
+				{
+					EngineMessage *tmpMess = EngineMessage::clone(message);
+					tmpMess->clearTo();
+					tmpMess->addToType(EngineType::GameEngineType);
+					m_manager->addMessage(tmpMess);
+				}
+				break;
 		}
 		delete message;
     }
@@ -206,7 +214,7 @@ void ClientNetworkEngine::work()
 					{
 						Hero *h = dynamic_cast<Hero*>(e->getUnite(mess->ints[EngineMessageKey::OBJECT_ID]));
 						if(h)
-							h->deserializeComportement(mess, false);
+							h->deserializeComportement(mess);
 					}
 				}
 				break;
@@ -236,8 +244,8 @@ void ClientNetworkEngine::connect(std::string address, unsigned short port)
     m_tcp->connect(boost::asio::ip::tcp::endpoint(m_serverAddress, m_port));
 	m_udp->socket()->set_option(boost::asio::socket_base::reuse_address(true));
     m_udp->connect(boost::asio::ip::udp::endpoint(m_serverAddress, m_port));
-    m_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));
 	m_udp->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+    m_udp->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));
 	m_udp->startListen();
 }
 int ClientNetworkEngine::getState() const
@@ -310,15 +318,14 @@ void ClientNetworkEngine::sendRpgPosition()
 	Hero *hero = m_joueur->getRPG()->hero();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
-	hero->serializeComportement(&mess, false);
+	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
+	hero->serializeComportement(&mess);
 	sendToAllUdp(mess);
 }
-void ClientNetworkEngine::sendRpgModification(bool checkTimer)
+void ClientNetworkEngine::sendRpgModification()
 {
-	static sf::Clock timer;
-	if((m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero())||(timer.getElapsedTime().asMilliseconds() < 1000/2 && checkTimer))
+	if((m_joueur->getTypeGameplay() != Joueur::TypeGameplay::RPG || !m_joueur->getRPG()->hero()))
 		return;
-	timer.restart();
 	EngineMessage mess(m_manager);
 	mess.message = EngineMessageType::PLAYER_POSITION;
 	mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_joueur->id();
