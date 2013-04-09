@@ -35,17 +35,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_SOURCE_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+CMAKE_BINARY_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -53,7 +50,7 @@ CMAKE_BINARY_DIR = /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -114,7 +111,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -133,9 +130,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -161,32 +158,6 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named doc
-
-# Build rule for target.
-doc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 doc
-.PHONY : doc
-
-# fast build rule for target.
-doc/fast:
-	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/build
-.PHONY : doc/fast
-
-#=============================================================================
-# Target rules for targets named doxygen
-
-# Build rule for target.
-doxygen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 doxygen
-.PHONY : doxygen
-
-# fast build rule for target.
-doxygen/fast:
-	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
-.PHONY : doxygen/fast
 
 #=============================================================================
 # Target rules for targets named PagedGeometry
@@ -350,8 +321,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... doc"
-	@echo "... doxygen"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"

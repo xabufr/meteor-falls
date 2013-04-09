@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged
+# Install script for directory: /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,26 +29,26 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 # Install shared libraries without execute permission?
 IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  SET(CMAKE_INSTALL_SO_NO_EXE "0")
+  SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/PagedGeometry.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/PagedGeometry.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/doc" TYPE FILE FILES
-    "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/Contributors.txt"
-    "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/zlib.txt"
-    "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/GettingStarted.txt"
-    "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/Todo.txt"
+    "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/Contributors.txt"
+    "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/zlib.txt"
+    "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/GettingStarted.txt"
+    "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/Todo.txt"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/source/cmake_install.cmake")
-  INCLUDE("/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/cmake_install.cmake")
+  INCLUDE("/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/source/cmake_install.cmake")
+  INCLUDE("/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/examples/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -58,7 +58,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

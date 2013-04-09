@@ -103,7 +103,6 @@ MenuState::MenuState(StateManager* mng):
     m_player = new Joueur();
 
     m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, &m_player);
-    m_layout_state = new LayoutRTS(m_state_manager,nullptr);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
     m_option_state = new OptionState(m_state_manager, this);
@@ -118,7 +117,6 @@ MenuState::~MenuState()
     delete m_background;
     delete m_sousState;
     delete m_credit_state;
-    delete m_layout_state;
     delete m_server_list;
     delete m_login_state;
     delete m_player;
@@ -147,7 +145,7 @@ bool MenuState::showLanServer()
 bool MenuState::showCredit()
 {
     m_state->hide();
-    m_sousState = m_layout_state;
+    m_sousState = m_credit_state;
     m_sousState->enter();
 
     return true;

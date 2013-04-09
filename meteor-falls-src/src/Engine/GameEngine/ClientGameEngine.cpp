@@ -5,6 +5,7 @@
 #include "../NetworkEngine/clientnetworkengine.h"
 #include "Camera/CameraManager.h"
 #include "Camera/CameraRPG.h"
+#include "Camera/CameraRTS.h"
 #include "Map/MapView.h"
 #include "Map/Map.h"
 #include "Preface/TeamList.h"
@@ -80,6 +81,9 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 					{
 						if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
 							setSousStateType(TypeState::SPAWN_STATE);
+
+						else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
+							SetLayoutRts();
 					}
 				}
 			}
@@ -113,6 +117,8 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 				Equipe *e   = getEquipe(teamId);
 				Unite *unit = e->factory()->create(type, id);
 				unit->setPosition(position);
+				//CameraRPG *cam = new CameraRPG(hero);
+				//m_camManager->setCameraContener(cam);
 			}
 			break;
 		case EngineMessageType::SPAWN:
@@ -133,7 +139,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,10,0));
 					if(m_current_joueur==j)
 					{
-						setSousStateType(TypeState::PLAYING);
+						setSousStateType(TypeState::PLAYING_RPG);
 						//CameraRPG *cam = new CameraRPG(hero);
 						//m_camManager->setCameraContener(cam);
 					}
@@ -234,13 +240,24 @@ void ClientGameEngine::work()
 				net->sendRpgPosition();
 			}
 		}
-		else if(m_current_joueur->getTypeGameplay() == Joueur::RTS) 
+		else if(m_current_joueur->getTypeGameplay() == Joueur::RTS)
 		{
-			
+
 		}
 	}
 	//OIS::Keyboard* key = OgreContextManager::get()->getInputManager()->getKeyboard();
 	//debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
 	//m_world->debugDrawWorld();
 	//debug->step();
+}
+void ClientGameEngine::SetLayoutRts()
+{
+    LayoutRTS* MyLayoutRTS = new LayoutRTS(m_current_joueur);
+    MyLayoutRTS->enter();
+
+    CameraRTS* MyCameraRTS = new CameraRTS();
+    MyCameraRTS->setCamera(m_camManager->camera());
+    m_chat->hide();
+
+    setSousStateType(PLAYING_RTS);
 }

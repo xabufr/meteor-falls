@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/meteor-falls/meteor-falls-src/libs/ogre-paged/examples
+# Install script for directory: /home/bastien/Bureau/Projet_CSII1/meteor-falls/meteor-falls-src/libs/ogre-paged/examples
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,6 +29,6 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 # Install shared libraries without execute permission?
 IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  SET(CMAKE_INSTALL_SO_NO_EXE "0")
+  SET(CMAKE_INSTALL_SO_NO_EXE "1")
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
