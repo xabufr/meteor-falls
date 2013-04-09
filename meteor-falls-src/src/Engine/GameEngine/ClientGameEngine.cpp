@@ -4,6 +4,7 @@
 #include "../EngineMessage/EngineMessage.h"
 #include "Camera/CameraManager.h"
 #include "Camera/CameraRPG.h"
+#include "Camera/CameraRTS.h"
 #include "Map/MapView.h"
 #include "Map/Map.h"
 #include "Preface/TeamList.h"
@@ -76,6 +77,9 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 			{
 				if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
 					setSousStateType(TypeState::SPAWN_STATE);
+
+                else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
+                    SetLayoutRts();
 			}
         }
     }
@@ -127,7 +131,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
             m_camManager->cameraContainer()->setCamera(m_camManager->camera());
 			if(m_current_joueur==j)
 			{
-				setSousStateType(TypeState::PLAYING);
+				setSousStateType(TypeState::PLAYING_RPG);
 				//CameraRPG *cam = new CameraRPG(hero);
 				//m_camManager->setCameraContener(cam);
 			}
@@ -216,4 +220,16 @@ void ClientGameEngine::work()
 	//debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
 	//m_world->debugDrawWorld();
 	//debug->step();
+}
+
+void ClientGameEngine::SetLayoutRts()
+{
+    LayoutRTS* MyLayoutRTS = new LayoutRTS(m_current_joueur);
+    MyLayoutRTS->enter();
+
+    CameraRTS* MyCameraRTS = new CameraRTS();
+    MyCameraRTS->setCamera(m_camManager->camera());
+    m_chat->hide();
+
+    setSousStateType(PLAYING_RTS);
 }

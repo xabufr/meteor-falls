@@ -119,12 +119,12 @@ void OgreApplication::m_bootstrapCegui()
 	CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create();
 	CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
 	CEGUI::OgreImageCodec& ic = CEGUI::OgreRenderer::createOgreImageCodec();
-	CEGUI::ScriptModule& sm = CEGUI::LuaScriptModule::create();
+    CEGUI::ScriptModule& sm = CEGUI::LuaScriptModule::create();
 	LuaScriptEngine::setCEGUIScriptModule(&sm);
 	LuaScriptEngine::get();
 	CEGUI::System::create(renderer,
 			reinterpret_cast<CEGUI::ResourceProvider*>(&rp),
-			static_cast<CEGUI::XMLParser*>(nullptr), 
+			static_cast<CEGUI::XMLParser*>(nullptr),
 			reinterpret_cast<CEGUI::ImageCodec*>(&ic),
 			static_cast<CEGUI::ScriptModule*>(&sm),
 			"cegui.xml");
