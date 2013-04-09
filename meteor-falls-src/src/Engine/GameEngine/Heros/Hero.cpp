@@ -148,6 +148,16 @@ void Hero::tournerGaucheDroite(float angle)
 {
 	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
 }
+void Hero::lookUpDown(float angle)
+{
+    if (m_look.getPitch().valueRadians()+angle < (3.14/2) && m_look.getPitch().valueRadians()+angle > -(3.14/2))
+        m_look = Quaternion::fromAngleAxis(1,0,0,angle) * m_look;
+}
+const Quaternion& Hero::look() const
+{
+    return m_look;
+}
+
 void Hero::m_move(const btVector3& vect)
 {
     m_character_controller->setWalkDirection(vect);

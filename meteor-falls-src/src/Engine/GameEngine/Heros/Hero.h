@@ -18,6 +18,7 @@ public:
 	Avatar *avatar() const;
 	virtual void update(unsigned int);
 	virtual void setPosition(const Vector3D& pos);
+	const Quaternion& look() const;
 	void setAvancer(bool);
 	void setReculer(bool);
 	void setGauche(bool);
@@ -25,6 +26,7 @@ public:
 	void serializeComportement(EngineMessage*, bool all=true);
 	void deserializeComportement(EngineMessage*, bool all=true);
 	void tournerGaucheDroite(float angle);
+	void lookUpDown(float angle);
 private:
 	JoueurRPG *m_joueur;
     btDynamicsWorld* m_world;
@@ -35,6 +37,7 @@ private:
 	bool m_isModified;
 	void m_comportementModifie();
 	void m_move(const btVector3& vect);
+	Quaternion m_look;
 };
 
 #endif

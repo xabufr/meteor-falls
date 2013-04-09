@@ -30,8 +30,11 @@ void CameraRPG::update(int)
     else if (OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Z.rel<0)
         m_distance = (m_distance==10)?10:++m_distance;
 
-    float posz = m_hero->position().z + (cos(m_hero->rotation().getYaw().valueRadians())*m_distance);
-    float posx = m_hero->position().x + (sin(m_hero->rotation().getYaw().valueRadians())*m_distance);
-	m_camera->setPosition(posx,m_hero->position().y,posz);
+    float posx, posy, posz;
+    posx = m_hero->position().x + (sin(m_hero->rotation().getYaw().valueRadians())*m_distance);
+    posy = m_hero->position().y + (sin(m_hero->look().getPitch().valueRadians())*m_distance);
+    posz = m_hero->position().z + (cos(m_hero->rotation().getYaw().valueRadians())*m_distance);
+
+	m_camera->setPosition(posx,posy,posz);
 	m_camera->lookAt(m_hero->position());
 }

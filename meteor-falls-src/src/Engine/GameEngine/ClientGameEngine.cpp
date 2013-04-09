@@ -197,12 +197,12 @@ void ClientGameEngine::work()
 			if(m_current_joueur->getRPG()->hero())
 			{
 				Hero* hero = m_current_joueur->getRPG()->hero();
-				float oldZ = hero->position().z;
 				hero->setGauche(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_LEFT));
 				hero->setDroite(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_RIGHT));
 				hero->setAvancer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_FORWARD));
 				hero->setReculer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_BACKWARD));
 				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
+                hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel*-0.005);
 
 				m_camManager->cameraContainer()->update(0);
 			}

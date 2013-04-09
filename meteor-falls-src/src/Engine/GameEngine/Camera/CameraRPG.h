@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../../../Utils/Quaternion.h"
 
 class Hero;
 class CameraRPG: public Camera
@@ -9,7 +10,7 @@ public:
 	virtual void setCamera(Ogre::Camera*);
 	virtual void update(int);
 private:
-	Ogre::SceneNode *m_sceneNode;
 	Hero *m_hero;
 	float m_distance;
+	Quaternion m_vertical;
 };
