@@ -8,7 +8,7 @@ namespace Ogre {
 	class Entity;
 } // namespace 
 class WorldObject;
-class WorldObjectView: public WorldObjectListener
+class WorldObjectView: virtual public WorldObjectListener
 {
 public:
 	WorldObjectView(WorldObject*, Ogre::SceneNode*);

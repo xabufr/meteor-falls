@@ -31,31 +31,37 @@ add_executable(
 		)
 
 target_link_libraries(meteor-falls
+	#ogre libraries
 		OgreMain
 		OgreTerrain
 		OIS
+		SkyX
+		hydrax
+		PagedGeometry
+		#SFML
 		sfml-audio
 		sfml-system
+		#CEGUI
 		CEGUIBase
 		CEGUILuaScriptModule
 		CEGUIOgreRenderer
+		#BOOST
 		boost_system
 		boost_serialization
-		ssl
-		ozcollide
 		boost_thread
 		boost_unit_test_framework
 		boost_filesystem
 		boost_regex
 		pthread
+		#SSL
+		ssl
 		crypto
-		SkyX
-		hydrax
+		#lua
 		tolua++
-		PagedGeometry
-		BulletDynamics
 		#BtOgre
-		BulletCollision
-		LinearMath
+		#bullet libraries
+		BulletDynamics
+		BulletCollision 
+		LinearMath 
 		)
 
