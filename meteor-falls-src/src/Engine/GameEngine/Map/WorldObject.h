@@ -7,6 +7,7 @@
 class GameEngine;
 class WorldObjectListener;
 class WorldObjectType;
+struct BulletRelationPtr;
 class WorldObject
 {
     public:
@@ -22,11 +23,13 @@ class WorldObject
 		virtual void update(float time);
 
 		void addListener(WorldObjectListener*);
+		virtual bool destroyNeeded() const;
     protected:
 		void notify();
 		GameEngine *m_game;
 		Vector3D m_position;
 		Quaternion m_rotation;
+		BulletRelationPtr *m_relationPtr;
 	private:
 		std::list<WorldObjectListener*> m_listeners;
 		WorldObjectType *m_type;

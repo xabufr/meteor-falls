@@ -21,6 +21,7 @@
 #include "Unites/Builder/HeroBuilder.h"
 #include "../ScriptEngine/MeshManager.h"
 
+
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
 {
@@ -37,6 +38,11 @@ GameEngine::GameEngine(EngineManager* mng):
 GameEngine::~GameEngine()
 {
     delete m_map;
+	delete m_broadphase;
+	delete m_collisionConfiguration;
+	delete m_solver;
+	delete m_dispatcher;
+	delete m_world;
 }
 void GameEngine::work()
 {
@@ -47,8 +53,7 @@ void GameEngine::work()
         m_map->update();
     }
 	for(Equipe* e : m_teams)
-		for(Unite *u : e->unites())
-			u->update(clock.getElapsedTime().asMilliseconds());
+		e->update(clock.getElapsedTime().asSeconds());
 	clock.restart();
 }
 EngineType GameEngine::getType()

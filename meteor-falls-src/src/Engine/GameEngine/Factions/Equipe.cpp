@@ -144,3 +144,20 @@ GameEngine* Equipe::game() const
 {
 	return m_game;
 }
+void Equipe::update(float seconds)
+{
+	for(std::vector<Unite*>::iterator it = m_unites_construites.begin();it!=m_unites_construites.end();)
+	{
+		if((*it)->destroyNeeded())
+		{
+			Unite *u = *it;
+			it = m_unites_construites.erase(it);
+			std::cout << "delete " << u->id() << std::endl;
+			delete u;
+		}
+		else 
+		{
+			(*(it++))->update(seconds);
+		}
+	}
+}

@@ -13,7 +13,10 @@
 #include "../../../Utils/Xml.h"
 
 #include <PagedGeometry/PagedGeometry.h>
+#include <PagedGeometry/BatchPage.h>
+#include <PagedGeometry/ImpostorPage.h>
 #include <PagedGeometry/GrassLoader.h>
+#include <PagedGeometry/TreeLoader3D.h>
 
 #include <OIS/OIS.h>
 #include "../../GraphicEngine/Ogre/ogrecontextmanager.h"
@@ -25,37 +28,30 @@
 
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
-#include <OgreQuaternion.h>
+#include "../../../Utils/Quaternion.h"
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
 #include <Terrain/OgreTerrainMaterialGeneratorA.h>
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
+
 MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pageGrass(nullptr)
 {
+	m_temp_dir = "data/temp/";
 	m_map->addListener(this);
 	m_scene_mgr = m_map->game()->getManager()->getGraphic()->getSceneManager();
 }
 MapView::~MapView()
 {
-	if(m_hydrax != nullptr)
-	{
-		delete m_hydrax;
-	}
-	if(m_skyx != nullptr)
-	{
-		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
-		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
-		delete m_skyx;
-	}
-	if(m_pageGrass)
-		delete m_pageGrass;
 }
 void MapView::mapLoaded(const std::string& mapName)
 {
 	rapidxml::xml_document<> *map_params = m_map->getXmlMap();
 	rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
 	m_pageGrass = new Forests::PagedGeometry(((ClientGameEngine*)m_map->game())->cameraManager()->camera(), 50);
+	m_pageGrass->setTempDir(m_temp_dir);
 	m_pageGrass->addDetailLevel<Forests::GrassPage>(100);
 	Forests::GrassLoader* grassLoader = new Forests::GrassLoader(m_pageGrass);
 	m_pageGrass->setPageLoader(grassLoader);
@@ -316,58 +312,151 @@ void MapView::mapLoaded(const std::string& mapName)
 		OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(m_skyx);
 		OgreContextManager::get()->getOgreApplication()->getWindow()->addListener(m_skyx);
 	}
+	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
+	if(nodes)
+	{
+		rapidxml::xml_node<>* curNode = nodes->first_node("node");
+		while(curNode)
+		{
+			Ogre::SceneNode* sceneNode = m_scene_mgr->getRootSceneNode()->createChildSceneNode();
+			processNode(curNode, sceneNode);
+			curNode = curNode->next_sibling("node");
+		}
+	}
 }
 void MapView::mapUnloaded()
 {
-
+	if(m_hydrax != nullptr)
+	{
+		delete m_hydrax;
+	}
+	if(m_skyx != nullptr)
+	{
+		OgreContextManager::get()->getOgreApplication()->getRoot()->removeFrameListener(m_skyx);
+		OgreContextManager::get()->getOgreApplication()->getWindow()->removeListener(m_skyx);
+		delete m_skyx;
+	}
+	if(m_pageGrass)
+	{
+		delete m_pageGrass;
+	}
+	for(Forests::PagedGeometry *g : m_pages)
+	{
+		delete g;
+	}
 }
 void MapView::update()
 {
 	if(m_pageGrass)
 		m_pageGrass->update();
+	for(Forests::PagedGeometry* p : m_pages)
+		p->update();
 }
 void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 {
-	Ogre::SceneNode *currentNode = parent->createChildSceneNode(n->first_attribute("name")->value());
-	Vector3D position = XmlUtils::getPosition(n->first_node("position"));
-	Ogre::Quaternion rotation = XmlUtils::getQuaternion(n->first_node("rotation"));
-	Vector3D scale = XmlUtils::getPosition(n->first_node("scale"));
-	currentNode->setPosition(position);
-	currentNode->setOrientation(rotation);
-	currentNode->setScale(scale.convert<Ogre::Vector3>());
-
-	/*
-	 * Ajout des entités
-	 * */
-	rapidxml::xml_node<>* entite = n->first_node("entity");
-	while(entite)
+	bool paged = n->first_node("pagedgeometry");
+	if(!paged)
 	{
-		std::string cast_shadow = entite->first_attribute("castShadows")->value();
-		std::string meshName = entite->first_attribute("meshFile")->value();
-		Ogre::Entity *ent = m_scene_mgr->createEntity(meshName);
-		ent->setCastShadows(cast_shadow=="true");
-		currentNode->attachObject(ent);
-		rapidxml::xml_node<>* subEntity = entite->first_node("subentity");
-		while(subEntity)
+		Ogre::SceneNode *currentNode = parent->createChildSceneNode(n->first_attribute("name")->value());
+		Vector3D position = XmlUtils::getPosition(n->first_node("position"));
+		Ogre::Quaternion rotation = XmlUtils::getQuaternion(n->first_node("rotation"));
+		Vector3D scale = XmlUtils::getPosition(n->first_node("scale"));
+		currentNode->setPosition(position);
+		currentNode->setOrientation(rotation);
+		currentNode->setScale(scale.convert<Ogre::Vector3>());
+		/*
+		 * Ajout des entités
+		 * */
+		rapidxml::xml_node<>* entite = n->first_node("entity");
+		while(entite)
 		{
-			int index = boost::lexical_cast<int>(subEntity->first_attribute("index")->value());
-			ent->getSubEntity(index)->setMaterialName(subEntity->first_attribute("materialName")->value());
-			subEntity = subEntity->first_node("subentity");
+			std::string cast_shadow = entite->first_attribute("castShadows")->value();
+			std::string meshName = entite->first_attribute("meshFile")->value();
+			Ogre::Entity *ent = m_scene_mgr->createEntity(meshName);
+			ent->setCastShadows(cast_shadow=="true");
+			currentNode->attachObject(ent);
+			rapidxml::xml_node<>* subEntity = entite->first_node("subentity");
+			while(subEntity)
+			{
+				int index = boost::lexical_cast<int>(subEntity->first_attribute("index")->value());
+				ent->getSubEntity(index)->setMaterialName(subEntity->first_attribute("materialName")->value());
+				subEntity = subEntity->first_node("subentity");
+			}
+			entite = entite->next_sibling("entity");
 		}
-		entite = entite->next_sibling("entity");
+		rapidxml::xml_node<>* nodes = n->first_node("node");
+		while(nodes)
+		{
+			processNode(nodes, currentNode);
+			nodes=nodes->next_sibling("node");
+		}
 	}
-	rapidxml::xml_node<>* nodes = n->first_node("node");
-	while(nodes)
+	else
 	{
-		processNode(nodes, currentNode);
-		nodes=nodes->next_sibling("node");
+		m_scene_mgr->destroySceneNode(parent);
+		rapidxml::xml_node<>* pagedNode = n->first_node("pagedgeometry");
+		std::string fileName = pagedNode->first_attribute("fileName")->value();
+		std::string model = pagedNode->first_attribute("model")->value();
+		int pageSize        = XmlUtils::getInt(pagedNode->first_attribute("pageSize"));
+		int batchDistance    = XmlUtils::getInt(pagedNode->first_attribute("batchDistance"));
+		int impostorDistance = XmlUtils::getInt(pagedNode->first_attribute("impostorDistance"));
+		std::vector<std::string> boundsStrings;
+		std::string strBounds = pagedNode->first_attribute("bounds")->value();
+		boost::split(boundsStrings, strBounds, boost::is_any_of(" "));
+		Forests::TBounds bounds(boost::lexical_cast<int>(boundsStrings[0]),
+				boost::lexical_cast<int>(boundsStrings[1]),
+				boost::lexical_cast<int>(boundsStrings[2]),
+				boost::lexical_cast<int>(boundsStrings[3]));
+		bool castShadow = std::string(pagedNode->first_attribute("castShadows")->value())=="true";
+		Forests::PagedGeometry *pagedGeometry = new Forests::PagedGeometry(((ClientGameEngine*)m_map->game())->cameraManager()->camera(), pageSize);
+		pagedGeometry->setTempDir(m_temp_dir);
+		m_pages.push_back(pagedGeometry);
+		pagedGeometry->addDetailLevel<Forests::BatchPage>(batchDistance);
+		pagedGeometry->addDetailLevel<Forests::ImpostorPage>(impostorDistance);
+		Forests::TreeLoader3D* loader = new Forests::TreeLoader3D(pagedGeometry, bounds);
+		
+		Ogre::Entity *entity = m_scene_mgr->createEntity(model);
+
+		loadPagedFile(m_map->mapRootPath()+fileName, loader, entity);
+		pagedGeometry->setPageLoader(loader);
 	}
 }
 Ogre::Real MapView::staticGetHeightAt(Ogre::Real x, Ogre::Real z, void *map)
 {
-	return static_cast<MapView*>(map)->m_map->getHeightAt(x,z);
+	return static_cast<MapView*>(map)->getHeightAt(x,z);
 }
 bool MapView::autoDelete() const
 {
 	return true;
+}
+void MapView::loadPagedFile(const std::string& path, Forests::TreeLoader3D* loader, Ogre::Entity* ent)
+{
+	std::ifstream file;
+	file.open(path);
+	std::string line;
+	std::cout << "-----------------------paged-----------------------" << std::endl;
+	while(!file.eof())
+	{
+		std::getline(file, line);
+		std::vector<std::string> firstSep;
+		boost::split(firstSep, line, boost::is_any_of(";"));
+		int id      = boost::lexical_cast<int>(firstSep[0]);
+		float scale = boost::lexical_cast<float>(firstSep[2]);
+		float yaw   = boost::lexical_cast<float>(firstSep[3]);
+		Vector3D pos;
+		{
+			std::vector<std::string> positions;
+			boost::split(positions, firstSep[1], boost::is_any_of(" "));
+			pos.x = boost::lexical_cast<float>(positions[0]);
+			pos.y = boost::lexical_cast<float>(positions[1]);
+			pos.z = boost::lexical_cast<float>(positions[2]);
+			std::cout << pos.x << std::endl;
+		}
+		loader->addTree(ent, pos, Ogre::Radian(yaw), scale);
+	}
+	file.close();
+}
+float MapView::getHeightAt(float x, float z) const
+{
+	return m_terrainGroup->getHeightAtWorldPosition(x,0,z);
 }

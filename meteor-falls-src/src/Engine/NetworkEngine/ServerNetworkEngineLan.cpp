@@ -8,6 +8,10 @@ ServerNetworkEngine(mng,port)
 {
 	announceServer();
 	m_udpConnexion->socket()->set_option(boost::asio::ip::udp::socket::broadcast(true));
+	m_udpConnexion->socket()->set_option(boost::asio::socket_base::reuse_address(true));
+	m_udpConnexion->socket()->set_option(boost::asio::ip::multicast::join_group(boost::asio::ip::address::from_string("225.125.145.155")));
+    m_udpConnexion->bind(boost::asio::ip::udp::endpoint(boost::asio::ip::address(), m_port));
+	m_udpConnexion->startListen();
 }
 ServerNetworkEngineLan::~ServerNetworkEngineLan()
 {

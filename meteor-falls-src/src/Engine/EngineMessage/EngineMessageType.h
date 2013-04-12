@@ -25,6 +25,8 @@ enum EngineMessageType
 	GETOBJECTSLIST  = 18,
 	ADDOBJECT       = 19,
 	SPAWN           = 20,
+	KILL            = 21,
+	SUBIR_DEGATS    = 22,
 };
 
 #endif // ENGINEMESSAGETYPE_H

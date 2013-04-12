@@ -14,6 +14,13 @@ public:
 	operator btQuaternion() const;
 	static Quaternion fromAngleAxis(double x, double y, double z, double angle);
 	static Quaternion fromAngleAxis(const Vector3D& vec, double angle);
+private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int)
+    {
+        ar & x & y & z & w;
+    }
 };
 
 #endif 

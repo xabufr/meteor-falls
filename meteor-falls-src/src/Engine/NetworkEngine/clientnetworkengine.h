@@ -40,7 +40,7 @@ class ClientNetworkEngine : public NetworkEngine
 		char teamId() const;
 
 		void sendRpgPosition();
-		void sendRpgModification(bool checkTimer=true);
+		void sendRpgModification();
 
 		bool isWaitingSpawn() const;
 		bool isWaitingSelectTeam() const;

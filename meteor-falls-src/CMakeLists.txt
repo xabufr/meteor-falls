@@ -55,7 +55,6 @@ target_link_libraries(meteor-falls
 		PagedGeometry
 		BulletDynamics
 		#BtOgre
-		lua5.1
 		BulletCollision
 		LinearMath
 		)

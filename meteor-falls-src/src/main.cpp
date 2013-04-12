@@ -1,15 +1,12 @@
-#include <iostream>
 #ifdef UNIT_TEST
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MAIN
 #include "UnitTest/UnitTest.h"
-
 #else
 #include <iostream>
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
-#include "Engine/GameEngine/Map/Map.h"
-#include "Engine/GameEngine/Factions/FactionManager.h"
+#include "Engine/ScriptEngine/MeshManager.h"
 
 int main(int argc, char **argv)
 {

@@ -16,15 +16,16 @@ public:
 	virtual ~Hero();
 	JoueurRPG* joueur() const;
 	Avatar *avatar() const;
-	virtual void update(unsigned int);
+	virtual void update(float time);
 	virtual void setPosition(const Vector3D& pos);
 	const Quaternion& look() const;
 	void setAvancer(bool);
 	void setReculer(bool);
 	void setGauche(bool);
 	void setDroite(bool);
-	void serializeComportement(EngineMessage*, bool all=true);
-	void deserializeComportement(EngineMessage*, bool all=true);
+	void sauter();
+	void serializeComportement(EngineMessage*);
+	void deserializeComportement(EngineMessage*);
 	void tournerGaucheDroite(float angle);
 	void lookUpDown(float angle);
 private:
@@ -33,6 +34,7 @@ private:
 	Avatar *m_avatar;
 	btPairCachingGhostObject *m_ghost_object;
 	btKinematicCharacterController *m_character_controller;
+	btConvexShape *m_capsule;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
 	bool m_isModified;
 	void m_comportementModifie();

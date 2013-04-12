@@ -2,6 +2,7 @@
 #include "../EngineManager/EngineManager.h"
 #include "../GraphicEngine/GraphicEngine.h"
 #include "../EngineMessage/EngineMessage.h"
+#include "../NetworkEngine/clientnetworkengine.h"
 #include "Camera/CameraManager.h"
 #include "Camera/CameraRPG.h"
 #include "Camera/CameraRTS.h"
@@ -59,91 +60,116 @@ void ClientGameEngine::addTeam(Equipe *e)
 }
 void ClientGameEngine::handleMessage(EngineMessage& message)
 {
-	if(message.message==EngineMessageType::CHAT_MESSAGE)
+	switch(message.message)
 	{
-		std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
-		//m_chat->addMessage(nom);
-	}
-	else if (message.message==EngineMessageType::SELECT_GAMEPLAY)
-    {
-        if (message.ints[EngineMessageKey::RESULT] == 1)
-        {
-			Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-			if(joueur==nullptr)
-				return;
-			joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE]==EngineMessageKey::RTS_GAMEPLAY?
+		case EngineMessageType::CHAT_MESSAGE:
+			{
+				std::string nom = "\\[ "+findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()+" ]:"+message.strings[EngineMessageKey::MESSAGE];
+				//m_chat->addMessage(nom);
+			}
+			break;
+		case EngineMessageType::SELECT_GAMEPLAY:
+			{
+				if (message.ints[EngineMessageKey::RESULT] == 1)
+				{
+					Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+					if(joueur==nullptr)
+						return;
+					joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE]==EngineMessageKey::RTS_GAMEPLAY?
 							Joueur::TypeGameplay::RTS : Joueur::TypeGameplay::RPG);
-			if(joueur == m_current_joueur)
-			{
-				if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
-					setSousStateType(TypeState::SPAWN_STATE);
+					if(joueur == m_current_joueur)
+					{
+						if(joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
+							setSousStateType(TypeState::SPAWN_STATE);
 
-                else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
-                    SetLayoutRts();
+						else if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RTS)
+							SetLayoutRts();
+					}
+				}
 			}
-        }
-    }
-	else if (message.message==EngineMessageType::DEL_PLAYER)
-	{
-		deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-	}
-	else if (message.message==EngineMessageType::SELECT_TEAM)
-	{
-		int team_id = message.ints[EngineMessageKey::TEAM_ID];
-		if(team_id==-1)
-			return;
-		Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-		Equipe *equ = getEquipe(team_id);
-		if(joueur==nullptr || equ == nullptr)
-			return;
-		joueur->changeTeam(equ);
-		if(joueur == m_current_joueur)
-		{
-		}
-	}
-	else if (message.message==EngineMessageType::ADDOBJECT)
-	{
-		UnitId type       = message.ints[EngineMessageKey::OBJECT_TYPE];
-		UnitId id         = message.ints[EngineMessageKey::OBJECT_ID];
-		Vector3D position = message.positions[EngineMessageKey::OBJECT_POSITION];
-		char teamId = message.ints[EngineMessageKey::TEAM_ID];
-		Equipe *e   = getEquipe(teamId);
-		Unite *unit = e->factory()->create(type, id);
-		unit->setPosition(position);
-	}
-	else if (message.message==EngineMessageType::SPAWN)
-	{
-		Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
-		if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
-			return;
-		if(message.ints[EngineMessageKey::RESULT] == 1)
-		{
-			Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
-
-			if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+			break;
+		case EngineMessageType::DEL_PLAYER:
 			{
+				deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
 			}
-			Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
-			Unite* hero = j->equipe()->factory()->create(j, avatar, avatar->classe(),
-					message.ints[EngineMessageKey::OBJECT_ID]);
-			hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,10,0));
-            m_camManager->setCameraContener(new CameraRPG(m_current_joueur->getRPG()->hero()));
-            m_camManager->cameraContainer()->setCamera(m_camManager->camera());
-			if(m_current_joueur==j)
+			break;
+		case EngineMessageType::SELECT_TEAM:
 			{
-				setSousStateType(TypeState::PLAYING_RPG);
+				int team_id = message.ints[EngineMessageKey::TEAM_ID];
+				if(team_id==-1)
+					return;
+				Joueur *joueur = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+				Equipe *equ = getEquipe(team_id);
+				if(joueur==nullptr || equ == nullptr)
+					return;
+				joueur->changeTeam(equ);
+				if(joueur == m_current_joueur)
+				{
+				}
+			}
+			break;
+		case EngineMessageType::ADDOBJECT:
+			{
+				UnitId type       = message.ints[EngineMessageKey::OBJECT_TYPE];
+				UnitId id         = message.ints[EngineMessageKey::OBJECT_ID];
+				Vector3D position = message.positions[EngineMessageKey::OBJECT_POSITION];
+				char teamId = message.ints[EngineMessageKey::TEAM_ID];
+				Equipe *e   = getEquipe(teamId);
+				Unite *unit = e->factory()->create(type, id);
+				unit->setPosition(position);
 				//CameraRPG *cam = new CameraRPG(hero);
 				//m_camManager->setCameraContener(cam);
 			}
-		}
-		else if(m_sous_state!=nullptr)
-		{
-			SpawnState* sous_state = dynamic_cast<SpawnState*>(m_sous_state);
-			if(sous_state)
+			break;
+		case EngineMessageType::SPAWN:
 			{
-				sous_state->notifySpawnError((SpawnState::ErrorMessages)message.ints[EngineMessageKey::ERROR_CODE]);
+				Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+				if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
+					return;
+				if(message.ints[EngineMessageKey::RESULT] == 1)
+				{
+					Vector3D position(message.positions[EngineMessageKey::OBJECT_POSITION]);
+
+					if(!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+					{
+					}
+					Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
+					Unite* hero = j->equipe()->factory()->create(j, avatar, avatar->classe(),
+							message.ints[EngineMessageKey::OBJECT_ID]);
+					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,10,0));
+					if(m_current_joueur==j)
+					{
+						setSousStateType(TypeState::PLAYING_RPG);
+						m_camManager->setCameraContener(new CameraRPG(m_current_joueur->getRPG()->hero()));
+						m_camManager->cameraContainer()->setCamera(m_camManager->camera());
+					}
+				}
+				else if(m_sous_state!=nullptr)
+				{
+					SpawnState* sous_state = dynamic_cast<SpawnState*>(m_sous_state);
+					if(sous_state)
+					{
+						sous_state->notifySpawnError((SpawnState::ErrorMessages)message.ints[EngineMessageKey::ERROR_CODE]);
+					}
+				}
 			}
-		}
+			break;
+		case EngineMessageType::KILL:
+			{
+				Equipe *e = getEquipe(message.ints[TEAM_ID]);
+				if(e)
+				{
+					Unite *u = e->getUnite(message.ints[OBJECT_ID]);
+					if(u)
+					{
+						u->tuer();
+						if(m_current_joueur->getTypeGameplay()==Joueur::TypeGameplay::RPG &&
+								m_current_joueur->getRPG()->hero()==u)
+							setSousStateType(TypeState::SPAWN_STATE);
+					}
+				}
+			}
+			break;
 	}
 }
 GameEngine::Type ClientGameEngine::getTypeServerClient() const
@@ -205,6 +231,13 @@ void ClientGameEngine::work()
 				hero->setDroite(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_RIGHT));
 				hero->setAvancer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_FORWARD));
 				hero->setReculer(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_BACKWARD));
+				if(commandes->eventActif(CommandConfig::KeyType::RPG_KEY, CommandConfig::KeyRPG::RPG_JUMP))
+					hero->sauter();
+				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-0.01);
+				m_camManager->camera()->setPosition(hero->position()+Vector3D(0,0,10));
+				m_camManager->camera()->setOrientation(hero->rotation());
+				ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_manager->getNetwork());
+				net->sendRpgPosition();
 				hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
                 hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel*-Config::get()->getCommandConfig()->getMouseSensibility());
 
@@ -221,7 +254,6 @@ void ClientGameEngine::work()
 	//m_world->debugDrawWorld();
 	//debug->step();
 }
-
 void ClientGameEngine::SetLayoutRts()
 {
     LayoutRTS* MyLayoutRTS = new LayoutRTS(m_current_joueur);

@@ -8,6 +8,7 @@ class Map;
 class GraphicEngine;
 namespace Forests {
 	class PagedGeometry;
+	class TreeLoader3D;
 } // namespace Forest
 namespace Ogre {
 	class SceneManager;
@@ -32,19 +33,23 @@ public:
 	virtual void mapUnloaded();
 	virtual void update();
 	virtual bool autoDelete() const;
+	float getHeightAt(float x, float z) const;
 private:
 	Ogre::SceneManager *m_scene_mgr;
 	Ogre::TerrainGlobalOptions *m_globals;
 	Ogre::TerrainGroup *m_terrainGroup;
+	std::string m_temp_dir;
 
 	SkyX::SkyX *m_skyx;
 	SkyX::BasicController *m_controller;
 	Hydrax::Hydrax *m_hydrax;
 	Forests::PagedGeometry *m_pageGrass;
+	std::list<Forests::PagedGeometry*> m_pages;
 
 	Map *m_map;
 
 	void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
+	void loadPagedFile(const std::string& path, Forests::TreeLoader3D *, Ogre::Entity* ent);
 };
 
 #endif 
