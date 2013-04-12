@@ -4,6 +4,7 @@
 #include "../State/Menu/MenuState.h"
 #include "../State/ServerState/ServerState.h"
 #include "Utils/Configuration/Config.h"
+#include "../Utils/ResourceGroupManager.h"
 
 Application* Application::m_instance = nullptr;
 Application::Application(int argc, char **argv): m_params(argc, argv), m_menu(nullptr)
@@ -11,6 +12,8 @@ Application::Application(int argc, char **argv): m_params(argc, argv), m_menu(nu
 	m_instance = this;
     StateManager manager;
 	m_manager = &manager;
+	ResourceGroupManager::get()->loadFromFile("resources.cfg");
+	ResourceGroupManager::get()->initialiseResourceGroup();
     if(!m_params.parametres.server){
         Config::get();
         manager.setAudio(true);

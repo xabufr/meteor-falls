@@ -3066,6 +3066,102 @@ src/Utils/MessageDialog.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/MessageDialog.cpp.s
 .PHONY : src/Utils/MessageDialog.cpp.s
 
+src/Utils/Physique/bChunk.o: src/Utils/Physique/bChunk.cpp.o
+.PHONY : src/Utils/Physique/bChunk.o
+
+# target to build an object file
+src/Utils/Physique/bChunk.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bChunk.cpp.o
+.PHONY : src/Utils/Physique/bChunk.cpp.o
+
+src/Utils/Physique/bChunk.i: src/Utils/Physique/bChunk.cpp.i
+.PHONY : src/Utils/Physique/bChunk.i
+
+# target to preprocess a source file
+src/Utils/Physique/bChunk.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bChunk.cpp.i
+.PHONY : src/Utils/Physique/bChunk.cpp.i
+
+src/Utils/Physique/bChunk.s: src/Utils/Physique/bChunk.cpp.s
+.PHONY : src/Utils/Physique/bChunk.s
+
+# target to generate assembly for a file
+src/Utils/Physique/bChunk.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bChunk.cpp.s
+.PHONY : src/Utils/Physique/bChunk.cpp.s
+
+src/Utils/Physique/bDNA.o: src/Utils/Physique/bDNA.cpp.o
+.PHONY : src/Utils/Physique/bDNA.o
+
+# target to build an object file
+src/Utils/Physique/bDNA.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bDNA.cpp.o
+.PHONY : src/Utils/Physique/bDNA.cpp.o
+
+src/Utils/Physique/bDNA.i: src/Utils/Physique/bDNA.cpp.i
+.PHONY : src/Utils/Physique/bDNA.i
+
+# target to preprocess a source file
+src/Utils/Physique/bDNA.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bDNA.cpp.i
+.PHONY : src/Utils/Physique/bDNA.cpp.i
+
+src/Utils/Physique/bDNA.s: src/Utils/Physique/bDNA.cpp.s
+.PHONY : src/Utils/Physique/bDNA.s
+
+# target to generate assembly for a file
+src/Utils/Physique/bDNA.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bDNA.cpp.s
+.PHONY : src/Utils/Physique/bDNA.cpp.s
+
+src/Utils/Physique/bFile.o: src/Utils/Physique/bFile.cpp.o
+.PHONY : src/Utils/Physique/bFile.o
+
+# target to build an object file
+src/Utils/Physique/bFile.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bFile.cpp.o
+.PHONY : src/Utils/Physique/bFile.cpp.o
+
+src/Utils/Physique/bFile.i: src/Utils/Physique/bFile.cpp.i
+.PHONY : src/Utils/Physique/bFile.i
+
+# target to preprocess a source file
+src/Utils/Physique/bFile.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bFile.cpp.i
+.PHONY : src/Utils/Physique/bFile.cpp.i
+
+src/Utils/Physique/bFile.s: src/Utils/Physique/bFile.cpp.s
+.PHONY : src/Utils/Physique/bFile.s
+
+# target to generate assembly for a file
+src/Utils/Physique/bFile.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/bFile.cpp.s
+.PHONY : src/Utils/Physique/bFile.cpp.s
+
+src/Utils/Physique/btBulletFile.o: src/Utils/Physique/btBulletFile.cpp.o
+.PHONY : src/Utils/Physique/btBulletFile.o
+
+# target to build an object file
+src/Utils/Physique/btBulletFile.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/btBulletFile.cpp.o
+.PHONY : src/Utils/Physique/btBulletFile.cpp.o
+
+src/Utils/Physique/btBulletFile.i: src/Utils/Physique/btBulletFile.cpp.i
+.PHONY : src/Utils/Physique/btBulletFile.i
+
+# target to preprocess a source file
+src/Utils/Physique/btBulletFile.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/btBulletFile.cpp.i
+.PHONY : src/Utils/Physique/btBulletFile.cpp.i
+
+src/Utils/Physique/btBulletFile.s: src/Utils/Physique/btBulletFile.cpp.s
+.PHONY : src/Utils/Physique/btBulletFile.s
+
+# target to generate assembly for a file
+src/Utils/Physique/btBulletFile.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Physique/btBulletFile.cpp.s
+.PHONY : src/Utils/Physique/btBulletFile.cpp.s
+
 src/Utils/Quaternion.o: src/Utils/Quaternion.cpp.o
 .PHONY : src/Utils/Quaternion.o
 
@@ -3114,6 +3210,54 @@ src/Utils/Random.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Random.cpp.s
 .PHONY : src/Utils/Random.cpp.s
 
+src/Utils/ResourceGroup.o: src/Utils/ResourceGroup.cpp.o
+.PHONY : src/Utils/ResourceGroup.o
+
+# target to build an object file
+src/Utils/ResourceGroup.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroup.cpp.o
+.PHONY : src/Utils/ResourceGroup.cpp.o
+
+src/Utils/ResourceGroup.i: src/Utils/ResourceGroup.cpp.i
+.PHONY : src/Utils/ResourceGroup.i
+
+# target to preprocess a source file
+src/Utils/ResourceGroup.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroup.cpp.i
+.PHONY : src/Utils/ResourceGroup.cpp.i
+
+src/Utils/ResourceGroup.s: src/Utils/ResourceGroup.cpp.s
+.PHONY : src/Utils/ResourceGroup.s
+
+# target to generate assembly for a file
+src/Utils/ResourceGroup.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroup.cpp.s
+.PHONY : src/Utils/ResourceGroup.cpp.s
+
+src/Utils/ResourceGroupManager.o: src/Utils/ResourceGroupManager.cpp.o
+.PHONY : src/Utils/ResourceGroupManager.o
+
+# target to build an object file
+src/Utils/ResourceGroupManager.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroupManager.cpp.o
+.PHONY : src/Utils/ResourceGroupManager.cpp.o
+
+src/Utils/ResourceGroupManager.i: src/Utils/ResourceGroupManager.cpp.i
+.PHONY : src/Utils/ResourceGroupManager.i
+
+# target to preprocess a source file
+src/Utils/ResourceGroupManager.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroupManager.cpp.i
+.PHONY : src/Utils/ResourceGroupManager.cpp.i
+
+src/Utils/ResourceGroupManager.s: src/Utils/ResourceGroupManager.cpp.s
+.PHONY : src/Utils/ResourceGroupManager.s
+
+# target to generate assembly for a file
+src/Utils/ResourceGroupManager.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/ResourceGroupManager.cpp.s
+.PHONY : src/Utils/ResourceGroupManager.cpp.s
+
 src/Utils/Vector3D.o: src/Utils/Vector3D.cpp.o
 .PHONY : src/Utils/Vector3D.o
 
@@ -3161,6 +3305,30 @@ src/Utils/Xml.s: src/Utils/Xml.cpp.s
 src/Utils/Xml.cpp.s:
 	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/Xml.cpp.s
 .PHONY : src/Utils/Xml.cpp.s
+
+src/Utils/btBulletWorldImporter.o: src/Utils/btBulletWorldImporter.cpp.o
+.PHONY : src/Utils/btBulletWorldImporter.o
+
+# target to build an object file
+src/Utils/btBulletWorldImporter.cpp.o:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/btBulletWorldImporter.cpp.o
+.PHONY : src/Utils/btBulletWorldImporter.cpp.o
+
+src/Utils/btBulletWorldImporter.i: src/Utils/btBulletWorldImporter.cpp.i
+.PHONY : src/Utils/btBulletWorldImporter.i
+
+# target to preprocess a source file
+src/Utils/btBulletWorldImporter.cpp.i:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/btBulletWorldImporter.cpp.i
+.PHONY : src/Utils/btBulletWorldImporter.cpp.i
+
+src/Utils/btBulletWorldImporter.s: src/Utils/btBulletWorldImporter.cpp.s
+.PHONY : src/Utils/btBulletWorldImporter.s
+
+# target to generate assembly for a file
+src/Utils/btBulletWorldImporter.cpp.s:
+	$(MAKE) -f CMakeFiles/meteor-falls.dir/build.make CMakeFiles/meteor-falls.dir/src/Utils/btBulletWorldImporter.cpp.s
+.PHONY : src/Utils/btBulletWorldImporter.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -3564,18 +3732,39 @@ help:
 	@echo "... src/Utils/MessageDialog.o"
 	@echo "... src/Utils/MessageDialog.i"
 	@echo "... src/Utils/MessageDialog.s"
+	@echo "... src/Utils/Physique/bChunk.o"
+	@echo "... src/Utils/Physique/bChunk.i"
+	@echo "... src/Utils/Physique/bChunk.s"
+	@echo "... src/Utils/Physique/bDNA.o"
+	@echo "... src/Utils/Physique/bDNA.i"
+	@echo "... src/Utils/Physique/bDNA.s"
+	@echo "... src/Utils/Physique/bFile.o"
+	@echo "... src/Utils/Physique/bFile.i"
+	@echo "... src/Utils/Physique/bFile.s"
+	@echo "... src/Utils/Physique/btBulletFile.o"
+	@echo "... src/Utils/Physique/btBulletFile.i"
+	@echo "... src/Utils/Physique/btBulletFile.s"
 	@echo "... src/Utils/Quaternion.o"
 	@echo "... src/Utils/Quaternion.i"
 	@echo "... src/Utils/Quaternion.s"
 	@echo "... src/Utils/Random.o"
 	@echo "... src/Utils/Random.i"
 	@echo "... src/Utils/Random.s"
+	@echo "... src/Utils/ResourceGroup.o"
+	@echo "... src/Utils/ResourceGroup.i"
+	@echo "... src/Utils/ResourceGroup.s"
+	@echo "... src/Utils/ResourceGroupManager.o"
+	@echo "... src/Utils/ResourceGroupManager.i"
+	@echo "... src/Utils/ResourceGroupManager.s"
 	@echo "... src/Utils/Vector3D.o"
 	@echo "... src/Utils/Vector3D.i"
 	@echo "... src/Utils/Vector3D.s"
 	@echo "... src/Utils/Xml.o"
 	@echo "... src/Utils/Xml.i"
 	@echo "... src/Utils/Xml.s"
+	@echo "... src/Utils/btBulletWorldImporter.o"
+	@echo "... src/Utils/btBulletWorldImporter.i"
+	@echo "... src/Utils/btBulletWorldImporter.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

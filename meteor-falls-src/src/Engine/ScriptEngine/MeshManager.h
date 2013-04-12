@@ -1,6 +1,7 @@
 #ifndef H_MESH_MANAGER_H
 #define H_MESH_MANAGER_H
 #include "../../Utils/singleton.h"
+#include <bullet/BulletCollision/btBulletCollisionCommon.h>
 #include <map>
 #include <string>
 
@@ -10,6 +11,7 @@ class MeshManager: public Singleton<MeshManager>
 public:
 	struct Mesh{
 		std::string ogre, bullet;
+		btCollisionShape* shape;
 	};
 	Mesh* fromName(const std::string&) const;
 	Mesh* fromOgre(const std::string&) const;
@@ -24,4 +26,4 @@ private:
 };
 
 
-#endif 
+#endif

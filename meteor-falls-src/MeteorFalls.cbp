@@ -330,13 +330,27 @@
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/MessageDialog.cpp">
       </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bChunk.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bDNA.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bFile.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/btBulletFile.cpp">
+      </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Quaternion.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Random.cpp">
       </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/ResourceGroup.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/ResourceGroupManager.cpp">
+      </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Xml.cpp">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/btBulletWorldImporter.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/main.cpp">
       </Unit>
@@ -618,15 +632,31 @@
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/MessageDialog.h">
       </Unit>
-      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/MotionState.h">
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bChunk.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bCommon.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bDNA.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bDefines.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/bFile.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Physique/btBulletFile.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Quaternion.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Random.h">
       </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/ResourceGroup.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/ResourceGroupManager.h">
+      </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Vector3D.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/Xml.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/btBulletWorldImporter.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Utils/singleton.h">
       </Unit>
