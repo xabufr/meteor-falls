@@ -19,6 +19,7 @@
 #include "../../Utils/Configuration/Config.h"
 #include "Unites/Builder/BasicUniteBuilder.h"
 #include "Unites/Builder/HeroBuilder.h"
+#include "../ScriptEngine/MeshManager.h"
 
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
@@ -30,6 +31,8 @@ GameEngine::GameEngine(EngineManager* mng):
 
     m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
 	m_map = new Map(this, m_world);
+
+	MeshManager::get();
 }
 GameEngine::~GameEngine()
 {

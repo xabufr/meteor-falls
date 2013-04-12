@@ -3,7 +3,6 @@
 #include "ClasseHero.h"
 #include "../Joueur/JoueurRPG.h"
 #include "../Joueur/Joueur.h"
-#include "../../../Utils/Physique/MotionState.h"
 #include "../Factions/Equipe.h"
 #include "../GameEngine.h"
 #include "../../EngineManager/EngineManager.h"
