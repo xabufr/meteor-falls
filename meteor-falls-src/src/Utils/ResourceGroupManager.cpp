@@ -60,6 +60,16 @@ bool ResourceGroupManager::loadFromFile(const std::string& nom)
     boost::property_tree::ini_parser::read_ini(file, m_ini);
     return true;
 }
+std::string ResourceGroupManager::getFilePath(const std::string& file)
+{
+    std::string path;
+    for (auto it=m_resources.begin(); it!=m_resources.end(); ++it)
+    {
+        path = it->second->getFilePath(file);
+        if (path != "")
+            return path;
+    }
+}
 
 ResourceGroupManager::ResourceGroupManager()
 {

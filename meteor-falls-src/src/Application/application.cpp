@@ -12,7 +12,7 @@ Application::Application(int argc, char **argv): m_params(argc, argv), m_menu(nu
 	m_instance = this;
     StateManager manager;
 	m_manager = &manager;
-	ResourceGroupManager::get()->loadFromFile("resources.cfg");
+    ResourceGroupManager::get()->loadFromFile("resources.cfg");
 	ResourceGroupManager::get()->initialiseResourceGroup();
     if(!m_params.parametres.server){
         Config::get();

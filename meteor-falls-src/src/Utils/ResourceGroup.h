@@ -10,6 +10,7 @@ public:
     ResourceGroup(const std::string& nom);
     ~ResourceGroup();
     const std::string& getNom(){return m_nom;}
+    std::string getFilePath(const std::string& file);
     void addPath(const std::string& path);
     void removePath(const std::string& path);
 private:

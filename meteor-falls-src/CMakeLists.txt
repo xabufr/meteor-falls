@@ -52,6 +52,7 @@ target_link_libraries(meteor-falls
 		SkyX
 		hydrax
 		tolua++
+		lua5.1
 		PagedGeometry
 		BulletDynamics
 		#BtOgre
