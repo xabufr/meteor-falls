@@ -57,6 +57,7 @@ target_link_libraries(meteor-falls
 		ssl
 		crypto
 		#lua
+		lua
 		tolua++
 		#BtOgre
 		#bullet libraries

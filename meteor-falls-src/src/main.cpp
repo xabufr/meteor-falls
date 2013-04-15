@@ -7,6 +7,7 @@
 #include "Application/application.h"
 #include "Application/parameterparserexception.h"
 #include "Engine/ScriptEngine/MeshManager.h"
+#include "Engine/ScriptEngine/LuaScript.h"
 
 int main(int argc, char **argv)
 {
