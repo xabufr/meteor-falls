@@ -22,11 +22,10 @@ public:
         }
 
     }
-    protected:
-        Singleton<T>() {}
-        ~Singleton<T>() {}
-    private:
-        static T *m_instance;
+protected:
+	Singleton<T>() {}
+	~Singleton<T>() {}
+	static T *m_instance;
 };
 template<class T>
 T *Singleton<T>::m_instance = 0;

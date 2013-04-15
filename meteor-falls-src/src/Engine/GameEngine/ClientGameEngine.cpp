@@ -169,6 +169,20 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 				}
 			}
 			break;
+		case EngineMessageType::SUBIR_DEGATS:
+			{
+				Equipe *e = getEquipe(message.ints[TEAM_ID]);
+				if(e)
+				{
+					Unite *u = e->getUnite(message.ints[OBJECT_ID]);
+					if(u)
+					{
+						u->subirDegats(message.ints[OBJECT_HEAL]);
+						std::cout << message.ints[OBJECT_HEAL] << std::endl;
+					}
+				}
+			}
+			break;
 	}
 }
 GameEngine::Type ClientGameEngine::getTypeServerClient() const

@@ -20,6 +20,7 @@ TypeUnite* Unite::type() const
 }
 void Unite::update(float time)
 {
+	WorldObject::update(time);
 }
 bool Unite::estVivant() const
 {

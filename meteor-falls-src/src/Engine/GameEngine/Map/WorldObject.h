@@ -30,8 +30,8 @@ class WorldObject
 		Vector3D m_position;
 		Quaternion m_rotation;
 		BulletRelationPtr *m_relationPtr;
-	private:
 		std::list<WorldObjectListener*> m_listeners;
+	private:
 		WorldObjectType *m_type;
 };
 

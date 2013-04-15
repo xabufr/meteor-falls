@@ -9,6 +9,7 @@
 class JoueurRPG;
 class EngineMessage;
 class Avatar;
+class HeroController;
 class Hero: public Unite
 {
 public:
@@ -28,12 +29,14 @@ public:
 	void deserializeComportement(EngineMessage*);
 	void tournerGaucheDroite(float angle);
 	void lookUpDown(float angle);
+	float verticalVelocity() const;
+
 private:
 	JoueurRPG *m_joueur;
     btDynamicsWorld* m_world;
 	Avatar *m_avatar;
 	btPairCachingGhostObject *m_ghost_object;
-	btKinematicCharacterController *m_character_controller;
+	HeroController *m_character_controller;
 	btConvexShape *m_capsule;
 	bool m_avancer, m_reculer, m_droite, m_gauche;
 	bool m_isModified;

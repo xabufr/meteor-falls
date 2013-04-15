@@ -199,6 +199,8 @@ void ServerGameEngine::uniteSubirDegats(Unite *unite, int degats)
 	mes.message = EngineMessageType::SUBIR_DEGATS;
 	mes.ints[TEAM_ID] = unite->equipe()->id();
 	mes.ints[OBJECT_ID] = unite->id();
+	mes.ints[EngineMessageKey::OBJECT_HEAL] = degats;
+	m_net()->sendToAllTcp(&mes);
 }
 void ServerGameEngine::tuerUnite(Unite *unite)
 {

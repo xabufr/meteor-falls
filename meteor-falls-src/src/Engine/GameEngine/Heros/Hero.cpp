@@ -10,7 +10,19 @@
 #include "../../EngineMessage/EngineMessage.h"
 
 #include "../../PhysicalEngine/BulletRelationPtr.h"
+#include "HeroListener.h"
 
+class HeroController: public btKinematicCharacterController 
+{
+public:
+	HeroController(btPairCachingGhostObject* g, btConvexShape* shape, btScalar h, int up=1): btKinematicCharacterController(g,shape,h,up)
+	{
+	}
+	btScalar verticalVelocity() const 
+	{
+		return m_verticalVelocity;
+	}
+};
 Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
@@ -41,8 +53,9 @@ m_isModified(true)
 
     btScalar stepHeight = btScalar(1);
 
-    m_character_controller = new btKinematicCharacterController(m_ghost_object, m_capsule, stepHeight);
+    m_character_controller = new HeroController(m_ghost_object, m_capsule, stepHeight);
     m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
+	m_character_controller->setFallSpeed(500);
 
     m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
     m_world->addAction(m_character_controller);
@@ -88,30 +101,55 @@ void Hero::update(float time)
 		m_isModified=false;
 	}
 	setPosition(m_ghost_object->getWorldTransform().getOrigin());
+	Unite::update(time);
 }
 void Hero::setAvancer(bool a)
 {
 	if(m_avancer!=a)
 		m_isModified=true;
 	m_avancer=a;
+	for(WorldObjectListener* l : m_listeners)
+	{
+		HeroListener *hl = dynamic_cast<HeroListener*>(l);
+		if(hl)
+			hl->avancer(a);
+	}
 }
 void Hero::setReculer(bool r)
 {
 	if(m_reculer!=r)
 		m_isModified=true;
 	m_reculer = r;
+	for(WorldObjectListener* l : m_listeners)
+	{
+		HeroListener *hl = dynamic_cast<HeroListener*>(l);
+		if(hl)
+			hl->reculer(r);
+	}
 }
 void Hero::setGauche(bool g)
 {
 	if(m_gauche!=g)
 		m_isModified=true;
 	m_gauche = g;
+	for(WorldObjectListener* l : m_listeners)
+	{
+		HeroListener *hl = dynamic_cast<HeroListener*>(l);
+		if(hl)
+			hl->gauche(g);
+	}
 }
 void Hero::setDroite(bool d)
 {
 	if(m_droite!=d)
 		m_isModified=true;
 	m_droite = d;
+	for(WorldObjectListener* l : m_listeners)
+	{
+		HeroListener *hl = dynamic_cast<HeroListener*>(l);
+		if(hl)
+			hl->droite(d);
+	}
 }
 void Hero::m_comportementModifie()
 {
@@ -156,7 +194,6 @@ const Quaternion& Hero::look() const
 {
     return m_look;
 }
-
 void Hero::m_move(const btVector3& vect)
 {
     m_character_controller->setWalkDirection(vect);
@@ -171,4 +208,14 @@ void Hero::setPosition(const Vector3D& pos)
 void Hero::sauter()
 {
 	m_character_controller->jump();
+	for(WorldObjectListener* l : m_listeners)
+	{
+		HeroListener *hl = dynamic_cast<HeroListener*>(l);
+		if(hl)
+			hl->sauter();
+	}
+}
+float Hero::verticalVelocity() const
+{
+	m_character_controller->verticalVelocity();
 }
