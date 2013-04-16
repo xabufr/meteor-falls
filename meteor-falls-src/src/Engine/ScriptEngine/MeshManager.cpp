@@ -1,6 +1,7 @@
 #include "MeshManager.h"
 #include "../../Utils/File.h"
 #include "XmlDocumentManager.h"
+#include "../../Utils/Xml.h"
 #include "../../Utils/btBulletWorldImporter.h"
 
 MeshManager::Mesh* MeshManager::fromName(const std::string& name) const
@@ -45,6 +46,7 @@ MeshManager::MeshManager(const std::string& path)
 			Mesh* mesh = new Mesh;
 			mesh->bullet = model->first_attribute("bullet")->value();
 			mesh->ogre   = model->first_attribute("ogre")->value();
+			mesh->offset = XmlUtils::getPosition(model);
 			if (fileBullet->loadFile(mesh->bullet.c_str()))
                 mesh->shape = fileBullet->getCollisionShapeByName(mesh->bullet.c_str());
 			m_meshes.insert(std::pair<std::string, Mesh*>(prefixe + model->first_attribute("name")->value(), mesh));

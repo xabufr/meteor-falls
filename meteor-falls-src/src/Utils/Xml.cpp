@@ -5,9 +5,15 @@ namespace XmlUtils
 	Vector3D getPosition(rapidxml::xml_node<>* node, const std::string& prefixe)
 	{
 		Vector3D position;
-		position.x = getDouble(node->first_attribute((prefixe+"x").c_str()));
-		position.y = getDouble(node->first_attribute((prefixe+"y").c_str()));
-		position.z = getDouble(node->first_attribute((prefixe+"z").c_str()));
+		rapidxml::xml_attribute<> *attr = node->first_attribute((prefixe + "x").c_str());
+		if(attr)
+			position.x = getDouble(attr);
+		attr = node->first_attribute((prefixe + "y").c_str());
+		if(attr)
+			position.y = getDouble(attr);
+		attr = node->first_attribute((prefixe + "z").c_str());
+		if(attr)
+			position.z = getDouble(attr);
 		return position;
 	}
 	Ogre::ColourValue getRGBA(rapidxml::xml_node<>* node)

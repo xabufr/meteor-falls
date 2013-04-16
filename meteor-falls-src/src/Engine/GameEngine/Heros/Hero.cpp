@@ -30,16 +30,11 @@ m_avatar(a),
 m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
-	btVector3 vect(0,0,0);
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	j->setHero(this);
 
-	btTransform startTransform;
-    startTransform.setIdentity();
-    startTransform.setOrigin (vect);
 
     m_ghost_object = new btPairCachingGhostObject();
-    m_ghost_object->setWorldTransform(startTransform);
 	m_relationPtr = new BulletRelationPtr(m_ghost_object, this, BulletRelationPtr::Type::UNITE);
 
     btScalar characterHeight=1;
@@ -55,7 +50,7 @@ m_isModified(true)
 
     m_character_controller = new HeroController(m_ghost_object, m_capsule, stepHeight);
     m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
-	m_character_controller->setFallSpeed(500);
+	m_character_controller->setFallSpeed(50000);
 
     m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
     m_world->addAction(m_character_controller);

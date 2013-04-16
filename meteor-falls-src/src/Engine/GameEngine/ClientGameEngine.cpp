@@ -29,6 +29,7 @@ ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j):
 	GameEngine(mng),
     m_change_sous_state(true)
 {
+	mng->getGraphic()->getSceneManager()->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
 	m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
 	m_map_view = new MapView(m_map);
 	m_sous_state = nullptr;
@@ -37,9 +38,9 @@ ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j):
 	m_current_joueur = j;
 	addPlayer(j);
 	setSousStateType(TypeState::TEAM_LIST);
-	//debug = new BtOgre::DebugDrawer(mng->getGraphic()->getSceneManager()->getRootSceneNode(), m_world);
-	//m_world->setDebugDrawer(debug);
-	//debug->setDebugMode(true);
+	debug = new BtOgre::DebugDrawer(mng->getGraphic()->getSceneManager()->getRootSceneNode(), m_world);
+	m_world->setDebugDrawer(debug);
+	debug->setDebugMode(true);
 }
 ClientGameEngine::~ClientGameEngine()
 {
@@ -263,10 +264,10 @@ void ClientGameEngine::work()
 
 		}
 	}
-	//OIS::Keyboard* key = OgreContextManager::get()->getInputManager()->getKeyboard();
-	//debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
-	//m_world->debugDrawWorld();
-	//debug->step();
+	OIS::Keyboard* key = OgreContextManager::get()->getInputManager()->getKeyboard();
+	debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
+	m_world->debugDrawWorld();
+	debug->step();
 }
 void ClientGameEngine::SetLayoutRts()
 {

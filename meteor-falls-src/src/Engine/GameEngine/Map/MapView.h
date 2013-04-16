@@ -15,6 +15,7 @@ namespace Ogre {
 	class TerrainGroup;
 	class TerrainGlobalOptions;
 	class SceneNode;
+	class Light;
 } // namespace Ogre
 namespace SkyX {
 	class SkyX;
@@ -38,6 +39,7 @@ private:
 	Ogre::SceneManager *m_scene_mgr;
 	Ogre::TerrainGlobalOptions *m_globals;
 	Ogre::TerrainGroup *m_terrainGroup;
+	Ogre::Light *m_sunLight;
 	std::string m_temp_dir;
 
 	SkyX::SkyX *m_skyx;

@@ -11,7 +11,8 @@ HeroView::HeroView(Hero* hero, Ogre::SceneNode* node): UniteView(hero, node), m_
 {
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	Avatar* av = hero->avatar();
-	m_entBody = m_node->getCreator()->createEntity(av->classe()->mesh(1)->mesh);
+	m_mesh = MeshManager::get()->fromName(av->classe()->mesh(1)->mesh);
+	m_entBody = m_node->getCreator()->createEntity(m_mesh->ogre);
 	m_node->attachObject(m_entBody);
 	m_node->setScale(0.01, 0.01, 0.01);
 	m_animAvancer = m_entBody->getAnimationState(av->classe()->mesh(1)->walk);
@@ -26,7 +27,6 @@ HeroView::HeroView(Hero* hero, Ogre::SceneNode* node): UniteView(hero, node), m_
 }
 void HeroView::update(float time)
 {
-	std::cout << time << std::endl;
 	if(m_avancer && !m_animAvancer->getEnabled())
 	{
 		m_animAvancer->setEnabled(true);
@@ -45,7 +45,7 @@ void HeroView::update(float time)
 }
 void HeroView::positionChanged(const Vector3D& position)
 {
-	m_node->setPosition(position);
+	m_node->setPosition(position + m_mesh->offset);
 }
 void HeroView::rotationChanged(const Quaternion& q)
 {

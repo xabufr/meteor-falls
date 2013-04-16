@@ -173,7 +173,24 @@ bool Map::getLoaded() const
 }
 float Map::getHeightAt(float x, float z) const
 {
-	//return m_terrainGroup->getHeightAtWorldPosition(x,0.f,z);
+	btVector3 from(x, 100000, z), to(x, -10000, z);
+	btDynamicsWorld::AllHitsRayResultCallback rayTest(from, to);
+	m_world->rayTest(from, to, rayTest);
+	if(rayTest.hasHit())
+	{
+		size_t nb = rayTest.m_collisionObjects.size();
+		for(size_t i=0;i<nb;++i)
+		{
+			if(rayTest.m_collisionObjects[i]->getUserPointer())
+			{
+				BulletRelationPtr *ptr = static_cast<BulletRelationPtr*>(rayTest.m_collisionObjects[i]->getUserPointer());
+				if(ptr->type == BulletRelationPtr::Type::MAP)
+				{
+					return rayTest.m_hitPointWorld[i].y();
+				}
+			}
+		}
+	}
 	return 0.f;
 }
 Vector3D Map::getNormalAt(float x, float z)
@@ -228,7 +245,7 @@ void Map::processNode(rapidxml::xml_node<>* n)
 				if(equipe != nullptr)
 				{
 					Unite *u = equipe->factory()->create(UnitId(0));
-					u->setPosition(position);
+					u->setPosition(Vector3D(position.x, getHeightAt(position.x, position.z), position.z));
 				}
 			}
 		}

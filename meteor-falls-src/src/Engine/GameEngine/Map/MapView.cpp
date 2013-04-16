@@ -31,13 +31,14 @@
 #include "../../../Utils/Quaternion.h"
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
+#include <OgreLight.h>
 #include <Terrain/OgreTerrainMaterialGeneratorA.h>
 #include <Terrain/OgreTerrainLayerBlendMap.h>
 
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 
-MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pageGrass(nullptr)
+MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pageGrass(nullptr), m_sunLight(nullptr)
 {
 	m_temp_dir = "data/temp/";
 	m_map->addListener(this);
@@ -57,6 +58,15 @@ void MapView::mapLoaded(const std::string& mapName)
 	m_pageGrass->setPageLoader(grassLoader);
 	grassLoader->setHeightFunction(&MapView::staticGetHeightAt, this);
 	m_pageGrass->setVisible(true);
+	if(!m_sunLight)
+	{
+		m_sunLight = m_scene_mgr->createLight("mapSunLight");
+		m_sunLight->setType(Ogre::Light::LT_DIRECTIONAL);
+		m_sunLight->setDiffuseColour(Ogre::ColourValue::White);
+		m_sunLight->setSpecularColour(0.8, 0.8, 0.8);
+		m_sunLight->setDirection(Ogre::Vector3(0.55, -0.3, 0.75).normalisedCopy());
+		m_sunLight->setVisible(false);
+	}
 
 	rapidxml::xml_node<>* resources = rootNode->first_node("resourceLocations");
 	if(resources)
@@ -122,9 +132,11 @@ void MapView::mapLoaded(const std::string& mapName)
 
 		m_globals->setMaxPixelError(maxPixelError);
 		m_globals->setCompositeMapDistance(compositeDistance);
-		m_globals->setCompositeMapAmbient(m_scene_mgr->getAmbientLight());
+		m_globals->setCompositeMapAmbient(m_sunLight->getSpecularColour());
+		m_globals->setLightMapDirection(m_sunLight->getDerivedDirection());
 
 		m_terrainGroup = OGRE_NEW Ogre::TerrainGroup(m_scene_mgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
+		m_terrainGroup->setOrigin(Ogre::Vector3::ZERO);
 		//m_terrainGroup->setResourceGroup("Maps");
 		std::list<rapidxml::xml_node<>*> nodesGrass;
 		for(rapidxml::xml_node<>* nodePage=nodePages->first_node("terrainPage");
@@ -142,6 +154,7 @@ void MapView::mapLoaded(const std::string& mapName)
 			}
 		}
 		m_terrainGroup->loadAllTerrains(true);
+		static_cast<Ogre::TerrainMaterialGeneratorA::SM2Profile*>(m_globals->getDefaultMaterialGenerator()->getActiveProfile())->setLightmapEnabled(true);
 		for(rapidxml::xml_node<>* nodePage : nodesGrass)
 		{
 			rapidxml::xml_node<>* grassLayers = nodePage->first_node("grassLayers");
@@ -351,6 +364,19 @@ void MapView::update()
 		m_pageGrass->update();
 	for(Forests::PagedGeometry* p : m_pages)
 		p->update();
+	if(m_skyx)
+	{
+		if(m_hydrax)
+			m_hydrax->setSunPosition(m_controller->getSunDirection());
+		if(m_sunLight)
+		{
+			m_sunLight->setDirection(-m_controller->getSunDirection());
+			//m_terrainGroup->update();
+			//m_terrainGroup->updateDerivedData(false);
+			//m_globals->setLightMapDirection(-m_controller->getSunDirection());
+			//m_globals->setCastsDynamicShadows(true);
+		}
+	}
 }
 void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 {

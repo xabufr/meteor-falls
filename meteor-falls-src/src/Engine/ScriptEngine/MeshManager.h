@@ -4,6 +4,7 @@
 #include <bullet/BulletCollision/btBulletCollisionCommon.h>
 #include <map>
 #include <string>
+#include "../../Utils/Vector3D.h"
 
 class MeshManager: public Singleton<MeshManager>
 {
@@ -12,6 +13,7 @@ public:
 	struct Mesh{
 		std::string ogre, bullet;
 		btCollisionShape* shape;
+		Vector3D offset;
 	};
 	Mesh* fromName(const std::string&) const;
 	Mesh* fromOgre(const std::string&) const;
