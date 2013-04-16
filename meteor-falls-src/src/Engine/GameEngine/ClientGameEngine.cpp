@@ -118,8 +118,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 				Equipe *e   = getEquipe(teamId);
 				Unite *unit = e->factory()->create(type, id);
 				unit->setPosition(position);
-				//CameraRPG *cam = new CameraRPG(hero);
-				//m_camManager->setCameraContener(cam);
+				std::cout << unit->type()->meshParameters().at("normal") << std::endl;
 			}
 			break;
 		case EngineMessageType::SPAWN:

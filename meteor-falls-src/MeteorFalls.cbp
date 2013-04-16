@@ -250,6 +250,8 @@
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.cpp">
       </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/BulletRelationPtr.cpp">
+      </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.cpp">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.cpp">
@@ -539,6 +541,8 @@
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/UdpConnection.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/NetworkEngine/clientnetworkengine.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/BulletRelationPtr.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.h">
       </Unit>

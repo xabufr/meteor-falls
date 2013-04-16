@@ -20,6 +20,7 @@ class ResourceGroupManager:public Singleton<ResourceGroupManager>
         void loadResourceGroup(const std::string& group);
         void removeResourceGroup(const std::string& group);
         bool loadFromFile(const std::string& nom);
+        std::string getFilePath(const std::string& file);
     private:
         std::map<std::string,ResourceGroup*> m_resources;
         boost::property_tree::ptree m_ini;

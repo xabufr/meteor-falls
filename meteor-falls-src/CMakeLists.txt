@@ -59,8 +59,9 @@ target_link_libraries(meteor-falls
 		#lua
 		lua
 		tolua++
-		BtOgre
+		#lua5.1
 		#bullet libraries
+		BtOgre
 		BulletDynamics
 		BulletCollision 
 		LinearMath 
