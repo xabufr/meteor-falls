@@ -202,15 +202,22 @@ void Hero::setPosition(const Vector3D& pos)
 }
 void Hero::sauter()
 {
-	m_character_controller->jump();
-	for(WorldObjectListener* l : m_listeners)
+	if(m_character_controller->canJump())
 	{
-		HeroListener *hl = dynamic_cast<HeroListener*>(l);
-		if(hl)
-			hl->sauter();
+		m_character_controller->jump();
+		for(WorldObjectListener* l : m_listeners)
+		{
+			HeroListener *hl = dynamic_cast<HeroListener*>(l);
+			if(hl)
+				hl->sauter();
+		}
 	}
 }
 float Hero::verticalVelocity() const
 {
 	m_character_controller->verticalVelocity();
+}
+bool Hero::isOnGround() const 
+{
+	return m_character_controller->onGround();
 }

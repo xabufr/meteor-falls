@@ -14,6 +14,8 @@ public:
 	struct HeroMesh{
 		std::string mesh;
 		std::string walk;
+		std::string jump;
+		std::string fall;
 	};
 	ClasseHero(int, Faction*);
 	int id() const;

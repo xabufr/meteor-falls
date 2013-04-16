@@ -267,6 +267,8 @@ void Faction::processUnit(rapidxml::xml_node<>* nodeUnit)
 				ClasseHero::HeroMesh data;
 				data.mesh = nodeMesh->first_attribute("mesh")->value();
 				data.walk = nodeMesh->first_node("walk")->value();
+				data.jump = nodeMesh->first_node("jump")->value();
+				data.fall = nodeMesh->first_node("fall")->value();
 				static_cast<ClasseHero*>(unite)->addMesh(from, to,data);
 			}
 			else

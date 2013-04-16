@@ -30,6 +30,7 @@ public:
 	void tournerGaucheDroite(float angle);
 	void lookUpDown(float angle);
 	float verticalVelocity() const;
+	bool isOnGround() const;
 
 private:
 	JoueurRPG *m_joueur;
