@@ -195,12 +195,19 @@ void ServerGameEngine::addTeam(Equipe* e)
 void ServerGameEngine::uniteSubirDegats(Unite *unite, int degats)
 {
 	unite->subirDegats(degats);
-	EngineMessage mes(m_manager);
-	mes.message = EngineMessageType::SUBIR_DEGATS;
-	mes.ints[TEAM_ID] = unite->equipe()->id();
-	mes.ints[OBJECT_ID] = unite->id();
-	mes.ints[EngineMessageKey::OBJECT_HEAL] = degats;
-	m_net()->sendToAllTcp(&mes);
+	if(unite->estVivant())
+	{
+		EngineMessage mes(m_manager);
+		mes.message = EngineMessageType::SUBIR_DEGATS;
+		mes.ints[TEAM_ID] = unite->equipe()->id();
+		mes.ints[OBJECT_ID] = unite->id();
+		mes.ints[EngineMessageKey::OBJECT_HEAL] = degats;
+		m_net()->sendToAllTcp(&mes);
+	}
+	else 
+	{
+		tuerUnite(unite);
+	}
 }
 void ServerGameEngine::tuerUnite(Unite *unite)
 {
@@ -225,6 +232,14 @@ bool ServerGameEngine::contactAddedCallback(btManifoldPoint &cp, const btCollisi
 		if(ptr1->type == BulletRelationPtr::Type::DEATH_OBJ || ptr2->type==BulletRelationPtr::Type::DEATH_OBJ)
 		{
 			m_instance->tuerUnite(u);
+		}
+		if(ptr1->type == BulletRelationPtr::Type::MAP || ptr2->type == BulletRelationPtr::Type::MAP)
+		{
+			Hero* h = dynamic_cast<Hero*>(u);
+			if(h && -h->lastVerticalVelocity() >= 11)
+			{
+				m_instance->uniteSubirDegats(u, (-h->lastVerticalVelocity() - 11)*5);
+			}
 		}
 	}
 	return false;

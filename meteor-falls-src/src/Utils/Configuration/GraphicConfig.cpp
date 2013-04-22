@@ -1,12 +1,9 @@
 #include "GraphicConfig.h"
-#include "../../precompiled/lexical_cast.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include "../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "../../Engine/ScriptEngine/XmlDocumentManager.h"
+#include <boost/property_tree/xml_parser.hpp>
 #include "../../precompiled/lexical_cast.h"
-#include "Utils/Exception/FileNotFound.h"
-#include <iostream>
-#include <rapidxml_print.hpp>
 #include <OgreRoot.h>
 #include <CEGUI.h>
 #include <string>
@@ -35,13 +32,10 @@ void GraphicConfig::loadConfig()
 
     try
     {
-        rapidxml::xml_document<>* doc = XmlDocumentManager::get()->getDocument("config.cfg");
-        rapidxml::xml_node<>* root = doc->first_node("configuration");
-        rapidxml::xml_node<>* graphic = root->first_node("graphic");
-
-        m_quality_water = boost::lexical_cast<int>(graphic->first_node("water")->first_attribute("quality")->value());
+		XmlDocumentManager::Document& doc = XmlDocumentManager::get()->getDocument("config.cfg");
+		m_quality_water = doc.get<int>("configuration.graphic.water.xmlattr.quality");
     }
-    catch(FileNotFound &e)
+    catch(...)
     {
         defaultGraphicConfig();
     }
@@ -49,45 +43,10 @@ void GraphicConfig::loadConfig()
 
 void GraphicConfig::saveConfig()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("config.cfg");
-    rapidxml::xml_node<>* root;
-    rapidxml::xml_node<>* graphic;
-    rapidxml::xml_node<>* water;
+	XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument("config.cfg");
+	document.put("configuration.graphic.water.xmlattr.quality", m_quality_water);
 
-    if (!document->first_node("configuration"))
-    {
-        root = document->allocate_node(rapidxml::node_type::node_element, "configuration");
-        document->append_node(root);
-    }
-    else
-        root = document->first_node("configuration");
-
-    if (!root->first_node("graphic"))
-    {
-        graphic = document->allocate_node(rapidxml::node_type::node_element, "graphic");
-        root->append_node(graphic);
-    }
-    else
-        graphic = root->first_node("graphic");
-
-    if (!graphic->first_node("water"))
-    {
-        water = document->allocate_node(rapidxml::node_type::node_element, "water");
-        water->append_attribute(document->allocate_attribute("quality", document->allocate_string(boost::lexical_cast<std::string>(m_quality_water).c_str())));
-        graphic->append_node(water);
-    }
-    else
-    {
-        water = graphic->first_node("water");
-        water->first_attribute("quality")->value(document->allocate_string(boost::lexical_cast<std::string>(m_quality_water).c_str()));
-    }
-
-    std::ofstream file;
-    file.open("config.cfg");
-    if (file.bad())
-        throw FileNotFound("config.cfg");
-    file << *document;
-    file.close();
+	boost::property_tree::write_xml("config.cfg", document);
 
     for (int i=0; i < m_config.size(); ++i)
     {

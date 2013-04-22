@@ -31,7 +31,7 @@ public:
 	Vector3D getNormalAt(float x, float z);
 
 	GameEngine* game() const;
-	rapidxml::xml_document<>* getXmlMap() const;
+	XmlDocumentManager::Document& getXmlMap() const;
 	std::string mapRootPath() const;
 
 private:
@@ -48,8 +48,8 @@ private:
 
 	std::vector<WorldObject*> m_worldObjects;
 
-	void processNode(rapidxml::xml_node<>* n);
-	void processNodeServer(rapidxml::xml_node<>*);
+	void processNode(const XmlDocumentManager::Document &n);
+	void processNodeServer(const XmlDocumentManager::Document&);
 
 	std::list<MapListener*> m_listeners;
 	btDynamicsWorld* m_world;

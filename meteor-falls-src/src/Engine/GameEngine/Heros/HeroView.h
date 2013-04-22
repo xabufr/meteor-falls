@@ -3,6 +3,7 @@
 #include "../Unites/UniteView.h"
 #include "HeroListener.h"
 #include <SFML/System/Clock.hpp>
+#include "../../ScriptEngine/MeshManager.h"
 
 class Hero;
 namespace Ogre {
@@ -23,8 +24,9 @@ public:
 private:
 	Hero *m_hero;
 	Ogre::Entity *m_entBody;
-	bool m_avancer, m_reculer, m_droite, m_gauche;
-	Ogre::AnimationState *m_animAvancer, *m_animJump;
+	bool m_avancer, m_reculer, m_droite, m_gauche, m_saute, m_tombe;
+	Ogre::AnimationState *m_animAvancer, *m_animJump, *m_animTombe;
+	MeshManager::Mesh *m_mesh;
 };
 
 #endif 

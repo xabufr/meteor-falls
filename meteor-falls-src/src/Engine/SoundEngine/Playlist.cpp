@@ -168,16 +168,15 @@ void Playlist::set_type_transition(Fade::fadeFunction string)
 }
 void Playlist::loadFile(const std::string &file)
 {
-    rapidxml::xml_document<>* doc = XmlDocumentManager::get()->getDocument(file);
-    rapidxml::xml_node<>* root = doc->first_node("playlists");
-    rapidxml::xml_node<>* current;
-    for(current=root->first_node("playlist");current;current=current->next_sibling("playlist"))
+	XmlDocumentManager::Document &doc = XmlDocumentManager::get()->getDocument(file);
+
+	auto bounds = doc.get_child("playlists").equal_range("playlist");
+	for(auto it=bounds.first;it!=bounds.second;++it)
     {
-        rapidxml::xml_attribute<>* att = current->first_attribute("rep");
-        if(att)
+		std::string repertoire = it->second.get("xmlattr.rep", "");
+		if(!repertoire.empty()) 
         {
-            std::string repertoire(att->value());
-            std::string groupe(current->first_attribute("nom")->value());
+            std::string groupe = it->second.get<std::string>("xmlattr.nom");
             std::list<std::string> liste = FileUtils::getRecurse(repertoire, std::list<std::string>({"ogg", "wav"}));
             for(std::string &s : liste)
             {

@@ -1,51 +1,38 @@
 #include "XmlDocumentManager.h"
-#include "Utils/Exception/FileNotFound.h"
-#include <fstream>
+#include <boost/property_tree/xml_parser.hpp>
 
 XmlDocumentManager::XmlDocumentManager()
 {
-    //ctor
 }
 XmlDocumentManager::~XmlDocumentManager()
 {
-    for(auto it : m_documents)
-    {
-        delete it.second.first;
-        delete it.second.second;
-    }
+	for(std::pair<std::string, Document*> doc : m_documents)
+		delete doc.second;
 }
-rapidxml::xml_document<>* XmlDocumentManager::getDocument(const std::string& path)
+XmlDocumentManager::Document& XmlDocumentManager::getDocument(const std::string& path)
 {
     auto it = m_documents.find(path);
     if(it == m_documents.end())
-        return m_loadDocument(path).second;
-    return it->second.second;
+        return m_loadDocument(path);
+    return *it->second;
 }
-XmlDocumentManager::Document XmlDocumentManager::m_loadDocument(const std::string& path)
+XmlDocumentManager::Document& XmlDocumentManager::m_loadDocument(const std::string& path)
 {
-    std::ifstream file;
-    file.open(path);
-    if(!file)
-        throw FileNotFound(path);
-    file.seekg(0, std::ios_base::end);
-    const int length = file.tellg();
-    char *buffer = new char[length+1];
-    file.seekg(0, std::ios_base::beg);
-    file.read(buffer, length);
-    buffer[length]=0;
-
-    rapidxml::xml_document<> *xml = new rapidxml::xml_document<>();
-    xml->parse<0>(buffer);
-
-    Document doc;
-    doc.first = buffer;
-    doc.second = xml;
-
-    m_documents[path] = doc;
-
-    return doc;
+	Document *doc = new Document();
+	try {
+		boost::property_tree::read_xml(path, *doc);
+	} catch (...) {
+		delete doc;
+		throw;
+	}
+	m_documents.insert(std::pair<std::string, Document*>(path, doc));
+    return *doc;
 }
 XmlDocumentManager* XmlDocumentManager::get()
 {
     return Singleton<XmlDocumentManager>::get();
+}
+XmlDocumentManager::Document& XmlDocumentManager::get(const std::string& path)
+{
+	return get()->getDocument(path);
 }

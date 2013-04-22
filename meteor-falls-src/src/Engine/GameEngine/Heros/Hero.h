@@ -30,6 +30,8 @@ public:
 	void tournerGaucheDroite(float angle);
 	void lookUpDown(float angle);
 	float verticalVelocity() const;
+	bool isOnGround() const;
+	float lastVerticalVelocity() const;
 
 private:
 	JoueurRPG *m_joueur;
@@ -43,6 +45,7 @@ private:
 	void m_comportementModifie();
 	void m_move(const btVector3& vect);
 	Quaternion m_look;
+	float m_lastVerticalVelocity;
 };
 
 #endif

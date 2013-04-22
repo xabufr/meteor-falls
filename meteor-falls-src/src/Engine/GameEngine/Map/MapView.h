@@ -1,7 +1,7 @@
 #ifndef _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_GAMEENGINE_MAP_MAPVIEW_H__
 #define _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_GAMEENGINE_MAP_MAPVIEW_H__
 #include <OgrePrerequisites.h>
-#include "../../../precompiled/_rapidxml.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "MapListener.h"
 
 class Map;
@@ -15,6 +15,7 @@ namespace Ogre {
 	class TerrainGroup;
 	class TerrainGlobalOptions;
 	class SceneNode;
+	class Light;
 } // namespace Ogre
 namespace SkyX {
 	class SkyX;
@@ -36,9 +37,9 @@ public:
 	float getHeightAt(float x, float z) const;
 private:
 	Ogre::SceneManager *m_scene_mgr;
-	Ogre::Light *m_sun;
 	Ogre::TerrainGlobalOptions *m_globals;
 	Ogre::TerrainGroup *m_terrainGroup;
+	Ogre::Light *m_sunLight;
 	std::string m_temp_dir;
 
 	SkyX::SkyX *m_skyx;
@@ -49,7 +50,7 @@ private:
 
 	Map *m_map;
 
-	void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
+	void processNode(XmlDocumentManager::Document const &, Ogre::SceneNode*);
 	void loadPagedFile(const std::string& path, Forests::TreeLoader3D *, Ogre::Entity* ent);
 };
 

@@ -1,6 +1,7 @@
 #include "MeshManager.h"
 #include "../../Utils/File.h"
 #include "XmlDocumentManager.h"
+#include "../../Utils/Xml.h"
 #include "../../Utils/btBulletWorldImporter.h"
 #include "../../Utils/ResourceGroupManager.h"
 #include <iostream>
@@ -37,21 +38,19 @@ MeshManager::MeshManager(const std::string& path)
 	std::list<std::string> liste(FileUtils::getFiles(path, ".models"));
 	for(std::string& file: liste)
 	{
-		rapidxml::xml_document<>* doc = XmlDocumentManager::get()->getDocument(file);
-		rapidxml::xml_node<>* root = doc->first_node("models");
-		std::string prefixe;
-		if(root->first_attribute("prefix"))
-			prefixe = root->first_attribute("prefix")->value();
-		for(rapidxml::xml_node<>* model = root->first_node("model");
-				model; model=model->next_sibling("model"))
+		XmlDocumentManager::Document& doc = XmlDocumentManager::get()->getDocument(file);
+		std::string prefixe = doc.get("models.<xmlattr>.prefix", "");
+
+		auto bounds = doc.get_child("models").equal_range("model");
+		for(auto it=bounds.first;it!=bounds.second;++it)
 		{
 			Mesh* mesh = new Mesh;
-			mesh->bullet = model->first_attribute("bullet")->value();
-			mesh->ogre   = model->first_attribute("ogre")->value();
+			mesh->bullet = it->second.get<std::string>("<xmlattr>.bullet");
+			mesh->ogre   = it->second.get<std::string>("<xmlattr>.ogre");
+			mesh->offset = XmlUtils::getPosition(it->second.get_child("<xmlattr>"));
 			if (fileBullet->loadFile(ResourceGroupManager::get()->getFilePath(mesh->bullet).c_str()))
                 mesh->shape = fileBullet->getCollisionShapeByIndex(0);
-
-			m_meshes.insert(std::pair<std::string, Mesh*>(prefixe + model->first_attribute("name")->value(), mesh));
+			m_meshes.insert(std::pair<std::string, Mesh*>(prefixe + it->second.get<std::string>("<xmlattr>.name"), mesh));
 		}
 	}
 }

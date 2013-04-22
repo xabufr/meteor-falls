@@ -58,11 +58,12 @@ target_link_libraries(meteor-falls
 		crypto
 		tolua++
 		lua5.1
-        lua
+        	lua
 		PagedGeometry
 		BulletDynamics
 		#BtOgre
 		#bullet libraries
+		#BtOgre
 		BulletDynamics
 		BulletCollision
 		LinearMath
