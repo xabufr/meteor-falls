@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 
+class GameEngine;
 class Equipe;
 class Batiment: public Unite
 {

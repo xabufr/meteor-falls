@@ -3,6 +3,7 @@
 #include <list>
 #include "../../../Utils/Vector3D.h"
 #include "../../../Utils/Quaternion.h"
+#include <bullet/btBulletCollisionCommon.h>
 
 class GameEngine;
 class WorldObjectListener;
@@ -30,6 +31,7 @@ class WorldObject
 		Vector3D m_position;
 		Quaternion m_rotation;
 		BulletRelationPtr *m_relationPtr;
+		btRigidBody *m_body;
 		std::list<WorldObjectListener*> m_listeners;
 	private:
 		WorldObjectType *m_type;

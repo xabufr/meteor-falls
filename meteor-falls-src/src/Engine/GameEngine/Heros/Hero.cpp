@@ -12,13 +12,13 @@
 #include "../../PhysicalEngine/BulletRelationPtr.h"
 #include "HeroListener.h"
 
-class HeroController: public btKinematicCharacterController 
+class HeroController: public btKinematicCharacterController
 {
 public:
 	HeroController(btPairCachingGhostObject* g, btConvexShape* shape, btScalar h, int up=1): btKinematicCharacterController(g,shape,h,up)
 	{
 	}
-	btScalar verticalVelocity() const 
+	btScalar verticalVelocity() const
 	{
 		return m_verticalVelocity;
 	}

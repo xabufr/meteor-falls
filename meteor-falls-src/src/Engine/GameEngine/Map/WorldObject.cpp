@@ -3,7 +3,7 @@
 #include "WorldObjectListener.h"
 #include "../../PhysicalEngine/BulletRelationPtr.h"
 WorldObject::WorldObject(GameEngine* g, WorldObjectType* type):
-    m_type(type)
+    m_type(type), m_body(nullptr)
 {
 	m_relationPtr = nullptr;
 }
@@ -21,6 +21,8 @@ void WorldObject::addListener(WorldObjectListener *l)
 void WorldObject::setPosition(const Vector3D& vec)
 {
     m_position=vec;
+    if (m_body!=nullptr)
+        m_body->translate(btVector3(vec.x, vec.y, vec.z));
 	for(WorldObjectListener *l : m_listeners)
 		l->positionChanged(vec);
 

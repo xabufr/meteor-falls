@@ -3,6 +3,9 @@
 #include "XmlDocumentManager.h"
 #include "../../Utils/Xml.h"
 #include "../../Utils/btBulletWorldImporter.h"
+#include "../../Utils/ResourceGroupManager.h"
+#include <iostream>
+#include <string>
 
 MeshManager::Mesh* MeshManager::fromName(const std::string& name) const
 {
@@ -45,8 +48,8 @@ MeshManager::MeshManager(const std::string& path)
 			mesh->bullet = it->second.get<std::string>("<xmlattr>.bullet");
 			mesh->ogre   = it->second.get<std::string>("<xmlattr>.ogre");
 			mesh->offset = XmlUtils::getPosition(it->second.get_child("<xmlattr>"));
-			if (fileBullet->loadFile(mesh->bullet.c_str()))
-                mesh->shape = fileBullet->getCollisionShapeByName(mesh->bullet.c_str());
+			if (fileBullet->loadFile(ResourceGroupManager::get()->getFilePath(mesh->bullet).c_str()))
+                mesh->shape = fileBullet->getCollisionShapeByIndex(0);
 			m_meshes.insert(std::pair<std::string, Mesh*>(prefixe + it->second.get<std::string>("<xmlattr>.name"), mesh));
 		}
 	}
