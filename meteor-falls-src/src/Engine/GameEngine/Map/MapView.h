@@ -1,7 +1,7 @@
 #ifndef _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_GAMEENGINE_MAP_MAPVIEW_H__
 #define _HOME_THOMAS_METEOR_FALLS_METEOR_FALLS_SRC_SRC_ENGINE_GAMEENGINE_MAP_MAPVIEW_H__
 #include <OgrePrerequisites.h>
-#include "../../../precompiled/_rapidxml.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "MapListener.h"
 
 class Map;
@@ -50,7 +50,7 @@ private:
 
 	Map *m_map;
 
-	void processNode(rapidxml::xml_node<>* n, Ogre::SceneNode*);
+	void processNode(XmlDocumentManager::Document const &, Ogre::SceneNode*);
 	void loadPagedFile(const std::string& path, Forests::TreeLoader3D *, Ogre::Entity* ent);
 };
 

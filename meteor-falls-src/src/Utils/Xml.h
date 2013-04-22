@@ -3,12 +3,13 @@
 #include <boost/exception/all.hpp>
 #include "Vector3D.h"
 #include <string>
+#include <boost/property_tree/ptree.hpp>
 
 namespace XmlUtils
 {
-	Vector3D getPosition(rapidxml::xml_node<>*, const std::string& = "");
-	Ogre::ColourValue getRGBA(rapidxml::xml_node<>*);
-	Ogre::Quaternion getQuaternion(rapidxml::xml_node<>*);
+	Vector3D getPosition(boost::property_tree::ptree const &, const std::string& = "");
+	Ogre::ColourValue getRGBA(const boost::property_tree::ptree&);
+	Ogre::Quaternion getQuaternion(boost::property_tree::ptree const &);
 	template<class T> 
 	T getValue(rapidxml::xml_base<>* element)
 	{

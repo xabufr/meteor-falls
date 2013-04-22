@@ -30,6 +30,7 @@ m_avatar(a),
 m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
+	m_lastVerticalVelocity = 0.f;
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	j->setHero(this);
 
@@ -76,6 +77,7 @@ Avatar* Hero::avatar() const
 void Hero::update(float time)
 {
 	Vector3D dep;
+	m_lastVerticalVelocity = m_character_controller->verticalVelocity();
 	if(m_avancer||m_reculer||m_droite||m_gauche)
 	{
 		if(m_reculer)
@@ -220,4 +222,8 @@ float Hero::verticalVelocity() const
 bool Hero::isOnGround() const 
 {
 	return m_character_controller->onGround();
+}
+float Hero::lastVerticalVelocity() const 
+{
+	return m_lastVerticalVelocity;
 }

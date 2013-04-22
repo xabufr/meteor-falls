@@ -81,7 +81,7 @@ public:
     bool eventExist(OIS::KeyCode, OIS::KeyCode, int);
     bool eventActif(int, int);
     const bool axesInvers(){return m_axes_invers;}
-    void addKey(int, int, rapidxml::xml_node<>*);
+    void addKey(int, int, const XmlDocumentManager::Document&);
     KeyAction** getKeyMap(){return m_map_key;}
     KeyAction* getKeyGlobal(){return m_map_key[0];}
     KeyAction* getKeyRTS(){return m_map_key[2];}

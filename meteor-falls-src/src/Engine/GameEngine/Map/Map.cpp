@@ -36,7 +36,7 @@ Map::~Map()
 		if(l->autoDelete())
 			delete l;
 }
-rapidxml::xml_document<>* Map::getXmlMap() const
+XmlDocumentManager::Document& Map::getXmlMap() const
 {
 	return XmlDocumentManager::get()->getDocument(mapRootPath()+ m_name + ".scene");
 }
@@ -51,31 +51,26 @@ void Map::load(const std::string& p_name)
 	m_loaded = true;
 	bool server = m_game->getTypeServerClient() == GameEngine::SERVER;
 	m_name = p_name;
-	rapidxml::xml_document<> *map_params = getXmlMap();
-	rapidxml::xml_node<>* rootNode  = map_params->first_node("scene");
-	rapidxml::xml_node<>* terrain = rootNode->first_node("terrain");
-	if(terrain)
+	XmlDocumentManager::Document &map_params = getXmlMap();
 	{
 		float worldSize, mapSize, compositeDistance;
 		int maxPixelError, maxBatch, minBatch;
-		worldSize = boost::lexical_cast<float>(terrain->first_attribute("worldSize")->value());
-		mapSize = boost::lexical_cast<float>(terrain->first_attribute("mapSize")->value());
-		maxPixelError = boost::lexical_cast<int>(terrain->first_attribute("tuningMaxPixelError")->value());
-		maxBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMaxBatchSize")->value());
-		minBatch = boost::lexical_cast<int>(terrain->first_attribute("tuningMinBatchSize")->value());
-		compositeDistance = boost::lexical_cast<int>(terrain->first_attribute("tuningCompositeMapDistance")->value());
-
-		rapidxml::xml_node<>* nodePages = terrain->first_node("terrainPages");
-		rapidxml::xml_node<>* nodePage;
+		worldSize         = map_params.get<int>("scene.terrain.<xmlattr>.worldSize");
+		mapSize           = map_params.get<int>("scene.terrain.<xmlattr>.mapSize");
+		maxPixelError     = map_params.get<int>("scene.terrain.<xmlattr>.tuningMaxPixelError");
+		maxBatch          = map_params.get<int>("scene.terrain.<xmlattr>.tuningMaxBatchSize");
+		minBatch          = map_params.get<int>("scene.terrain.<xmlattr>.tuningMinBatchSize");
+		compositeDistance = map_params.get<int>("scene.terrain.<xmlattr>.tuningCompositeMapDistance");
 
 		bool first=true;
 		int minx, miny, maxx, maxy;
 		minx = miny = maxx = maxy = 0;
-		for(nodePage=nodePages->first_node("terrainPage");nodePage;nodePage=nodePage->next_sibling("terrainPage"))
+		auto bounds = map_params.get_child("scene.terrain.terrainPages").equal_range("terrainPage");
+		for(auto it=bounds.first;it!=bounds.second;++it)
 		{
 			int px,py;
-			px = boost::lexical_cast<int>(nodePage->first_attribute("pageX")->value());
-			py = boost::lexical_cast<int>(nodePage->first_attribute("pageY")->value());
+			px = it->second.get<int>("<xmlattr>.pageX");
+			py = it->second.get<int>("<xmlattr>.pageY");
 			minx = (first)?px:(px<minx)?px:minx;
 			miny = (first)?py:(py<miny)?py:miny;
 			maxx = (first)?px:(px>maxx)?px:maxx;
@@ -145,16 +140,9 @@ void Map::load(const std::string& p_name)
 		m_world->addRigidBody(body);
 		m_liensPhysique.push_back(new BulletRelationPtr(body, this, BulletRelationPtr::Type::DEATH_OBJ));
 	}
-	rapidxml::xml_node<>* nodes = rootNode->first_node("nodes");
-	if(nodes)
-	{
-		rapidxml::xml_node<>* node = nodes->first_node("node");
-		while(node)
-		{
-			processNode(node);
-			node = node->next_sibling("node");
-		}
-	}
+	auto bounds = map_params.get_child("scene.nodes").equal_range("node");
+	for(auto it = bounds.first;it!=bounds.second;++it)
+		processNode(it->second);
 	for(MapListener *listener: m_listeners)
 		listener->mapLoaded(p_name);
 }
@@ -216,25 +204,27 @@ Vector3D Map::getNormalAt(float x, float z)
 
 	return Vector3D::produit_vectoriel(vec[0],vec[1]);
 }
-void Map::processNode(rapidxml::xml_node<>* n)
+void Map::processNode(XmlDocumentManager::Document const & node)
 {
-	Vector3D position = XmlUtils::getPosition(n->first_node("position"));
-	rapidxml::xml_node<> *userData = n->first_node("userData");
+	Vector3D position = XmlUtils::getPosition(node.get_child("position.<xmlattr>"));
+	bool userData = node.count("userData") > 0;
+	std::cout << "unit" << std::endl;
 	if(userData&&m_game->getTypeServerClient()==GameEngine::SERVER)
 	{
+		std::cout << "unit server" << std::endl;
 		char teamId;
 		std::string type;
-		rapidxml::xml_node<> *property;
-		for(property = userData->first_node("property");property!=0;property=property->next_sibling("property"))
+		auto bounds = node.get_child("userData").equal_range("property");
+		for(auto it=bounds.first;it!=bounds.second;++it)
 		{
-			std::string name = property->first_attribute("name")->value();
+			std::string name = it->second.get<std::string>("<xmlattr>.name");
 			if(name=="type")
 			{
-				type = property->first_attribute("data")->value();
+				type = it->second.get<std::string>("<xmlattr>.data");
 			}
 			else if (name=="team_id")
 			{
-				teamId = boost::lexical_cast<int>(property->first_attribute("data")->value());
+				teamId = it->second.get<int>("<xmlattr>.data");
 			}
 		}
 		if(!type.empty())
@@ -246,6 +236,7 @@ void Map::processNode(rapidxml::xml_node<>* n)
 				{
 					Unite *u = equipe->factory()->create(UnitId(0));
 					u->setPosition(Vector3D(position.x, getHeightAt(position.x, position.z), position.z));
+					std::cout << "unit server ok" << std::endl;
 				}
 			}
 		}

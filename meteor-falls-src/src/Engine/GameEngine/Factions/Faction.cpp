@@ -1,6 +1,5 @@
 #include "Faction.h"
 #include "../Unites/UniteFactory.h"
-#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "../Unites/typedefs.h"
 #include "../Unites/TypeUnite.h"
 #include "../Degats/DegatManager.h"
@@ -31,133 +30,108 @@ void Faction::addConfigFile(std::string path)
 }
 void Faction::load()
 {
-	rapidxml::xml_document<>* document;
 	//Première passe de chargement
 	for(std::string path : m_paths)
 	{
-		try{
-			document = XmlDocumentManager::get()->getDocument(path);
-		}
-		catch(FileNotFound &e){
-			std::cerr << "File not found: " << e.what() << std::endl;
-			continue;
-		}
-		rapidxml::xml_node<> *root = document->first_node("root");
+		XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument(path);
 		//Chargement des recherches
-		rapidxml::xml_node<>* nodeRech, *nodeUnit;
-		for(nodeRech=root->first_node("recherche");nodeRech;nodeRech=nodeRech->next_sibling("recherche"))
+		std::pair<XmlDocumentManager::Document::const_assoc_iterator,
+			XmlDocumentManager::Document::const_assoc_iterator>bounds(document.get_child("root").equal_range("recherche"));
+		for(auto it(bounds.first); it!=bounds.second;++it)
 		{
+			const XmlDocumentManager::Document &drech = it->second;
 			Recherche *recherche;
-			RechercheId id = boost::lexical_cast<RechercheId>(nodeRech->first_node("id")->value());
+			RechercheId id = drech.get<RechercheId>("id");
 			recherche = new Recherche(id);
 			m_recherches[id]=recherche;
 
-			recherche->m_temps = boost::lexical_cast<int>(nodeRech->first_node("temps")->value());
-			if(nodeRech->first_node("level"))
-				recherche->m_niveau_recquis = boost::lexical_cast<int>(nodeRech->first_node("level")->value());
-			else
-				recherche->m_niveau_recquis = 1;
+			recherche->m_temps = drech.get<int>("temps");
+			recherche->m_niveau_recquis = drech.get("level", 1);
 
-			rapidxml::xml_node<>* nodeCouts = nodeRech->first_node("coute");
-			recherche->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
-			recherche->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
-			recherche->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
-			recherche->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
+			recherche->m_cout.gold = drech.get<int>("coute.or");
+			recherche->m_cout.wood = drech.get<int>("coute.bois");
+			recherche->m_cout.metal = drech.get<int>("coute.metal");
+			recherche->m_cout.population = drech.get<int>("coute.pop");
 
-			recherche->m_icone = nodeRech->first_node("icone")->value();
-			recherche->m_script = nodeRech->first_node("script")->value();
-			recherche->m_nom = nodeRech->first_node("nom")->value();
+			recherche->m_icone = drech.get<std::string>("icone");
+			recherche->m_script = drech.get<std::string>("script");
+			recherche->m_nom = drech.get<std::string>("nom");
 		}
 		//Chargement des unités
-		for(nodeUnit=root->first_node("unite");nodeUnit;nodeUnit=nodeUnit->next_sibling("unite"))
+		bounds = document.get_child("root").equal_range("unite");
+		for(auto it(bounds.first);it!=bounds.second;++it)
 		{
-			processUnit(nodeUnit);
+			processUnit(it->second);
 		}
 	}
 	//Seconde passe, pour édition de liens
 	for(std::string path : m_paths)
 	{
-		try{
-			document = XmlDocumentManager::get()->getDocument(path);
-		}
-		catch(FileNotFound &e){
-			continue;
-		}
-		rapidxml::xml_node<> *root = document->first_node("root");
+		XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument(path);
 		//Chargement des recherches
-		rapidxml::xml_node<>* nodeRech, *nodeUnit;
-		for(nodeRech=root->first_node("recherche");nodeRech;nodeRech=nodeRech->next_sibling("recherche"))
+		auto bounds = document.get_child("root").equal_range("recherche");
+		for(auto it(bounds.first);it!=bounds.second;++it)
 		{
+			const XmlDocumentManager::Document& drech = it->second;
 			Recherche *recherche;
-			RechercheId id = boost::lexical_cast<RechercheId>(nodeRech->first_node("id")->value());
+			RechercheId id = drech.get<int>("id");
+
 			recherche = m_recherches[id];
-			if(nodeRech->first_node("necessite"))
-			{
-				rapidxml::xml_node<>* nodeNecessite = nodeUnit->first_node("necessite"),
-					*tempNode;
-				//Recherches
-				for(tempNode=nodeNecessite->first_node("recherche");tempNode;tempNode=tempNode->next_sibling("recherche"))
+			try {
+				auto boundsNecessite = drech.get_child("necessite").equal_range("recherche");
+				for(auto rech(boundsNecessite.first);rech!=boundsNecessite.second;++rech)
 				{
-					id = boost::lexical_cast<RechercheId>(tempNode->value());
+					id = rech->second.get_value<RechercheId>();
 					recherche->m_recherchesNecessaires.push_back(m_recherches[id]);
 				}
-				//Unités
-				for(tempNode=nodeNecessite->first_node("unite");tempNode;tempNode=tempNode->next_sibling("unite"))
+				boundsNecessite = drech.get_child("necessite").equal_range("unite");
+				for(auto unit(boundsNecessite.first);unit!=boundsNecessite.second;++unit)
 				{
-					id = boost::lexical_cast<UnitId>(tempNode->value());
+					id = unit->second.get_value<UnitId>();
 					recherche->m_unitesNecessaires.push_back(m_typesUnites[id]);
 				}
+			} catch (...) {
 			}
 		}
 		//Chargement des unités
-		for(nodeUnit=root->first_node("unite");nodeUnit;nodeUnit=nodeUnit->next_sibling("unite"))
+		bounds = document.get_child("root").equal_range("unite");
+		for(auto it=bounds.first;it!=bounds.second;++it)
 		{
 			TypeUnite *unite;
-			UnitId id = boost::lexical_cast<UnitId>(nodeUnit->first_node("id")->value());
+			const XmlDocumentManager::Document& nodeUnit = it->second;
+			UnitId id = nodeUnit.get<int>("id");
 			unite = m_typesUnites[id];
 
-			if(nodeUnit->first_node("amerlioration"))
-				unite->m_amelioration = m_typesUnites[boost::lexical_cast<UnitId>(nodeUnit->first_node("amelioration")->value())];
+			int idAmelioration = nodeUnit.get("amelioration", -1);
+			if(idAmelioration>0)
+				unite->m_amelioration = m_typesUnites[idAmelioration];
 
-			if(nodeUnit->first_node("constuit"))
+			boost::optional<const XmlDocumentManager::Document &> construit = nodeUnit.get_child_optional("construit");
+			if(construit)
 			{
-				rapidxml::xml_node<>* nodeConstruit = nodeUnit->first_node("constuit"),
-					*tempNode;
-				//Unités
-				for(tempNode=nodeConstruit->first_node("unite");tempNode;tempNode=tempNode->next_sibling("unite"))
-				{
-					id = boost::lexical_cast<UnitId>(tempNode->value());
-					unite->m_construit.push_back(m_typesUnites[id]);
-				}
-				//Recherches
-				for(tempNode=nodeConstruit->first_node("recherche");tempNode;tempNode=tempNode->next_sibling("recherche"))
-				{
-					id = boost::lexical_cast<RechercheId>(tempNode->value());
-					unite->m_recherches.push_back(m_recherches[id]);
-				}
+				auto boundsLiens = construit->equal_range("unite");
+				for(auto itUn=boundsLiens.first;itUn!=boundsLiens.second;++itUn)
+					unite->m_construit.push_back(m_typesUnites[itUn->second.get_value<int>()]);
+				boundsLiens = construit->equal_range("recherche");
+				for(auto itUn=boundsLiens.first;itUn!=boundsLiens.second;++itUn)
+					unite->m_recherches.push_back(m_recherches[itUn->second.get_value<int>()]);
 			}
-			if(nodeUnit->first_node("necessite"))
+			boost::optional<const XmlDocumentManager::Document&> necessite = nodeUnit.get_child_optional("necessite");
+			if(necessite)
 			{
-				rapidxml::xml_node<>* nodeConstruit = nodeUnit->first_node("necessite"),
-					*tempNode;
-				//Unités
-				for(tempNode=nodeConstruit->first_node("unite");tempNode;tempNode=tempNode->next_sibling("unite"))
-				{
-					id = boost::lexical_cast<UnitId>(tempNode->value());
-					unite->m_necessiteUnite.push_back(m_typesUnites[id]);
-				}
-				//Recherches
-				for(tempNode=nodeConstruit->first_node("recherche");tempNode;tempNode=tempNode->next_sibling("recherche"))
-				{
-					id = boost::lexical_cast<RechercheId>(tempNode->value());
-					unite->m_necessiteRecherche.push_back(m_recherches[id]);
-				}
+				auto boundsLiens = necessite->equal_range("unite");
+				for(auto itUn=boundsLiens.first;itUn!=boundsLiens.second;++itUn)
+					unite->m_necessiteUnite.push_back(m_typesUnites[itUn->second.get_value<int>()]);
+				boundsLiens = necessite->equal_range("recherche");
+				for(auto itUn=boundsLiens.first;itUn!=boundsLiens.second;++itUn)
+					unite->m_necessiteRecherche.push_back(m_recherches[itUn->second.get_value<int>()]);
 			}
 		}
-		rapidxml::xml_node<>* nodeAvatars;
-		for(nodeAvatars=root->first_node("avatar");nodeAvatars;nodeAvatars=nodeAvatars->next_sibling("avatar"))
+		bounds = document.get_child("root").equal_range("avatar");
+		for(auto it=bounds.first;it!=bounds.second;++it)
 		{
-			int id = boost::lexical_cast<int>(nodeAvatars->first_node("id")->value());
+			const XmlDocumentManager::Document& nodeAvatars = it->second;
+			int id = nodeAvatars.get<int>("id");
 			bool existe = false;
 			for(Avatar *av : m_avatarDefault)
 			{
@@ -167,12 +141,12 @@ void Faction::load()
 			if(existe)
 				continue;
 			ClasseHero *classe = nullptr;
-			int idClasse       = boost::lexical_cast<int>(nodeAvatars->first_node("classe")->value());
+			int idClasse       = nodeAvatars.get<int>("classe");
 			classe             = m_classeHeroManager.classe(idClasse);
 			if(classe == nullptr)
 				continue;
 			Avatar* av = new Avatar(id, classe);
-			av->m_nom  = nodeAvatars->first_node("nom")->value();
+			av->m_nom  = nodeAvatars.get<std::string>("nom");
 			av->m_isDefault = true;
 			m_avatarDefault.push_back(av);
 		}
@@ -201,83 +175,61 @@ const std::string& Faction::nom() const
 {
 	return m_nom;
 }
-void Faction::processUnit(rapidxml::xml_node<>* nodeUnit)
+void Faction::processUnit(const XmlDocumentManager::Document& nodeUnit)
 {
 	TypeUnite *unite;
-	TypeUnite::Type type = TypeUnite::typeFromString(nodeUnit->first_node("type")->value());
-	UnitId id = boost::lexical_cast<UnitId>(nodeUnit->first_node("id")->value());
+	TypeUnite::Type type = TypeUnite::typeFromString(nodeUnit.get<std::string>("type"));
+	UnitId id = nodeUnit.get<int>("id");
 
 	if(type==TypeUnite::HERO)
 		unite = new ClasseHero(id, this);
 	else 
 		unite = new TypeUnite(id,type,this);
 
-	if(nodeUnit->first_attribute("spawn"))
+	unite->m_spawn = nodeUnit.get("<xmlattr>.spawn", false);
+	unite->m_niveau_recquis = nodeUnit.get("level", 1);
+
+	unite->m_nom = nodeUnit.get<std::string>("nom");
+	unite->m_attaque = nodeUnit.get<int>("attaque");
+	unite->m_vision = nodeUnit.get<float>("vision");
+	unite->m_portee = nodeUnit.get<float>("portee");
+	unite->m_temps_construction = nodeUnit.get<int>("temps");
+	unite->m_vie = nodeUnit.get<int>("vie");
+
+	unite->m_typeDegats = DegatManager::get()->getDegat(nodeUnit.get<DegatId>("type-degat"));
+	unite->m_armure = DegatManager::get()->getArmure(nodeUnit.get<ArmureId>("armure"));
+
+	unite->m_cout.gold          = nodeUnit.get("coute.or", 0);
+	unite->m_cout.wood          = nodeUnit.get("coute.bois", 0);
+	unite->m_cout.metal         = nodeUnit.get("coute.metal", 0);
+	unite->m_cout.population    = nodeUnit.get("coute.pop", 0);
+
+	unite->m_apports.gold       = nodeUnit.get("produit.or", 0);
+	unite->m_apports.wood       = nodeUnit.get("produit.bois", 0);
+	unite->m_apports.metal      = nodeUnit.get("produit.metal", 0);
+	unite->m_apports.population = nodeUnit.get("produit.pop", 0);
+
+	auto boundMeshes            = nodeUnit.get_child("meshes").equal_range("mesh");
+	for(auto itMesh=boundMeshes.first;itMesh!=boundMeshes.second;++itMesh)
 	{
-		unite->m_spawn = boost::lexical_cast<bool>(nodeUnit->first_attribute("spawn")->value());
-	}
-
-	if(nodeUnit->first_node("level"))
-		unite->m_niveau_recquis = boost::lexical_cast<int>(nodeUnit->first_node("level")->value());
-	else
-		unite->m_niveau_recquis = 1;
-
-	unite->m_nom = nodeUnit->first_node("nom")->value();
-	unite->m_attaque = boost::lexical_cast<int>(nodeUnit->first_node("attaque")->value());
-	unite->m_vision = boost::lexical_cast<float>(nodeUnit->first_node("vision")->value());
-	unite->m_portee = boost::lexical_cast<float>(nodeUnit->first_node("portee")->value());
-	unite->m_temps_construction = boost::lexical_cast<int>(nodeUnit->first_node("temps")->value());
-	unite->m_vie = boost::lexical_cast<int>(nodeUnit->first_node("vie")->value());
-
-	unite->m_typeDegats = DegatManager::get()->getDegat(boost::lexical_cast<DegatId>(nodeUnit->first_node("type-degat")->value()));
-	unite->m_armure = DegatManager::get()->getArmure(boost::lexical_cast<ArmureId>(nodeUnit->first_node("armure")->value()));
-
-	rapidxml::xml_node<>* nodeCouts = nodeUnit->first_node("coute");
-	if(nodeCouts)
-	{
-		unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
-		unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
-		unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
-		unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
-	}
-
-	rapidxml::xml_node<>* nodeProduction = nodeUnit->first_node("produit");
-	if(nodeProduction)
-	{
-		if(nodeCouts->first_node("or"))
-			unite->m_cout.gold = boost::lexical_cast<int>(nodeCouts->first_node("or")->value());
-		if(nodeCouts->first_node("bois"))
-			unite->m_cout.wood = boost::lexical_cast<int>(nodeCouts->first_node("bois")->value());
-		if(nodeCouts->first_node("metal"))
-			unite->m_cout.metal = boost::lexical_cast<int>(nodeCouts->first_node("metal")->value());
-		if(nodeCouts->first_node("pop"))
-			unite->m_cout.population = boost::lexical_cast<int>(nodeCouts->first_node("pop")->value());
-	}
-	rapidxml::xml_node<>* nodeMeshes = nodeUnit->first_node("meshes");
-	if(nodeMeshes)
-	{
-		rapidxml::xml_node<>* nodeMesh;
-		for(nodeMesh = nodeMeshes->first_node("mesh");nodeMesh;nodeMesh=nodeMeshes->next_sibling("mesh"))
+		if(type == TypeUnite::HERO)
 		{
-			if(type==TypeUnite::HERO)
-			{
-				int from, to;
-				from = boost::lexical_cast<int>(nodeMesh->first_attribute("from")->value());
-				to   = boost::lexical_cast<int>(nodeMesh->first_attribute("to")->value());
-				ClasseHero::HeroMesh data;
-				data.mesh = nodeMesh->first_attribute("mesh")->value();
-				data.walk = nodeMesh->first_node("walk")->value();
-				data.jump = nodeMesh->first_node("jump")->value();
-				data.fall = nodeMesh->first_node("fall")->value();
-				static_cast<ClasseHero*>(unite)->addMesh(from, to,data);
-			}
-			else
-			{
-				std::string name, mesh;
-				name                          = nodeMesh->first_attribute("name")->value();
-				mesh                          = nodeMesh->first_attribute("mesh")->value();
-				unite->m_meshParameters[name] = mesh;
-			}
+			int from, to;
+			from = itMesh->second.get<int>("<xmlattr>.from");
+			to   = itMesh->second.get<int>("<xmlattr>.to");
+			ClasseHero::HeroMesh data;
+			data.mesh = itMesh->second.get<std::string>("<xmlattr>.mesh");
+			data.walk = itMesh->second.get<std::string>("walk");
+			data.jump = itMesh->second.get<std::string>("jump");
+			data.fall = itMesh->second.get<std::string>("fall");
+			static_cast<ClasseHero*>(unite)->addMesh(from, to,data);
+		}
+		else 
+		{
+			std::string name, mesh;
+			name                          = itMesh->second.get<std::string>("<xmlattr>.name");
+			mesh                          = itMesh->second.get<std::string>("<xmlattr>.mesh");
+			unite->m_meshParameters[name] = mesh;
 		}
 	}
 	if(type == TypeUnite::HERO)
@@ -288,7 +240,7 @@ void Faction::processUnit(rapidxml::xml_node<>* nodeUnit)
 			delete hero;
 			return;
 		}
-		hero->m_icone = nodeUnit->first_node("icone")->value();
+		hero->m_icone = nodeUnit.get<std::string>("icone");
 		/*
 		 * Chargement des meshes
 		 * */

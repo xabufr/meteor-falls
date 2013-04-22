@@ -1,35 +1,31 @@
 #include "FactionManager.h"
 #include "Faction.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
-#include "precompiled/lexical_cast.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 
 
 FactionManager::FactionManager()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("data/factions.xml");
-    rapidxml::xml_node<>* factions_node = document->first_node("factions"),
-                            *faction_node;
-
+	XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument("data/factions.xml");
+	std::cout << "fac mng" << std::endl;
     Faction *faction;
-
-    for(faction_node=factions_node->first_node("faction");
-        faction_node;faction_node=faction_node->next_sibling("faction"))
-    {
-        FactionId id = boost::lexical_cast<unsigned int>(faction_node->first_attribute("id")->value());
-        std::string nom = faction_node->first_attribute("nom")->value();
-        bool jouable = boost::lexical_cast<bool>(faction_node->first_attribute("jouable")->value());
+	auto bounds = document.get_child("factions").equal_range("faction");
+	for(auto it=bounds.first;it!=bounds.second;++it)
+	{
+		std::cout << "fac" << std::endl;
+        FactionId id = it->second.get<FactionId>("<xmlattr>.id");
+        std::string nom = it->second.get<std::string>("<xmlattr>.nom");
+        bool jouable = it->second.get<bool>("<xmlattr>.jouable");
+		std::cout << nom << std::endl;
 
         faction = new Faction(jouable, id, nom);
         m_factions.push_back(faction);
-        rapidxml::xml_node<>* fileNode;
-        for(fileNode=faction_node->first_node("fichier");
-            fileNode;fileNode=fileNode->next_sibling("fichier"))
-        {
-            std::string path = fileNode->value();
-            faction->addConfigFile(path);
-        }
+		auto boudsFiles = it->second.equal_range("fichier");
+		for(auto itFile=boudsFiles.first;itFile!=boudsFiles.second;++itFile)
+		{
+			faction->addConfigFile(itFile->second.get_value<std::string>());
+		}
         faction->load();
-    }
+	}
 }
 FactionManager::~FactionManager()
 {

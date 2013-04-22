@@ -88,10 +88,9 @@ void LanLoginState::loadProfilesList()
 			profile/= profile.filename();
 			try
 			{
-				rapidxml::xml_document<> *doc = XmlDocumentManager::get()->getDocument(profile.string()+".profile");
-				rapidxml::xml_node<> *root = doc->first_node("profile");
+				XmlDocumentManager::Document &doc = XmlDocumentManager::get()->getDocument(profile.string()+".profile");
 				JoueurLan *j = new JoueurLan;
-				j->setNom(root->first_attribute("name")->value());
+				j->setNom(doc.get<std::string>("profile.<xmlattr>.name"));
 				m_profiles.push_back(j);
 			}
 			catch (FileNotFound &e)

@@ -2,37 +2,31 @@
 #include <OgreColourValue.h>
 namespace XmlUtils
 {
-	Vector3D getPosition(rapidxml::xml_node<>* node, const std::string& prefixe)
+	Vector3D getPosition(boost::property_tree::ptree const & tree, const std::string& prefixe)
 	{
 		Vector3D position;
-		rapidxml::xml_attribute<> *attr = node->first_attribute((prefixe + "x").c_str());
-		if(attr)
-			position.x = getDouble(attr);
-		attr = node->first_attribute((prefixe + "y").c_str());
-		if(attr)
-			position.y = getDouble(attr);
-		attr = node->first_attribute((prefixe + "z").c_str());
-		if(attr)
-			position.z = getDouble(attr);
+		position.x = tree.get(prefixe+"x", 0.f);
+		position.y = tree.get(prefixe+"y", 0.f);
+		position.z = tree.get(prefixe+"z", 0.f);
 		return position;
 	}
-	Ogre::ColourValue getRGBA(rapidxml::xml_node<>* node)
+	Ogre::ColourValue getRGBA(const boost::property_tree::ptree& tree)
 	{
 		Ogre::ColourValue color;
-		color.r = getDouble(node->first_attribute("r"));
-		color.g = getDouble(node->first_attribute("g"));
-		color.b = getDouble(node->first_attribute("b"));
-		color.a = getDouble(node->first_attribute("a"));
+		color.r = tree.get<double>("r");
+		color.g = tree.get<double>("g");
+		color.b = tree.get<double>("b");
+		color.a = tree.get<double>("a");
 		return color;
 	}
-	Ogre::Quaternion getQuaternion(rapidxml::xml_node<>* node)
+	Ogre::Quaternion getQuaternion(boost::property_tree::ptree const & tree)
 	{
 		Ogre::Quaternion q;
-		Vector3D vec(getPosition(node, "q"));
+		Vector3D vec(getPosition(tree, "q"));
 		q.x = vec.x;
 		q.y = vec.y;
 		q.z = vec.z;
-		q.w = getDouble(node->first_attribute("qw"));
+		q.w = tree.get("qw", 0.f);
 		return q;
 	}
 	int 		getInt 		(rapidxml::xml_base<>* base)

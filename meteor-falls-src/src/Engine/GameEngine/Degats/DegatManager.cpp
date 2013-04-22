@@ -1,8 +1,7 @@
 #include "DegatManager.h"
-#include "Engine/ScriptEngine/XmlDocumentManager.h"
+#include "../../ScriptEngine/XmlDocumentManager.h"
 #include "Degat.h"
 #include "Armure.h"
-#include "precompiled/lexical_cast.h"
 
 Armure* DegatManager::getArmure(ArmureId armure)
 {
@@ -22,45 +21,43 @@ Degat* DegatManager::getDegat(DegatId degat)
 
 DegatManager::DegatManager()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("data/degats.xml");
-    rapidxml::xml_node<> *nodeDegats = document->first_node("root")->first_node("degats");
-    rapidxml::xml_node<> *nodeArmures = document->first_node("root")->first_node("armures");
-    rapidxml::xml_node<> *currentNode;
+	XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument("data/degats.xml");
 
     Degat *deg;
-    for(currentNode=nodeDegats->first_node("degat");currentNode;currentNode=currentNode->next_sibling("degat"))
+	auto bounds = document.get_child("root.degats").equal_range("degat");
+	for(auto it=bounds.first;it!=bounds.second;++it)
     {
         DegatId id;
         std::string nom;
 
-        id = boost::lexical_cast<DegatId>(currentNode->first_attribute("id")->value());
-        nom = currentNode->first_attribute("nom")->value();
+        id = it->second.get<DegatId>("<xmlattr>.id");
+        nom = it->second.get<std::string>("<xmlattr>.nom");
 
         deg = new Degat(id,nom);
         m_degats[id]=deg;
     }
 
     Armure *armure;
-    for(currentNode=nodeArmures->first_node("armure");currentNode;currentNode=currentNode->next_sibling("armure"))
+	bounds = document.get_child("root.armures").equal_range("armure");
+	for(auto it=bounds.first;it!=bounds.second;++it)
     {
         ArmureId id;
         std::string nom;
 
-        id = boost::lexical_cast<ArmureId>(currentNode->first_attribute("id")->value());
-        nom = currentNode->first_attribute("nom")->value();
+        id = it->second.get<DegatId>("<xmlattr>.id");
+        nom = it->second.get<std::string>("<xmlattr>.nom");
 
         armure = new Armure(id,nom);
         m_armures[id]=armure;
 
         //Paramètres de l'armure
-        rapidxml::xml_node<>* nodeDef;
-        for(nodeDef=currentNode->first_node("defenses")->first_node("degat");
-        nodeDef; nodeDef=nodeDef->next_sibling("degat"))
+		auto boundsDef = it->second.get_child("defenses").equal_range("degat");
+		for(auto def=boundsDef.first;def!=boundsDef.second;++def)
         {
-            deg=getDegat(boost::lexical_cast<DegatId>(nodeDef->first_attribute("id")->value()));
+            deg=getDegat(def->second.get<DegatId>("<xmlattr>.id"));
             if(deg)
             {
-                armure->addDegat(deg, boost::lexical_cast<int>(nodeDef->first_attribute("valeur")->value()));
+                armure->addDegat(deg, def->second.get<int>("<xmlattr>.valeur"));
             }
         }
     }

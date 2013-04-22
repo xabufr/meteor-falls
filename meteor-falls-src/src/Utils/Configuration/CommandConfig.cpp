@@ -1,10 +1,9 @@
 #include "CommandConfig.h"
 #include "../../precompiled/lexical_cast.h"
-#include "Utils/Exception/FileNotFound.h"
-#include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
-#include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include "Engine/GraphicEngine/Ogre/OgreApplication.h"
-#include <rapidxml_print.hpp>
+#include "../../Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "../../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
+#include "../../Engine/GraphicEngine/Ogre/OgreApplication.h"
+#include <boost/property_tree/xml_parser.hpp>
 #include <fstream>
 
 CommandConfig::CommandConfig()
@@ -193,94 +192,52 @@ void CommandConfig::loadConfig()
 {
     try
     {
-        rapidxml::xml_document<>* doc = XmlDocumentManager::get()->getDocument("config.cfg");
-        rapidxml::xml_node<>* root = doc->first_node("configuration");
-        rapidxml::xml_node<>* command = root->first_node("command");
-        rapidxml::xml_node<>* current;
+		XmlDocumentManager::Document& doc = XmlDocumentManager::get()->getDocument("config.cfg");
+		XmlDocumentManager::Document& command = doc.get_child("configuration.command");
         m_map_key[0] = new KeyAction[KeyGlobal::GLOBAL_COUNT];
         m_map_key[1] = new KeyAction[KeyRPG::RPG_COUNT];
         m_map_key[2] =  new KeyAction[KeyRTS::RTS_COUNT];
 
         int nb=0;
 
-        for (current = command->first_node("global")->first_node("action");current;current=current->next_sibling("action"))
+		std::pair<XmlDocumentManager::Document::const_assoc_iterator, XmlDocumentManager::Document::const_assoc_iterator> bounds=command.get_child("global").equal_range("action");
+		for(boost::property_tree::ptree::const_assoc_iterator it(bounds.first); it != bounds.second; ++it)
         {
-            nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(GLOBAL_KEY, nb, current);
+            nb = it->second.get<int>("xmlattr.id");
+            addKey(GLOBAL_KEY, nb, it->second);
         }
 
-        for (current = command->first_node("rpg")->first_node("action");current;current=current->next_sibling("action"))
+		bounds = command.get_child("rpg").equal_range("action");
+		for(boost::property_tree::ptree::const_assoc_iterator it(bounds.first); it != bounds.second; ++it)
         {
-            nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(RPG_KEY, nb, current);
+            nb = it->second.get<int>("xmlattr.id");
+            addKey(RPG_KEY, nb, it->second);
         }
 
-        for (current = command->first_node("rts")->first_node("action");current;current=current->next_sibling("action"))
+		bounds = command.get_child("rts").equal_range("action");
+		for(boost::property_tree::ptree::const_assoc_iterator it(bounds.first); it != bounds.second; ++it)
         {
-            nb = boost::lexical_cast<int>(current->first_attribute("id")->value());
-            addKey(RTS_KEY, nb, current);
+            nb = it->second.get<int>("xmlattr.id");
+            addKey(RTS_KEY, nb, it->second);
         }
-        m_axes_invers = boost::lexical_cast<bool>(command->first_node("mouse")->first_attribute("inverse")->value());
-        m_mouse_sensibility = boost::lexical_cast<float>(command->first_node("mouse")->first_attribute("sensibility")->value());
+		m_axes_invers = command.get<bool>("mouse.xmlattr.inverse");
+		m_mouse_sensibility = command.get<float>("mouse.xmlattr.sensibility");
     }
-    catch(FileNotFound &e)
+    catch(...)
     {
         defaultCommandConfig();
     }
 }
 void CommandConfig::saveConfig()
 {
-    rapidxml::xml_document<>* document = XmlDocumentManager::get()->getDocument("config.cfg");
-    rapidxml::xml_node<>* root;
-    rapidxml::xml_node<>* command;
-    rapidxml::xml_node<>* global;
-    rapidxml::xml_node<>* mouse;
-    rapidxml::xml_node<>* rpg;
-    rapidxml::xml_node<>* rts;
-    rapidxml::xml_node<>* current;
-    rapidxml::xml_node<>* action;
+	XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument("config.cfg");
     int maxi = 0;
 
-    if (!document->first_node("configuration"))
-    {
-        root = document->allocate_node(rapidxml::node_type::node_element, "configuration");
-        document->append_node(root);
-    }
-    else
-        root = document->first_node("configuration");
-
-
-    if (!root->first_node("command"))
-    {
-        command = document->allocate_node(rapidxml::node_type::node_element, "command");
-        root->append_node(command);
-    }
-    else
-        command = root->first_node("command");
-
-    if (!command->first_node("global"))
-    {
-        global = document->allocate_node(rapidxml::node_type::node_element, "global");
-        command->append_node(global);
-    }
-    else
-        global = command->first_node("global");
-
-    if (!command->first_node("rpg"))
-    {
-        rpg = document->allocate_node(rapidxml::node_type::node_element, "rpg");
-        command->append_node(rpg);
-    }
-    else
-        rpg = command->first_node("rpg");
-
-    if (!command->first_node("rts"))
-    {
-        rts = document->allocate_node(rapidxml::node_type::node_element, "rts");
-        command->append_node(rts);
-    }
-    else
-        rts = command->first_node("rts");
+	XmlDocumentManager::Document& command = document.put_child("configuration.command", XmlDocumentManager::Document());
+	XmlDocumentManager::Document& global = command.put_child("global", XmlDocumentManager::Document());
+	XmlDocumentManager::Document& rpg = command.put_child("rpg", XmlDocumentManager::Document());
+	XmlDocumentManager::Document& rts = command.put_child("rts", XmlDocumentManager::Document());
+	XmlDocumentManager::Document* current;
 
     for (int i=0; i<3; ++i)
     {
@@ -289,68 +246,44 @@ void CommandConfig::saveConfig()
         if (i==0)
         {
             maxi = CommandConfig::KeyGlobal::GLOBAL_COUNT;
-            current = global;
+            current = &global;
         }
         else if (i==1)
         {
             maxi = CommandConfig::KeyRPG::RPG_COUNT;
-            current = rpg;
+            current = &rpg;
         }
         else
         {
             maxi = CommandConfig::KeyRTS::RTS_COUNT;
-            current = rpg;
+            current = &rpg;
         }
         for (int j=1; j<maxi; ++j)
-        {
-            current_key = &keys[j-1];
-            for (action = current->first_node("action");action;action=action->next_sibling("action"))
-            {
-                if (boost::lexical_cast<std::string>(action->first_attribute("description")->value()) == current_key->description)
-                {
-                    for (int k=0; k<2; ++k)
-                    {
-                        action->first_attribute(
-                            ("type"+boost::lexical_cast<std::string>(k+1)).c_str())->value(
-                                document->allocate_string(boost::lexical_cast<std::string>(current_key->action[k].type).c_str()));
-                        switch (current_key->action[i].type)
-                        {
-                            case KeyAction::Key::Type::KEYBOARD:
-                                action->first_attribute(
-                                    ("code"+boost::lexical_cast<std::string>(k+1)).c_str())->value(
-                                    document->allocate_string(boost::lexical_cast<std::string>(current_key->action[k].keyboard).c_str()));
-                            break;
-                            case KeyAction::Key::Type::MOUSE:
-                                action->first_attribute(
-                                    ("code"+boost::lexical_cast<std::string>(k+1)).c_str())->value(
-                                    document->allocate_string(boost::lexical_cast<std::string>(current_key->action[k].mouse).c_str()));
-                                break;
-                        }
-                    }
-                }
-            }
-        }
+		{
+			current_key = &keys[j-1];
+			XmlDocumentManager::Document& action = current->add_child("action", XmlDocumentManager::Document());
+			action.put("xmlattr.description", current_key->description);
+			action.put("xmlattr.id", j-1); 
+			for (int k=0; k<2; ++k)
+			{
+				std::string num = boost::lexical_cast<std::string>(k+1);
+				action.put("type"+num, (int)current_key->action[k].type);
+				switch (current_key->action[i].type)
+				{
+					case KeyAction::Key::Type::KEYBOARD:
+						action.put("code"+num, (int)current_key->action[k].keyboard);
+						break;
+					case KeyAction::Key::Type::MOUSE:
+						action.put("code"+num, (int)current_key->action[k].mouse);
+						break;
+				}
+			}
+		}
     }
-    if (!command->first_node("mouse"))
-    {
-        mouse = document->allocate_node(rapidxml::node_type::node_element, "mouse");
-        mouse->append_attribute(document->allocate_attribute("inverse",document->allocate_string(boost::lexical_cast<std::string>(m_axes_invers).c_str())));
-        mouse->append_attribute(document->allocate_attribute("sensibility",document->allocate_string(boost::lexical_cast<std::string>(m_mouse_sensibility).c_str())));
-        command->append_node(mouse);
-    }
-    else
-    {
-        mouse = command->first_node("mouse");
-        mouse->first_attribute("inverse")->value(document->allocate_string(boost::lexical_cast<std::string>(m_axes_invers).c_str()));
-        mouse->first_attribute("sensibility")->value(document->allocate_string(boost::lexical_cast<std::string>(m_mouse_sensibility).c_str()));
-    }
+	command.put("mouse.xmlattr.inverse", m_axes_invers);
+	command.put("mouse.xmlattr.sensibility", m_mouse_sensibility);
 
-    std::ofstream file;
-    file.open("config.cfg");
-    if (file.bad())
-        throw FileNotFound("config.cfg");
-    file << *document;
-    file.close();
+	boost::property_tree::write_xml("config.cfg", document);
 }
 std::string CommandConfig::toString(OIS::MouseButtonID c)
 {
@@ -458,21 +391,21 @@ bool CommandConfig::eventActif(int rang, int pos)
 
     return false;
 }
-void CommandConfig::addKey(int rang, int pos, rapidxml::xml_node<>* current)
+void CommandConfig::addKey(int rang, int pos, const XmlDocumentManager::Document& current)
 {
     KeyAction current_key;
 
-    current_key.description = std::string(current->first_attribute("description")->value());
+    current_key.description = current.get<std::string>("xmlattr.description");
     for (int i=0; i<2; ++i)
     {
-        current_key.action[i].type = KeyAction::Key::Type(boost::lexical_cast<int>(current->first_attribute(("type"+boost::lexical_cast<std::string>(i+1)).c_str())->value()));
+        current_key.action[i].type = KeyAction::Key::Type(current.get<int>("xmlattr.type"+boost::lexical_cast<std::string>(i+1)));
         switch (current_key.action[i].type)
         {
             case KeyAction::Key::Type::KEYBOARD:
-                current_key.action[i].keyboard = OIS::KeyCode(boost::lexical_cast<int>(current->first_attribute(("code"+boost::lexical_cast<std::string>(i+1)).c_str())->value()));
+                current_key.action[i].keyboard = OIS::KeyCode(current.get<int>("xmlattr.code"+boost::lexical_cast<std::string>(i+1)));
                 break;
             case KeyAction::Key::Type::MOUSE:
-                current_key.action[i].mouse = OIS::MouseButtonID(boost::lexical_cast<int>(current->first_attribute(("code"+boost::lexical_cast<std::string>(i+1)).c_str())->value()));
+                current_key.action[i].mouse = OIS::MouseButtonID(current.get<int>("xmlattr.code"+boost::lexical_cast<std::string>(i+1)));
                 break;
         }
     }
