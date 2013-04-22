@@ -135,7 +135,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
 					Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
 					Unite* hero = j->equipe()->factory()->create(j, avatar, avatar->classe(),
 							message.ints[EngineMessageKey::OBJECT_ID]);
-					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,10,0));
+					hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION]+Vector3D(0,100,0));
 					if(m_current_joueur==j)
 					{
 						setSousStateType(TypeState::PLAYING_RPG);

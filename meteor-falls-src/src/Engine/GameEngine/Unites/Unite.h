@@ -3,6 +3,7 @@
 #include "../Map/WorldObject.h"
 #include "TypeUnite.h"
 
+class GameEngine;
 class Equipe;
 class Unite : public WorldObject
 {
