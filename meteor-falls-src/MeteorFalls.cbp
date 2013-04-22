@@ -422,6 +422,8 @@
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/Hero.h">
       </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/HeroListener.h">
+      </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Heros/HeroView.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/GameEngine/Interface/Chat.h">
@@ -545,6 +547,8 @@
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/BulletRelationPtr.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/PhysicalEngine/PhysicalEngine.h">
+      </Unit>
+      <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaFunction.h">
       </Unit>
       <Unit filename="/home/zequiel/software/c++/meteor-falls/meteor-falls-src/src/Engine/ScriptEngine/LuaScript.h">
       </Unit>

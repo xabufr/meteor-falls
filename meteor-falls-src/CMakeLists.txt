@@ -56,19 +56,15 @@ target_link_libraries(meteor-falls
 		#SSL
 		ssl
 		crypto
-		#lua
-		lua
 		tolua++
-<<<<<<< HEAD
 		lua5.1
+        lua
 		PagedGeometry
 		BulletDynamics
-=======
->>>>>>> bbbc28540a76209708ea9c8090bfbd6c32eeab99
 		#BtOgre
 		#bullet libraries
 		BulletDynamics
-		BulletCollision 
-		LinearMath 
+		BulletCollision
+		LinearMath
 		)
 

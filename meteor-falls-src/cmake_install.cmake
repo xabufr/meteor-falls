@@ -1,4 +1,4 @@
-# Install script for directory: /home/thomas/meteor-falls/meteor-falls-src
+# Install script for directory: /home/zequiel/software/c++/meteor-falls/meteor-falls-src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/thomas/meteor-falls/meteor-falls-src/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/thomas/meteor-falls/meteor-falls-src/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/zequiel/software/c++/meteor-falls/meteor-falls-src/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)
