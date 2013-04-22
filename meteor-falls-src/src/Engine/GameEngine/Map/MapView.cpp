@@ -42,6 +42,7 @@ MapView::MapView(Map* map): m_map(map), m_hydrax(nullptr), m_skyx(nullptr), m_pa
 	m_temp_dir = "data/temp/";
 	m_map->addListener(this);
 	m_scene_mgr = m_map->game()->getManager()->getGraphic()->getSceneManager();
+	m_scene_mgr->setShadowTechnique(Ogre::ShadowTechnique::SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED);
 }
 MapView::~MapView()
 {
@@ -123,9 +124,9 @@ void MapView::mapLoaded(const std::string& mapName)
 		m_globals->setMaxPixelError(maxPixelError);
 		m_globals->setCompositeMapDistance(compositeDistance);
 		m_globals->setCompositeMapAmbient(m_scene_mgr->getAmbientLight());
+		m_globals->setCastsDynamicShadows(false);
 
 		m_terrainGroup = OGRE_NEW Ogre::TerrainGroup(m_scene_mgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
-		//m_terrainGroup->setResourceGroup("Maps");
 		std::list<rapidxml::xml_node<>*> nodesGrass;
 		for(rapidxml::xml_node<>* nodePage=nodePages->first_node("terrainPage");
 				nodePage;nodePage=nodePage->next_sibling("terrainPage"))
@@ -154,7 +155,7 @@ void MapView::mapLoaded(const std::string& mapName)
 
 			rapidxml::xml_node<>* grassLayerNode;
 			for(grassLayerNode=grassLayers->first_node("grassLayer");grassLayerNode;
-					grassLayerNode=grassLayerNode->next_sibling("grassLayer")) 
+					grassLayerNode=grassLayerNode->next_sibling("grassLayer"))
 			{
 				float top = boost::lexical_cast<float>(
 						grassLayerNode->first_node("mapBounds")->first_attribute("top")->value());
@@ -200,9 +201,9 @@ void MapView::mapLoaded(const std::string& mapName)
 				Forests::MapChannel channel;
 				if(sChannel=="RED")
 					channel = Forests::MapChannel::CHANNEL_RED;
-				else if(sChannel=="GREEN") 
+				else if(sChannel=="GREEN")
 					channel = Forests::MapChannel::CHANNEL_GREEN;
-				else if(sChannel=="BLUE") 
+				else if(sChannel=="BLUE")
 					channel = Forests::MapChannel::CHANNEL_BLUE;
 				layer->setDensityMap(densityMapName, channel);
 			}
@@ -250,6 +251,7 @@ void MapView::mapLoaded(const std::string& mapName)
 	{
 		m_controller = new SkyX::BasicController();
 		m_skyx = new SkyX::SkyX(m_scene_mgr, m_controller);
+		m_sun = m_scene_mgr->createLight("sun");
 
 		SkyX::AtmosphereManager::Options options;
 
@@ -273,6 +275,9 @@ void MapView::mapLoaded(const std::string& mapName)
 			sunSet  = boost::lexical_cast<float>(timeNode->first_attribute("sunSet")->value());
 			m_skyx->setTimeMultiplier(mult);
 			m_controller->setTime(Ogre::Vector3(curr, sunRise, sunSet));
+			m_sun->setDiffuseColour(1.0,1.0,1.0);
+			m_sun->setSpecularColour(1.0,1.0,1.0);
+			m_sun->setPosition(Ogre::Vector3(curr, sunRise, sunSet));
 		}
 		rapidxml::xml_node<>* eastNode = skyxNode->first_node("eastPosition");
 		if(eastNode)
@@ -351,6 +356,7 @@ void MapView::update()
 		m_pageGrass->update();
 	for(Forests::PagedGeometry* p : m_pages)
 		p->update();
+    m_sun->setPosition(m_sun->getPosition()+m_controller->getSunDirection());
 }
 void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 {
@@ -414,7 +420,7 @@ void MapView::processNode(rapidxml::xml_node<>* n, Ogre::SceneNode* parent)
 		pagedGeometry->addDetailLevel<Forests::BatchPage>(batchDistance);
 		pagedGeometry->addDetailLevel<Forests::ImpostorPage>(impostorDistance);
 		Forests::TreeLoader3D* loader = new Forests::TreeLoader3D(pagedGeometry, bounds);
-		
+
 		Ogre::Entity *entity = m_scene_mgr->createEntity(model);
 
 		loadPagedFile(m_map->mapRootPath()+fileName, loader, entity);

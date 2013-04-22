@@ -36,6 +36,7 @@ public:
 	float getHeightAt(float x, float z) const;
 private:
 	Ogre::SceneManager *m_scene_mgr;
+	Ogre::Light *m_sun;
 	Ogre::TerrainGlobalOptions *m_globals;
 	Ogre::TerrainGroup *m_terrainGroup;
 	std::string m_temp_dir;
@@ -52,4 +53,4 @@ private:
 	void loadPagedFile(const std::string& path, Forests::TreeLoader3D *, Ogre::Entity* ent);
 };
 
-#endif 
+#endif

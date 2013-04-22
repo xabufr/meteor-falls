@@ -12,6 +12,7 @@ HeroView::HeroView(Hero* hero, Ogre::SceneNode* node): UniteView(hero, node), m_
 	m_avancer = m_reculer = m_droite = m_gauche = false;
 	Avatar* av = hero->avatar();
 	m_entBody = m_node->getCreator()->createEntity(av->classe()->mesh(1)->mesh);
+	m_entBody->setCastShadows(true);
 	m_node->attachObject(m_entBody);
 	m_node->setScale(0.01, 0.01, 0.01);
 	m_animAvancer = m_entBody->getAnimationState(av->classe()->mesh(1)->walk);
@@ -33,11 +34,11 @@ void HeroView::update(float time)
 		m_animAvancer->setLoop(true);
 		m_animAvancer->setTimePosition(0);
 	}
-	else if(!m_avancer) 
+	else if(!m_avancer)
 	{
 		m_animAvancer->setEnabled(false);
 	}
-	else if(m_avancer) 
+	else if(m_avancer)
 	{
 		m_animAvancer->addTime(time);
 	}
