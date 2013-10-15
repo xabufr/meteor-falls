@@ -6,16 +6,13 @@
 FactionManager::FactionManager()
 {
 	XmlDocumentManager::Document& document = XmlDocumentManager::get()->getDocument("data/factions.xml");
-	std::cout << "fac mng" << std::endl;
     Faction *faction;
 	auto bounds = document.get_child("factions").equal_range("faction");
 	for(auto it=bounds.first;it!=bounds.second;++it)
 	{
-		std::cout << "fac" << std::endl;
         FactionId id = it->second.get<FactionId>("<xmlattr>.id");
         std::string nom = it->second.get<std::string>("<xmlattr>.nom");
         bool jouable = it->second.get<bool>("<xmlattr>.jouable");
-		std::cout << nom << std::endl;
 
         faction = new Faction(jouable, id, nom);
         m_factions.push_back(faction);

@@ -57,7 +57,7 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-	m_window   = m_window_mgr.loadWindowLayout("serveurs.layout");
+	m_window   = m_window_mgr.loadLayoutFromFile("serveurs.layout");
 	m_wFiltres = m_window->getChild("fenServeurs/fenFiltres");
 	m_window->getChild("fenServeurs/btnRefresh")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&ServerList::refresh, this));
@@ -73,7 +73,7 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
 			CEGUI::Event::Subscriber(&ServerList::serverSelected, this));
 	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventMouseDoubleClick,
 			CEGUI::Event::Subscriber(&ServerList::join, this));
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 	m_window->hide();
 	updateFiltre(CEGUI::EventArgs());
 }
@@ -82,7 +82,7 @@ ServerList::~ServerList()
     m_work.reset();
     m_service->stop();
     m_service_thread.join();
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 }
 void ServerList::m_run()
@@ -255,7 +255,7 @@ void ServerList::addServerView(Server *s)
 	for(size_t i=0;i<6;++i)
 	{
 		item = new CEGUI::ListboxTextItem("", 0);
-		item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+		item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 		item->setUserData(s);
 		m_listeServeurs->setItem(item, i, row);
 	}
@@ -312,9 +312,9 @@ void ServerList::reloadViewWithFiltre()
 }
 bool ServerList::updateFiltre(const CEGUI::EventArgs&)
 {
-	m_filtre.full      = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull"))->isSelected();
-	m_filtre.empty     = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty"))->isSelected();
-	m_filtre.password  = ((CEGUI::Checkbox*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword"))->isSelected();
+	m_filtre.full      = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull"))->isSelected();
+	m_filtre.empty     = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty"))->isSelected();
+	m_filtre.password  = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword"))->isSelected();
 	reloadViewWithFiltre();
 }
 bool ServerList::Filtre::operator()(Server *s)

@@ -35,16 +35,6 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-<<<<<<< HEAD
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
-
-# The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX
-=======
 # Escaping for special characters.
 EQUALS = =
 
@@ -52,11 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
+CMAKE_SOURCE_DIR = /home/thomas/meteor-falls/SkyX
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
->>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
+CMAKE_BINARY_DIR = /home/thomas/meteor-falls/SkyX
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -64,11 +53,7 @@ CMAKE_BINARY_DIR = /home/zequiel/software/c++/meteor-falls/SkyX
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-<<<<<<< HEAD
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-=======
 	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
->>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -128,15 +113,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-<<<<<<< HEAD
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/SkyX/CMakeFiles /home/thomas/meteor-falls/SkyX/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bastien/Bureau/Projet_CSII1/meteor-falls/SkyX/CMakeFiles 0
-=======
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zequiel/software/c++/meteor-falls/SkyX/CMakeFiles 0
->>>>>>> 7bc6f1a4246b5de734f5ede14280fa91d76a3fef
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/thomas/meteor-falls/SkyX/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

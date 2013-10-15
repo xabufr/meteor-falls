@@ -8,6 +8,7 @@
 #include <bullet/Bullet-C-Api.h>
 #include "../Engine.h"
 
+class ObjetTerrainTypeManager;
 class State;
 class Map;
 class Joueur;
@@ -36,6 +37,7 @@ class GameEngine : public Engine
 		void deleteJoueur(int);
 		virtual Type getTypeServerClient() const=0;
 		btDiscreteDynamicsWorld* bulletWorld() const;
+		ObjetTerrainTypeManager* objetTerrainTypeManager() const;
 	protected:
         Map *m_map;
 		std::vector<Equipe*> m_teams;
@@ -47,6 +49,7 @@ class GameEngine : public Engine
         btCollisionDispatcher* m_dispatcher;
         btSequentialImpulseConstraintSolver* m_solver;
         btDiscreteDynamicsWorld* m_world;
+		ObjetTerrainTypeManager* m_objectTypeManager;
 };
 
 #endif // GAMEENGINE_H

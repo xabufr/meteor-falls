@@ -22,7 +22,7 @@ class SoundSetting : public State
         StateManager* m_state_manager;
         CEGUI::PushButton *m_accept;
         CEGUI::PushButton *m_cancel;
-        CEGUI::Checkbox *m_activate;
+        CEGUI::ToggleButton *m_activate;
         CEGUI::Slider *m_music_volume;
         CEGUI::Slider *m_ambiant_volume;
         CEGUI::Slider *m_effect_volume;

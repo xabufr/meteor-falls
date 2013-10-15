@@ -5,13 +5,13 @@ CreditState::CreditState(StateManager* mgr) : State(mgr), m_visible(false), m_nb
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
     m_credit = m_window_mgr.createWindow("OgreTray/StaticText", "TextCredit");
-    m_credit->setSize(CEGUI::UVector2(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
-    m_credit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_credit->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim((m_credit->getSize().d_y.d_scale
+    m_credit->setSize(CEGUI::USize(CEGUI::UDim(0.50, 0), CEGUI::UDim(0.60, 0)));
+    m_credit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_credit->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim((m_credit->getSize().d_height.d_scale
                                                         /2), 0)));
     m_credit->setText((CEGUI::utf8*)("Crédit:\nProgrammeur:\nThomas Loubiou\nAlexandre Ramel\nBastien Chevriaut\nFabrice Bats"));
     m_credit->setProperty("HorzFormatting", "WordWrapCentred");
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_credit);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_credit);
     m_credit->hide();
 }
 

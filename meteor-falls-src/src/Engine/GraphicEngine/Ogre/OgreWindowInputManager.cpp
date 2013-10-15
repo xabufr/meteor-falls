@@ -47,7 +47,7 @@ void OgreWindowInputManager::windowResized(Ogre::RenderWindow* rw)
     static bool first=true;
     if(m_injectWindowEvent&&!first)
     {
-        CEGUI::Size s;
+        CEGUI::Size<float> s;
         s.d_height=rw->getHeight();
         s.d_width=rw->getWidth();
         CEGUI::System::getSingleton().notifyDisplaySizeChanged(s);
@@ -166,8 +166,8 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
 {
     if(m_injectMouse)
     {
-        CEGUI::System::getSingleton().injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
-        CEGUI::System::getSingleton().injectMouseWheelChange(arg.state.Z.rel);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(arg.state.Z.rel);
     }
 
     for(OIS::MouseListener *l : m_mouseListeners)
@@ -180,7 +180,7 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
 bool OgreWindowInputManager::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     if(m_injectMouse)
-        CEGUI::System::getSingleton().injectMouseButtonDown(OgreWindowInputManager::convertButton(id));
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(OgreWindowInputManager::convertButton(id));
 
     for(OIS::MouseListener *l : m_mouseListeners)
     {
@@ -192,7 +192,7 @@ bool OgreWindowInputManager::mousePressed(const OIS::MouseEvent& arg, OIS::Mouse
 bool OgreWindowInputManager::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     if(m_injectMouse)
-        CEGUI::System::getSingleton().injectMouseButtonUp(convertButton(id));
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertButton(id));
     for(OIS::MouseListener *l : m_mouseListeners)
     {
         if(!l->mouseReleased(arg, id))
@@ -204,8 +204,8 @@ bool OgreWindowInputManager::keyPressed(const OIS::KeyEvent& arg)
 {
     if(m_injectKeyboard)
     {
-        CEGUI::System::getSingleton().injectKeyDown(arg.key);
-        CEGUI::System::getSingleton().injectChar(arg.text);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)arg.key);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(arg.text);
 		begin(arg);
     }
     for(OIS::KeyListener *l : m_keyboardListeners)
@@ -219,7 +219,7 @@ bool OgreWindowInputManager::keyReleased(const OIS::KeyEvent& arg)
 {
     if(m_injectKeyboard)
     {
-        CEGUI::System::getSingleton().injectKeyUp(arg.key);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)arg.key);
 		end(arg);
     }
     for(OIS::KeyListener *l : m_keyboardListeners)
@@ -233,7 +233,7 @@ void OgreWindowInputManager::repeatKey(OIS::KeyCode code, unsigned int text)
 {
 	if(!m_injectKeyboard)
 		return;
-	CEGUI::System::getSingleton().injectKeyUp(code);
-	CEGUI::System::getSingleton().injectKeyDown(code);
-	CEGUI::System::getSingleton().injectChar(text);
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)code);
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)code);
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(text);
 }

@@ -19,32 +19,32 @@ m_game_engine(engine)
 
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     m_window = (CEGUI::TabButton*)m_window_manager.createWindow("TaharezLook/FrameWindow", "TeamState");
-    m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.20, 0)));
-    m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(m_window->getSize().d_y.d_scale
+    m_window->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.20, 0)));
+    m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(m_window->getSize().d_height.d_scale
                                                         /2), 0)));
 	CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
 	frame->setSizingEnabled(false);
 	frame->setCloseButtonEnabled(false);
 	frame->setDragMovingEnabled(false);
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 
     m_rts = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonRTS");
-    m_rts->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
-    m_rts->setPosition(CEGUI::UVector2(CEGUI::UDim(0.25-(m_rts->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(m_rts->getSize().d_y.d_scale
+    m_rts->setSize(CEGUI::USize(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
+    m_rts->setPosition(CEGUI::UVector2(CEGUI::UDim(0.25-(m_rts->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(m_rts->getSize().d_height.d_scale
                                                         /2), 0)));
     m_rts->setText("RTS");
     m_rts->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
-    m_window->addChildWindow(m_rts);
+    m_window->addChild(m_rts);
     m_rpg = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonRPG");
-    m_rpg->setSize(CEGUI::UVector2(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
-    m_rpg->setPosition(CEGUI::UVector2(CEGUI::UDim(0.75-(m_rpg->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(m_rpg->getSize().d_y.d_scale
+    m_rpg->setSize(CEGUI::USize(CEGUI::UDim(0.20, 0), CEGUI::UDim(0.20, 0)));
+    m_rpg->setPosition(CEGUI::UVector2(CEGUI::UDim(0.75-(m_rpg->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(m_rpg->getSize().d_height.d_scale
                                                         /2), 0)));
     m_rpg->setText("RPG");
     m_rpg->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TeamState::m_choix_mode, this));
-    m_window->addChildWindow(m_rpg);
+    m_window->addChild(m_rpg);
 
     m_window->hide();
 }
@@ -56,9 +56,9 @@ bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 }
 TeamState::~TeamState()
 {
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rts);
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_rpg);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rts);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rpg);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_rts);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_rpg);

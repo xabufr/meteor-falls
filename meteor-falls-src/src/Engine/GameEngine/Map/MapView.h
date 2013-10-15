@@ -34,6 +34,10 @@ public:
 	virtual void mapUnloaded();
 	virtual void update();
 	virtual bool autoDelete() const;
+	virtual void objetAdded(ObjetTerrain*) {
+	}
+	virtual void objetRemoved(ObjetTerrain*) {
+	}
 	float getHeightAt(float x, float z) const;
 private:
 	Ogre::SceneManager *m_scene_mgr;

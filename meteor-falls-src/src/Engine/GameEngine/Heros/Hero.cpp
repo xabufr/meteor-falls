@@ -89,7 +89,7 @@ void Hero::update(float time)
 		else if(m_gauche)
 			dep.x       = -1;
 		dep = m_rotation * dep;
-		dep *= time*100;
+		dep *= time*50;
 	}
 	m_character_controller->setWalkDirection(dep);
 	if(m_isModified)

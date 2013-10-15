@@ -15,7 +15,7 @@ m_isSelectingTeam(false)
 {
 	m_equipe = nullptr;
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
-    m_window = m_window_manager.loadWindowLayout("select_team.layout");
+    m_window = m_window_manager.loadLayoutFromFile("select_team.layout");
 	m_list_team = (CEGUI::MultiColumnList*)m_window->getChildRecursive("fenSelectionTeam/listeEquipes");
 	m_commandant = m_window->getChildRecursive("fenSelectionTeam/commandant");
 	m_list_joueurs = (CEGUI::MultiColumnList*)m_window->getChildRecursive("fenSelectionTeam/listeJoueurs");
@@ -24,7 +24,7 @@ m_isSelectingTeam(false)
 	m_btnJoin = m_window->getChildRecursive("fenSelectionTeam/btnJoindre");
 	m_btnJoin->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&TeamList::m_join, this));
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
     m_window->hide();
 	m_isSelectingTeam = false;
 }
@@ -99,12 +99,12 @@ void TeamList::addEquipe(Equipe *e)
 
 	int row = m_list_team->addRow();
 	item = new CEGUI::ListboxTextItem("",0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 	item->setUserData(e);
 	m_list_team->setItem(item, 0, row);
 
 	item = new CEGUI::ListboxTextItem(e->faction()->nom(),0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 	item->setUserData(e);
 	m_list_team->setItem(item, 1, row);
 }
@@ -119,17 +119,17 @@ void TeamList::addPlayer(Joueur *j)
 	int row = m_list_joueurs->addRow();
 	CEGUI::ListboxTextItem *item;
 	item = new CEGUI::ListboxTextItem(j->getNom(), 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 	item->setUserData(j);
 	m_list_joueurs->setItem(item, 0, row);
 
 	item = new CEGUI::ListboxTextItem("0", 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 	item->setUserData(j);
 	m_list_joueurs->setItem(item, 1, row);
 
 	item = new CEGUI::ListboxTextItem(boost::lexical_cast<std::string>(j->ping), 0);
-	item->setSelectionBrushImage("TaharezLook", "MultiListSelectionBrush");
+	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
 	item->setUserData(j);
 	m_list_joueurs->setItem(item, 2, row);
 }

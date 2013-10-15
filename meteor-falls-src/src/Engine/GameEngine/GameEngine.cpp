@@ -14,12 +14,13 @@
 #include "Heros/Hero.h"
 #include "Unites/Unite.h"
 #include "Joueur/JoueurRPG.h"
-#include <CEGUIString.h>
+#include <CEGUI/String.h>
 #include <SFML/System.hpp>
 #include "../../Utils/Configuration/Config.h"
 #include "Unites/Builder/BasicUniteBuilder.h"
 #include "Unites/Builder/HeroBuilder.h"
 #include "../ScriptEngine/MeshManager.h"
+#include "Map/ObjetTerrainTypeManager.h"
 
 
 GameEngine::GameEngine(EngineManager* mng):
@@ -32,6 +33,7 @@ GameEngine::GameEngine(EngineManager* mng):
 
     m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
 	m_map = new Map(this, m_world);
+	m_objectTypeManager = new ObjetTerrainTypeManager();
 
 	MeshManager::get();
 }
@@ -114,4 +116,8 @@ void GameEngine::deleteJoueur(int id)
 btDiscreteDynamicsWorld* GameEngine::bulletWorld() const
 {
 	return m_world;
+}
+ObjetTerrainTypeManager* GameEngine::objetTerrainTypeManager() const 
+{
+	return m_objectTypeManager;
 }

@@ -14,19 +14,16 @@ void ResourceGroupManager::addResourceLocation(const std::string& nom, const std
     else
         m_resources.at(group)->addPath(nom);
 }
-
 void ResourceGroupManager::removeResourceLocation(const std::string& nom, const std::string& group)
 {
     if (m_resources.find(group) != m_resources.end())
         m_resources.at(group)->removePath(nom);
 }
-
 void ResourceGroupManager::initialiseResourceGroup()
 {
     for(boost::property_tree::ptree::value_type &v : m_ini)
         loadResourceGroup(v.first.data());
 }
-
 void ResourceGroupManager::loadResourceGroup(const std::string& group)
 {
     if (m_resources.find(group)==m_resources.end())
@@ -36,7 +33,6 @@ void ResourceGroupManager::loadResourceGroup(const std::string& group)
     for(boost::property_tree::ptree::value_type &v : m_ini.get_child(group))
         g->addPath(v.second.data());
 }
-
 void ResourceGroupManager::removeResourceGroup(const std::string& group)
 {
     if (m_resources.find(group) == m_resources.end())
@@ -50,7 +46,6 @@ void ResourceGroupManager::removeResourceGroup(const std::string& group)
         }
     }
 }
-
 bool ResourceGroupManager::loadFromFile(const std::string& nom)
 {
     std::ifstream file;
@@ -69,13 +64,22 @@ std::string ResourceGroupManager::getFilePath(const std::string& file)
         if (path != "")
             return path;
     }
+	//TODO throw exception
+	return "";
 }
-
+std::list<std::string> ResourceGroupManager::getFilesFromType(const std::string& type, const std::string& group) const
+{
+	auto it = m_resources.find(group);
+	if(it != m_resources.end())
+	{
+		return it->second->getFilesFromType(type);
+	}
+	return std::list<std::string>();
+}
 ResourceGroupManager::ResourceGroupManager()
 {
 
 }
-
 ResourceGroupManager::~ResourceGroupManager()
 {
     for (auto it=m_resources.begin(); it!=m_resources.end(); ++it)

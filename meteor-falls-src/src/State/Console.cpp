@@ -17,14 +17,14 @@ Console::Console() : m_id(0), m_admin(false)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-	m_sheet   = m_window_mgr.loadWindowLayout("console.layout");
+	m_sheet   = m_window_mgr.loadLayoutFromFile("console.layout");
 
 	m_console = (CEGUI::MultiLineEditbox*)m_sheet->getChild("fenConsole/logger");
 	m_lineCommand = (CEGUI::Editbox*) m_sheet->getChild("fenConsole/commandLine");
 
 	m_console->getVertScrollbar()->setEndLockEnabled(true);
 
-    CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_sheet);
     m_sheet->setVisible(false);
 }
 void Console::start()
@@ -69,7 +69,7 @@ void Console::m_auto_completion()
     }
     else if (found_command.size() == 1)
         m_lineCommand->setText(found_command.front()->getName()+" ");
-	m_lineCommand->setCaratIndex(m_lineCommand->getText().size());
+	m_lineCommand->setCaretIndex(m_lineCommand->getText().size());
 }
 void Console::m_show_old_command(const OIS::KeyEvent &arg)
 {

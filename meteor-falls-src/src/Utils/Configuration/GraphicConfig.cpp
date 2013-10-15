@@ -50,8 +50,8 @@ void GraphicConfig::saveConfig()
 
     for (int i=0; i < m_config.size(); ++i)
     {
-        std::string key = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i))->getText().c_str();
-        CEGUI::Combobox *combobox= (CEGUI::Combobox*)(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i)));
+        std::string key = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i))->getText().c_str();
+        CEGUI::Combobox *combobox= (CEGUI::Combobox*)(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i)));
         std::string value = combobox->getSelectedItem()->getText().c_str();
         Ogre::Root::getSingleton().getRenderSystem()->setConfigOption(key, value);
     }

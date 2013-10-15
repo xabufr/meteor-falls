@@ -4,6 +4,9 @@
 
 #include "WorldObject.h"
 #include "WorldObjectManager.h"
+#include "ObjetTerrain.h"
+#include "ObjetTerrainType.h"
+#include "ObjetTerrainTypeManager.h"
 #include "../Factions/Equipe.h"
 #include "../Unites/UniteFactory.h"
 #include "../Unites/Unite.h"
@@ -21,6 +24,8 @@
 #include "../../PhysicalEngine/BulletRelationPtr.h"
 
 #include <cstring>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 
 using namespace rapidxml;
@@ -144,7 +149,11 @@ void Map::load(const std::string& p_name)
 	for(auto it = bounds.first;it!=bounds.second;++it)
 		processNode(it->second);
 	for(MapListener *listener: m_listeners)
+	{
 		listener->mapLoaded(p_name);
+		for(ObjetTerrain *obj: m_objectsTerrain)
+			listener->objetAdded(obj);
+	}
 }
 const std::string& Map::getName() const
 {
@@ -208,10 +217,10 @@ void Map::processNode(XmlDocumentManager::Document const & node)
 {
 	Vector3D position = XmlUtils::getPosition(node.get_child("position.<xmlattr>"));
 	bool userData = node.count("userData") > 0;
-	std::cout << "unit" << std::endl;
-	if(userData&&m_game->getTypeServerClient()==GameEngine::SERVER)
+	int id = node.get<int>("<xmlattr>.id");
+	bool server = m_game->getTypeServerClient()==GameEngine::SERVER;
+	if(userData&&server)
 	{
-		std::cout << "unit server" << std::endl;
 		char teamId;
 		std::string type;
 		auto bounds = node.get_child("userData").equal_range("property");
@@ -236,8 +245,45 @@ void Map::processNode(XmlDocumentManager::Document const & node)
 				{
 					Unite *u = equipe->factory()->create(UnitId(0));
 					u->setPosition(Vector3D(position.x, getHeightAt(position.x, position.z), position.z));
-					std::cout << "unit server ok" << std::endl;
 				}
+			}
+		}
+	}
+	else if(server)
+	{
+		if(node.count("pagedgeometry") != 0)
+		{
+			ObjetTerrainType *type = m_game->objetTerrainTypeManager()->get(node.get<std::string>("pagedgeometry.<xmlattr>.model"));
+			if(type)
+			{
+				ObjetTerrain* obj;
+				std::ifstream file;
+				file.open(mapRootPath()+"/"+node.get<std::string>("pagedgeometry.<xmlattr>.fileName"));
+				std::string line;
+				while(!file.eof())
+				{
+					std::getline(file, line);
+					std::vector<std::string> firstSep;
+					boost::split(firstSep, line, boost::is_any_of(";"));
+					int id      = boost::lexical_cast<int>(firstSep[0]);
+					float scale = boost::lexical_cast<float>(firstSep[2]);
+					float yaw   = boost::lexical_cast<float>(firstSep[3]);
+					Vector3D pos;
+					{
+						std::vector<std::string> positions;
+						boost::split(positions, firstSep[1], boost::is_any_of(" "));
+						pos.x = boost::lexical_cast<float>(positions[0]);
+						pos.y = boost::lexical_cast<float>(positions[1]);
+						pos.z = boost::lexical_cast<float>(positions[2]);
+					}
+					ObjetTerrain *obj = new ObjetTerrain(m_game, type);
+					obj->nodeId = node.get<int>("<xmlattr>.id");
+					obj->paged  = true;
+					obj->setPosition(pos);
+					obj->setRotation(Quaternion::fromAngleAxis(0,1,0,yaw));
+					m_objectsTerrain.push_back(obj);
+				}
+				file.close();
 			}
 		}
 	}

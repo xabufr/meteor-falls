@@ -4,7 +4,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreRoot.h>
 #include <CEGUI.h>
-#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include <RendererModules/Ogre/Renderer.h>
 #include "LoadingListener.h"
 
 class OgreApplication

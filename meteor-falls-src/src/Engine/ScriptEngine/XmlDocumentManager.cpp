@@ -1,5 +1,6 @@
 #include "XmlDocumentManager.h"
 #include <boost/property_tree/xml_parser.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 XmlDocumentManager::XmlDocumentManager()
 {
@@ -19,11 +20,15 @@ XmlDocumentManager::Document& XmlDocumentManager::getDocument(const std::string&
 XmlDocumentManager::Document& XmlDocumentManager::m_loadDocument(const std::string& path)
 {
 	Document *doc = new Document();
-	try {
+	try { //On tente de charger en XML
 		boost::property_tree::read_xml(path, *doc);
-	} catch (...) {
-		delete doc;
-		throw;
+	} catch (boost::property_tree::xml_parser_error& error) {
+		try { // Si ça ne fonctionne pas, c'est peu-être du JSON
+			boost::property_tree::read_json(path, *doc);
+		} catch (boost::property_tree::json_parser_error& error) {
+			delete doc;
+			throw;
+		}
 	}
 	m_documents.insert(std::pair<std::string, Document*>(path, doc));
     return *doc;

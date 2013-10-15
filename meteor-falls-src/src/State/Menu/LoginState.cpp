@@ -20,8 +20,8 @@
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
-	m_sheet = m_window_mgr.loadWindowLayout("login.layout");
-	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_sheet);
+	m_sheet = m_window_mgr.loadLayoutFromFile("login.layout");
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_sheet);
 	m_sheet->getChild("FenetreLogin/BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this)); 
 	m_sheet->getChild("FenetreLogin/BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this)); 
 	m_sheet->hide();
@@ -30,52 +30,52 @@ bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_sheet->removeChildWindow("FenetreLogin/BoutonJouerLan");
-    m_sheet->removeChildWindow("FenetreLogin/BoutonJouerWan");
+    m_sheet->removeChild("FenetreLogin/BoutonJouerLan");
+    m_sheet->removeChild("FenetreLogin/BoutonJouerWan");
 
     m_loginText = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticTextLogin");
     m_loginText->setText("Login:");
-    m_loginText->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_loginText->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_loginText->setProperty("FrameEnabled", "false");
     m_loginText->setProperty("BackgroundEnabled", "false");
     m_loginText->setProperty("VertFormatting", "TopAligned");
-    m_sheet->addChildWindow(m_loginText);
+    m_sheet->addChild(m_loginText);
 
     m_login = m_window_mgr.createWindow("TaharezLook/Editbox", "EditBoxLogin");
-    m_login->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
-    m_sheet->addChildWindow(m_login);
+    m_login->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_sheet->addChild(m_login);
 
     m_passwdText = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticTextPassword");
     m_passwdText->setText("Password:");
-    m_passwdText->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_passwdText->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_passwdText->setProperty("FrameEnabled", "false");
     m_passwdText->setProperty("BackgroundEnabled", "false");
     m_passwdText->setProperty("VertFormatting", "TopAligned");
-    m_sheet->addChildWindow(m_passwdText);
+    m_sheet->addChild(m_passwdText);
 
     m_passwd = m_window_mgr.createWindow("TaharezLook/Editbox", "EditBoxPassword");
-    m_passwd->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_passwd->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_passwd->setProperty("MaskText", "True");
-    m_sheet->addChildWindow(m_passwd);
+    m_sheet->addChild(m_passwd);
 
     m_connect = m_window_mgr.createWindow("TaharezLook/Button", "BoutonConnect");
     m_connect->setText("Connexion");
-    m_connect->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_connect->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_connect->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::send, this));
-    m_sheet->addChildWindow(m_connect);
+    m_sheet->addChild(m_connect);
 
     m_message = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticText");
 
-    m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-    m_login->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_login->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(m_loginText->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-    m_passwdText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_passwdText->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(m_login->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-    m_passwd->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_passwd->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(m_passwdText->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
-    m_connect->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_connect->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(m_passwd->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
+    m_loginText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loginText->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
+    m_login->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_login->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(m_loginText->getPosition().d_y.d_scale+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
+    m_passwdText->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_passwdText->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(m_login->getPosition().d_y.d_scale+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
+    m_passwd->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_passwd->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(m_passwdText->getPosition().d_y.d_scale+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
+    m_connect->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_connect->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(m_passwd->getPosition().d_y.d_scale+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
 
     return true;
 }
@@ -114,14 +114,14 @@ bool LoginState::send(const CEGUI::EventArgs &)
 {
     m_state_element(false);
 
-    m_message->setSize(CEGUI::UVector2(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
+    m_message->setSize(CEGUI::USize(CEGUI::UDim(0.80, 0), CEGUI::UDim(0.10, 0)));
     m_message->setProperty("FrameEnabled", "false");
     m_message->setProperty("BackgroundEnabled", "false");
     m_message->setProperty("VertFormatting", "TopAligned");
-    m_sheet->addChildWindow(m_message);
+    m_sheet->addChild(m_message);
 
-    m_message->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_message->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_y.d_scale/m_sheet->getChildCount()), 0)));
+    m_message->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_message->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(m_connect->getPosition().d_y.d_scale+(m_sheet->getSize().d_height.d_scale/m_sheet->getChildCount()), 0)));
 
     if (std::string(m_login->getText().c_str()) == "" || std::string(m_passwd->getText().c_str()) == "")
     {

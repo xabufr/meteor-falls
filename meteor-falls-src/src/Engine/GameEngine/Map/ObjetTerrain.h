@@ -5,11 +5,16 @@
 #include "WorldObject.h"
 
 class GameEngine;
+struct ObjetTerrainType;
 class ObjetTerrain: public WorldObject
 {
     public:
-        ObjetTerrain(GameEngine*);
+        ObjetTerrain(GameEngine*, ObjetTerrainType*);
         virtual ~ObjetTerrain();
+		int nodeId;
+		bool paged;
+	protected:
+		ObjetTerrainType *m_type;
 };
 
 #endif // OBJETTERRAIN_H

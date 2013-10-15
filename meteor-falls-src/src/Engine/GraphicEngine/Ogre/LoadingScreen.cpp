@@ -5,7 +5,7 @@
 
 LoadingScreen::LoadingScreen(int sum):m_count(0), m_sum(sum)
 {
-	m_window = CEGUI::WindowManager::getSingleton().loadWindowLayout("loading_screen.layout");
+	m_window = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("loading_screen.layout");
 //    m_window = CEGUI::WindowManager::getSingleton().createWindow("OgreTray/TabButtonPane", "Loading");
 
 //    m_loadingText = CEGUI::WindowManager::getSingleton().createWindow("OgreTray/StaticText", "StaticTextLoadingText");
@@ -44,7 +44,7 @@ LoadingScreen::~LoadingScreen()
 {
 	//CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
-	CEGUI::System::getSingleton().setGUISheet(m_ancWindow);
+	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_ancWindow);
 }
 void LoadingScreen::update(std::string s)
 {
@@ -66,7 +66,7 @@ void LoadingScreen::setGroup(std::string s)
 }
 void LoadingScreen::show()
 {
-	m_ancWindow = CEGUI::System::getSingleton().getGUISheet();
-    CEGUI::System::getSingleton().setGUISheet(m_window);
+	m_ancWindow = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow();
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_window);
     OgreContextManager::get()->getOgreApplication()->RenderOneFrame();
 }

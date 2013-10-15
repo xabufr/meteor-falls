@@ -13,6 +13,7 @@ public:
     std::string getFilePath(const std::string& file);
     void addPath(const std::string& path);
     void removePath(const std::string& path);
+	std::list<std::string> getFilesFromType(const std::string& type) const;
 private:
     std::string m_nom;
     std::list<std::string> m_path;

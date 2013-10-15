@@ -10,8 +10,8 @@
 
 LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_parentState(p), m_lastSelected(nullptr), m_continue(true)
 {
-	m_window = CEGUI::WindowManager::getSingleton().loadWindowLayout("profiles.layout");
-	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+	m_window = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("profiles.layout");
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 	m_btn_utiliser = m_window->getChild("fenProfils/jouer");
 	m_btn_supp = m_window->getChild("fenProfils/supprimer");
 	m_window->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
@@ -34,7 +34,7 @@ LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_p
 }
 LanLoginState::~LanLoginState()
 {
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 }
 void LanLoginState::enter()
@@ -68,7 +68,7 @@ void LanLoginState::updateProfileList()
 		list->addItem(item);
 		item->setUserData(j);
 		item->setSelected(j==m_lastSelected);
-		item->setSelectionBrushImage("TaharezLook", "ListboxSelectionBrush");
+		item->setSelectionBrushImage("TaharezLook/ListboxSelectionBrush");
 		first=false;
 	}
 }
@@ -113,8 +113,8 @@ bool LanLoginState::profilesSelectionChanged(const CEGUI::EventArgs&)
 bool LanLoginState::showCreateProfile(const CEGUI::EventArgs&)
 {
 	m_window->setVisible(false);
-	m_windowCreate = CEGUI::WindowManager::getSingleton().loadWindowLayout("creer_profil_lan.layout");
-	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_windowCreate);
+	m_windowCreate = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creer_profil_lan.layout");
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_windowCreate);
 	m_windowCreate->getChild("fenCreerProfils/creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::createNewProfile, this));
 	m_windowCreate->getChild("fenCreerProfils/annuler")->subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -146,7 +146,7 @@ bool LanLoginState::createNewProfile(const CEGUI::EventArgs& e)
 			m_profiles.push_back(j);
 			updateProfileList();
 		}
-		CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_windowCreate);
+		CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_windowCreate);
 		CEGUI::WindowManager::getSingleton().destroyWindow(m_windowCreate);
 		m_windowCreate=nullptr;
 		m_window->setVisible(true);

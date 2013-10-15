@@ -7,6 +7,8 @@ include_directories(src/
 		libs/rapidxml
 		/usr/include/CEGUI
 		/usr/include/bullet
+		/usr/include/cegui-0/CEGUI
+		/usr/include/cegui-0
 		)
 file(
 		GLOB_RECURSE
@@ -42,9 +44,9 @@ target_link_libraries(meteor-falls
 		sfml-audio
 		sfml-system
 		#CEGUI
-		CEGUIBase
-		CEGUILuaScriptModule
-		CEGUIOgreRenderer
+		CEGUIBase-0
+		CEGUILuaScriptModule-0
+		CEGUIOgreRenderer-0
 		#BOOST
 		boost_system
 		boost_serialization
@@ -57,8 +59,8 @@ target_link_libraries(meteor-falls
 		ssl
 		crypto
 		tolua++
-		lua5.1
-        	lua
+		#lua5.1
+       	lua
 		PagedGeometry
 		BulletDynamics
 		#BtOgre

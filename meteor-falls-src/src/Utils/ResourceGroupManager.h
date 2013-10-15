@@ -5,7 +5,7 @@
 #include "ResourceGroup.h"
 #include <boost/property_tree/ptree.hpp>
 #include <fstream>
-#include <vector>
+#include <list>
 #include <string>
 #include <map>
 
@@ -21,6 +21,8 @@ class ResourceGroupManager:public Singleton<ResourceGroupManager>
         void removeResourceGroup(const std::string& group);
         bool loadFromFile(const std::string& nom);
         std::string getFilePath(const std::string& file);
+		std::list<std::string> getFilesFromType(const std::string& type, const std::string &group) const;
+
     private:
         std::map<std::string,ResourceGroup*> m_resources;
         boost::property_tree::ptree m_ini;

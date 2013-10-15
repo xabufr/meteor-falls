@@ -17,7 +17,7 @@ m_state_manager(mgr)
     for (Ogre::ConfigOption m : Config::get()->getGraphicConfig()->getConfig())
     {
         CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
-        elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
+        elem->setSize(CEGUI::USize(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
         elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                          CEGUI::UDim(0.06+(nb*(0.08)), 0)));
         elem->setText(m.name);
@@ -25,7 +25,7 @@ m_state_manager(mgr)
         elem->setProperty("BackgroundEnabled", "false");
         elem->setProperty("VertFormatting", "TopAligned");
         elem->hide();
-        CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(elem);
+        CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(elem);
 
         CEGUI::Combobox *comb = (CEGUI::Combobox*)m_window_manager.createWindow("TaharezLook/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
         for (std::string s : m.possibleValues)
@@ -37,16 +37,16 @@ m_state_manager(mgr)
                 comb->setItemSelectState(item, true);
         }
 
-        comb->setSize(CEGUI::UVector2(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
-        comb->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_x.d_scale, 0),
+        comb->setSize(CEGUI::USize(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
+        comb->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_width.d_scale, 0),
                                          CEGUI::UDim(0.05+(nb*(0.08)), 0)));
         comb->hide();
-        CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(comb);
+        CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(comb);
         ++nb;
     }
 
     CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextGraphic"+boost::lexical_cast<std::string>(nb));
-    elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
+    elem->setSize(CEGUI::USize(CEGUI::UDim(0.45, 0), CEGUI::UDim(0.10, 0)));
     elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                      CEGUI::UDim(0.06+(nb*(0.08)), 0)));
     elem->setText((CEGUI::utf8*)"Qualité de l'eau");
@@ -54,7 +54,7 @@ m_state_manager(mgr)
     elem->setProperty("BackgroundEnabled", "false");
     elem->setProperty("VertFormatting", "TopAligned");
     elem->hide();
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(elem);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(elem);
 
     std::string tab[3] = {"Haute", "Moyenne", "Basse"};
     m_water = (CEGUI::Combobox*)m_window_manager.createWindow("TaharezLook/Combobox", "ComboBoxGraphic"+boost::lexical_cast<std::string>(nb));
@@ -67,30 +67,30 @@ m_state_manager(mgr)
         if (Config::get()->getGraphicConfig()->getQualityWater()-1 == i)
             m_water->setItemSelectState(item, true);
     }
-    m_water->setSize(CEGUI::UVector2(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
-    m_water->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_x.d_scale, 0),
+    m_water->setSize(CEGUI::USize(CEGUI::UDim(0.40, 0), CEGUI::UDim(0.30, 0)));
+    m_water->setPosition(CEGUI::UVector2(CEGUI::UDim(elem->getSize().d_width.d_scale, 0),
                                      CEGUI::UDim(0.05+(nb*(0.08)), 0)));
     m_water->hide();
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_water);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_water);
 
     m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonCancel2");
-    m_cancel->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
-    m_cancel->setPosition(CEGUI::UVector2(CEGUI::UDim(0.95-m_cancel->getSize().d_x.d_scale, 0),
-                                         CEGUI::UDim(0.95-m_cancel->getSize().d_y.d_scale
+    m_cancel->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
+    m_cancel->setPosition(CEGUI::UVector2(CEGUI::UDim(0.95-m_cancel->getSize().d_width.d_scale, 0),
+                                         CEGUI::UDim(0.95-m_cancel->getSize().d_height.d_scale
                                                         , 0)));
     m_cancel->setText("Cancel");
     m_cancel->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GraphicSetting::m_button_pushed, this));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_cancel);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_cancel);
     m_cancel->hide();
 
     m_accept = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonOk2");
-    m_accept->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
-    m_accept->setPosition(CEGUI::UVector2(CEGUI::UDim(0.85-(m_accept->getSize().d_x.d_scale+m_cancel->getSize().d_x.d_scale), 0),
-                                         CEGUI::UDim(0.95-m_accept->getSize().d_y.d_scale
+    m_accept->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
+    m_accept->setPosition(CEGUI::UVector2(CEGUI::UDim(0.85-(m_accept->getSize().d_width.d_scale+m_cancel->getSize().d_width.d_scale), 0),
+                                         CEGUI::UDim(0.95-m_accept->getSize().d_height.d_scale
                                                         , 0)));
     m_accept->setText("Ok");
     m_accept->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GraphicSetting::m_button_pushed, this));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_accept);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_accept);
     m_accept->hide();
 
     m_visible = false;
@@ -99,17 +99,17 @@ GraphicSetting::~GraphicSetting()
 {
     for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
-        CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
-        CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(current);
+        CEGUI::Window *current = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(current);
         CEGUI::WindowManager::getSingleton().destroyWindow(current);
 
-        current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
-        CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(current);
+        current = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(current);
         CEGUI::WindowManager::getSingleton().destroyWindow(current);
     }
-    CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_accept);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_accept);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_accept);
-    CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_cancel);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_cancel);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_cancel);
 }
 bool GraphicSetting::isVisible()
@@ -121,17 +121,17 @@ void GraphicSetting::enter()
     m_visible = true;
     for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
-        CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
-        CEGUI::Window *currentComb = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::Window *current = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::Window *currentComb = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
         current->show();
         currentComb->show();
     }
     m_cancel->show();
     m_accept->show();
 
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.8,0), CEGUI::UDim(0.8, 0)));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setSize(CEGUI::USize(CEGUI::UDim(0.8,0), CEGUI::UDim(0.8, 0)));
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
 void GraphicSetting::exit()
@@ -139,17 +139,17 @@ void GraphicSetting::exit()
     m_visible = false;
     for (int i=0; i<=Ogre::Root::getSingleton().getRenderSystem()->getConfigOptions().size(); ++i)
     {
-        CEGUI::Window *current = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
-        CEGUI::Window *currentComb = CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::Window *current = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("TextGraphic"+boost::lexical_cast<std::string>(i));
+        CEGUI::Window *currentComb = CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getChild("ComboBoxGraphic"+boost::lexical_cast<std::string>(i));
         current->hide();
         currentComb->hide();
     }
     m_cancel->hide();
     m_accept->hide();
 
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3, 0)));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setSize(CEGUI::USize(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3, 0)));
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
 ret_code GraphicSetting::work(unsigned int)

@@ -76,26 +76,26 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
 
-    CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagessets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
-    CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
-    CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
-    CEGUI::System::getSingleton().setDefaultMouseCursor("Interface", "MouseArrow");
-    CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
+    CEGUI::SchemeManager::getSingleton().createFromFile("Interface.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("Interface/MouseArrow");
+    //CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
 
-    m_state = m_window_mgr.loadWindowLayout("menu_player_widget.layout");
-    m_sheet->addChildWindow(m_state);
+    m_state = m_window_mgr.loadLayoutFromFile("menu_player_widget.layout");
+    m_sheet->addChild(m_state);
     m_state->hide();
 
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_sheet);
 
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
@@ -214,7 +214,7 @@ ret_code MenuState::work(unsigned int time)
             m_state->setText(m_player->getNom());
         }
         m_state->show();
-        CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
+        CEGUI::Vector2f mousePos = CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
                      height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
         Ogre::Ray pickingRay = m_camera->getCameraToViewportRay(mousePos.d_x/float(width), mousePos.d_y/float(height));

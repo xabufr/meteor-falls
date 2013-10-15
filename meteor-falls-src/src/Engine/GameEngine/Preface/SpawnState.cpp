@@ -20,9 +20,9 @@ SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m
 {
 	CEGUI::WindowManager &windowManager = CEGUI::WindowManager::getSingleton();
 	m_window = windowManager.createWindow("TaharezLook/FrameWindow","spawn_screen");
-	m_window->setSize(CEGUI::UVector2(CEGUI::UDim(0.8, 0.f), CEGUI::UDim(0.8, 0.f)));
-	m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_window->getSize().d_x.d_scale*0.5), 0), 
-							CEGUI::UDim(0.5-(m_window->getSize().d_y.d_scale*0.5), 0)));
+	m_window->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0.f), CEGUI::UDim(0.8, 0.f)));
+	m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_window->getSize().d_width.d_scale*0.5), 0), 
+							CEGUI::UDim(0.5-(m_window->getSize().d_height.d_scale*0.5), 0)));
 	CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
 	frame->setCloseButtonEnabled(false);
 	frame->setRollupEnabled(false);
@@ -30,35 +30,35 @@ SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m
 	frame->setSizingEnabled(false);
 	m_buttonSpawn = (CEGUI::PushButton*) windowManager.createWindow("TaharezLook/Button", "btn_spawn");
 	m_buttonSpawn->setText((CEGUI::utf8*)"Apparaître");
-	m_buttonSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.15,0), CEGUI::UDim(0.10,0)));
+	m_buttonSpawn->setSize(CEGUI::USize(CEGUI::UDim(0.15,0), CEGUI::UDim(0.10,0)));
 	m_buttonSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.8250,0), CEGUI::UDim(0.875, 0)));
 	m_buttonSpawn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::trySpawn, this));
 
 	m_spawns = (CEGUI::Listbox*) windowManager.createWindow("TaharezLook/Listbox", "spawns_list");
-	m_spawns->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4, 0)));
+	m_spawns->setSize(CEGUI::USize(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4, 0)));
 	m_spawns->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.025, 0)));
 
 	m_groupCarte = (CEGUI::GroupBox*)windowManager.createWindow("TaharezLook/GroupBox", "groupe_spawn_carte");
-	m_groupCarte->setSize(CEGUI::UVector2(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4,0)));
+	m_groupCarte->setSize(CEGUI::USize(CEGUI::UDim(0.4625, 0), CEGUI::UDim(0.4,0)));
 	m_groupCarte->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5125, 0), CEGUI::UDim(0.025, 0)));
 	m_groupCarte->setText("Carte");
 
 	m_infosSpawn = windowManager.createWindow("TaharezLook/StaticText", "infos_spawn");
-	m_infosSpawn->setSize(CEGUI::UVector2(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8,0)));
+	m_infosSpawn->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8,0)));
 	m_infosSpawn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1, 0), CEGUI::UDim(0.1, 0)));
 	m_infosSpawn->setText("infos spawn");
 
 	m_tabClasses = (CEGUI::TabControl*) windowManager.createWindow("TaharezLook/TabControl", "tab_classes");
-	m_tabClasses->setSize(CEGUI::UVector2(CEGUI::UDim(0.95, 0), CEGUI::UDim(0.4, 0)));
+	m_tabClasses->setSize(CEGUI::USize(CEGUI::UDim(0.95, 0), CEGUI::UDim(0.4, 0)));
 	m_tabClasses->setPosition(CEGUI::UVector2(CEGUI::UDim(0.025, 0), CEGUI::UDim(0.45, 0)));
 	m_tabClasses->subscribeEvent(CEGUI::TabControl::EventSelectionChanged, CEGUI::Event::Subscriber(&SpawnState::classChanged, this));
 
-	m_groupCarte->addChildWindow(m_infosSpawn);
-	m_window->addChildWindow(m_groupCarte);
-	m_window->addChildWindow(m_buttonSpawn);
-	m_window->addChildWindow(m_spawns);
-	m_window->addChildWindow(m_tabClasses);
-	CEGUI::System::getSingleton().getGUISheet()->addChildWindow(m_window);
+	m_groupCarte->addChild(m_infosSpawn);
+	m_window->addChild(m_groupCarte);
+	m_window->addChild(m_buttonSpawn);
+	m_window->addChild(m_spawns);
+	m_window->addChild(m_tabClasses);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 	m_last_selected_u = nullptr;
 	m_avatar = nullptr;
 	updateSpawns();
@@ -67,7 +67,7 @@ SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m
 }
 SpawnState::~SpawnState()
 {
-	CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_window);
+	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_spawns);
 	CEGUI::WindowManager::getSingleton().destroyWindow(m_groupCarte);
@@ -101,8 +101,8 @@ void SpawnState::updateSpawns()
 		{
 			CEGUI::ListboxTextItem *item = new CEGUI::ListboxTextItem(e->type()->nom());
 			item->setUserData((void*)e);
-			item->setSelectionColours(CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0), CEGUI::colour(255,0,0));
-			item->setSelectionBrushImage("TaharezLook", "ListboxSelectionBrush");
+			item->setSelectionColours(CEGUI::Colour(255,0,0), CEGUI::Colour(255,0,0), CEGUI::Colour(255,0,0), CEGUI::Colour(255,0,0));
+			item->setSelectionBrushImage("TaharezLook/ListboxSelectionBrush");
 			m_spawns->addItem(item);
 			if(e==m_last_selected_u)
 				item->setSelected(true);
@@ -151,7 +151,7 @@ void SpawnState::m_loadClasses()
 			CEGUI::PushButton *btn = m_loadClasse(classe, ava);
 			if(!btn)
 				continue;
-			scroll->addChildWindow(btn);
+			scroll->addChild(btn);
 			btn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2*i, 0), CEGUI::UDim(0.1, 0)));
 			++i;
 		}
@@ -160,13 +160,13 @@ void SpawnState::m_loadClasses()
 			CEGUI::PushButton *btn = m_loadClasse(classe, ava);
 			if(!btn)
 				continue;
-			scroll->addChildWindow(btn);
+			scroll->addChild(btn);
 			btn->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2*i, 0), CEGUI::UDim(0.1, 0)));
 			++i;
 		}
-		scroll->setSize(CEGUI::UVector2(CEGUI::UDim(1.00, 0), CEGUI::UDim(1.0, 0)));
+		scroll->setSize(CEGUI::USize(CEGUI::UDim(1.00, 0), CEGUI::UDim(1.0, 0)));
 		scroll->setPosition(CEGUI::UVector2(CEGUI::UDim(0.0, 0), CEGUI::UDim(0.0, 0)));
-		tab->addChildWindow(scroll);
+		tab->addChild(scroll);
 	}
 }
 CEGUI::PushButton* SpawnState::m_loadClasse(ClasseHero* classe, Avatar* ava)
@@ -175,7 +175,7 @@ CEGUI::PushButton* SpawnState::m_loadClasse(ClasseHero* classe, Avatar* ava)
 	{
 		CEGUI::PushButton* btn = (CEGUI::PushButton*)CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/Button");
 		btn->setText(ava->nom());
-		btn->setSize(CEGUI::UVector2(CEGUI::UDim(0.2, 0), CEGUI::UDim(0.8, 0)));
+		btn->setSize(CEGUI::USize(CEGUI::UDim(0.2, 0), CEGUI::UDim(0.8, 0)));
 		btn->setUserData(ava);
 		btn->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&SpawnState::classSelected, this));
 		return btn;

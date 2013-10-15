@@ -2,6 +2,8 @@
 #include "WorldObjectType.h"
 #include "WorldObjectListener.h"
 #include "../../PhysicalEngine/BulletRelationPtr.h"
+#include "../GameEngine.h"
+
 WorldObject::WorldObject(GameEngine* g, WorldObjectType* type):
     m_type(type), m_body(nullptr)
 {
@@ -13,6 +15,11 @@ WorldObject::~WorldObject()
 		if(l->autoDelete())
 			delete l;
 	delete m_relationPtr;
+	if(m_body)
+	{
+		m_game->bulletWorld()->removeRigidBody(m_body);
+		delete m_body;
+	}
 }
 void WorldObject::addListener(WorldObjectListener *l)
 {

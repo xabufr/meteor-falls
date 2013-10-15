@@ -14,31 +14,31 @@ m_box_selected(nullptr)
     m_mouse = OgreContextManager::get()->getInputManager()->getMouse();
 
     m_pane = (CEGUI::TabControl*)m_window_manager.createWindow("TaharezLook/TabControl", "PaneCommand");
-    m_pane->setSize(CEGUI::UVector2(CEGUI::UDim(0.9,0), CEGUI::UDim(0.8, 0)));
+    m_pane->setSize(CEGUI::USize(CEGUI::UDim(0.9,0), CEGUI::UDim(0.8, 0)));
     m_pane->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                          CEGUI::UDim(0.05, 0)));
 
     m_cancel = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonCancel3");
-    m_cancel->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
-    m_cancel->setPosition(CEGUI::UVector2(CEGUI::UDim(0.95-m_cancel->getSize().d_x.d_scale, 0),
-                                         CEGUI::UDim(0.95-m_cancel->getSize().d_y.d_scale
+    m_cancel->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
+    m_cancel->setPosition(CEGUI::UVector2(CEGUI::UDim(0.95-m_cancel->getSize().d_width.d_scale, 0),
+                                         CEGUI::UDim(0.95-m_cancel->getSize().d_height.d_scale
                                                         , 0)));
     m_cancel->setText("Cancel");
     m_cancel->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&CommandSetting::m_button_pushed, this));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_cancel);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_cancel);
     m_cancel->hide();
 
     m_accept = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonOk3");
-    m_accept->setSize(CEGUI::UVector2(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
-    m_accept->setPosition(CEGUI::UVector2(CEGUI::UDim(0.85-(m_accept->getSize().d_x.d_scale+m_cancel->getSize().d_x.d_scale), 0),
-                                         CEGUI::UDim(0.95-m_accept->getSize().d_y.d_scale
+    m_accept->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.10, 0)));
+    m_accept->setPosition(CEGUI::UVector2(CEGUI::UDim(0.85-(m_accept->getSize().d_width.d_scale+m_cancel->getSize().d_width.d_scale), 0),
+                                         CEGUI::UDim(0.95-m_accept->getSize().d_height.d_scale
                                                         , 0)));
     m_accept->setText("Ok");
     m_accept->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&CommandSetting::m_button_pushed, this));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_accept);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_accept);
     m_accept->hide();
 
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->addChildWindow(m_pane);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->addChild(m_pane);
 
     int maxi;
     std::string t;
@@ -64,27 +64,27 @@ m_box_selected(nullptr)
         }
 
         CEGUI::ScrollablePane *text = (CEGUI::ScrollablePane*)m_window_manager.createWindow("TaharezLook/ScrollablePane", "Contrôle"+boost::lexical_cast<std::string>(i));
-        text->setSize(CEGUI::UVector2(CEGUI::UDim(1,0), CEGUI::UDim(1, 0)));
+        text->setSize(CEGUI::USize(CEGUI::UDim(1,0), CEGUI::UDim(1, 0)));
         text->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim(0, 0)));
         text->setText(t.c_str());
 
-        m_pane->addChildWindow(text);
+        m_pane->addChild(text);
 
         for (int j=0; j<maxi; ++j)
         {
             CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
-            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(nb*(0.10)), 0)));
             elem->setText((CEGUI::utf8*)keys[j].description.c_str());
             elem->setProperty("FrameEnabled", "false");
             elem->setProperty("BackgroundEnabled", "false");
             elem->setProperty("VertFormatting", "TopAligned");
-            text->addChildWindow(elem);
+            text->addChild(elem);
 
             CEGUI::Editbox *box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
-            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            box->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
                                              CEGUI::UDim(0.05+(nb*(0.10)), 0)));
             box->setReadOnly(true);
@@ -95,10 +95,10 @@ m_box_selected(nullptr)
             else
                 box->setText(Config::get()->getCommandConfig()->toString(keys[j].action[0].mouse));
             box->setUserData(&keys[j].action[0]);
-            text->addChildWindow(box);
+            text->addChild(box);
 
             box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxContrôle2"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
-            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            box->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.66, 0),
                                              CEGUI::UDim(0.05+(nb*(0.10)), 0)));
             box->setReadOnly(true);
@@ -108,7 +108,7 @@ m_box_selected(nullptr)
             else
                 box->setText(Config::get()->getCommandConfig()->toString(keys[j].action[1].mouse));
             box->setUserData(&keys[j].action[1]);
-            text->addChildWindow(box);
+            text->addChild(box);
 
             ++nb;
         }
@@ -116,41 +116,41 @@ m_box_selected(nullptr)
         if (i==0)
         {
             CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi));
-            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(3*(0.10)), 0)));
             elem->setText((CEGUI::utf8*)"Axe inversé");
             elem->setProperty("FrameEnabled", "false");
             elem->setProperty("BackgroundEnabled", "false");
             elem->setProperty("VertFormatting", "TopAligned");
-            text->addChildWindow(elem);
+            text->addChild(elem);
 
-            CEGUI::Checkbox *box = (CEGUI::Checkbox*)m_window_manager.createWindow("TaharezLook/Checkbox", "CheckBox");
-            box->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            CEGUI::ToggleButton *box = (CEGUI::ToggleButton*)m_window_manager.createWindow("TaharezLook/Checkbox", "CheckBox");
+            box->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
                                              CEGUI::UDim(0.05+(3*(0.10)), 0)));
-            box->subscribeEvent(CEGUI::Checkbox::EventCheckStateChanged, CEGUI::Event::Subscriber(&CommandSetting::m_checkbox_pushed, this));
+            box->subscribeEvent(CEGUI::ToggleButton::EventSelectStateChanged, CEGUI::Event::Subscriber(&CommandSetting::m_checkbox_pushed, this));
             box->setSelected(Config::get()->getCommandConfig()->axesInvers());
-            text->addChildWindow(box);
+            text->addChild(box);
 
             elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi+1));
-            elem->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(4*(0.10)), 0)));
             elem->setText((CEGUI::utf8*)"Sensibilité");
             elem->setProperty("FrameEnabled", "false");
             elem->setProperty("BackgroundEnabled", "false");
             elem->setProperty("VertFormatting", "TopAligned");
-            text->addChildWindow(elem);
+            text->addChild(elem);
 
             CEGUI::Slider* slide = (CEGUI::Slider*)m_window_manager.createWindow("TaharezLook/Slider", "Slider");
-            slide->setSize(CEGUI::UVector2(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
+            slide->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             slide->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
                                              CEGUI::UDim(0.05+(4*(0.10)), 0)));
             slide->subscribeEvent(CEGUI::Slider::EventValueChanged, CEGUI::Event::Subscriber(&CommandSetting::m_slider_pushed, this));
             slide->setMaxValue(1);
             slide->setCurrentValue(Config::get()->getCommandConfig()->getMouseSensibility());
-            text->addChildWindow(slide);
+            text->addChild(slide);
         }
     }
 
@@ -159,11 +159,11 @@ m_box_selected(nullptr)
 }
 CommandSetting::~CommandSetting()
 {
-    CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_accept);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_accept);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_accept);
-    CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_cancel);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_cancel);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_cancel);
-    CEGUI::System::getSingleton().getGUISheet()->removeChildWindow(m_pane);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_pane);
     CEGUI::WindowManager::getSingleton().destroyWindow(m_pane);
 }
 bool CommandSetting::isVisible()
@@ -176,9 +176,9 @@ void CommandSetting::enter()
     m_pane->show();
     m_cancel->show();
     m_accept->show();
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.6,0), CEGUI::UDim(0.6, 0)));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setSize(CEGUI::USize(CEGUI::UDim(0.6,0), CEGUI::UDim(0.6, 0)));
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
 void CommandSetting::exit()
@@ -187,9 +187,9 @@ void CommandSetting::exit()
     m_pane->hide();
     m_cancel->hide();
     m_accept->hide();
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setSize(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3, 0)));
-    CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_x.d_scale/2), 0),
-                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getGUISheet()->getChild("OptionState")->getSize().d_y.d_scale
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setSize(CEGUI::USize(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3, 0)));
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_width.d_scale/2), 0),
+                                         CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
 ret_code CommandSetting::work(unsigned int)
@@ -222,7 +222,7 @@ bool CommandSetting::m_box_pushed(const CEGUI::EventArgs& arg)
 }
 bool CommandSetting::m_checkbox_pushed(const CEGUI::EventArgs& arg)
 {
-    Config::get()->getCommandConfig()->setAxesInvers(((CEGUI::Checkbox*)((CEGUI::WindowEventArgs&)arg).window)->isSelected());
+    Config::get()->getCommandConfig()->setAxesInvers(((CEGUI::ToggleButton*)((CEGUI::WindowEventArgs&)arg).window)->isSelected());
     return true;
 }
 
