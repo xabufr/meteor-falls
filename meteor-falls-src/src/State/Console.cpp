@@ -19,8 +19,8 @@ Console::Console() : m_id(0), m_admin(false)
 
 	m_sheet   = m_window_mgr.loadLayoutFromFile("console.layout");
 
-	m_console = (CEGUI::MultiLineEditbox*)m_sheet->getChild("fenConsole/logger");
-	m_lineCommand = (CEGUI::Editbox*) m_sheet->getChild("fenConsole/commandLine");
+	m_console = (CEGUI::MultiLineEditbox*)m_sheet->getChild("logger");
+	m_lineCommand = (CEGUI::Editbox*) m_sheet->getChild("commandLine");
 
 	m_console->getVertScrollbar()->setEndLockEnabled(true);
 

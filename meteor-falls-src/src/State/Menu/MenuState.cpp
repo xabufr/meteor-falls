@@ -82,8 +82,8 @@ MenuState::MenuState(StateManager* mng):
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
-    CEGUI::SchemeManager::getSingleton().createFromFile("Interface.scheme");
-    CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+    //CEGUI::SchemeManager::getSingleton().createFromFile("Interface.scheme");
+    //CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("Interface/MouseArrow");
     //CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
 

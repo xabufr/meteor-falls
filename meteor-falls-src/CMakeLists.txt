@@ -1,9 +1,8 @@
 project(MeteorFalls)
 cmake_minimum_required(VERSION 2.8)
-set(EXECUTABLE_OUTPUT_PATH ../build/)
+set(EXECUTABLE_OUTPUT_PATH build/)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x -ggdb -msse")
 include_directories(src/
-		libs/ozcollidelib_1-1-1/include
 		libs/rapidxml
 		/usr/include/CEGUI
 		/usr/include/bullet

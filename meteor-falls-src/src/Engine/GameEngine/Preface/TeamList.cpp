@@ -16,12 +16,12 @@ m_isSelectingTeam(false)
 	m_equipe = nullptr;
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     m_window = m_window_manager.loadLayoutFromFile("select_team.layout");
-	m_list_team = (CEGUI::MultiColumnList*)m_window->getChildRecursive("fenSelectionTeam/listeEquipes");
-	m_commandant = m_window->getChildRecursive("fenSelectionTeam/commandant");
-	m_list_joueurs = (CEGUI::MultiColumnList*)m_window->getChildRecursive("fenSelectionTeam/listeJoueurs");
+	m_list_team = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxEquipes/listeEquipes");
+	m_commandant = m_window->getChild("GroupBoxJoueurs/commandant");
+	m_list_joueurs = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxJoueurs/listeJoueurs");
 	m_list_team->subscribeEvent(CEGUI::MultiColumnList::EventSelectionChanged,
 			CEGUI::Event::Subscriber(&TeamList::m_item_selected, this));
-	m_btnJoin = m_window->getChildRecursive("fenSelectionTeam/btnJoindre");
+	m_btnJoin = m_window->getChild("btnJoindre");
 	m_btnJoin->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&TeamList::m_join, this));
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);

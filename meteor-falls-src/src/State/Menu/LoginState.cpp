@@ -22,16 +22,16 @@
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 	m_sheet = m_window_mgr.loadLayoutFromFile("login.layout");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_sheet);
-	m_sheet->getChild("FenetreLogin/BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this)); 
-	m_sheet->getChild("FenetreLogin/BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this)); 
+	m_sheet->getChild("BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this));
+	m_sheet->getChild("BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this));
 	m_sheet->hide();
 }
 bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
-    m_sheet->removeChild("FenetreLogin/BoutonJouerLan");
-    m_sheet->removeChild("FenetreLogin/BoutonJouerWan");
+    m_sheet->removeChild("BoutonJouerLan");
+    m_sheet->removeChild("BoutonJouerWan");
 
     m_loginText = m_window_mgr.createWindow("TaharezLook/StaticText", "StaticTextLogin");
     m_loginText->setText("Login:");

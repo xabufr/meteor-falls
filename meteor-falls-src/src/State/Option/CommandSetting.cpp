@@ -43,7 +43,9 @@ m_box_selected(nullptr)
     int maxi;
     std::string t;
     int nb = 0;
-    for (int i=0; i<3; ++i)
+    //for (int i=0; i<3; ++i)
+    int i = 0;
+    for(;false;)
     {
         nb = 0;
         CommandConfig::KeyAction* keys = Config::get()->getCommandConfig()->getKeyMap()[i];
@@ -63,7 +65,7 @@ m_box_selected(nullptr)
             t = "RTS";
         }
 
-        CEGUI::ScrollablePane *text = (CEGUI::ScrollablePane*)m_window_manager.createWindow("TaharezLook/ScrollablePane", "Contrôle"+boost::lexical_cast<std::string>(i));
+        CEGUI::ScrollablePane *text = (CEGUI::ScrollablePane*)m_window_manager.createWindow("TaharezLook/ScrollablePane", "Controle"+boost::lexical_cast<std::string>(i));
         text->setSize(CEGUI::USize(CEGUI::UDim(1,0), CEGUI::UDim(1, 0)));
         text->setPosition(CEGUI::UVector2(CEGUI::UDim(0, 0),
                                          CEGUI::UDim(0, 0)));
@@ -73,7 +75,7 @@ m_box_selected(nullptr)
 
         for (int j=0; j<maxi; ++j)
         {
-            CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            CEGUI::Window *elem = text->createChild("TaharezLook/StaticText", "TextControle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
             elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(nb*(0.10)), 0)));
@@ -81,9 +83,8 @@ m_box_selected(nullptr)
             elem->setProperty("FrameEnabled", "false");
             elem->setProperty("BackgroundEnabled", "false");
             elem->setProperty("VertFormatting", "TopAligned");
-            text->addChild(elem);
 
-            CEGUI::Editbox *box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            CEGUI::Editbox *box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxControle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
             box->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0),
                                              CEGUI::UDim(0.05+(nb*(0.10)), 0)));
@@ -97,7 +98,7 @@ m_box_selected(nullptr)
             box->setUserData(&keys[j].action[0]);
             text->addChild(box);
 
-            box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxContrôle2"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
+            box = (CEGUI::Editbox*)m_window_manager.createWindow("TaharezLook/Editbox", "BoxControle2"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(j));
             box->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             box->setPosition(CEGUI::UVector2(CEGUI::UDim(0.66, 0),
                                              CEGUI::UDim(0.05+(nb*(0.10)), 0)));
@@ -115,7 +116,7 @@ m_box_selected(nullptr)
 
         if (i==0)
         {
-            CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi));
+            CEGUI::Window *elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextControle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi));
             elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(3*(0.10)), 0)));
@@ -133,7 +134,7 @@ m_box_selected(nullptr)
             box->setSelected(Config::get()->getCommandConfig()->axesInvers());
             text->addChild(box);
 
-            elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextContrôle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi+1));
+            elem = m_window_manager.createWindow("TaharezLook/StaticText", "TextControle"+boost::lexical_cast<std::string>(i)+boost::lexical_cast<std::string>(maxi+1));
             elem->setSize(CEGUI::USize(CEGUI::UDim(0.30, 0), CEGUI::UDim(0.10, 0)));
             elem->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0),
                                              CEGUI::UDim(0.06+(4*(0.10)), 0)));

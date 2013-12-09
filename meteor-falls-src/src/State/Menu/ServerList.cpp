@@ -58,17 +58,17 @@ ServerList::ServerList(Type t, StateManager *mgr, Joueur **j) : State(mgr),
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
 	m_window   = m_window_mgr.loadLayoutFromFile("serveurs.layout");
-	m_wFiltres = m_window->getChild("fenServeurs/fenFiltres");
-	m_window->getChild("fenServeurs/btnRefresh")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_wFiltres = m_window->getChild("fenFiltres");
+	m_window->getChild("btnRefresh")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&ServerList::refresh, this));
-	m_window->getChild("fenServeurs/btnRetour")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_window->getChild("btnRetour")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&ServerList::close, this));
 	m_window->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
 			CEGUI::Event::Subscriber(&ServerList::close, this));
-	m_btnJoindre = m_window->getChild("fenServeurs/btnJoindre");
+	m_btnJoindre = m_window->getChild("btnJoindre");
 	m_btnJoindre->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&ServerList::join, this));
-	m_listeServeurs = (CEGUI::MultiColumnList*)m_window->getChild("fenServeurs/serveurs");
+	m_listeServeurs = (CEGUI::MultiColumnList*)m_window->getChild("serveurs");
 	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventSelectionChanged,
 			CEGUI::Event::Subscriber(&ServerList::serverSelected, this));
 	m_listeServeurs->subscribeEvent(CEGUI::MultiColumnList::EventMouseDoubleClick,
@@ -312,9 +312,9 @@ void ServerList::reloadViewWithFiltre()
 }
 bool ServerList::updateFiltre(const CEGUI::EventArgs&)
 {
-	m_filtre.full      = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkFull"))->isSelected();
-	m_filtre.empty     = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkEmpty"))->isSelected();
-	m_filtre.password  = ((CEGUI::ToggleButton*)m_wFiltres->getChild("fenServeurs/fenFiltres/chkPassword"))->isSelected();
+	m_filtre.full      = ((CEGUI::ToggleButton*)m_wFiltres->getChild("chkFull"))->isSelected();
+	m_filtre.empty     = ((CEGUI::ToggleButton*)m_wFiltres->getChild("chkEmpty"))->isSelected();
+	m_filtre.password  = ((CEGUI::ToggleButton*)m_wFiltres->getChild("chkPassword"))->isSelected();
 	reloadViewWithFiltre();
 }
 bool ServerList::Filtre::operator()(Server *s)

@@ -12,21 +12,21 @@ LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_p
 {
 	m_window = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("profiles.layout");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
-	m_btn_utiliser = m_window->getChild("fenProfils/jouer");
-	m_btn_supp = m_window->getChild("fenProfils/supprimer");
+	m_btn_utiliser = m_window->getChild("jouer");
+	m_btn_supp = m_window->getChild("supprimer");
 	m_window->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::retour, this));
-	m_window->getChild("fenProfils/listeProfils")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged,
+	m_window->getChild("listeProfils")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged,
 			CEGUI::Event::Subscriber(&LanLoginState::profilesSelectionChanged, this));
-	m_window->getChild("fenProfils/creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_window->getChild("creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::showCreateProfile, this));
-	m_window->getChild("fenProfils/supprimer")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_window->getChild("supprimer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::deleteProfile, this));
-	m_window->getChild("fenProfils/jouer")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_window->getChild("jouer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::useProfile, this));
-	m_window->getChild("fenProfils/listeProfils")->subscribeEvent(CEGUI::Listbox::EventMouseDoubleClick,
+	m_window->getChild("listeProfils")->subscribeEvent(CEGUI::Listbox::EventMouseDoubleClick,
 			CEGUI::Event::Subscriber(&LanLoginState::useProfile, this));
-	m_window->getChild("fenProfils/retour")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_window->getChild("retour")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::retour, this));
 	m_window->setVisible(false);
 	loadProfilesList();
@@ -57,7 +57,7 @@ bool LanLoginState::isVisible()
 }
 void LanLoginState::updateProfileList()
 {
-	CEGUI::Listbox* list = static_cast<CEGUI::Listbox*>(m_window->getChild("fenProfils/listeProfils"));
+	CEGUI::Listbox* list = static_cast<CEGUI::Listbox*>(m_window->getChild("listeProfils"));
 	list->resetList();
 	bool first=true;
 	for(JoueurLan *j : m_profiles)
@@ -102,7 +102,7 @@ void LanLoginState::loadProfilesList()
 }
 bool LanLoginState::profilesSelectionChanged(const CEGUI::EventArgs&)
 {
-	CEGUI::Listbox* list = static_cast<CEGUI::Listbox*>(m_window->getChild("fenProfils/listeProfils"));
+	CEGUI::Listbox* list = static_cast<CEGUI::Listbox*>(m_window->getChild("listeProfils"));
 	CEGUI::ListboxItem* item = list->getFirstSelectedItem();
 	if(item)
 		m_lastSelected = static_cast<JoueurLan*>(item->getUserData());
@@ -115,22 +115,23 @@ bool LanLoginState::showCreateProfile(const CEGUI::EventArgs&)
 	m_window->setVisible(false);
 	m_windowCreate = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("creer_profil_lan.layout");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_windowCreate);
-	m_windowCreate->getChild("fenCreerProfils/creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	m_windowCreate->getChild("creer")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::createNewProfile, this));
-	m_windowCreate->getChild("fenCreerProfils/annuler")->subscribeEvent(CEGUI::PushButton::EventClicked,
+	//TODO faire un vrai annuler ici
+	m_windowCreate->getChild("annuler")->subscribeEvent(CEGUI::PushButton::EventClicked,
 			CEGUI::Event::Subscriber(&LanLoginState::createNewProfile, this));
 	return true;
 }
 bool LanLoginState::createNewProfile(const CEGUI::EventArgs& e)
 {
 	const CEGUI::WindowEventArgs *event = static_cast<const CEGUI::WindowEventArgs*>(&e);
-	std::string pseudo = m_windowCreate->getChild("fenCreerProfils/pseudo")->getText().c_str();
+	std::string pseudo = m_windowCreate->getChild("pseudo")->getText().c_str();
 	if(!profileExists(pseudo))
 	{
 		boost::filesystem::path pathProfiles("profiles");
 		pathProfiles/=pseudo;
 		boost::filesystem::create_directory(pathProfiles);
-		if(event->window != m_windowCreate->getChild("fenCreerProfils/annuler"))
+		if(event->window != m_windowCreate->getChild("annuler"))
 		{
 			rapidxml::xml_document<> doc;
 			rapidxml::xml_node<>* root = doc.allocate_node(rapidxml::node_type::node_element);

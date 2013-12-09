@@ -1,7 +1,7 @@
 #include "LuaScript.h"
 #include "../../Lua/LuaInterface.h"
 #include <CEGUI/CEGUI.h>
-#include <CEGUI/ScriptingModules/LuaScriptModule/CEGUILua.h>
+#include <CEGUI/ScriptModules/Lua/ScriptModule.h>
 #include <lua.hpp>
 
 #include <fstream>

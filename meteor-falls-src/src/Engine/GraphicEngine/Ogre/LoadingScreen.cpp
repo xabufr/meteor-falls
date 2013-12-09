@@ -35,9 +35,9 @@ LoadingScreen::LoadingScreen(int sum):m_count(0), m_sum(sum)
 //                                         CEGUI::UDim(0+(m_window->getSize().d_y.d_scale*0.5/m_window->getChildCount()), 0)));
 //    m_loadingCurrent->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_loadingCurrent->getSize().d_x.d_scale/2), 0),
 //                                         CEGUI::UDim(m_loadingText->getPosition().d_y.d_scale+(m_window->getSize().d_y.d_scale*0.5/m_window->getChildCount()), 0)));
-	m_progress_bar   = (CEGUI::ProgressBar*)m_window->getChild("fenChargement/progression");
-	m_loadingCurrent = m_window->getChild("fenChargement/texteCurrRessource");
-	m_logger         = (CEGUI::MultiLineEditbox*)m_window->getChild("fenChargement/chargementLogger");
+	m_progress_bar   = (CEGUI::ProgressBar*)m_window->getChild("progression");
+	m_loadingCurrent = m_window->getChild("texteCurrRessource");
+	m_logger         = (CEGUI::MultiLineEditbox*)m_window->getChild("chargementLogger");
     m_window->show();
 }
 LoadingScreen::~LoadingScreen()
