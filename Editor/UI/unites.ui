@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>597</width>
+    <height>501</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Unités</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QTreeView" name="unites"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="movable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Général</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-70</y>
+            <width>255</width>
+            <height>520</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QTableView" name="proprietes">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>250</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="coutEnable">
+             <property name="text">
+              <string>Coûts</string>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableView" name="couts">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="produitEnable">
+             <property name="text">
+              <string>Produit</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableView" name="produit"/>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="ameliorationEnable">
+             <property name="text">
+              <string>S'améliore</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="amelioration"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Construit</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Nécessite</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>coutEnable</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>couts</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>361</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>361</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>produitEnable</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>produit</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>338</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>342</x>
+     <y>367</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ameliorationEnable</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>amelioration</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>387</x>
+     <y>442</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>387</x>
+     <y>467</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
