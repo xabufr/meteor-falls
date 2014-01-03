@@ -2,65 +2,92 @@
 #include <OIS/OIS.h>
 #include "Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
+#include "Engine/GameEngine/Map/Map.h"
+#include <Utils/Configuration/CommandConfig.h>
 
-CameraRTS::CameraRTS()
+CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), m_commandConfig(commandConfig)
 {
-    //ctor
+    m_maxAltitude = 500;
+    m_minAltitude = 2;
+    m_maxAltitudeAngle = 3.14 / 2.f;
+    m_minAltitudeAngle = 0.02;
+    m_minVelocity = 5;
+    m_maxVelocity = 25;
 }
 
 CameraRTS::~CameraRTS()
 {
-    //dtor
 }
 
 void CameraRTS::setCamera(Ogre::Camera* p_camera){
     m_camera = p_camera;
-    m_camera->setPosition(Ogre::Vector3(0, 200, 0));
-    m_camera->lookAt(Ogre::Vector3(0, 0, 0));
 }
 
-void CameraRTS::update(int){
-    OIS::Mouse* mouse;
-    mouse = OgreContextManager::get()->getInputManager()->getMouse();
+void CameraRTS::update(int deltaTime){
+    Ogre::Quaternion rotation(computeCameraRotation());
+    Ogre::Vector3 deplacement(computeRelativeCameraMovements());
 
-    if(m_forward)
-        m_camera->move(Ogre::Vector3(0, 0, -10));
-    if(m_back)
-        m_camera->move(Ogre::Vector3(0, 0, 10));
-    if(m_right)
-        m_camera->move(Ogre::Vector3(10, 0, 0));
-    if(m_left)
-        m_camera->move(Ogre::Vector3(-10, 0, 0));
+    float velocity = computeCameraVelocity();
+    m_cameraPosition+= (rotation * deplacement * velocity);
+    OIS::Mouse* mouse = OgreContextManager::get()->getInputManager()->getMouse();
     zoom(-0.1*mouse->getMouseState().Z.rel);
+
+    m_cameraPosition.y = computeCameraAltitude(m_cameraPosition);
+    m_camera->setPosition(m_cameraPosition);
+    m_camera->setOrientation(rotation * computeCameraAngleAltitude());
 }
 
-void CameraRTS::forward(bool p_forward){
-    m_forward = p_forward;
-}
-
-void CameraRTS::back(bool p_back){
-    m_back = p_back;
-}
-
-void CameraRTS::right(bool p_right){
-    m_right = p_right;
-}
-
-void CameraRTS::left(bool p_left){
-    m_left = p_left;
-}
-
-void CameraRTS::zoom(int p_tour){
-    Ogre::Vector3 cam_pos = m_camera->getPosition();
-    int temp = cam_pos[1] + p_tour;
-    if(temp > 500){
-        int surplus = temp - 500;
-        m_camera->setPosition(cam_pos[0], cam_pos[1] + p_tour - surplus, cam_pos[2]);
+void CameraRTS::zoom(int p_tour)
+{
+    m_relativeAltitude += p_tour;
+    if(m_relativeAltitude > m_maxAltitude) {
+        m_relativeAltitude = m_maxAltitude;
+    } else if(m_relativeAltitude < m_minAltitude) {
+        m_relativeAltitude = m_minAltitude;
     }
-    else if(temp < 100){
-        int surplus = 100 - temp;
-        m_camera->setPosition(cam_pos[0], cam_pos[1] + p_tour + surplus, cam_pos[2]);
-    }
-    else
-        m_camera->setPosition(cam_pos[0], cam_pos[1] + p_tour, cam_pos[2]);
+}
+
+float CameraRTS::computeCameraVelocity()
+{
+    float velocity = (m_relativeAltitude - m_minAltitude) / (m_maxAltitude - m_minAltitude);
+    velocity = velocity * (m_maxVelocity - m_minVelocity) + m_minVelocity;
+    return velocity;
+}
+
+float CameraRTS::computeCameraAltitude(Ogre::Vector3 &position)
+{
+    float altitude = m_relativeAltitude;
+    altitude += m_map->getHeightAt(position.x, position.z);
+    return altitude;
+}
+
+Ogre::Quaternion CameraRTS::computeCameraRotation()
+{
+    if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_JUMP))
+        m_yaw += 10;
+    return Ogre::Quaternion(Ogre::Degree(m_yaw), Ogre::Vector3(0,1,0));
+}
+
+Ogre::Vector3 CameraRTS::computeRelativeCameraMovements()
+{
+    Ogre::Vector3 deplacement(0,0,0);
+    CEGUI::Vector2f relativeMousePosition = CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getDisplayIndependantPosition();
+    if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_FORWARD) || relativeMousePosition.d_y <= 0.02)
+        deplacement.z += -10;
+    if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_BACKWARD) || relativeMousePosition.d_y >= 0.98)
+        deplacement.z += 10;
+    if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_RIGHT) || relativeMousePosition.d_x >= 0.98)
+        deplacement.x += 10;
+    if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_LEFT) || relativeMousePosition.d_x <= 0.02)
+        deplacement.x += -10;
+
+    return deplacement;
+}
+
+Ogre::Quaternion CameraRTS::computeCameraAngleAltitude()
+{
+
+    float altitudeLookFactor = (m_relativeAltitude - m_minAltitude) / (m_maxAltitude - m_minAltitude);
+    float altitudeAngle = (-altitudeLookFactor) * (m_maxAltitudeAngle - m_minAltitudeAngle) + m_minAltitudeAngle;
+    return Ogre::Quaternion(Ogre::Radian(altitudeAngle), Ogre::Vector3(1, 0, 0));
 }

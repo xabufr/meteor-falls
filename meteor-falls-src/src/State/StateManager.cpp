@@ -1,4 +1,5 @@
 #include "StateManager.h"
+#include "State.h"
 #include "../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "../precompiled/sfml_system.h"

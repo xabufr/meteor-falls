@@ -2,12 +2,11 @@
 
 Camera::Camera()
 {
-    //ctor
+    m_camera = nullptr;
 }
 
 Camera::~Camera()
 {
-    //dtor
 }
 
 void Camera::setCamera(Ogre::Camera* p_camera){

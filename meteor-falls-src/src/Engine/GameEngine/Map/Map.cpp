@@ -28,8 +28,6 @@
 #include <boost/algorithm/string/classification.hpp>
 
 
-using namespace rapidxml;
-
 Map::Map(GameEngine *game, btDynamicsWorld* world): m_game(game), m_world(world)
 {
 	m_loaded = false;

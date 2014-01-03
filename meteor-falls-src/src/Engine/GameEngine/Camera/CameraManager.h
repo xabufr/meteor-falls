@@ -15,6 +15,7 @@ public:
 	Ogre::Camera* camera() const;
 	Camera* cameraContainer() const;
 	void setCameraContener(Camera*);
+	void update(int elapsedTime);
 private:
 	Ogre::Camera* m_camera;
 	Camera *m_cameraContainer;

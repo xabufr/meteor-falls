@@ -1,4 +1,5 @@
 #include "State.h"
+#include "StateManager.h"
 
 State::State(StateManager *p_state_manager){
     m_state_manager = p_state_manager;

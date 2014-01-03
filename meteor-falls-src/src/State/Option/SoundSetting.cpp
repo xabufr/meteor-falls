@@ -1,12 +1,10 @@
 #include "SoundSetting.h"
 #include "../../Engine/SoundEngine/Playlist.h"
-#include "../../precompiled/_rapidxml.h"
 #include "../../precompiled/lexical_cast.h"
 #include "Engine/ScriptEngine/XmlDocumentManager.h"
 #include "Utils/Exception/FileNotFound.h"
 #include "Utils/Configuration/Config.h"
 #include <fstream>
-#include <rapidxml_print.hpp>
 
 SoundSetting::SoundSetting(StateManager* mgr):State(mgr),
 m_state_manager(mgr)

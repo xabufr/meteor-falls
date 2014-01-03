@@ -2,8 +2,8 @@
 #define CLIENTLOGIN_H_INCLUDED
 
 #include "Engine/NetworkEngine/SslConnection.h"
-#include "../../../GlobalServer/src/ServerGlobalMessage.h"
-#include "../../../GlobalServer/src/Player.h"
+#include "../../../../GlobalServer/src/ServerGlobalMessage.h"
+#include "../../../../GlobalServer/src/Player.h"
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>

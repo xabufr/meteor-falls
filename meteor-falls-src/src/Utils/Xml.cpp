@@ -29,27 +29,4 @@ namespace XmlUtils
 		q.w = tree.get("qw", 0.f);
 		return q;
 	}
-	int 		getInt 		(rapidxml::xml_base<>* base)
-	{
-		return getValue<int>(base);
-	}
-	float  		getFloat 	(rapidxml::xml_base<>* base)
-	{
-		return getValue<float>(base);
-	}
-	double  	getDouble 	(rapidxml::xml_base<>* base)
-	{
-		return getValue<double>(base);
-	}
-	bool 		getBool 	(rapidxml::xml_base<>* base)
-	{
-		std::string value(base->value());
-		if(value=="true"||value=="TRUE")
-			return true;
-		else if(value=="false"||value=="FALSE") 
-		{
-			return false;
-		}
-		return getValue<bool>(base);
-	}
 }

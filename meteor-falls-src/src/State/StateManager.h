@@ -2,7 +2,6 @@
 #define STATEMANAGER_H
 
 #include <stack>
-#include "State.h"
 
 class State;
 

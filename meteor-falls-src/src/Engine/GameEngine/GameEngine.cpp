@@ -119,5 +119,10 @@ btDiscreteDynamicsWorld* GameEngine::bulletWorld() const
 }
 ObjetTerrainTypeManager* GameEngine::objetTerrainTypeManager() const 
 {
-	return m_objectTypeManager;
+    return m_objectTypeManager;
+}
+
+const Map *GameEngine::getMap() const
+{
+    return m_map;
 }

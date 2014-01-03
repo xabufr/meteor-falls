@@ -5,7 +5,7 @@
 #include <boost/filesystem.hpp>
 #include "../../Engine/ScriptEngine/XmlDocumentManager.h"
 #include "../../Utils/Exception/FileNotFound.h"
-#include <rapidxml_print.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 #include <fstream>
 
 LanLoginState::LanLoginState(StateManager* mng, LoginState* p) : State(mng), m_parentState(p), m_lastSelected(nullptr), m_continue(true)
@@ -133,15 +133,10 @@ bool LanLoginState::createNewProfile(const CEGUI::EventArgs& e)
 		boost::filesystem::create_directory(pathProfiles);
 		if(event->window != m_windowCreate->getChild("annuler"))
 		{
-			rapidxml::xml_document<> doc;
-			rapidxml::xml_node<>* root = doc.allocate_node(rapidxml::node_type::node_element);
-			root->name("profile");
-			root->append_attribute(doc.allocate_attribute("name", pseudo.c_str()));
-			doc.append_node(root);
+			XmlDocumentManager::Document doc;
+			doc.put("profile.<xmlattr>.pseudo", pseudo);
 			pathProfiles/=pseudo;
-			std::ofstream f((pathProfiles.string()+".profile").c_str());
-			f<<doc;
-			f.close();
+			boost::property_tree::xml_parser::write_xml(pathProfiles.string()+".profile", doc);
 			JoueurLan *j = new JoueurLan;
 			j->setNom(pseudo);
 			m_profiles.push_back(j);
