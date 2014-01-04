@@ -16,22 +16,22 @@ public:
     virtual ~NetworkEngine();
     virtual void setEngineManager(EngineManager*);
     virtual void handleMessage(EngineMessage&) = 0;
-    virtual void work() = 0;
+    virtual void work(const TimeDuration &elapsed) = 0;
     virtual EngineType getType();
 
     static std::string serialize(const EngineMessage*);
     static EngineMessage* deserialize(const std::string &, EngineManager*);
     EngineMessage* deserialize(const std::string &);
-	static std::string SHA1(const std::string &);
+    static std::string SHA1(const std::string &);
 
-	const Clock& getClock() const;
+    const Clock& getClock() const;
 protected:
     boost::shared_ptr<boost::asio::io_service> m_service;
     boost::shared_ptr<boost::asio::io_service::work> m_work;
     boost::thread m_thread_service;
 
-	UdpConnection::pointer m_udpConnexion;
-	Clock m_clock;
+    UdpConnection::pointer m_udpConnexion;
+    Clock m_clock;
 private:
     void m_run();
 };

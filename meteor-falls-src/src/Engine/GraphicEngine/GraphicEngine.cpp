@@ -9,7 +9,7 @@ GraphicEngine::GraphicEngine(EngineManager* m):
 }
 GraphicEngine::~GraphicEngine()
 {
-	OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_sceneManager);
+    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_sceneManager);
 }
 Ogre::SceneManager* GraphicEngine::getSceneManager()
 {
@@ -19,7 +19,7 @@ void GraphicEngine::handleMessage(EngineMessage&)
 {
 
 }
-void GraphicEngine::work()
+void GraphicEngine::work(const TimeDuration &elapsed)
 {
 
 }

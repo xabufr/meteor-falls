@@ -17,20 +17,20 @@ class CommandConfig;
 class RTSState: public State
 {
 public:
-	RTSState(StateManager *manager, ClientGameEngine* gameEngine);
-	virtual ~RTSState();
-	virtual bool isVisible();
-	virtual void enter();
-	virtual void exit();
-	virtual ret_code work(unsigned int time);
+    RTSState(StateManager *manager, ClientGameEngine* gameEngine);
+    virtual ~RTSState();
+    virtual bool isVisible();
+    virtual void enter();
+    virtual void exit();
+    virtual ret_code work(const TimeDuration &elapsed);
 
 private:
-	void injectCameraEvents();
+    void injectCameraEvents();
 
 private:
-	ClientGameEngine *m_gameEngine;
-	CameraRTS *m_camera;
-	CommandConfig *m_commandConfig;
+    ClientGameEngine *m_gameEngine;
+    CameraRTS *m_camera;
+    CommandConfig *m_commandConfig;
 };
 
 #endif /* RTSSTATE_H_ */

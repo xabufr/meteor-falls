@@ -32,31 +32,31 @@ GameEngine::GameEngine(EngineManager* mng):
     m_solver = new btSequentialImpulseConstraintSolver;
 
     m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
-	m_map = new Map(this, m_world);
-	m_objectTypeManager = new ObjetTerrainTypeManager();
+    m_map = new Map(this, m_world);
+    m_objectTypeManager = new ObjetTerrainTypeManager();
 
-	MeshManager::get();
+    MeshManager::get();
 }
 GameEngine::~GameEngine()
 {
     delete m_map;
-	delete m_broadphase;
-	delete m_collisionConfiguration;
-	delete m_solver;
-	delete m_dispatcher;
-	delete m_world;
+    delete m_broadphase;
+    delete m_collisionConfiguration;
+    delete m_solver;
+    delete m_dispatcher;
+    delete m_world;
 }
-void GameEngine::work()
+void GameEngine::work(const TimeDuration &elapsed)
 {
-	static sf::Clock clock;
+    static sf::Clock clock;
     m_world->stepSimulation(clock.getElapsedTime().asSeconds(), 5);
     if(m_map->getLoaded() == true)
     {
         m_map->update();
     }
-	for(Equipe* e : m_teams)
-		e->update(clock.getElapsedTime().asSeconds());
-	clock.restart();
+    for(Equipe* e : m_teams)
+        e->update(clock.getElapsedTime().asSeconds());
+    clock.restart();
 }
 EngineType GameEngine::getType()
 {
@@ -64,60 +64,60 @@ EngineType GameEngine::getType()
 }
 void GameEngine::loadMap(const std::string &map_name)
 {
-	m_map->load(map_name);
+    m_map->load(map_name);
 }
 const std::vector<Equipe*>& GameEngine::getTeams() const
 {
-	return m_teams;
+    return m_teams;
 }
 void GameEngine::addTeam(Equipe* e)
 {
-	e->factory()->addBuilder<BatimentBuilder>();
-	e->factory()->addBuilder<HeroBuilder>();
-	m_teams.push_back(e);
+    e->factory()->addBuilder<BatimentBuilder>();
+    e->factory()->addBuilder<HeroBuilder>();
+    m_teams.push_back(e);
 }
 void GameEngine::addPlayer(Joueur* j)
 {
-	m_joueurs.push_back(j);
+    m_joueurs.push_back(j);
 }
 Equipe* GameEngine::getEquipe(char id)
 {
-	for(Equipe *e : m_teams)
-	{
-		if(e->id() == id)
-			return e;
-	}
-	return nullptr;
+    for(Equipe *e : m_teams)
+    {
+        if(e->id() == id)
+            return e;
+    }
+    return nullptr;
 }
 Joueur* GameEngine::findJoueur(int id)
 {
-	for(Joueur *j : m_joueurs)
+    for(Joueur *j : m_joueurs)
     {
-		if(j->id()==id)
-				return j;
+        if(j->id()==id)
+                return j;
     }
-	return nullptr;
+    return nullptr;
 }
 void GameEngine::deleteJoueur(int id)
 {
-	Joueur *joueur = findJoueur(id);
-	if(joueur==nullptr)
-		return;
-	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
-	{
-		if(*it==joueur)
-		{
-			m_joueurs.erase(it);
-			break;
-		}
-	}
-	delete joueur;
+    Joueur *joueur = findJoueur(id);
+    if(joueur==nullptr)
+        return;
+    for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
+    {
+        if(*it==joueur)
+        {
+            m_joueurs.erase(it);
+            break;
+        }
+    }
+    delete joueur;
 }
 btDiscreteDynamicsWorld* GameEngine::bulletWorld() const
 {
-	return m_world;
+    return m_world;
 }
-ObjetTerrainTypeManager* GameEngine::objetTerrainTypeManager() const 
+ObjetTerrainTypeManager* GameEngine::objetTerrainTypeManager() const
 {
     return m_objectTypeManager;
 }

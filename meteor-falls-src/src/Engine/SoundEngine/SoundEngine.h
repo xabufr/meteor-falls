@@ -45,15 +45,15 @@ class SoundEngine : public Engine
         void stop(SoundId);
         void play(SoundId);
 
-        void set_loop(SoundId){ m_loop = true;};
-        void unset_loop(SoundId){ m_loop = false;};
-        bool get_loop(SoundId) { return m_loop;};
+        void set_loop(SoundId){ m_loop = true;}
+        void unset_loop(SoundId){ m_loop = false;}
+        bool get_loop(SoundId) { return m_loop;}
 
         sf::Sound* getSound(SoundId);
 
         void removeWhenFinished(SoundId id, bool=true);
 
-        virtual void work();
+        virtual void work(const TimeDuration &elapsed);
 
 
         // parametres

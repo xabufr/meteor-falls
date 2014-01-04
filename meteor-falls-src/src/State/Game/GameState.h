@@ -12,7 +12,7 @@ class GameState : public State
         GameState(StateManager*, const EngineManager::Type, const std::string& address = "", const std::string& password = "", Joueur *j=0);
         virtual ~GameState();
         virtual bool isVisible();
-        virtual ret_code work(unsigned int);
+        virtual ret_code work(const TimeDuration &elapsed);
         virtual void enter();
         virtual void exit();
 

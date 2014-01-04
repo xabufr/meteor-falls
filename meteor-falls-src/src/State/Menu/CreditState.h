@@ -13,7 +13,7 @@ class CreditState : public State
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
-        virtual ret_code work(unsigned int time);
+        virtual ret_code work(const TimeDuration &elapsed);
     private:
         CEGUI::Window *m_credit;
         int m_nbr_loop;

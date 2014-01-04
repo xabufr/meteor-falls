@@ -13,7 +13,7 @@ class SoundSetting : public State
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
-        virtual ret_code work(unsigned int);
+        virtual ret_code work(const TimeDuration &elapsed);
     private:
         bool m_visible;
         bool m_button_pushed(const CEGUI::EventArgs&);

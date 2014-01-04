@@ -11,6 +11,8 @@
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreApplication.h"
 #include "../EngineMessage/EngineMessage.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <Utils/timeduration.h>
 
 Engine* EngineManager::get(EngineType p_engine_type)
 {
@@ -29,34 +31,34 @@ Engine* EngineManager::get(EngineType p_engine_type)
     }
     return nullptr;
 }
-void EngineManager::work()
+void EngineManager::work(const TimeDuration &elapsed)
 {
     if(m_type==SERVER || m_type==SERVER_LAN) //Sinon les autres moteurs doivent travailler pendant le rendu
     {
-		m_network->work();
-		m_game->work();
+        m_network->work(elapsed);
+        m_game->work(elapsed);
     }
-	for(EngineMessage *message : m_messages)
-	{
-		for(Engine *e : message->getTo())
-		{
-			e->handleMessage(*message);
-		}
-		delete message;
-	}
-	m_messages.clear();
+    for(EngineMessage *message : m_messages)
+    {
+        for(Engine *e : message->getTo())
+        {
+            e->handleMessage(*message);
+        }
+        delete message;
+    }
+    m_messages.clear();
 }
 EngineManager::EngineManager(Type t, const std::string& address, const std::string& password, Joueur *j):
     m_type(t),
     m_sound(0)
 {
-	if(t==Type::SERVER||t==Type::SERVER_LAN)
-		OgreContextManager::createGraphics = false;
-	else 
-    	m_graphic = new GraphicEngine(this);
+    if(t==Type::SERVER||t==Type::SERVER_LAN)
+        OgreContextManager::createGraphics = false;
+    else
+        m_graphic = new GraphicEngine(this);
     if(t==Type::CLIENT||t==Type::CLIENT_LAN)
     {
-		OgreContextManager::get()->getOgreApplication()->LoadRessources("skyx_hydrax.cfg");
+        OgreContextManager::get()->getOgreApplication()->LoadRessources("skyx_hydrax.cfg");
         OgreContextManager::get()->getOgreApplication()->getRoot()->addFrameListener(this);
     }
 
@@ -69,8 +71,8 @@ EngineManager::EngineManager(Type t, const std::string& address, const std::stri
         m_network = new ClientNetworkEngineLan(this, address, 8888, j, password);
         break;
     case Type::SERVER:
-	  //  m_network = new ServerNetworkEngineWan(this, 8888);
-		break;
+      //  m_network = new ServerNetworkEngineWan(this, 8888);
+        break;
     case Type::SERVER_LAN:
         m_network = new ServerNetworkEngineLan(this, 8888);
         break;
@@ -113,13 +115,14 @@ void EngineManager::setSoundEngine(SoundEngine* e)
 }
 bool EngineManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    m_network->work();
-    m_game->work();
+    TimeDuration elapsed = TimeDuration::fromSeconds(evt.timeSinceLastFrame);
+    m_network->work(elapsed);
+    m_game->work(elapsed);
     if(m_sound)
-        m_sound->work();
+        m_sound->work(elapsed);
     return true;
 }
 void EngineManager::addMessage(EngineMessage* message)
 {
-	m_messages.push_back(message);
+    m_messages.push_back(message);
 }

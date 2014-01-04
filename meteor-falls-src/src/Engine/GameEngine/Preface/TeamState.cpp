@@ -23,10 +23,10 @@ m_game_engine(engine)
     m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_width.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_window->getSize().d_height.d_scale
                                                         /2), 0)));
-	CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
-	frame->setSizingEnabled(false);
-	frame->setCloseButtonEnabled(false);
-	frame->setDragMovingEnabled(false);
+    CEGUI::FrameWindow* frame = (CEGUI::FrameWindow*)m_window;
+    frame->setSizingEnabled(false);
+    frame->setCloseButtonEnabled(false);
+    frame->setDragMovingEnabled(false);
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 
     m_rts = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonRTS");
@@ -56,12 +56,12 @@ bool TeamState::m_choix_mode(const CEGUI::EventArgs&)
 }
 TeamState::~TeamState()
 {
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rts);
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rpg);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_rts);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_rpg);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_window);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rts);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_rpg);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_rts);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_rpg);
 }
 bool TeamState::isVisible()
 {
@@ -79,11 +79,11 @@ void TeamState::exit()
     m_window->hide();
     m_visible = false;
 }
-ret_code TeamState::work(unsigned int time)
+ret_code TeamState::work(const TimeDuration &elapsed)
 {
     if (m_game_engine->getCurrentJoueur()->equipe()->getRTS() != nullptr)
-		m_rts->disable();
-	else
-		m_rts->enable();
+        m_rts->disable();
+    else
+        m_rts->enable();
     return CONTINUE;
 }

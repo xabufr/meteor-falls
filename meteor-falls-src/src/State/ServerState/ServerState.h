@@ -29,7 +29,7 @@ class ServerState : public State
 				return true;
 		}
 		void exit();
-        ret_code work(unsigned int time);
+        ret_code work(const TimeDuration &elapsed);
 	private:
 		EngineManager *m_eManager;
 		Parameters *m_param;

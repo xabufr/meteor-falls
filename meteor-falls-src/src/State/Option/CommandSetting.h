@@ -14,13 +14,13 @@ class CommandSetting : public State, public OIS::KeyListener, public OIS::MouseL
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
-        virtual ret_code work(unsigned int);
+        virtual ret_code work(const TimeDuration &elapsed);
         virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+        virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+        virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
-		virtual bool keyPressed(const OIS::KeyEvent &arg);
-		virtual bool keyReleased(const OIS::KeyEvent &arg);
+        virtual bool keyPressed(const OIS::KeyEvent &arg);
+        virtual bool keyReleased(const OIS::KeyEvent &arg);
     private:
         bool m_visible;
         OIS::KeyCode m_old_key;

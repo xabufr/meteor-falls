@@ -12,7 +12,7 @@ class GraphicEngine: public Engine
         Ogre::SceneManager* getSceneManager();
 
         virtual void handleMessage(EngineMessage&);
-        virtual void work();
+        virtual void work(const TimeDuration &elapsed);
         virtual EngineType getType();
     protected:
     private:

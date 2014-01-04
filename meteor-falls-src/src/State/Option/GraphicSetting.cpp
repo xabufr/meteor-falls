@@ -152,7 +152,7 @@ void GraphicSetting::exit()
                                          CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
-ret_code GraphicSetting::work(unsigned int)
+ret_code GraphicSetting::work(const TimeDuration &elapsed)
 {
     return CONTINUE;
 }

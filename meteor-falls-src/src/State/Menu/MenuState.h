@@ -37,8 +37,8 @@ class MenuState: public State
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
-        virtual ret_code work(unsigned int time);
-		State* sousState() const;
+        virtual ret_code work(const TimeDuration &elapsed);
+        State* sousState() const;
 
     private:
         Joueur *m_player;

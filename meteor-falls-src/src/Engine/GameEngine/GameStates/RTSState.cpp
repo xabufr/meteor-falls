@@ -34,7 +34,7 @@ void RTSState::exit()
 {
 }
 
-ret_code RTSState::work(unsigned int time)
+ret_code RTSState::work(const TimeDuration &elapsed)
 {
     injectCameraEvents();
     return ret_code::CONTINUE;

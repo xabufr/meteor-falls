@@ -21,11 +21,11 @@ m_menu(menu)
     m_window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_window->getSize().d_width.d_scale/2), 0),
                                          CEGUI::UDim(0.50-(m_window->getSize().d_height.d_scale
                                                         /2), 0)));
-	CEGUI::FrameWindow* frame = static_cast<CEGUI::FrameWindow*>(m_window);
-	frame->setDragMovingEnabled(false);
-	frame->setCloseButtonEnabled(false);
-	frame->setSizingEnabled(false);
-	frame->setRollupEnabled(false);
+    CEGUI::FrameWindow* frame = static_cast<CEGUI::FrameWindow*>(m_window);
+    frame->setDragMovingEnabled(false);
+    frame->setCloseButtonEnabled(false);
+    frame->setSizingEnabled(false);
+    frame->setRollupEnabled(false);
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
 
     m_graphics = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonGraphics");
@@ -48,7 +48,7 @@ m_menu(menu)
 
     m_control = (CEGUI::PushButton*)m_window_manager.createWindow("TaharezLook/Button", "ButtonControl");
     m_control->setSize(CEGUI::USize(CEGUI::UDim(0.75, 0), CEGUI::UDim(0.20, 0)));
-	m_control->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_control->getSize().d_width.d_scale/2), 0),
+    m_control->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5-(m_control->getSize().d_width.d_scale/2), 0),
                                          CEGUI::UDim(0.75-(m_control->getSize().d_height.d_scale
                                                         /2), 0)));
     m_control->setText("Commandes");
@@ -80,10 +80,10 @@ void OptionState::exit()
     m_window->hide();
     m_visible = false;
 }
-ret_code OptionState::work(unsigned int)
+ret_code OptionState::work(const TimeDuration &elapsed)
 {
     if (m_sous_state != nullptr && m_sous_state->isVisible())
-        m_sous_state->work(0);
+        m_sous_state->work(elapsed);
     else if (m_sous_state != nullptr)
     {
         m_menu->setEscape(true);

@@ -40,7 +40,7 @@ void SoundEngine::removeWhenFinished(unsigned int id, bool rem)
         return;
     it->second->removeWhenFinished=rem;
 }
-void SoundEngine::work()// appeller la classe Fade
+void SoundEngine::work(const TimeDuration &elapsed)// appeller la classe Fade
 {
     for (auto it: m_sounds)
     {

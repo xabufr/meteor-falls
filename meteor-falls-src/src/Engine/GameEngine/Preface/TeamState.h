@@ -9,12 +9,12 @@
 class JoueurRPG;
 class ClientGameEngine;
 namespace CEGUI {
-	class PushButton;
-	class Listbox;
-	class Editbox;
-	class TabButton;
-	class String;
-	class EventArgs;
+    class PushButton;
+    class Listbox;
+    class Editbox;
+    class TabButton;
+    class String;
+    class EventArgs;
 }
 class TeamState : public State
 {
@@ -24,7 +24,7 @@ public:
     virtual bool isVisible();
     virtual void enter();
     virtual void exit();
-    virtual ret_code work(unsigned int);
+    virtual ret_code work(const TimeDuration &elapsed);
 private:
     bool m_choix_mode(const CEGUI::EventArgs &);
     bool m_visible;

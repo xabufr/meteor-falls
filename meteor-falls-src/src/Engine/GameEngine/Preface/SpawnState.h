@@ -8,49 +8,49 @@
 class Unite;
 class ClientGameEngine;
 namespace CEGUI {
-	class Window;
-	class PushButton;
-	class Listbox;
-	class EventArgs;
-	class GroupBox;
-	class TabControl;
+    class Window;
+    class PushButton;
+    class Listbox;
+    class EventArgs;
+    class GroupBox;
+    class TabControl;
 } // namespace CEGUI
 class Avatar;
 class ClasseHero;
 class SpawnState: public State
 {
 public:
-	enum ErrorMessages
-	{
-		INVALID_SPAWN = 0,
-	};
-	SpawnState(StateManager*, ClientGameEngine*);
-	~SpawnState();
-	virtual bool isVisible();
+    enum ErrorMessages
+    {
+        INVALID_SPAWN = 0,
+    };
+    SpawnState(StateManager*, ClientGameEngine*);
+    ~SpawnState();
+    virtual bool isVisible();
     virtual void enter();
     virtual void exit();
-    virtual ret_code work(unsigned int time);
-	void updateSpawns();
-	bool spawnSelected(const CEGUI::EventArgs&);
-	bool classSelected(const CEGUI::EventArgs&);
-	bool classChanged(const CEGUI::EventArgs&);
-	bool trySpawn(const CEGUI::EventArgs&);
-	void notifySpawnError(ErrorMessages);
+    virtual ret_code work(const TimeDuration &elapsed);
+    void updateSpawns();
+    bool spawnSelected(const CEGUI::EventArgs&);
+    bool classSelected(const CEGUI::EventArgs&);
+    bool classChanged(const CEGUI::EventArgs&);
+    bool trySpawn(const CEGUI::EventArgs&);
+    void notifySpawnError(ErrorMessages);
 private:
-	ClientGameEngine* m_game;
-	CEGUI::Window *m_window;
-	CEGUI::PushButton *m_buttonSpawn;
-	CEGUI::Listbox *m_spawns;
-	CEGUI::GroupBox *m_groupCarte;
-	CEGUI::Window *m_infosSpawn;
-	CEGUI::TabControl *m_tabClasses;
-	Unite* m_last_selected_u;
-	bool m_waitingResponse;
-	void m_loadClasses();
-	CEGUI::PushButton* m_loadClasse(ClasseHero*, Avatar*);
-	Avatar *m_avatar;
-	std::unordered_map<ClasseHero*, Avatar*> m_selectionsAvatar;
-	void m_resetCurrentClasses();
+    ClientGameEngine* m_game;
+    CEGUI::Window *m_window;
+    CEGUI::PushButton *m_buttonSpawn;
+    CEGUI::Listbox *m_spawns;
+    CEGUI::GroupBox *m_groupCarte;
+    CEGUI::Window *m_infosSpawn;
+    CEGUI::TabControl *m_tabClasses;
+    Unite* m_last_selected_u;
+    bool m_waitingResponse;
+    void m_loadClasses();
+    CEGUI::PushButton* m_loadClasse(ClasseHero*, Avatar*);
+    Avatar *m_avatar;
+    std::unordered_map<ClasseHero*, Avatar*> m_selectionsAvatar;
+    void m_resetCurrentClasses();
 };
 
-#endif 
+#endif

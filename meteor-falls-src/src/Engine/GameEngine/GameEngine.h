@@ -25,7 +25,7 @@ public:
     GameEngine(EngineManager*);
     virtual ~GameEngine();
     virtual void handleMessage(EngineMessage&) = 0;
-    virtual void work();
+    virtual void work(const TimeDuration &elapsed);
     virtual EngineType getType();
 
     virtual void loadMap(const std::string &);

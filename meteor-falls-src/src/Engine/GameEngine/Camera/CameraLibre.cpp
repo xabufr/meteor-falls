@@ -13,7 +13,7 @@ CameraLibre::~CameraLibre()
     //dtor
 }
 
-void CameraLibre::update(int){
+void CameraLibre::update(const TimeDuration &elapsed){
     OIS::Mouse* mouse;
     mouse = OgreContextManager::get()->getInputManager()->getMouse();
 

@@ -11,6 +11,7 @@
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
 #include "precompiled/bind.h"
 #include "../../Engine/SoundEngine/Playlist.h"
+#include <Utils/timeduration.h>
 
 MenuState::MenuState(StateManager* mng):
     State(mng), m_visible(false), m_escape(true)
@@ -76,7 +77,7 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
 
-	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagessets");
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagessets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
@@ -122,7 +123,7 @@ MenuState::~MenuState()
     delete m_player;
     delete m_state;
     delete m_option_state;
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_state);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_state);
 }
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
@@ -158,8 +159,8 @@ bool MenuState::showOption()
 }
 bool MenuState::m_hide_sous_state()
 {
-	if(m_sousState!=0)
-	    m_sousState->exit();
+    if(m_sousState!=0)
+        m_sousState->exit();
     return true;
 }
 void MenuState::enter()
@@ -191,7 +192,7 @@ void MenuState::exit()
 //    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
     m_visible = false;
 }
-ret_code MenuState::work(unsigned int time)
+ret_code MenuState::work(const TimeDuration &elapsed)
 {
     Ogre::Vector3      cam_to_obj = terreAtmosphere->getPosition() - m_camera->getPosition();
     Ogre::Quaternion   quaternion_yaw = Ogre::Vector3( cam_to_obj.x, 0.0, cam_to_obj.z ).getRotationTo( cam_to_obj );
@@ -203,8 +204,8 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->yaw(Ogre::Degree(90));
     terreAtmosphere->roll(Ogre::Degree(90));
 
-    m_nodeTerre->yaw(Ogre::Degree(6.f*float(time)*0.001));
-    m_nodeLune->yaw(Ogre::Degree(6.f*float(time)*0.001));
+    m_nodeTerre->yaw(Ogre::Degree(6.f*elapsed.seconds()));
+    m_nodeLune->yaw(Ogre::Degree(6.f*elapsed.seconds()));
 
     if (m_sousState==0 || !m_sousState->isVisible())
     {
@@ -224,8 +225,8 @@ ret_code MenuState::work(unsigned int time)
         bool click = m_mouse->getMouseState().buttonDown(OIS::MouseButtonID::MB_Left);
         if(!m_transitionning)
         {
-			if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-				return ret_code::EXIT_PROGRAM;
+            if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+                return ret_code::EXIT_PROGRAM;
             if(selected==m_eTerre||selected==m_eAtmoTerre)
             {
                 if(click)
@@ -294,22 +295,22 @@ ret_code MenuState::work(unsigned int time)
     }
     else
     {
-        ret_code code = m_sousState->work(time);
-		if((m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape) || code==ret_code::FINISHED)
-		{
-			m_sousState->exit();
-			if(m_sousState==m_login_state)
-			{
-				return EXIT_PROGRAM;
-			}
-			m_sousState=0;
-			m_transitionning=true;
+        ret_code code = m_sousState->work(elapsed);
+        if((m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape) || code==ret_code::FINISHED)
+        {
+            m_sousState->exit();
+            if(m_sousState==m_login_state)
+            {
+                return EXIT_PROGRAM;
+            }
+            m_sousState=0;
+            m_transitionning=true;
             m_timerTranslation.restart();
             m_transitionParams.from=m_camera->getPosition();
             m_transitionParams.to = Ogre::Vector3(0,0,10);
             m_transitionParams.duration=1.0;
             m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
-		}
+        }
     }
 
     return CONTINUE;
@@ -320,5 +321,5 @@ bool MenuState::isVisible()
 }
 State* MenuState::sousState() const
 {
-	return m_sousState;
+    return m_sousState;
 }

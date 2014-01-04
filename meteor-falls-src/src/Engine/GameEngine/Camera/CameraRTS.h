@@ -11,14 +11,14 @@ public:
     CameraRTS(const Map *map, CommandConfig *commandConfig);
     virtual ~CameraRTS();
     void setCamera(Ogre::Camera*);
-    void update(int deltaTime);
+    void update(const TimeDuration &elapsed);
     void zoom(int);
 
 private:
     float computeCameraVelocity();
     float computeCameraAltitude(Ogre::Vector3 &position);
     void correctCameraPosition(const Ogre::Radian &angleAltitude);
-    Ogre::Quaternion computeCameraRotation();
+    Ogre::Quaternion computeCameraRotation(const TimeDuration &elapsed);
     Ogre::Vector3 computeRelativeCameraMovements();
     Ogre::Radian computeCameraAngleAltitude();
 

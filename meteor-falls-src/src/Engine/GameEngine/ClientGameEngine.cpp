@@ -224,9 +224,9 @@ Joueur* ClientGameEngine::getCurrentJoueur()
 {
     return m_current_joueur;
 }
-void ClientGameEngine::work()
+void ClientGameEngine::work(const TimeDuration &elapsed)
 {
-    GameEngine::work();
+    GameEngine::work(elapsed);
     if (m_map->getLoaded())
     {
         if (m_change_sous_state)
@@ -258,7 +258,7 @@ void ClientGameEngine::work()
             m_change_sous_state = false;
         }
         if (m_sous_state)
-            m_sous_state->work(0);
+            m_sous_state->work(elapsed);
         CommandConfig* commandes = Config::get()->getCommandConfig();
         if (m_current_joueur->getTypeGameplay() == Joueur::RPG)
         {
@@ -302,7 +302,7 @@ void ClientGameEngine::work()
         {
 
         }
-        m_camManager->update(0);
+        m_camManager->update(elapsed);
     }
     OIS::Keyboard* key =
             OgreContextManager::get()->getInputManager()->getKeyboard();

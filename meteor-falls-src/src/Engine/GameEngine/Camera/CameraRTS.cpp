@@ -4,6 +4,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GameEngine/Map/Map.h"
 #include <Utils/Configuration/CommandConfig.h>
+#include <Utils/timeduration.h>
 #include <algorithm>
 
 CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), m_commandConfig(commandConfig)
@@ -24,14 +25,14 @@ void CameraRTS::setCamera(Ogre::Camera* p_camera){
     m_camera = p_camera;
 }
 
-void CameraRTS::update(int deltaTime){
-    Ogre::Quaternion rotation(computeCameraRotation());
+void CameraRTS::update(const TimeDuration &elapsed){
+    Ogre::Quaternion rotation(computeCameraRotation(elapsed));
     Ogre::Vector3 deplacement(computeRelativeCameraMovements());
 
     float velocity = computeCameraVelocity();
-    m_cameraPosition+= (rotation * deplacement * velocity);
+    m_cameraPosition+= (rotation * deplacement * velocity * elapsed.seconds());
     OIS::Mouse* mouse = OgreContextManager::get()->getInputManager()->getMouse();
-    zoom(-0.1*mouse->getMouseState().Z.rel);
+    zoom(-elapsed.seconds()*mouse->getMouseState().Z.rel);
 
     m_cameraPosition.y = computeCameraAltitude(m_cameraPosition);
     Ogre::Radian cameraAngleAltitude = computeCameraAngleAltitude();
@@ -80,10 +81,10 @@ void CameraRTS::correctCameraPosition(const Ogre::Radian &angleAltitude)
     m_cameraPosition.z = std::min(mapBounds.top + mapBounds.height + deltaAngle, m_cameraPosition.z);
 }
 
-Ogre::Quaternion CameraRTS::computeCameraRotation()
+Ogre::Quaternion CameraRTS::computeCameraRotation(const TimeDuration &elapsed)
 {
     if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_JUMP))
-        m_yaw += 10;
+        m_yaw += 10 * elapsed.seconds();
     return Ogre::Quaternion(Ogre::Degree(m_yaw), Ogre::Vector3(0,1,0));
 }
 

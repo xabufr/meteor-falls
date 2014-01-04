@@ -17,14 +17,14 @@ GameState::GameState(StateManager* mng, const EngineManager::Type t, const std::
 GameState::~GameState()
 {
 }
-ret_code GameState::work(unsigned int time)
+ret_code GameState::work(const TimeDuration &elapsed)
 {
-    m_engineManager->work();
-	ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_engineManager->getNetwork());
-	if (m_keyboard->isKeyDown(OIS::KC_ESCAPE) || net->getState() == ClientNetworkEngine::ClientNetworkEngineState::NONE)
-	{
+    m_engineManager->work(elapsed);
+    ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_engineManager->getNetwork());
+    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE) || net->getState() == ClientNetworkEngine::ClientNetworkEngineState::NONE)
+    {
         return ret_code::FINISHED;
-	}
+    }
     return ret_code::CONTINUE;
 }
 bool GameState::isVisible()

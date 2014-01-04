@@ -17,7 +17,7 @@ class LoginState : public State
         virtual bool isVisible();
         virtual void enter();
         virtual void exit();
-        virtual ret_code work(unsigned int time);
+        virtual ret_code work(const TimeDuration &elapsed);
 		Joueur** joueur();
   private:
         Joueur **m_player;

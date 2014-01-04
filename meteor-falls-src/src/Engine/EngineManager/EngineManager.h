@@ -12,11 +12,12 @@ class NetworkEngine;
 class GameEngine;
 class Engine;
 class EngineMessage;
+class TimeDuration;
 class EngineManager: public Ogre::FrameListener
 {
 private:
 
-	public:
+    public:
     enum Type{
         SERVER,
         CLIENT,
@@ -29,21 +30,21 @@ private:
         LOADING_MAP,
         PLAYING
     };
-	private:
+    private:
     Type m_type;
 
     public:
         EngineManager(Type t, const std::string& address = "", const std::string& password = "", Joueur *j=0);
         ~EngineManager();
         Engine* get(EngineType p_engine_type);
-        void work();
+        void work(const TimeDuration &elapsed);
         void setSoundEngine(SoundEngine*);
         SoundEngine *getSound();
         GraphicEngine *getGraphic();
         NetworkEngine *getNetwork();
         GameEngine *getGame();
 
-		void addMessage(EngineMessage*);
+        void addMessage(EngineMessage*);
 
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
@@ -54,7 +55,7 @@ private:
         GraphicEngine *m_graphic;
         NetworkEngine *m_network;
         GameEngine *m_game;
-		std::list<EngineMessage*> m_messages;
+        std::list<EngineMessage*> m_messages;
 };
 
 #endif // ENGINEMANAGER_H

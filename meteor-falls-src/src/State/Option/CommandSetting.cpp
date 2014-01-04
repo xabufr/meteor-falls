@@ -193,7 +193,7 @@ void CommandSetting::exit()
                                          CEGUI::UDim(0.50-(CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->getChild("OptionState")->getSize().d_height.d_scale
                                                         /2), 0)));
 }
-ret_code CommandSetting::work(unsigned int)
+ret_code CommandSetting::work(const TimeDuration &elapsed)
 {
     return CONTINUE;
 }

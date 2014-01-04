@@ -37,7 +37,7 @@ void CreditState::exit()
     m_visible = false;
 }
 
-ret_code CreditState::work(unsigned int time)
+ret_code CreditState::work(const TimeDuration &elapsed)
 {
     ++m_nbr_loop;
     if (m_nbr_loop == 1000)

@@ -13,24 +13,24 @@ m_visible(true),
 m_game_engine(engine),
 m_isSelectingTeam(false)
 {
-	m_equipe = nullptr;
+    m_equipe = nullptr;
     CEGUI::WindowManager &m_window_manager = CEGUI::WindowManager::getSingleton();
     m_window = m_window_manager.loadLayoutFromFile("select_team.layout");
-	m_list_team = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxEquipes/listeEquipes");
-	m_commandant = m_window->getChild("GroupBoxJoueurs/commandant");
-	m_list_joueurs = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxJoueurs/listeJoueurs");
-	m_list_team->subscribeEvent(CEGUI::MultiColumnList::EventSelectionChanged,
-			CEGUI::Event::Subscriber(&TeamList::m_item_selected, this));
-	m_btnJoin = m_window->getChild("btnJoindre");
-	m_btnJoin->subscribeEvent(CEGUI::PushButton::EventClicked,
-			CEGUI::Event::Subscriber(&TeamList::m_join, this));
+    m_list_team = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxEquipes/listeEquipes");
+    m_commandant = m_window->getChild("GroupBoxJoueurs/commandant");
+    m_list_joueurs = (CEGUI::MultiColumnList*)m_window->getChild("GroupBoxJoueurs/listeJoueurs");
+    m_list_team->subscribeEvent(CEGUI::MultiColumnList::EventSelectionChanged,
+            CEGUI::Event::Subscriber(&TeamList::m_item_selected, this));
+    m_btnJoin = m_window->getChild("btnJoindre");
+    m_btnJoin->subscribeEvent(CEGUI::PushButton::EventClicked,
+            CEGUI::Event::Subscriber(&TeamList::m_join, this));
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
     m_window->hide();
-	m_isSelectingTeam = false;
+    m_isSelectingTeam = false;
 }
 TeamList::~TeamList()
 {
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_window);
 }
 bool TeamList::isVisible()
 {
@@ -44,118 +44,118 @@ void TeamList::exit()
 {
     m_window->hide();
 }
-ret_code TeamList::work(unsigned int time)
+ret_code TeamList::work(const TimeDuration &elapsed)
 {
-	ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-	for (Equipe* e : m_game_engine->getTeams())
-	{
-		addEquipe(e);
-	}
-	if(m_equipe)
-	{
-		if(m_isSelectingTeam)
-		{
-			if(m_equipe == m_game_engine->getCurrentJoueur()->equipe())
-			{
-				m_game_engine->setSousStateType(ClientGameEngine::TypeState::TEAM_STATE);
-			}
-		}
-		for(Joueur *j : m_equipe->joueurs())
-			addPlayer(j);
-		if(m_equipe->getRTS())
-			setCommandant(m_equipe->getRTS()->joueur());
-		else
-			setCommandant(nullptr);
-	}
-	m_btnJoin->setEnabled(m_equipe&&!net->isWaitingSelectTeam());
-	return CONTINUE;
+    ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+    for (Equipe* e : m_game_engine->getTeams())
+    {
+        addEquipe(e);
+    }
+    if(m_equipe)
+    {
+        if(m_isSelectingTeam)
+        {
+            if(m_equipe == m_game_engine->getCurrentJoueur()->equipe())
+            {
+                m_game_engine->setSousStateType(ClientGameEngine::TypeState::TEAM_STATE);
+            }
+        }
+        for(Joueur *j : m_equipe->joueurs())
+            addPlayer(j);
+        if(m_equipe->getRTS())
+            setCommandant(m_equipe->getRTS()->joueur());
+        else
+            setCommandant(nullptr);
+    }
+    m_btnJoin->setEnabled(m_equipe&&!net->isWaitingSelectTeam());
+    return CONTINUE;
 }
 bool TeamList::m_item_selected(const CEGUI::EventArgs&)
 {
-	ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+    ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
     //for (size_t i=0; i<m_list_team->getItemCount(); ++i)
     //    if (m_list_team->getListboxItemFromIndex(i)->isSelected())
     //    {
         //    m_game_engine->addTeam(static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData()));
-	//		m_isSelectingTeam = true;
-	//		m_equipe          = static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData());
-	//		net->trySelectTeam(m_equipe->id());
+    //		m_isSelectingTeam = true;
+    //		m_equipe          = static_cast<Equipe*>(m_list_team->getListboxItemFromIndex(i)->getUserData());
+    //		net->trySelectTeam(m_equipe->id());
     //    }
-	m_equipe = nullptr;
-	if(m_list_team->getFirstSelectedItem())
-		m_equipe = (Equipe*) m_list_team->getFirstSelectedItem()->getUserData();
-	clearPlayers();	
+    m_equipe = nullptr;
+    if(m_list_team->getFirstSelectedItem())
+        m_equipe = (Equipe*) m_list_team->getFirstSelectedItem()->getUserData();
+    clearPlayers();
     return true;
 }
 void TeamList::addEquipe(Equipe *e)
 {
-	for(Equipe *eq : m_equipes)
-	{
-		if(eq==e)
-			return;
-	}
-	m_equipes.push_back(e);
-	CEGUI::ListboxTextItem *item;
+    for(Equipe *eq : m_equipes)
+    {
+        if(eq==e)
+            return;
+    }
+    m_equipes.push_back(e);
+    CEGUI::ListboxTextItem *item;
 
-	int row = m_list_team->addRow();
-	item = new CEGUI::ListboxTextItem("",0);
-	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
-	item->setUserData(e);
-	m_list_team->setItem(item, 0, row);
+    int row = m_list_team->addRow();
+    item = new CEGUI::ListboxTextItem("",0);
+    item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+    item->setUserData(e);
+    m_list_team->setItem(item, 0, row);
 
-	item = new CEGUI::ListboxTextItem(e->faction()->nom(),0);
-	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
-	item->setUserData(e);
-	m_list_team->setItem(item, 1, row);
+    item = new CEGUI::ListboxTextItem(e->faction()->nom(),0);
+    item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+    item->setUserData(e);
+    m_list_team->setItem(item, 1, row);
 }
 void TeamList::addPlayer(Joueur *j)
 {
-	for(Joueur *jj : m_joueurs)
-	{
-		if(jj==j)
-			return;
-	}
-	m_joueurs.push_back(j);
-	int row = m_list_joueurs->addRow();
-	CEGUI::ListboxTextItem *item;
-	item = new CEGUI::ListboxTextItem(j->getNom(), 0);
-	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
-	item->setUserData(j);
-	m_list_joueurs->setItem(item, 0, row);
+    for(Joueur *jj : m_joueurs)
+    {
+        if(jj==j)
+            return;
+    }
+    m_joueurs.push_back(j);
+    int row = m_list_joueurs->addRow();
+    CEGUI::ListboxTextItem *item;
+    item = new CEGUI::ListboxTextItem(j->getNom(), 0);
+    item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+    item->setUserData(j);
+    m_list_joueurs->setItem(item, 0, row);
 
-	item = new CEGUI::ListboxTextItem("0", 0);
-	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
-	item->setUserData(j);
-	m_list_joueurs->setItem(item, 1, row);
+    item = new CEGUI::ListboxTextItem("0", 0);
+    item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+    item->setUserData(j);
+    m_list_joueurs->setItem(item, 1, row);
 
-	item = new CEGUI::ListboxTextItem(boost::lexical_cast<std::string>(j->ping), 0);
-	item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
-	item->setUserData(j);
-	m_list_joueurs->setItem(item, 2, row);
+    item = new CEGUI::ListboxTextItem(boost::lexical_cast<std::string>(j->ping), 0);
+    item->setSelectionBrushImage("TaharezLook/MultiListSelectionBrush");
+    item->setUserData(j);
+    m_list_joueurs->setItem(item, 2, row);
 }
 void TeamList::clearPlayers()
 {
-	m_joueurs.clear();
-	m_list_joueurs->resetList();
+    m_joueurs.clear();
+    m_list_joueurs->resetList();
 }
 void TeamList::setCommandant(Joueur *j)
 {
-	if(j)
-		m_commandant->setText(j->getNom());
-	else 
-		m_commandant->setText("");
+    if(j)
+        m_commandant->setText(j->getNom());
+    else
+        m_commandant->setText("");
 }
 void TeamList::join()
 {
-	ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-	if(m_equipe&&!net->isWaitingSelectTeam())
-	{
-		net->trySelectTeam(m_equipe->id());
-		m_isSelectingTeam = true;
-	}
+    ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
+    if(m_equipe&&!net->isWaitingSelectTeam())
+    {
+        net->trySelectTeam(m_equipe->id());
+        m_isSelectingTeam = true;
+    }
 }
 bool TeamList::m_join(const CEGUI::EventArgs&)
 {
-	join();
-	return true;
+    join();
+    return true;
 }

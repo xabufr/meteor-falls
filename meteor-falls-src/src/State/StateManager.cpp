@@ -4,6 +4,7 @@
 #include "../Engine/GraphicEngine/Ogre/OgreApplication.h"
 #include "../precompiled/sfml_system.h"
 #include "../Engine/SoundEngine/Playlist.h"
+#include <Utils/timeduration.h>
 
 void StateManager::addState(State *p_state)
 {
@@ -28,7 +29,7 @@ void StateManager::startLoop()
     size_t time;
     while(!m_end&&!m_states.empty())
     {
-        time = timer.getElapsedTime().asMilliseconds();
+        TimeDuration elapsed(timer.getElapsedTime());
         timer.restart();
         if(m_audio)
             Playlist::get()->work();
@@ -39,23 +40,23 @@ void StateManager::startLoop()
             last = m_states.top();
             m_states.top()->enter();
         }
-        code = m_states.top()->work(time);
+        code = m_states.top()->work(elapsed);
         if(code == ret_code::FINISHED){                     //ancien etat du state different du nouveau
             m_states.top()->exit();
-			delete m_states.top();
+            delete m_states.top();
             removeState();
             m_states.top()->enter();
-			last = m_states.top();
+            last = m_states.top();
         }
         else if(code == ret_code::EXIT_PROGRAM)
             exit();
 
         if(m_graphic&&!OgreContextManager::get()->getOgreApplication()->RenderOneFrame())
             exit();
-		else if(!m_graphic&&time < 1000.f/100.f)
-		{
-			boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - time));
-		}
+        else if(!m_graphic&&elapsed.milliseconds() < 1000.f/100.f)
+        {
+            boost::this_thread::sleep(boost::posix_time::milliseconds((1000.f/100.f) - elapsed.milliseconds()));
+        }
     }
 }
 void StateManager::exit()
@@ -69,5 +70,5 @@ void StateManager::removeState()
 }
 State* StateManager::current() const
 {
-	return m_states.top();
+    return m_states.top();
 }

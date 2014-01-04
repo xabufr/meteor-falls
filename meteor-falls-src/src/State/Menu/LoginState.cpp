@@ -20,11 +20,11 @@
     m_keyboard = OgreContextManager::get()->getInputManager()->getKeyboard();
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
-	m_sheet = m_window_mgr.loadLayoutFromFile("login.layout");
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_sheet);
-	m_sheet->getChild("BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this));
-	m_sheet->getChild("BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this));
-	m_sheet->hide();
+    m_sheet = m_window_mgr.loadLayoutFromFile("login.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_sheet);
+    m_sheet->getChild("BoutonJouerLan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection_lan, this));
+    m_sheet->getChild("BoutonJouerWan")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&LoginState::m_connection, this));
+    m_sheet->hide();
 }
 bool LoginState::m_connection(const CEGUI::EventArgs &)
 {
@@ -85,21 +85,21 @@ bool LoginState::m_connection_lan(const CEGUI::EventArgs&)
     *m_player = new JoueurLan();
     (*m_player)->setNom("Test");
     this->exit();*/
-	m_sousState = new LanLoginState(nullptr, this);
-	m_sousState->enter();
-	m_sheet->setVisible(false);
+    m_sousState = new LanLoginState(nullptr, this);
+    m_sousState->enter();
+    m_sheet->setVisible(false);
     return true;
 }
-ret_code LoginState::work(unsigned int time)
+ret_code LoginState::work(const TimeDuration &elapsed)
 {
-	if(m_sousState)
-		if(m_sousState->work(time)!=ret_code::CONTINUE)
-		{
-			m_sousState->exit();
-			delete m_sousState;
-			m_sousState=nullptr;
-			m_sheet->setVisible(true);
-		}
+    if(m_sousState)
+        if(m_sousState->work(elapsed)!=ret_code::CONTINUE)
+        {
+            m_sousState->exit();
+            delete m_sousState;
+            m_sousState=nullptr;
+            m_sheet->setVisible(true);
+        }
     if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
         return EXIT_PROGRAM;
     return CONTINUE;
@@ -157,8 +157,8 @@ void LoginState::exit()
 {
     m_sheet->hide();
     m_visible = false;
-	if(m_sousState)
-		m_sousState->exit();
+    if(m_sousState)
+        m_sousState->exit();
 }
 void LoginState::enter()
 {
@@ -167,5 +167,5 @@ void LoginState::enter()
 }
 Joueur** LoginState::joueur()
 {
-	return m_player;
+    return m_player;
 }

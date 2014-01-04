@@ -3,23 +3,24 @@
 
 namespace Ogre
 {
-	class Camera;
-	class SceneManager;
+    class Camera;
+    class SceneManager;
 } // namespace Ogre
+class TimeDuration;
 class Camera;
 class CameraManager
 {
 public:
-	CameraManager(Ogre::SceneManager*);
-	~CameraManager();
-	Ogre::Camera* camera() const;
-	Camera* cameraContainer() const;
-	void setCameraContener(Camera*);
-	void update(int elapsedTime);
+    CameraManager(Ogre::SceneManager*);
+    ~CameraManager();
+    Ogre::Camera* camera() const;
+    Camera* cameraContainer() const;
+    void setCameraContener(Camera*);
+    void update(const TimeDuration &elapsed);
 private:
-	Ogre::Camera* m_camera;
-	Camera *m_cameraContainer;
-	Ogre::SceneManager *m_mng;
+    Ogre::Camera* m_camera;
+    Camera *m_cameraContainer;
+    Ogre::SceneManager *m_mng;
 };
 
 #endif

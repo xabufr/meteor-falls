@@ -10,7 +10,7 @@ class CameraLibre : public Camera
     public:
         CameraLibre();
         virtual ~CameraLibre();
-        void update(int); //temps entre 2 update (utilisation du speed)
+        void update(const TimeDuration &elapsed); //temps entre 2 update (utilisation du speed)
         void forward(bool); // m_forward = bool
         void back(bool);
         void right(bool);
