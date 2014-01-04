@@ -17,9 +17,10 @@ public:
 private:
     float computeCameraVelocity();
     float computeCameraAltitude(Ogre::Vector3 &position);
+    void correctCameraPosition(const Ogre::Radian &angleAltitude);
     Ogre::Quaternion computeCameraRotation();
     Ogre::Vector3 computeRelativeCameraMovements();
-    Ogre::Quaternion computeCameraAngleAltitude();
+    Ogre::Radian computeCameraAngleAltitude();
 
 private:
     float m_relativeAltitude;

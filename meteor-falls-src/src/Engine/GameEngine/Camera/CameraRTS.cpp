@@ -4,6 +4,7 @@
 #include "Engine/GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Engine/GameEngine/Map/Map.h"
 #include <Utils/Configuration/CommandConfig.h>
+#include <algorithm>
 
 CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), m_commandConfig(commandConfig)
 {
@@ -33,8 +34,10 @@ void CameraRTS::update(int deltaTime){
     zoom(-0.1*mouse->getMouseState().Z.rel);
 
     m_cameraPosition.y = computeCameraAltitude(m_cameraPosition);
+    Ogre::Radian cameraAngleAltitude = computeCameraAngleAltitude();
+    correctCameraPosition(cameraAngleAltitude);
     m_camera->setPosition(m_cameraPosition);
-    m_camera->setOrientation(rotation * computeCameraAngleAltitude());
+    m_camera->setOrientation(rotation * Ogre::Quaternion(cameraAngleAltitude, Ogre::Vector3(1,0,0)));
 }
 
 void CameraRTS::zoom(int p_tour)
@@ -61,6 +64,22 @@ float CameraRTS::computeCameraAltitude(Ogre::Vector3 &position)
     return altitude;
 }
 
+void CameraRTS::correctCameraPosition(const Ogre::Radian &angleAltitude)
+{
+    const Rectangle<float> &mapBounds = m_map->bounds();
+
+    float deltaAngle = 0.f;
+    Ogre::Radian finalAngle = Ogre::Degree(90)+angleAltitude;
+    if(finalAngle.valueDegrees() <= 80) {
+        deltaAngle = m_relativeAltitude * Ogre::Math::Tan(Ogre::Degree(90)+angleAltitude);
+    }
+
+    m_cameraPosition.x = std::max(mapBounds.left - deltaAngle, m_cameraPosition.x);
+    m_cameraPosition.x = std::min(mapBounds.left + mapBounds.width + deltaAngle, m_cameraPosition.x);
+    m_cameraPosition.z = std::max(mapBounds.top - deltaAngle, m_cameraPosition.z);
+    m_cameraPosition.z = std::min(mapBounds.top + mapBounds.height + deltaAngle, m_cameraPosition.z);
+}
+
 Ogre::Quaternion CameraRTS::computeCameraRotation()
 {
     if(m_commandConfig->eventActif(CommandConfig::RPG_KEY, CommandConfig::RPG_JUMP))
@@ -84,10 +103,10 @@ Ogre::Vector3 CameraRTS::computeRelativeCameraMovements()
     return deplacement;
 }
 
-Ogre::Quaternion CameraRTS::computeCameraAngleAltitude()
+Ogre::Radian CameraRTS::computeCameraAngleAltitude()
 {
 
     float altitudeLookFactor = (m_relativeAltitude - m_minAltitude) / (m_maxAltitude - m_minAltitude);
     float altitudeAngle = (-altitudeLookFactor) * (m_maxAltitudeAngle - m_minAltitudeAngle) + m_minAltitudeAngle;
-    return Ogre::Quaternion(Ogre::Radian(altitudeAngle), Ogre::Vector3(1, 0, 0));
+    return Ogre::Radian(altitudeAngle);
 }
