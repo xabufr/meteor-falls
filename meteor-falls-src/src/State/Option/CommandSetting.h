@@ -3,7 +3,7 @@
 
 #include "../State.h"
 #include "../StateManager.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <OIS/OIS.h>
 
 class CommandSetting : public State, public OIS::KeyListener, public OIS::MouseListener

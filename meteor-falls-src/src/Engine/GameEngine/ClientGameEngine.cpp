@@ -24,24 +24,19 @@
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Unites/ClientUniteFactory.h"
-#include "GameStates/RTSState.h"
 
 ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j) :
         GameEngine(mng), m_change_sous_state(true)
 {
     mng->getGraphic()->getSceneManager()->setShadowTechnique(
-            Ogre::SHADOWTYPE_NONE);
+                            Ogre::SHADOWTYPE_NONE);
     m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
     m_map_view = new MapView(m_map);
     m_sous_state = nullptr;
-    m_type_sous_state = TypeState::TEAM_LIST;
     m_chat = new Chat(this);
     m_current_joueur = j;
     addPlayer(j);
     setSousStateType(TypeState::TEAM_LIST);
-    /*debug = new BtOgre::DebugDrawer(mng->getGraphic()->getSceneManager()->getRootSceneNode(), m_world);
-     m_world->setDebugDrawer(debug);
-     debug->setDebugMode(true);*/
 }
 ClientGameEngine::~ClientGameEngine()
 {
@@ -57,9 +52,7 @@ ClientGameEngine::~ClientGameEngine()
 }
 void ClientGameEngine::addTeam(Equipe *e)
 {
-    e->setFactory(
-            new ClientUniteFactory(e,
-                    m_manager->getGraphic()->getSceneManager()));
+    e->setFactory(new ClientUniteFactory(e, m_manager->getGraphic()->getSceneManager()));
     GameEngine::addTeam(e);
 }
 void ClientGameEngine::handleMessage(EngineMessage& message)
@@ -69,7 +62,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
     case EngineMessageType::CHAT_MESSAGE:
     {
         std::string nom =
-                "\\[ "
+                        "\\[ "
                         + findJoueur(
                                 message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()
                         + " ]:" + message.strings[EngineMessageKey::MESSAGE];
@@ -81,14 +74,12 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
         if (message.ints[EngineMessageKey::RESULT] == 1)
         {
             Joueur *joueur = findJoueur(
-                    message.ints[EngineMessageKey::PLAYER_NUMBER]);
+                                    message.ints[EngineMessageKey::PLAYER_NUMBER]);
             if (joueur == nullptr)
                 return;
-            joueur->setTypeGamplay(
-                    message.ints[EngineMessageKey::GAMEPLAY_TYPE]
-                            == EngineMessageKey::RTS_GAMEPLAY ?
-                            Joueur::TypeGameplay::RTS :
-                            Joueur::TypeGameplay::RPG);
+            joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY ?
+                                    Joueur::RTS :
+                                    Joueur::RPG);
             if (joueur == m_current_joueur)
             {
                 if (joueur->getTypeGameplay() == Joueur::TypeGameplay::RPG)
@@ -111,7 +102,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
         if (team_id == -1)
             return;
         Joueur *joueur = findJoueur(
-                message.ints[EngineMessageKey::PLAYER_NUMBER]);
+                                message.ints[EngineMessageKey::PLAYER_NUMBER]);
         Equipe *equ = getEquipe(team_id);
         if (joueur == nullptr || equ == nullptr)
             return;
@@ -140,27 +131,17 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
             return;
         if (message.ints[EngineMessageKey::RESULT] == 1)
         {
-            Vector3D position(
-                    message.positions[EngineMessageKey::OBJECT_POSITION]);
-
             if (!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
             {
             }
-            Avatar *avatar = j->avatar(
-                    message.ints[EngineMessageKey::AVATAR_ID]);
+            Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
             Unite* hero = j->equipe()->factory()->create(j, avatar,
-                    avatar->classe(),
-                    message.ints[EngineMessageKey::OBJECT_ID]);
-            hero->setPosition(
-                    message.positions[EngineMessageKey::OBJECT_POSITION]
-                            + Vector3D(0, 100, 0));
+                                                         avatar->classe(),
+                                                         message.ints[EngineMessageKey::OBJECT_ID]);
+            hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION] + Vector3D(0, 100, 0));
             if (m_current_joueur == j)
             {
                 setSousStateType(TypeState::PLAYING_RPG);
-                m_camManager->setCameraContener(
-                        new CameraRPG(m_current_joueur->getRPG()->hero()));
-                m_camManager->cameraContainer()->setCamera(
-                        m_camManager->camera());
             }
         }
         else if (m_sous_state != nullptr)
@@ -169,7 +150,7 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
             if (sous_state)
             {
                 sous_state->notifySpawnError(
-                        (SpawnState::ErrorMessages) message.ints[EngineMessageKey::ERROR_CODE]);
+                                        (SpawnState::ErrorMessages) message.ints[EngineMessageKey::ERROR_CODE]);
             }
         }
     }
@@ -184,8 +165,8 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
             {
                 u->tuer();
                 if (m_current_joueur->getTypeGameplay()
-                        == Joueur::TypeGameplay::RPG
-                        && m_current_joueur->getRPG()->hero() == u)
+                                == Joueur::TypeGameplay::RPG
+                                && m_current_joueur->getRPG()->hero() == u)
                     setSousStateType(TypeState::SPAWN_STATE);
             }
         }
@@ -200,7 +181,6 @@ void ClientGameEngine::handleMessage(EngineMessage& message)
             if (u)
             {
                 u->subirDegats(message.ints[OBJECT_HEAL]);
-                std::cout << message.ints[OBJECT_HEAL] << std::endl;
             }
         }
     }
@@ -224,100 +204,30 @@ Joueur* ClientGameEngine::getCurrentJoueur()
 {
     return m_current_joueur;
 }
+void ClientGameEngine::changeSousStateIfNecessary()
+{
+    if (m_change_sous_state)
+    {
+        if (m_sous_state)
+        {
+            m_sous_state->exit();
+            delete m_sous_state;
+        }
+        m_sous_state = createClientGameState(nullptr, this, m_type_sous_state);
+        if (m_sous_state)
+            m_sous_state->enter();
+        m_change_sous_state = false;
+    }
+}
+
 void ClientGameEngine::work(const TimeDuration &elapsed)
 {
     GameEngine::work(elapsed);
     if (m_map->getLoaded())
     {
-        if (m_change_sous_state)
-        {
-            if (m_sous_state)
-            {
-                m_sous_state->exit();
-                delete m_sous_state;
-            }
-            switch (m_type_sous_state)
-            {
-            case TEAM_LIST:
-                m_sous_state = new TeamList(nullptr, this);
-                break;
-            case TEAM_STATE:
-                m_sous_state = new TeamState(nullptr, this);
-                break;
-            case SPAWN_STATE:
-                m_sous_state = new SpawnState(nullptr, this);
-                break;
-            case PLAYING_RTS:
-                m_sous_state = new RTSState(nullptr, this);
-                break;
-            default:
-                m_sous_state = nullptr;
-            }
-            if (m_sous_state)
-                m_sous_state->enter();
-            m_change_sous_state = false;
-        }
+        changeSousStateIfNecessary();
         if (m_sous_state)
             m_sous_state->work(elapsed);
-        CommandConfig* commandes = Config::get()->getCommandConfig();
-        if (m_current_joueur->getTypeGameplay() == Joueur::RPG)
-        {
-            if (m_current_joueur->getRPG()->hero())
-            {
-                Hero* hero = m_current_joueur->getRPG()->hero();
-                hero->setGauche(
-                        commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
-                                CommandConfig::KeyRPG::RPG_LEFT));
-                hero->setDroite(
-                        commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
-                                CommandConfig::KeyRPG::RPG_RIGHT));
-                hero->setAvancer(
-                        commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
-                                CommandConfig::KeyRPG::RPG_FORWARD));
-                hero->setReculer(
-                        commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
-                                CommandConfig::KeyRPG::RPG_BACKWARD));
-                if (commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
-                        CommandConfig::KeyRPG::RPG_JUMP))
-                    hero->sauter();
-                hero->tournerGaucheDroite(
-                        OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel
-                                * -0.01);
-                m_camManager->camera()->setPosition(
-                        hero->position() + Vector3D(0, 0, 10));
-                m_camManager->camera()->setOrientation(hero->rotation());
-                ClientNetworkEngine* net =
-                        static_cast<ClientNetworkEngine*>(m_manager->getNetwork());
-                net->sendRpgPosition();
-                hero->tournerGaucheDroite(
-                        OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel
-                                * -Config::get()->getCommandConfig()->getMouseSensibility());
-                hero->lookUpDown(
-                        OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel
-                                * -Config::get()->getCommandConfig()->getMouseSensibility());
-
-            }
-        }
-        else if (m_current_joueur->getTypeGameplay() == Joueur::RTS)
-        {
-
-        }
         m_camManager->update(elapsed);
     }
-    OIS::Keyboard* key =
-            OgreContextManager::get()->getInputManager()->getKeyboard();
-    /*debug->setDebugMode(key->isKeyDown(OIS::KC_F1));
-     m_world->debugDrawWorld();
-     debug->step();*/
-}
-void ClientGameEngine::SetLayoutRts()
-{
-//    LayoutRTS* MyLayoutRTS = new LayoutRTS(m_current_joueur);
-//    MyLayoutRTS->enter();
-
-//    //CameraRTS* MyCameraRTS = new CameraRTS(m_map);
-//    MyCameraRTS->setCamera(m_camManager->camera());
-//    m_chat->hide();
-
-//    setSousStateType(PLAYING_RTS);
 }

@@ -1,6 +1,6 @@
 #include "OgreWindowInputManager.h"
 #include "precompiled/lexical_cast.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <OgreLogManager.h>
 #include "ogrecontextmanager.h"
 #include "OgreApplication.h"

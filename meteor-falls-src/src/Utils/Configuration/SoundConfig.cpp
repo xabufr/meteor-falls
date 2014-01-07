@@ -2,7 +2,7 @@
 #include "../../Engine/ScriptEngine/XmlDocumentManager.h"
 #include <boost/property_tree/xml_parser.hpp>
 #include <iostream>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 SoundConfig::SoundConfig()
 {

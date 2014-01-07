@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "../../../Utils/Quaternion.h"
+#include "Utils/Quaternion.h"
 
 class Hero;
 class CameraRPG: public Camera

@@ -3,8 +3,8 @@
 
 #include <OgreRenderWindow.h>
 #include <OgreRoot.h>
-#include <CEGUI.h>
-#include <RendererModules/Ogre/Renderer.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "LoadingListener.h"
 
 class OgreApplication
@@ -12,7 +12,7 @@ class OgreApplication
     public:
         OgreApplication(bool createWindow);
         void LoadRessources(std::string fileName);
-		void AddResourceLocation(std::vector<std::pair<std::string, std::string>>);
+        void AddResourceLocation(std::vector<std::pair<std::string, std::string>>);
         void UnloadRessources(std::string fileName);
         void recreateWindow();
         virtual ~OgreApplication();

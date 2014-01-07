@@ -8,7 +8,7 @@
 #include "../GameEngine.h"
 #include "../../../Utils/Configuration/Config.h"
 #include "../Joueur/Joueur.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 
 Chat::Chat(GameEngine* game):m_game_engine(game)

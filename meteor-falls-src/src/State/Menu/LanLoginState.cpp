@@ -1,7 +1,7 @@
 #include "LanLoginState.h"
 #include "LoginState.h"
 #include "../../Engine/GameEngine/Joueur/JoueurLan.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <boost/filesystem.hpp>
 #include "../../Engine/ScriptEngine/XmlDocumentManager.h"
 #include "../../Utils/Exception/FileNotFound.h"

@@ -2,7 +2,7 @@
 #define MESSAGEDIALOG_H_INCLUDED
 
 #include "singleton.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 class MessageDialog:public Singleton<MessageDialog>
 {

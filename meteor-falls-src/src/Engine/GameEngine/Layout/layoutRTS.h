@@ -1,6 +1,6 @@
 #ifndef LAYOUTRTS_H
 #define LAYOUTRTS_H
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include "Engine/GameEngine/Factions/Faction.h"
 #include "State/StateManager.h"
 #include "State/State.h"

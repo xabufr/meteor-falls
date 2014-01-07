@@ -5,7 +5,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include "../../precompiled/lexical_cast.h"
 #include <OgreRoot.h>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <string>
 
 GraphicConfig::GraphicConfig()

@@ -4,7 +4,7 @@
 #include "../State.h"
 #include "../StateManager.h"
 #include <vector>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <OIS/OIS.h>
 
 class SoundSetting;

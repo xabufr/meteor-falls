@@ -6,7 +6,7 @@
 #include "../../NetworkEngine/clientnetworkengine.h"
 #include "../../EngineManager/EngineManager.h"
 #include "../ClientGameEngine.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 TeamList::TeamList(StateManager* mgr, ClientGameEngine* engine) : State(mgr),
 m_visible(true),
@@ -57,7 +57,7 @@ ret_code TeamList::work(const TimeDuration &elapsed)
         {
             if(m_equipe == m_game_engine->getCurrentJoueur()->equipe())
             {
-                m_game_engine->setSousStateType(ClientGameEngine::TypeState::TEAM_STATE);
+                m_game_engine->setSousStateType(TypeState::TEAM_STATE);
             }
         }
         for(Joueur *j : m_equipe->joueurs())

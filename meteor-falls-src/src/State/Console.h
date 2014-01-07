@@ -7,7 +7,7 @@
 #include <iostream>
 #include "../Utils/singleton.h"
 #include "../Engine/GraphicEngine/Ogre/ogrecontextmanager.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <OIS/OIS.h>
 #include "Command/Command.h"
 

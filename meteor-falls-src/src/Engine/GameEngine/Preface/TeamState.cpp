@@ -9,7 +9,7 @@
 #include "../../EngineManager/EngineManager.h"
 #include "../../EngineMessage/EngineMessage.h"
 #include <string>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 TeamState::TeamState(StateManager* mgr, ClientGameEngine* engine):State(mgr),
 m_visible(true),

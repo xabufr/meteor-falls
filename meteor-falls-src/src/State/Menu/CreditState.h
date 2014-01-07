@@ -3,7 +3,7 @@
 
 #include "../State.h"
 #include "../StateManager.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 class CreditState : public State
 {

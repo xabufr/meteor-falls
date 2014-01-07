@@ -5,7 +5,7 @@
 #include "../Factions/Faction.h"
 #include "../Unites/Unite.h"
 #include "../Unites/TypeUnite.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <string>
 #include "../../../precompiled/lexical_cast.h"
 #include "../Heros/ClasseHeroManager.h"
@@ -59,6 +59,7 @@ SpawnState::SpawnState(StateManager *mng, ClientGameEngine* game): State(mng), m
     m_window->addChild(m_spawns);
     m_window->addChild(m_tabClasses);
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(m_window);
+    m_window->hide();
     m_last_selected_u = nullptr;
     m_avatar = nullptr;
     updateSpawns();

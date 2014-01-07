@@ -6,7 +6,7 @@
 #include "../../Engine/GameEngine/Joueur/JoueurLan.h"
 #include "../../Engine/GameEngine/Joueur/JoueurWan.h"
 #include "../../Engine/GameEngine/Joueur/Joueur.h"
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <OIS/OIS.h>
 
 class LoginState : public State

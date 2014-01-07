@@ -12,6 +12,7 @@
 
 class ClientGameEngine;
 class Camera;
+class CameraRTS;
 class CommandConfig;
 
 class RTSState: public State
