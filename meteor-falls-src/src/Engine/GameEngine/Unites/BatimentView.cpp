@@ -7,10 +7,11 @@
 
 BatimentView::BatimentView(Batiment* bat, Ogre::SceneNode* node): UniteView(bat, node)
 {
-	m_entity = node->getCreator()->createEntity(bat->type()->meshParameters().find("normal")->second);
-	m_node->attachObject(m_entity);
+    m_entity = node->getCreator()->createEntity(bat->type()->meshParameters().find("normal")->second);
+    m_node->attachObject(m_entity);
+    m_node->showBoundingBox(true);
 }
 void BatimentView::positionChanged(const Vector3D& vec)
 {
-	m_node->setPosition(vec);
+    m_node->setPosition(vec);
 }

@@ -21,6 +21,7 @@ public:
     virtual void addTeam(Equipe*);
 
     virtual Type getTypeServerClient() const;
+    const MapView* getMapView() const;
 
 private:
     void changeSousStateIfNecessary();

@@ -191,6 +191,11 @@ GameEngine::Type ClientGameEngine::getTypeServerClient() const
 {
     return GameEngine::Type::CLIENT;
 }
+
+const MapView* ClientGameEngine::getMapView() const
+{
+    return m_map_view;
+}
 CameraManager* ClientGameEngine::cameraManager() const
 {
     return m_camManager;
