@@ -9,8 +9,8 @@ class ClientGameEngine;
 class Camera;
 class CameraRTS;
 class CommandConfig;
-class WorldObjectView;
 class RTSSelectionManager;
+class Unite;
 
 class RTSState: public State
 {
