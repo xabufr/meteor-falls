@@ -11,9 +11,10 @@
 #include "Engine/GraphicEngine/Ogre/GetMeshInformation.h"
 #include "precompiled/bind.h"
 #include "../../Engine/SoundEngine/Playlist.h"
+#include <Utils/timeduration.h>
 
 MenuState::MenuState(StateManager* mng):
-    State(mng), m_visible(false)
+    State(mng), m_visible(false), m_escape(true)
 {
     m_transitionning=false;
     m_currentSelected = 0;
@@ -76,29 +77,26 @@ MenuState::MenuState(StateManager* mng):
     m_eSoleil->setMaterialName("soleil");
     m_nodeSoleil->attachObject(light);
 
-    CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagessets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
-    CEGUI::SchemeManager::getSingleton().create("Interface.scheme");
-    CEGUI::SchemeManager::getSingleton().create("OgreTray.scheme");
-    CEGUI::System::getSingleton().setDefaultMouseCursor("Interface", "MouseArrow");
-    CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
+    //CEGUI::SchemeManager::getSingleton().createFromFile("Interface.scheme");
+    //CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("Interface/MouseArrow");
+    //CEGUI::MouseCursor::getSingleton().setImage( CEGUI::System::getSingleton().getDefaultMouseCursor());
 
     CEGUI::WindowManager &m_window_mgr = CEGUI::WindowManager::getSingleton();
 
     m_sheet = m_window_mgr.createWindow("DefaultWindow", "Fenetre");
 
-    m_state = m_window_mgr.createWindow("OgreTray/StaticText", "TextState");
-    m_state->setSize(CEGUI::UVector2(CEGUI::UDim(0.10, 0), CEGUI::UDim(0.10, 0)));
-    m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
-    m_state->setProperty("HorzFormatting", "WordWrapCentred");
-    m_sheet->addChildWindow(m_state);
+    m_state = m_window_mgr.loadLayoutFromFile("menu_player_widget.layout");
+    m_sheet->addChild(m_state);
     m_state->hide();
 
-    CEGUI::System::getSingleton().setGUISheet(m_sheet);
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_sheet);
 
     m_scene_mgr->getRootSceneNode()->setVisible(false);
     m_sceneQuery = m_scene_mgr->createRayQuery(Ogre::Ray());
@@ -106,10 +104,9 @@ MenuState::MenuState(StateManager* mng):
     m_player = new Joueur();
 
     m_server_list = new ServerList(ServerList::Type::LAN, m_state_manager, &m_player);
-    m_layout_state = new LayoutRTS(m_state_manager);
     m_credit_state = new CreditState(m_state_manager);
     m_login_state = new LoginState(m_state_manager, &m_player);
-    m_option_state = new OptionState(m_state_manager);
+    m_option_state = new OptionState(m_state_manager, this);
 
     m_sousState = m_login_state;
 
@@ -121,11 +118,12 @@ MenuState::~MenuState()
     delete m_background;
     delete m_sousState;
     delete m_credit_state;
-    delete m_layout_state;
     delete m_server_list;
     delete m_login_state;
     delete m_player;
     delete m_state;
+    delete m_option_state;
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_state);
 }
 bool MenuState::quit(const CEGUI::EventArgs &)
 {
@@ -148,7 +146,7 @@ bool MenuState::showLanServer()
 bool MenuState::showCredit()
 {
     m_state->hide();
-    m_sousState = m_layout_state;
+    m_sousState = m_credit_state;
     m_sousState->enter();
 
     return true;
@@ -161,8 +159,8 @@ bool MenuState::showOption()
 }
 bool MenuState::m_hide_sous_state()
 {
-	if(m_sousState!=0)
-	    m_sousState->exit();
+    if(m_sousState!=0)
+        m_sousState->exit();
     return true;
 }
 void MenuState::enter()
@@ -194,7 +192,7 @@ void MenuState::exit()
 //    OgreContextManager::get()->getOgreApplication()->getRoot()->destroySceneManager(m_scene_mgr);
     m_visible = false;
 }
-ret_code MenuState::work(unsigned int time)
+ret_code MenuState::work(const TimeDuration &elapsed)
 {
     Ogre::Vector3      cam_to_obj = terreAtmosphere->getPosition() - m_camera->getPosition();
     Ogre::Quaternion   quaternion_yaw = Ogre::Vector3( cam_to_obj.x, 0.0, cam_to_obj.z ).getRotationTo( cam_to_obj );
@@ -206,8 +204,8 @@ ret_code MenuState::work(unsigned int time)
     terreAtmosphere->yaw(Ogre::Degree(90));
     terreAtmosphere->roll(Ogre::Degree(90));
 
-    m_nodeTerre->yaw(Ogre::Degree(6.f*float(time)*0.001));
-    m_nodeLune->yaw(Ogre::Degree(6.f*float(time)*0.001));
+    m_nodeTerre->yaw(Ogre::Degree(6.f*elapsed.seconds()));
+    m_nodeLune->yaw(Ogre::Degree(6.f*elapsed.seconds()));
 
     if (m_sousState==0 || !m_sousState->isVisible())
     {
@@ -215,11 +213,9 @@ ret_code MenuState::work(unsigned int time)
         if (!m_player->getNom().empty())
         {
             m_state->setText(m_player->getNom());
-            m_state->setSize(CEGUI::UVector2(CEGUI::UDim((m_state->getText().size()*0.05), 0), CEGUI::UDim(0.10, 0)));
-            m_state->setPosition(CEGUI::UVector2(CEGUI::UDim(0.50-(m_state->getSize().d_x.d_scale/2), 0), CEGUI::UDim(0, 0)));
         }
         m_state->show();
-        CEGUI::Point mousePos = CEGUI::MouseCursor::getSingleton().getPosition();
+        CEGUI::Vector2f mousePos = CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition();
         unsigned int width = OgreContextManager::get()->getOgreApplication()->getWindow()->getWidth(),
                      height = OgreContextManager::get()->getOgreApplication()->getWindow()->getHeight();
         Ogre::Ray pickingRay = m_camera->getCameraToViewportRay(mousePos.d_x/float(width), mousePos.d_y/float(height));
@@ -229,8 +225,8 @@ ret_code MenuState::work(unsigned int time)
         bool click = m_mouse->getMouseState().buttonDown(OIS::MouseButtonID::MB_Left);
         if(!m_transitionning)
         {
-			if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-				return ret_code::EXIT_PROGRAM;
+            if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
+                return ret_code::EXIT_PROGRAM;
             if(selected==m_eTerre||selected==m_eAtmoTerre)
             {
                 if(click)
@@ -299,26 +295,31 @@ ret_code MenuState::work(unsigned int time)
     }
     else
     {
-        m_sousState->work(time);
-		if(m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-		{
-			m_sousState->exit();
-			m_sousState=0;
-			m_transitionning=true;
+        ret_code code = m_sousState->work(elapsed);
+        if((m_keyboard->isKeyDown(OIS::KC_ESCAPE) && m_escape) || code==ret_code::FINISHED)
+        {
+            m_sousState->exit();
+            if(m_sousState==m_login_state)
+            {
+                return EXIT_PROGRAM;
+            }
+            m_sousState=0;
+            m_transitionning=true;
             m_timerTranslation.restart();
             m_transitionParams.from=m_camera->getPosition();
             m_transitionParams.to = Ogre::Vector3(0,0,10);
             m_transitionParams.duration=1.0;
             m_transitionParams.function = boost::bind(&MenuState::m_hide_sous_state, this);
-		}
+        }
     }
-
-//    if (m_keyboard->isKeyDown(OIS::KC_ESCAPE))
-//        return ret_code::EXIT_PROGRAM;
 
     return CONTINUE;
 }
 bool MenuState::isVisible()
 {
     return m_visible;
+}
+State* MenuState::sousState() const
+{
+    return m_sousState;
 }
