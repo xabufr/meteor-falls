@@ -12,7 +12,7 @@ BatimentView::BatimentView(Batiment* bat, Ogre::SceneNode* node): UniteView(bat,
     m_node->attachObject(m_entity);
     m_node->showBoundingBox(true);
 }
-void BatimentView::positionChanged(const Vector3D& vec)
+void BatimentView::positionChanged(const Vector3D& vec, WorldObject *sender)
 {
     m_node->setPosition(vec);
 }

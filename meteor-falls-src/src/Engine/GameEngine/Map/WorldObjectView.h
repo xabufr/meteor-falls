@@ -6,6 +6,7 @@ namespace Ogre {
     class SceneManager;
     class SceneNode;
     class Entity;
+    class AxisAlignedBox;
 } // namespace
 class WorldObject;
 class WorldObjectView: virtual public WorldObjectListener
@@ -16,7 +17,8 @@ public:
     WorldObject* model() const;
     void setSelected(bool selected);
     bool selected() const;
-    virtual void update(float time);
+    const Ogre::AxisAlignedBox& getBoundingBox() const;
+    virtual void update(float time, WorldObject *sender);
 protected:
     Ogre::SceneNode *m_node;
     WorldObject *m_model;

@@ -43,6 +43,8 @@ public:
     float getHeightAt(float x, float z) const;
     boost::optional<Vector3D> getIntersection(Ogre::Ray &ray) const;
 
+    Ogre::TerrainGroup *terrain() const;
+
 private:
     Ogre::SceneManager *m_scene_mgr;
     Ogre::TerrainGlobalOptions *m_globals;

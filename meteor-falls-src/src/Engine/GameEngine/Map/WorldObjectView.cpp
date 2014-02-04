@@ -7,7 +7,6 @@ WorldObjectView::WorldObjectView(WorldObject* model, Ogre::SceneNode* node): m_n
 {
     m_model->addListener(this);
     m_isSelected = false;
-    m_node->showBoundingBox(true);
 }
 WorldObjectView::~WorldObjectView()
 {
@@ -29,7 +28,12 @@ bool WorldObjectView::selected() const
     return m_isSelected;
 }
 
-void WorldObjectView::update(float time)
+const Ogre::AxisAlignedBox &WorldObjectView::getBoundingBox() const
+{
+    return m_node->_getWorldAABB();
+}
+
+void WorldObjectView::update(float time, WorldObject *sender)
 {
     m_node->showBoundingBox(m_isSelected);
 }

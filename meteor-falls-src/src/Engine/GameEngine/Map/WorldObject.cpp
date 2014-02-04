@@ -42,13 +42,13 @@ void WorldObject::setPosition(const Vector3D& vec)
     if (m_body!=nullptr)
         m_body->translate(btVector3(vec.x, vec.y, vec.z));
     for(WorldObjectListener *l : m_listeners)
-        l->positionChanged(vec);
+        l->positionChanged(vec, this);
 
 }
 void WorldObject::update(float time)
 {
     for(WorldObjectListener *listener : m_listeners)
-        listener->update(time);
+        listener->update(time, this);
 }
 const Vector3D& WorldObject::position() const
 {
@@ -62,7 +62,7 @@ void WorldObject::setRotation(const Quaternion& q)
 {
     m_rotation = q;
     for(WorldObjectListener *l : m_listeners)
-        l->rotationChanged(q);
+        l->rotationChanged(q, this);
 }
 const Quaternion& WorldObject::rotation() const
 {

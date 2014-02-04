@@ -8,6 +8,7 @@
 #include "Camera/CameraRTS.h"
 #include "Map/MapView.h"
 #include "Map/Map.h"
+#include "Map/projectivedecalsmanager.h"
 #include "Preface/TeamList.h"
 #include "Preface/SpawnState.h"
 #include "Preface/TeamState.h"
@@ -32,6 +33,7 @@ ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j) :
                             Ogre::SHADOWTYPE_NONE);
     m_camManager = new CameraManager(mng->getGraphic()->getSceneManager());
     m_map_view = new MapView(m_map);
+    m_projectiveDecalsManager = new ProjectiveDecalsManager(mng->getGraphic(), m_map_view);
     m_sous_state = nullptr;
     m_chat = new Chat(this);
     m_current_joueur = j;
@@ -40,6 +42,7 @@ ClientGameEngine::ClientGameEngine(EngineManager* mng, Joueur* j) :
 }
 ClientGameEngine::~ClientGameEngine()
 {
+    delete m_projectiveDecalsManager;
     if (m_sous_state != nullptr)
     {
         m_sous_state->exit();
@@ -195,6 +198,11 @@ GameEngine::Type ClientGameEngine::getTypeServerClient() const
 const MapView* ClientGameEngine::getMapView() const
 {
     return m_map_view;
+}
+
+ProjectiveDecalsManager *ClientGameEngine::getProjectiveDecalsManager()
+{
+    return m_projectiveDecalsManager;
 }
 CameraManager* ClientGameEngine::cameraManager() const
 {

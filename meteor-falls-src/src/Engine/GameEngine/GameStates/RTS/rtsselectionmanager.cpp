@@ -9,6 +9,9 @@
 
 #include <OgreRay.h>
 
+#include "../../ClientGameEngine.h"
+#include "../../Map/projectivedecalsmanager.h"
+
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
     m_mouseDown = false;
@@ -45,6 +48,7 @@ void RTSSelectionManager::clearSelection()
 {
     for(WorldObjectView *view : m_selectionViews) {
         view->setSelected(false);
+        m_rtsState->game()->getProjectiveDecalsManager()->remove(view);
     }
     m_selection.clear();
     m_selectionViews.clear();
@@ -57,6 +61,7 @@ void RTSSelectionManager::extractViews()
         if(view) {
             m_selectionViews.push_back(view);
             view->setSelected(true);
+            m_rtsState->game()->getProjectiveDecalsManager()->add(view);
         }
     }
 }

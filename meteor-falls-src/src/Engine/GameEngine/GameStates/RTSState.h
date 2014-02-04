@@ -26,6 +26,7 @@ public:
     std::vector<Unite *> getUnitesInRectangle(const Rectangle<float> &rectangle) const;
     WorldObject* getObjectUnderRay(const Ogre::Ray &ray) const;
     Ogre::Ray getMouseRay() const;
+    ClientGameEngine *game();
 
 private:
     void injectCameraEvents();

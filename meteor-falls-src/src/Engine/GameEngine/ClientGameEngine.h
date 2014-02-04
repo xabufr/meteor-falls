@@ -6,6 +6,7 @@
 
 class MapView;
 class WorldObjectView;
+class ProjectiveDecalsManager;
 class ClientGameEngine : public GameEngine
 {
 public:
@@ -23,6 +24,8 @@ public:
     virtual Type getTypeServerClient() const;
     const MapView* getMapView() const;
 
+    ProjectiveDecalsManager *getProjectiveDecalsManager();
+
 private:
     void changeSousStateIfNecessary();
 
@@ -35,6 +38,7 @@ private:
     Chat* m_chat;
     TypeState m_type_sous_state;
     bool m_change_sous_state;
+    ProjectiveDecalsManager *m_projectiveDecalsManager;
 };
 
 #endif

@@ -6,10 +6,10 @@ class Batiment;
 class BatimentView: public UniteView
 {
 public:
-	BatimentView(Batiment*, Ogre::SceneNode*);
-	virtual void positionChanged(const Vector3D& position);
+    BatimentView(Batiment*, Ogre::SceneNode*);
+    virtual void positionChanged(const Vector3D& position, WorldObject *sender);
 private:
-	Ogre::Entity *m_entity;
+    Ogre::Entity *m_entity;
 };
 
-#endif 
+#endif

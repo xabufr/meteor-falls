@@ -119,6 +119,7 @@ void MapView::mapLoaded(const std::string& mapName)
         m_globals->setCompositeMapDistance(compositeDistance);
         m_globals->setCompositeMapAmbient(m_scene_mgr->getAmbientLight());
         m_globals->setCastsDynamicShadows(false);
+        m_globals->setUseVertexCompressionWhenAvailable(false);
 
         m_terrainGroup = OGRE_NEW Ogre::TerrainGroup(m_scene_mgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
         m_terrainGroup->setOrigin(Ogre::Vector3::ZERO);
@@ -444,4 +445,9 @@ boost::optional<Vector3D> MapView::getIntersection(Ogre::Ray &ray) const
         return boost::optional<Vector3D>(Vector3D(localRayIntersects.position));
     }
     return boost::optional<Vector3D>();
+}
+
+Ogre::TerrainGroup *MapView::terrain() const
+{
+    return m_terrainGroup;
 }

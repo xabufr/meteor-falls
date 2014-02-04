@@ -110,3 +110,9 @@ WorldObject *RTSState::getObjectUnderRay(const Ogre::Ray & ray) const
 
     return nullptr;
 }
+
+
+ClientGameEngine *RTSState::game()
+{
+    return m_gameEngine;
+}
