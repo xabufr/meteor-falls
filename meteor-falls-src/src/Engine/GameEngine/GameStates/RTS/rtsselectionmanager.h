@@ -6,7 +6,7 @@
 
 class RTSState;
 class WorldObjectView;
-class Unite;
+class WorldObject;
 class RTSSelectionManager: public OIS::MouseListener
 {
 public:
@@ -28,7 +28,7 @@ private:
     bool m_mouseDown, m_mouseMoved;
     Vector2D<float> m_startPosition;
     RTSState *m_rtsState;
-    std::vector<Unite*> m_selection;
+    std::vector<WorldObject*> m_selection;
     std::vector<WorldObjectView*> m_selectionViews;
 };
 

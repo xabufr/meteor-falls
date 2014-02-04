@@ -2,10 +2,12 @@
 #include "../RTSState.h"
 #include <Utils/rectangle.h>
 #include "../../Map/WorldObjectView.h"
-#include "../../Unites/Unite.h"
+#include "../../Map/WorldObject.h"
 
 #include <Engine/GraphicEngine/Ogre/ogrecontextmanager.h>
 #include <Engine/GraphicEngine/Ogre/OgreWindowInputManager.h>
+
+#include <OgreRay.h>
 
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
@@ -50,8 +52,8 @@ void RTSSelectionManager::clearSelection()
 
 void RTSSelectionManager::extractViews()
 {
-    for(Unite *unite : m_selection) {
-        WorldObjectView *view = unite->view();
+    for(WorldObject *object : m_selection) {
+        WorldObjectView *view = object->view();
         if(view) {
             m_selectionViews.push_back(view);
             view->setSelected(true);
@@ -63,25 +65,32 @@ void RTSSelectionManager::selectArea()
 {
     Vector2D<float> endPosition = getMouseCoordOnMap();
     Rectangle<float> selectedAera(m_startPosition, endPosition);
-    clearSelection();
-    m_selection = m_rtsState->getUnitesInRectangle(selectedAera);
-    extractViews();
+    std::vector<Unite *> unitesInRectangle = m_rtsState->getUnitesInRectangle(selectedAera);
+    for(Unite* unite : unitesInRectangle) {
+        m_selection.push_back((WorldObject*)unite);
+    }
 }
 
 void RTSSelectionManager::selectSingleUnit()
 {
-    //TODO
+    Ogre::Ray ray = m_rtsState->getMouseRay();
+    WorldObject *object = m_rtsState->getObjectUnderRay(ray);
+    if(object) {
+        m_selection.push_back(object);
+    }
 }
 
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     if(id == OIS::MouseButtonID::MB_Left) {
+        clearSelection();
         m_mouseDown = false;
         if(m_mouseMoved) {
             selectArea();
         } else {
-
+            selectSingleUnit();
         }
+        extractViews();
     }
     return true;
 }

@@ -14,6 +14,9 @@
 
 #include "RTS/rtsselectionmanager.h"
 
+#include <Engine/EngineManager/EngineManager.h>
+#include <Engine/GraphicEngine/GraphicEngine.h>
+
 RTSState::RTSState(StateManager *manager, ClientGameEngine *gameEngine) :
     State(manager), m_gameEngine(gameEngine), m_selectionManager(new RTSSelectionManager(this))
 {
@@ -52,12 +55,19 @@ void RTSState::injectCameraEvents()
 }
 
 
-Vector3D RTSState::getMouseProjectedPosition() const
+Ogre::Ray RTSState::getMouseRay() const
 {
-    const MapView *mapView = m_gameEngine->getMapView();
     const Ogre::Camera *camera = m_gameEngine->cameraManager()->camera();
     CEGUI::Vector2f mousePosition = CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getDisplayIndependantPosition();
     Ogre::Ray requestRay = camera->getCameraToViewportRay(mousePosition.d_x,mousePosition.d_y);
+
+    return requestRay;
+}
+
+Vector3D RTSState::getMouseProjectedPosition() const
+{
+    const MapView *mapView = m_gameEngine->getMapView();
+    Ogre::Ray requestRay = getMouseRay();
     boost::optional<Vector3D> mapPosition = mapView->getIntersection(requestRay);
     if(mapPosition.is_initialized()) {
         return *mapPosition;
@@ -78,4 +88,25 @@ std::vector<Unite*> RTSState::getUnitesInRectangle(const Rectangle<float> &recta
         }
     }
     return foundUnits;
+}
+
+WorldObject *RTSState::getObjectUnderRay(const Ogre::Ray & ray) const
+{
+    EngineManager *mng = m_gameEngine->getManager();
+    Ogre::RaySceneQuery *query = mng->getGraphic()->getSceneManager()->createRayQuery(ray);
+    Ogre::RaySceneQueryResult& queryResult = query->execute();
+
+    for(Ogre::RaySceneQueryResultEntry &entry : queryResult) {
+        if(entry.movable) {
+            WorldObject *worldObject;
+            try {
+            worldObject = Ogre::any_cast<WorldObject*>(entry.movable->getUserObjectBindings().getUserAny());
+            if(worldObject)
+                return worldObject;
+            } catch (...) {}
+        }
+    }
+    mng->getGraphic()->getSceneManager()->destroyQuery(query);
+
+    return nullptr;
 }

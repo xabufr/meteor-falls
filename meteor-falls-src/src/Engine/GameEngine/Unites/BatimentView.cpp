@@ -8,6 +8,7 @@
 BatimentView::BatimentView(Batiment* bat, Ogre::SceneNode* node): UniteView(bat, node)
 {
     m_entity = node->getCreator()->createEntity(bat->type()->meshParameters().find("normal")->second);
+    m_entity->getUserObjectBindings().setUserAny(Ogre::Any((WorldObject*) bat));
     m_node->attachObject(m_entity);
     m_node->showBoundingBox(true);
 }

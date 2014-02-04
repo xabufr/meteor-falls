@@ -11,6 +11,7 @@ class CameraRTS;
 class CommandConfig;
 class RTSSelectionManager;
 class Unite;
+class WorldObject;
 
 class RTSState: public State
 {
@@ -23,17 +24,18 @@ public:
     virtual ret_code work(const TimeDuration &elapsed);
     Vector3D getMouseProjectedPosition() const;
     std::vector<Unite *> getUnitesInRectangle(const Rectangle<float> &rectangle) const;
+    WorldObject* getObjectUnderRay(const Ogre::Ray &ray) const;
+    Ogre::Ray getMouseRay() const;
 
 private:
     void injectCameraEvents();
+    RTSState(const RTSState&);
 
 private:
     ClientGameEngine *m_gameEngine;
     CameraRTS *m_camera;
     CommandConfig *m_commandConfig;
     RTSSelectionManager *m_selectionManager;
-
-    RTSState(const RTSState&);
 };
 
 #endif /* RTSSTATE_H_ */
