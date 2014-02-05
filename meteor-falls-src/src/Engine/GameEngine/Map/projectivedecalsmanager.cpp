@@ -14,10 +14,11 @@
 class ProjectiveDecalsManager::DecalDefinition: public WorldObjectListener {
 public:
 
-    DecalDefinition(MapView *m_mapView, const WorldObjectView* object, Ogre::SceneNode *parentNode);
+    DecalDefinition(MapView *m_mapView, const WorldObjectView* object, Ogre::SceneNode *parentNode, const ProjectiveDecalsManager::DecalProperties &properties);
     void positionChanged(const Vector3D &pos, WorldObject *sender);
     void update();
     ~DecalDefinition();
+    void setProperties(const ProjectiveDecalsManager::DecalProperties &properties);
 
 private:
     std::vector<Ogre::Terrain *> findMapParts();
@@ -30,6 +31,7 @@ private:
     Ogre::Frustum *m_frustum;
     Ogre::SceneNode *m_node;
     std::map<Ogre::Terrain*, Ogre::Pass*> m_passes;
+    ProjectiveDecalsManager::DecalProperties m_properties;
 };
 
 
@@ -38,9 +40,9 @@ ProjectiveDecalsManager::ProjectiveDecalsManager(GraphicEngine *graphic, MapView
     m_sceneNode = graphic->getSceneManager()->getRootSceneNode()->createChildSceneNode("projective_decals");
 }
 
-void ProjectiveDecalsManager::add(const WorldObjectView *object)
+void ProjectiveDecalsManager::add(const WorldObjectView *object, const ProjectiveDecalsManager::DecalProperties &properties)
 {
-    m_decalsObjects[object] = new DecalDefinition(m_mapView, object, m_sceneNode);
+    m_decalsObjects[object] = new DecalDefinition(m_mapView, object, m_sceneNode, properties);
 }
 
 void ProjectiveDecalsManager::remove(const WorldObjectView *object)
@@ -49,7 +51,7 @@ void ProjectiveDecalsManager::remove(const WorldObjectView *object)
     m_decalsObjects.erase(object);
 }
 
-ProjectiveDecalsManager::DecalDefinition::DecalDefinition(MapView *m_mapView, const WorldObjectView *object, Ogre::SceneNode *parentNode) : m_mapView(m_mapView), m_object(object) {
+ProjectiveDecalsManager::DecalDefinition::DecalDefinition(MapView *m_mapView, const WorldObjectView *object, Ogre::SceneNode *parentNode, const DecalProperties &properties) : m_mapView(m_mapView), m_object(object), m_properties(properties) {
     m_node = parentNode->createChildSceneNode();
     m_frustum = new Ogre::Frustum();
     m_frustum->setProjectionType(Ogre::PT_ORTHOGRAPHIC);
@@ -91,6 +93,10 @@ void ProjectiveDecalsManager::DecalDefinition::update()
     });
 
     m_node->setPosition(m_object->model()->position() + Ogre::Vector3(0,10,0));
+
+    const Ogre::AxisAlignedBox boundingBox = m_object->getBoundingBox();
+    m_frustum->setAspectRatio(boundingBox.getSize().x / boundingBox.getSize().z);
+    m_frustum->setOrthoWindowHeight(boundingBox.getSize().z + m_properties.additionnalSize);
 }
 
 ProjectiveDecalsManager::DecalDefinition::~DecalDefinition()
@@ -102,6 +108,15 @@ ProjectiveDecalsManager::DecalDefinition::~DecalDefinition()
     m_node->detachAllObjects();
     delete m_frustum;
     m_node->getParent()->removeChild(m_node);
+}
+
+void ProjectiveDecalsManager::DecalDefinition::setProperties(const ProjectiveDecalsManager::DecalProperties &properties)
+{
+    m_properties = properties;
+    std::for_each(m_passes.begin(), m_passes.end(), [this](std::pair<Ogre::Terrain*, Ogre::Pass*> entry) {
+        Ogre::Pass *pass = entry.second;
+        pass->setAmbient(m_properties.color);
+    });
 }
 
 std::vector<Ogre::Terrain *> ProjectiveDecalsManager::DecalDefinition::findMapParts()
@@ -126,8 +141,9 @@ void ProjectiveDecalsManager::DecalDefinition::createPassFor(Ogre::Terrain *terr
     Ogre::Pass *pass = terrain->getMaterial()->getTechnique(0)->createPass();
     pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
     pass->setDepthBias(1);
-    pass->setLightingEnabled(false);
-    Ogre::TextureUnitState *texState = pass->createTextureUnitState("decal.png");
+    pass->setLightingEnabled(true);
+    pass->setAmbient(m_properties.color);
+    Ogre::TextureUnitState *texState = pass->createTextureUnitState(m_properties.texture);
     texState->setProjectiveTexturing(true, this->m_frustum);
     texState->setTextureAddressingMode(Ogre::TextureUnitState::TAM_BORDER);
     texState->setTextureBorderColour(Ogre::ColourValue(0,0,0,0));
@@ -141,4 +157,16 @@ void ProjectiveDecalsManager::DecalDefinition::removePassFor(Ogre::Terrain *terr
     Ogre::Pass *pass = m_passes[terrain];
     pass->getParent()->removePass(pass->getIndex());
     m_passes.erase(terrain);
+}
+
+
+ProjectiveDecalsManager::DecalProperties::DecalProperties()
+{
+    texture = "decal_circle.png";
+    color = Ogre::ColourValue(0,255,0);
+    additionnalSize = 2.5;
+}
+
+ProjectiveDecalsManager::DecalProperties::DecalProperties(const std::string &p_texture, const Ogre::ColourValue &p_color, float p_additionnalSize): texture(p_texture), color(p_color), additionnalSize(p_additionnalSize)
+{
 }
