@@ -6,11 +6,15 @@
 
 #include <Engine/GraphicEngine/Ogre/ogrecontextmanager.h>
 #include <Engine/GraphicEngine/Ogre/OgreWindowInputManager.h>
+#include <Engine/GraphicEngine/Ogre/OgreApplication.h>
 
 #include <OgreRay.h>
+#include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
 
 #include "../../ClientGameEngine.h"
-#include "../../Map/projectivedecalsmanager.h"
+#include "../../../EngineManager/EngineManager.h"
+#include "../../../GraphicEngine/GraphicEngine.h"
 
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
@@ -18,10 +22,20 @@ RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
     m_mouseMoved = false;
     m_rtsState = rtsState;
     OgreContextManager::get()->getInputManager()->addMouseListener(this);
+    m_selectionProjection = m_rtsState->game()->getProjectiveDecalsManager()->addSimple(ProjectiveDecalsManager::DecalProperties("selection.png", Ogre::ColourValue(255,255,255), 0.f));
 }
 
 bool RTSSelectionManager::mouseMoved(const OIS::MouseEvent &arg)
 {
+    if(m_mouseDown) {
+        m_selectionProjection->setVisible(true);
+        ProjectiveDecalsManager::DecalProperties &properties = m_selectionProjection->getProperties();
+        Vector2D<float> mouse = getMouseCoordOnMap();
+        properties.size = m_startPosition - mouse;
+        properties.position = m_startPosition - properties.size / 2.f;
+        m_selectionProjection->update();
+    }
+
     m_mouseMoved = true;
     return true;
 }
@@ -88,6 +102,7 @@ void RTSSelectionManager::selectSingleUnit()
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     if(id == OIS::MouseButtonID::MB_Left) {
+        m_selectionProjection->setVisible(false);
         clearSelection();
         m_mouseDown = false;
         if(m_mouseMoved) {
@@ -103,4 +118,5 @@ bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseBu
 RTSSelectionManager::~RTSSelectionManager()
 {
     OgreContextManager::get()->getInputManager()->delMouseListener(this);
+    m_rtsState->game()->getProjectiveDecalsManager()->remove(m_selectionProjection);
 }

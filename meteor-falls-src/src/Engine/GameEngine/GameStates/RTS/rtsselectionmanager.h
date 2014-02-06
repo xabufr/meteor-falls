@@ -3,6 +3,7 @@
 
 #include <OIS/OISMouse.h>
 #include <Utils/vector2d.h>
+#include "../../Map/projectivedecalsmanager.h"
 
 class RTSState;
 class WorldObjectView;
@@ -30,6 +31,7 @@ private:
     RTSState *m_rtsState;
     std::vector<WorldObject*> m_selection;
     std::vector<WorldObjectView*> m_selectionViews;
+    ProjectiveDecalsManager::BasicDecalDefinition *m_selectionProjection;
 };
 
 #endif // RTSINPUTMANAGER_H
