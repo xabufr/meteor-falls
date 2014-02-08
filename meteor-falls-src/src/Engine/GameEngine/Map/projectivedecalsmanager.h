@@ -33,7 +33,7 @@ public:
         void setProperties(const ProjectiveDecalsManager::DecalProperties &properties);
         ProjectiveDecalsManager::DecalProperties& getProperties();
         void update();
-        ~BasicDecalDefinition();
+        virtual ~BasicDecalDefinition();
 
         void setVisible(bool visible);
 

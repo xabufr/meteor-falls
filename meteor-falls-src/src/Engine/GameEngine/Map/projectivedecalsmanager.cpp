@@ -16,12 +16,12 @@ public:
 
     ViewDecalDefinition(MapView *m_mapView, const WorldObjectView* object, Ogre::SceneNode *parentNode, const ProjectiveDecalsManager::DecalProperties &properties);
     void positionChanged(const Vector3D &pos, WorldObject *sender);
-    ~ViewDecalDefinition();
+    virtual ~ViewDecalDefinition();
 
 protected:
-        virtual Vector2D<float> getSize() const;
-        virtual Vector2D<float> getPosition() const;
-        virtual Ogre::AxisAlignedBox getBoundingBox() const;
+    virtual Vector2D<float> getSize() const;
+    virtual Vector2D<float> getPosition() const;
+    virtual Ogre::AxisAlignedBox getBoundingBox() const;
 
 private:
     const WorldObjectView *m_object;

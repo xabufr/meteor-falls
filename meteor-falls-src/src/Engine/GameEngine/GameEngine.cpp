@@ -40,11 +40,11 @@ GameEngine::GameEngine(EngineManager* mng):
 GameEngine::~GameEngine()
 {
     delete m_map;
-    delete m_broadphase;
-    delete m_collisionConfiguration;
+    delete m_world;
     delete m_solver;
     delete m_dispatcher;
-    delete m_world;
+    delete m_collisionConfiguration;
+    delete m_broadphase;
 }
 void GameEngine::work(const TimeDuration &elapsed)
 {
