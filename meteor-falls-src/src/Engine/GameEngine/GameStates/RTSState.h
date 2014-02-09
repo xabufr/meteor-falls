@@ -23,7 +23,7 @@ public:
     virtual void exit();
     virtual ret_code work(const TimeDuration &elapsed);
     Vector3D getMouseProjectedPosition() const;
-    std::vector<Unite *> getUnitesInRectangle(const Rectangle<float> &rectangle) const;
+    std::vector<Unite *> getUnitesInRectangleUnderCamera(const Rectangle<float> &rectangle) const;
     WorldObject* getObjectUnderRay(const Ogre::Ray &ray) const;
     Ogre::Ray getMouseRay() const;
     ClientGameEngine *game();

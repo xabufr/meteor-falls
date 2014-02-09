@@ -94,9 +94,9 @@ void RTSSelectionManager::extractViews()
 
 void RTSSelectionManager::selectArea()
 {
-    Vector2D<float> endPosition = getMouseCoordOnMap();
+    Vector2D<float> endPosition = getMouseCoord();
     Rectangle<float> selectedAera(m_startPosition, endPosition);
-    std::vector<Unite *> unitesInRectangle = m_rtsState->getUnitesInRectangle(selectedAera);
+    std::vector<Unite *> unitesInRectangle = m_rtsState->getUnitesInRectangleUnderCamera(selectedAera);
     for(Unite* unite : unitesInRectangle) {
         m_selection.push_back((WorldObject*)unite);
     }

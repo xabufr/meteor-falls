@@ -76,17 +76,39 @@ Vector3D RTSState::getMouseProjectedPosition() const
     return Vector3D(0,0,0);
 }
 
-std::vector<Unite*> RTSState::getUnitesInRectangle(const Rectangle<float> &rectangle) const
+std::vector<Unite*> RTSState::getUnitesInRectangleUnderCamera(const Rectangle<float> &rectangle) const
 {
+    Ogre::PlaneBoundedVolume vol;
+    Ogre::Camera *camera = m_gameEngine->cameraManager()->camera();
+    Ogre::Ray topLeft = camera->getCameraToViewportRay(rectangle.left, rectangle.top);
+    Ogre::Ray topRight = camera->getCameraToViewportRay(rectangle.left + rectangle.width, rectangle.top);
+    Ogre::Ray bottomLeft = camera->getCameraToViewportRay(rectangle.left, rectangle.top + rectangle.height);
+    Ogre::Ray bottomRight = camera->getCameraToViewportRay(rectangle.left + rectangle.width, rectangle.top + rectangle.height);
+
+    vol.planes.push_back(Ogre::Plane(topLeft.getPoint(1), topRight.getPoint(1), bottomRight.getPoint(1)));         // front plane
+    vol.planes.push_back(Ogre::Plane(topLeft.getOrigin(), topLeft.getPoint(100), topRight.getPoint(100)));         // top plane
+    vol.planes.push_back(Ogre::Plane(topLeft.getOrigin(), bottomLeft.getPoint(100), topLeft.getPoint(100)));       // left plane
+    vol.planes.push_back(Ogre::Plane(bottomLeft.getOrigin(), bottomRight.getPoint(100), bottomLeft.getPoint(100)));   // bottom plane
+    vol.planes.push_back(Ogre::Plane(topRight.getOrigin(), topRight.getPoint(100), bottomRight.getPoint(100)));     // right plane
+
+    Ogre::PlaneBoundedVolumeList volList;
+    volList.push_back(vol);
+
+    EngineManager *mng = m_gameEngine->getManager();
+
+    Ogre::PlaneBoundedVolumeListSceneQuery *query = mng->getGraphic()->getSceneManager()->createPlaneBoundedVolumeQuery(volList);
+    Ogre::SceneQueryResult result = query->execute();
+
     std::vector<Unite*> foundUnits;
-    for(Equipe* equipe : m_gameEngine->getTeams()) {
-        for(Unite* unite : equipe->unites()) {
-            Vector2D<float> positionUnite(unite->position().x, unite->position().z);
-            if(rectangle.contains(positionUnite)) {
-                foundUnits.push_back(unite);
-            }
+    std::for_each(result.movables.begin(), result.movables.end(), [&foundUnits](Ogre::MovableObject *obj) {
+        try {
+            WorldObject *worldObj = Ogre::any_cast<WorldObject*>(obj->getUserObjectBindings().getUserAny());
+            Unite *unite = dynamic_cast<Unite*>(worldObj);
+            foundUnits.push_back(unite);
+        } catch(...) {
         }
-    }
+    });
+
     return foundUnits;
 }
 
