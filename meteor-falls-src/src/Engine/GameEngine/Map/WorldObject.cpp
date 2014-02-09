@@ -27,6 +27,11 @@ void WorldObject::addListener(WorldObjectListener *l)
     m_listeners.push_back(l);
 }
 
+void WorldObject::removeListener(const WorldObjectListener *listener)
+{
+    m_listeners.erase(std::remove(m_listeners.begin(), m_listeners.end(), listener));
+}
+
 WorldObjectView *WorldObject::view() const
 {
     for(WorldObjectListener* listener : m_listeners) {

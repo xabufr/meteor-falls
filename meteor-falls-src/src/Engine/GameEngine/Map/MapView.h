@@ -44,6 +44,7 @@ public:
     boost::optional<Vector3D> getIntersection(Ogre::Ray &ray) const;
 
     Ogre::TerrainGroup *terrain() const;
+    Map *map();
 
 private:
     Ogre::SceneManager *m_scene_mgr;

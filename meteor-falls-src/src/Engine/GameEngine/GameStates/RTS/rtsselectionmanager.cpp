@@ -15,6 +15,7 @@
 #include "../../ClientGameEngine.h"
 #include "../../../EngineManager/EngineManager.h"
 #include "../../../GraphicEngine/GraphicEngine.h"
+#include "../../Map/selectionbillboardmanager.h"
 
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
@@ -22,18 +23,11 @@ RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
     m_mouseMoved = false;
     m_rtsState = rtsState;
     OgreContextManager::get()->getInputManager()->addMouseListener(this);
-    m_selectionProjection = m_rtsState->game()->getProjectiveDecalsManager()->addSimple(ProjectiveDecalsManager::DecalProperties("selection.png", Ogre::ColourValue(255,255,255), 0.f));
 }
 
 bool RTSSelectionManager::mouseMoved(const OIS::MouseEvent &arg)
 {
     if(m_mouseDown) {
-        m_selectionProjection->setVisible(true);
-        ProjectiveDecalsManager::DecalProperties &properties = m_selectionProjection->getProperties();
-        Vector2D<float> mouse = getMouseCoordOnMap();
-        properties.size = m_startPosition - mouse;
-        properties.position = m_startPosition - properties.size / 2.f;
-        m_selectionProjection->update();
     }
 
     m_mouseMoved = true;
@@ -61,8 +55,7 @@ Vector2D<float> RTSSelectionManager::getMouseCoordOnMap()
 void RTSSelectionManager::clearSelection()
 {
     for(WorldObjectView *view : m_selectionViews) {
-        view->setSelected(false);
-        m_rtsState->game()->getProjectiveDecalsManager()->remove(view);
+        m_rtsState->game()->selectionBillboardManager()->remove(view);
     }
     m_selection.clear();
     m_selectionViews.clear();
@@ -74,8 +67,7 @@ void RTSSelectionManager::extractViews()
         WorldObjectView *view = object->view();
         if(view) {
             m_selectionViews.push_back(view);
-            view->setSelected(true);
-            m_rtsState->game()->getProjectiveDecalsManager()->add(view);
+            m_rtsState->game()->selectionBillboardManager()->add(view, "Selection/Circle", Ogre::ColourValue::Green);
         }
     }
 }
@@ -102,7 +94,6 @@ void RTSSelectionManager::selectSingleUnit()
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     if(id == OIS::MouseButtonID::MB_Left) {
-        m_selectionProjection->setVisible(false);
         clearSelection();
         m_mouseDown = false;
         if(m_mouseMoved) {
@@ -118,5 +109,4 @@ bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseBu
 RTSSelectionManager::~RTSSelectionManager()
 {
     OgreContextManager::get()->getInputManager()->delMouseListener(this);
-    m_rtsState->game()->getProjectiveDecalsManager()->remove(m_selectionProjection);
 }

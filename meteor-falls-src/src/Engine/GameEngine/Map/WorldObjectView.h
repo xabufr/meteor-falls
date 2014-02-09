@@ -15,13 +15,10 @@ public:
     WorldObjectView(WorldObject*, Ogre::SceneNode*);
     ~WorldObjectView();
     WorldObject* model() const;
-    void setSelected(bool selected);
-    bool selected() const;
     const Ogre::AxisAlignedBox& getBoundingBox() const;
     virtual void update(float time, WorldObject *sender);
 protected:
     Ogre::SceneNode *m_node;
     WorldObject *m_model;
-    bool m_isSelected;
 };
 #endif

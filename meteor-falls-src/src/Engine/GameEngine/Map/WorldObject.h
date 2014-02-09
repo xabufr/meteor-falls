@@ -25,6 +25,7 @@ class WorldObject
         virtual void update(float time);
 
         void addListener(WorldObjectListener*);
+        void removeListener(const WorldObjectListener *listener);
         WorldObjectView* view() const;
         virtual bool destroyNeeded() const;
     protected:

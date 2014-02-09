@@ -451,3 +451,8 @@ Ogre::TerrainGroup *MapView::terrain() const
 {
     return m_terrainGroup;
 }
+
+Map *MapView::map()
+{
+    return m_map;
+}
