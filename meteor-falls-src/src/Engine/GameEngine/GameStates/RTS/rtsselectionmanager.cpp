@@ -11,6 +11,10 @@
 #include <OgreRay.h>
 #include <OgreBillboardSet.h>
 #include <OgreBillboard.h>
+#include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
+#include <OgreOverlayElement.h>
+#include <OgreOverlayContainer.h>
 
 #include "../../ClientGameEngine.h"
 #include "../../../EngineManager/EngineManager.h"
@@ -23,11 +27,27 @@ RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
     m_mouseMoved = false;
     m_rtsState = rtsState;
     OgreContextManager::get()->getInputManager()->addMouseListener(this);
+    Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+    m_overlaySelection = overlayManager.create("selection");
+    m_containerSelection = static_cast<Ogre::OverlayContainer*>(overlayManager.createOverlayElement("Panel", "PanelSelection"));
+    m_containerSelection->setPosition(0,0);
+    m_containerSelection->setDimensions(0.5,0.5);
+    m_containerSelection->setMaterialName("Selection/Overlay");
+    m_overlaySelection->add2D(m_containerSelection);
+}
+
+Vector2D<float> RTSSelectionManager::getMouseCoord()
+{
+    return CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getDisplayIndependantPosition();
 }
 
 bool RTSSelectionManager::mouseMoved(const OIS::MouseEvent &arg)
 {
     if(m_mouseDown) {
+        Vector2D<float> position = getMouseCoord();
+        m_containerSelection->setPosition(std::min(position.x, m_startPosition.x), std::min(position.y, m_startPosition.y));
+        m_containerSelection->setDimensions(std::abs(m_startPosition.x - position.x), std::abs(m_startPosition.y - position.y));
+        m_overlaySelection->show();
     }
 
     m_mouseMoved = true;
@@ -39,7 +59,7 @@ bool RTSSelectionManager::mousePressed(const OIS::MouseEvent &arg, OIS::MouseBut
     if(id == OIS::MouseButtonID::MB_Left) {
         m_mouseDown = true;
         m_mouseMoved = false;
-        m_startPosition = getMouseCoordOnMap();
+        m_startPosition = getMouseCoord();
     }
     return true;
 }
@@ -94,6 +114,7 @@ void RTSSelectionManager::selectSingleUnit()
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     if(id == OIS::MouseButtonID::MB_Left) {
+        m_overlaySelection->hide();
         clearSelection();
         m_mouseDown = false;
         if(m_mouseMoved) {

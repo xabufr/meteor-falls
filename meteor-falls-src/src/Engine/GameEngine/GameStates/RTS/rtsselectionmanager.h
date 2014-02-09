@@ -7,6 +7,10 @@
 class RTSState;
 class WorldObjectView;
 class WorldObject;
+namespace Ogre {
+    class Overlay;
+    class OverlayContainer;
+}
 class RTSSelectionManager: public OIS::MouseListener
 {
 public:
@@ -17,6 +21,7 @@ public:
 
     ~RTSSelectionManager();
 
+    Vector2D<float> getMouseCoord();
 private:
     Vector2D<float> getMouseCoordOnMap();
     void clearSelection();
@@ -30,6 +35,9 @@ private:
     RTSState *m_rtsState;
     std::vector<WorldObject*> m_selection;
     std::vector<WorldObjectView*> m_selectionViews;
+
+    Ogre::Overlay *m_overlaySelection;
+    Ogre::OverlayContainer *m_containerSelection;
 };
 
 #endif // RTSINPUTMANAGER_H
