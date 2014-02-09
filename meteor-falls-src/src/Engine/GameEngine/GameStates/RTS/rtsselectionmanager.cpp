@@ -20,6 +20,7 @@
 #include "../../../EngineManager/EngineManager.h"
 #include "../../../GraphicEngine/GraphicEngine.h"
 #include "../../Map/selectionbillboardmanager.h"
+#include "../../Unites/Unite.h"
 
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
@@ -83,11 +84,21 @@ void RTSSelectionManager::clearSelection()
 
 void RTSSelectionManager::extractViews()
 {
+    Equipe *currentTeam = m_rtsState->game()->getCurrentJoueur()->equipe();
     for(WorldObject *object : m_selection) {
         WorldObjectView *view = object->view();
         if(view) {
             m_selectionViews.push_back(view);
-            m_rtsState->game()->selectionBillboardManager()->add(view, "Selection/Circle", Ogre::ColourValue::Green);
+            Ogre::ColourValue colour = Ogre::ColourValue::Green;
+            Unite *unite = dynamic_cast<Unite*>(view->model());
+            if(unite != nullptr) {
+                if(unite->equipe() != currentTeam) {
+                    colour = Ogre::ColourValue::Red;
+                }
+            } else {
+                colour = Ogre::ColourValue::White;
+            }
+            m_rtsState->game()->selectionBillboardManager()->add(view, "Selection/Circle", colour);
         }
     }
 }
