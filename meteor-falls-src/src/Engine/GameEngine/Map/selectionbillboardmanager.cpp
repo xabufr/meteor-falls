@@ -9,6 +9,7 @@
 #include <OgreBillboard.h>
 #include <OgreSceneNode.h>
 #include "Map.h"
+#include "WorldObjectType.h"
 
 class SelectionBillboardManager::InternalObjectRepresentation : public WorldObjectListener{
 public:
@@ -61,9 +62,9 @@ Ogre::BillboardSet * SelectionBillboardManager::getSet(const std::string &materi
     return newSet;
 }
 
-void SelectionBillboardManager::add(WorldObjectView *view, const std::string &materialName, const Ogre::ColourValue &colour)
+void SelectionBillboardManager::add(WorldObjectView *view, const Ogre::ColourValue &colour)
 {
-    Ogre::BillboardSet *set = getSet(materialName);
+    Ogre::BillboardSet *set = getSet(view->model()->type()->selectedMaterialName());
     m_representation[set].push_back(new SelectionBillboardManager::InternalObjectRepresentation(this, set, view, colour));
 }
 

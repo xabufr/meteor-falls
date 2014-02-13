@@ -4,21 +4,22 @@
 #include <boost/exception/exception.hpp>
 #include <exception>
 #include "../../ScriptEngine/MeshManager.h"
+#include "WorldObjectType.h"
 
-struct ObjetTerrainType
+struct ObjetTerrainType: public WorldObjectType
 {
-	class DataExtractionError : public boost::exception, public std::exception
-	{
-	};
-	enum class Type {
-		DECORS,
-		RESSOURCE,
-		METEOR,
-	} type;
-	bool physique;
-	bool destructible;
-	int vieMax;
-	MeshManager::Mesh* mesh;
-	ObjetTerrainType(boost::property_tree::ptree const &);
+    class DataExtractionError : public boost::exception, public std::exception
+    {
+    };
+    enum class Type {
+        DECORS,
+        RESSOURCE,
+        METEOR,
+    } type;
+    bool physique;
+    bool destructible;
+    int vieMax;
+    MeshManager::Mesh* mesh;
+    ObjetTerrainType(boost::property_tree::ptree const &);
 };
-#endif 
+#endif

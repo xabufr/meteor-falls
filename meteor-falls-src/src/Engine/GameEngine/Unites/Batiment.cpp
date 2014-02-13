@@ -10,9 +10,8 @@
 Batiment::Batiment(Equipe *equipe, TypeUnite* type, int id)
     : Unite(equipe, type, id)
 {
-    //m_timer.reset();
     m_isconstructed = false;
-    btCollisionShape *shape = MeshManager::get()->fromOgre(m_type->meshParameters().at("normal"))->shape;
+    btCollisionShape *shape = MeshManager::get()->fromOgre(type->meshParameters().at("normal"))->shape;
     btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape);
     m_body = new btRigidBody(BodyCI);
     btTransform tr;

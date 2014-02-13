@@ -20,7 +20,7 @@ class WorldObject
         const Vector3D& position() const;
         void setRotation(const Quaternion&);
         const Quaternion& rotation() const;
-        WorldObjectType* type() const;
+        const WorldObjectType* type() const;
 
         virtual void update(float time);
 

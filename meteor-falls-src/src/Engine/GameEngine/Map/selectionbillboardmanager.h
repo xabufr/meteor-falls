@@ -18,7 +18,7 @@ class SelectionBillboardManager
 public:
     SelectionBillboardManager(Ogre::SceneManager *sm, MapView *mapView);
     ~SelectionBillboardManager();
-    void add(WorldObjectView *view, const std::string& materialName, const Ogre::ColourValue &colour = Ogre::ColourValue::White);
+    void add(WorldObjectView *view, const Ogre::ColourValue &colour = Ogre::ColourValue::White);
     void remove(WorldObjectView *view);
     void update();
 

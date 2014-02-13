@@ -98,7 +98,7 @@ void RTSSelectionManager::extractViews()
             } else {
                 colour = Ogre::ColourValue::White;
             }
-            m_rtsState->game()->selectionBillboardManager()->add(view, "Selection/Circle", colour);
+            m_rtsState->game()->selectionBillboardManager()->add(view, colour);
         }
     }
 }

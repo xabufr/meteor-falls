@@ -1,8 +1,10 @@
 #include "TypeUnite.h"
 
-TypeUnite::TypeUnite(UnitId id, Type type, Faction* fac): m_id(id), m_type(type), m_faction(fac)
+TypeUnite::TypeUnite(UnitId id, Type type, Faction* fac, const boost::property_tree::ptree &data):
+    WorldObjectType(data),
+    m_id(id), m_type(type), m_faction(fac)
 {
-	m_spawn = false;
+    m_spawn = false;
 }
 TypeUnite::~TypeUnite()
 {
@@ -16,8 +18,8 @@ TypeUnite::Type TypeUnite::typeFromString(const std::string& type)
         return TERRESTE;
     else if(type=="AIR")
         return AERIEN;
-	else if(type=="HER") 
-		return HERO;
+    else if(type=="HER")
+        return HERO;
     return UNKNOW;
 }
 UnitId TypeUnite::id() const
@@ -102,5 +104,5 @@ const TypeUnite::MeshParameters& TypeUnite::meshParameters() const
 }
 bool TypeUnite::spawn() const
 {
-	return m_spawn;
+    return m_spawn;
 }

@@ -59,7 +59,7 @@ const Vector3D& WorldObject::position() const
 {
     return m_position;
 }
-WorldObjectType* WorldObject::type() const
+const WorldObjectType* WorldObject::type() const
 {
     return m_type;
 }

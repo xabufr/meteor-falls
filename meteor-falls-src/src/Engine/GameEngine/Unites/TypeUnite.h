@@ -3,6 +3,7 @@
 
 #include "typedefs.h"
 #include "../Ressources/Ressources.h"
+#include "../Map/WorldObjectType.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -12,18 +13,18 @@ class Recherche;
 class Armure;
 class Degat;
 class Avatar;
-class TypeUnite
+class TypeUnite: public WorldObjectType
 {
     public:
         enum Type{
             TERRESTE,
             AERIEN,
             BATIMENT,
-			HERO,
-			UNKNOW
+            HERO,
+            UNKNOW
         };
         typedef std::map<std::string, std::string> MeshParameters;
-        TypeUnite(UnitId id, Type, Faction* fac);
+        TypeUnite(UnitId id, Type, Faction* fac, const boost::property_tree::ptree &data);
         virtual ~TypeUnite();
 
         static Type typeFromString(const std::string&);
@@ -40,7 +41,7 @@ class TypeUnite
         int attaque() const;
         float vision() const;
         float portee() const;
-		bool spawn() const;
+        bool spawn() const;
         TypeUnite* amelioration() const;
         const std::vector<TypeUnite*>& construit() const;
         const std::vector<Recherche*>& recherches() const;
@@ -51,7 +52,7 @@ class TypeUnite
         Armure* armure() const;
         const MeshParameters& meshParameters() const;
 
-	protected:
+    protected:
         friend class Faction;
         const UnitId m_id;
         Type m_type;
@@ -63,7 +64,7 @@ class TypeUnite
         int m_temps_construction;
         int m_attaque;
         float m_vision, m_portee;
-		bool m_spawn;
+        bool m_spawn;
         TypeUnite* m_amelioration;
         std::vector<TypeUnite*> m_construit;
         std::vector<Recherche*> m_recherches;
