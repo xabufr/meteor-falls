@@ -8,6 +8,7 @@
 #include <OgreFrameListener.h>
 #include "RepeatKey.h"
 
+
 class OgreWindowInputManager: public Ogre::WindowEventListener,
         public Ogre::FrameListener,
         public OIS::MouseListener,
@@ -51,6 +52,11 @@ protected:
     virtual void repeatKey(OIS::KeyCode code, unsigned int text);
 
 private:
+#ifdef __linux__
+    bool m_mouseLock;
+    void *m_display;
+    int m_x_delta, m_y_delta;
+#endif
     void m_initOIS();
     Ogre::RenderWindow *m_window;
     OIS::InputManager *m_inputManager;
