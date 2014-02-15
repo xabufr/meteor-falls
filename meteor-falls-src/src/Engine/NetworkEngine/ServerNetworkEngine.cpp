@@ -193,8 +193,19 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
     }
     while(m_udpConnexion->hasData())
     {
-        ///FIXME Ajouter un filtre aux sockets Udp pour vérifier que ce soit bien un client
         m_udpConnexion->fillPacket(packet);
+        {
+            boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+            bool found = false;
+            for(ServerClient client : m_clients) {
+                if(client.tcp()->socket().remote_endpoint().address() == packet.sender) {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found)
+                continue;
+        }
         EngineMessage *message = new EngineMessage(m_manager, packet);
         switch(message->message)
         {

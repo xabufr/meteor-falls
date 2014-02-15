@@ -62,8 +62,13 @@ void Connection::handleDataSent(const boost::system::error_code& e)
 
 void Connection::addReceivedBuffer(const std::vector<char> &buffer)
 {
+    addReceivedPacket(Packet(buffer));
+}
+
+void Connection::addReceivedPacket(const Packet &packet)
+{
     boost::mutex::scoped_lock l(m_mutex_received_buffers);
-    m_received_buffers.push(Packet(buffer));
+    m_received_buffers.push(packet);
 }
 bool Connection::isListening()
 {

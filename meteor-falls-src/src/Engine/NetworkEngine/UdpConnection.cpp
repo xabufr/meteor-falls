@@ -63,8 +63,11 @@ void UdpConnection::handleReadData(const boost::system::error_code& e)
         setListening(false);
         return;
     }
-    if(m_data_buffer.size() > 0)
-        addReceivedBuffer(m_data_buffer);
+    if(m_data_buffer.size() > 0) {
+        Packet packet(m_data_buffer);
+        packet.sender = m_endpointSender.address();
+        addReceivedPacket(packet);
+    }
     m_data_buffer.clear();
     m_socket->async_receive_from(boost::asio::buffer(m_data_buffer),
                                  m_endpointSender,
