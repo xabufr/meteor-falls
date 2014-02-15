@@ -9,6 +9,9 @@
 #include "Engine/ScriptEngine/MeshManager.h"
 #include "Engine/ScriptEngine/LuaScript.h"
 
+#include "Engine/EngineMessage/EngineMessage.h"
+#include "Engine/NetworkEngine/packet.h"
+
 int main(int argc, char **argv)
 {
     try

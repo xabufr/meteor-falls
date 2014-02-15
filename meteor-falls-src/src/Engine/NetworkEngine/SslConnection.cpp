@@ -27,6 +27,12 @@ void SslConnection::send(std::string data)
         m_service->post(boost::bind(&SslConnection::handleSendData, shared_from_this(), data));
 
 }
+
+void SslConnection::send(const char *data, std::size_t size)
+{
+    if(isConnected())
+        m_service->post(boost::bind(&SslConnection::handleSendData, shared_from_this(), data, size));
+}
 void SslConnection::startListen()
 {
     if(isConnected()&&!isListening())
@@ -100,6 +106,11 @@ void SslConnection::handleSendData(std::string data)
     m_socket.async_write_some(boost::asio::buffer(os.str() + data),
                               boost::bind(&SslConnection::handleDataSent, shared_from_this(),
                                           boost::asio::placeholders::error));
+}
+
+void SslConnection::handleSendData(const char *data, std::size_t size)
+{
+
 }
 void SslConnection::handleHandshake(const boost::system::error_code& e)
 {

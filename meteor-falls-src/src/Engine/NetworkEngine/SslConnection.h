@@ -21,6 +21,7 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket>::lowest_layer_type& socket();
 
         virtual void send(std::string data);
+        virtual void send(const char *data, std::size_t size);
         virtual void startListen();
         virtual bool hasData();
         std::string getData();
@@ -35,6 +36,7 @@ class SslConnection: public boost::enable_shared_from_this<SslConnection>, publi
         virtual void handleReadHeader(const boost::system::error_code&);
         virtual void handleReadData(const boost::system::error_code&);
         virtual void handleSendData(std::string);
+        virtual void handleSendData(const char *data, std::size_t size);
 
         void handleConnect(const boost::system::error_code&);
         void handleHandshake(const boost::system::error_code&);

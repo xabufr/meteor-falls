@@ -63,6 +63,11 @@ const WorldObjectType* WorldObject::type() const
 {
     return m_type;
 }
+
+int WorldObject::id() const
+{
+    return m_id;
+}
 void WorldObject::setRotation(const Quaternion& q)
 {
     m_rotation = q;

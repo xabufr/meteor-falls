@@ -132,7 +132,7 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
         EngineMessage message(m_manager);
         message.message = EngineMessageType::LOGIN_RESULT;
         message.ints[EngineMessageKey::PLAYER_NUMBER] = -1;
-        client->tcp()->send(serialize(&message));
+        client->tcp()->sendPacket(message.toPacket());
     }
 }
 void ServerNetworkEngineWan::m_recupererSession(ServerClient* sc)

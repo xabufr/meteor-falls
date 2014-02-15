@@ -10,7 +10,6 @@ class Unite : public WorldObject
 public:
     Unite(Equipe* ,TypeUnite* type, int id);
     virtual ~Unite();
-    int id() const;
     const TypeUnite *type() const;
     virtual void update(float time);
     void subirDegats(int);
@@ -20,7 +19,6 @@ public:
     Equipe *equipe() const;
     virtual bool destroyNeeded() const;
 protected:
-    int m_id;
     int m_vie;
     Equipe *m_equipe;
 };

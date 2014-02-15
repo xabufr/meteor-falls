@@ -11,19 +11,21 @@
 #include "../Engine.h"
 #include "../../precompiled/serialization.h"
 #include "../EngineManager/EngineManager.h"
+#include "../NetworkEngine/packet.h"
 
 class EngineMessage
 {
 
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
+        EngineMessage(EngineManager *p_engine_manager, Packet &packet);
         int message;
-		long time;
+        int time;
         std::map<EngineMessageKey, int> ints;
         std::map<EngineMessageKey, double> doubles;
         std::map<EngineMessageKey, std::string> strings;
         std::map<EngineMessageKey, Vector3D> positions;
-		std::map<EngineMessageKey, Quaternion> quaternions;
+        std::map<EngineMessageKey, Quaternion> quaternions;
         void setFrom(Engine* p_from);
         void setFromType(EngineType p_from_type); //à faire
         void addTo(Engine* p_to);
@@ -32,11 +34,14 @@ class EngineMessage
         EngineType getFromType();
         std::vector<Engine*> getTo();
         std::vector<EngineType> getToType();
-		void clearTo();
+        void clearTo();
+        Packet toPacket() const;
 
-		static EngineMessage* clone(EngineMessage*);
+        static EngineMessage* clone(EngineMessage*);
 
-    private:
+        void init(EngineManager *p_engine_manager);
+        void fromPacket(Packet &packet);
+private:
         EngineManager* m_engine_manager;
         Engine* m_from;
         EngineType m_from_type;
@@ -47,18 +52,18 @@ class EngineMessage
         template<class Archive>
         void serialize(Archive& ar, const unsigned int version){
             ar & message & time & m_from_type & m_to_type & ints & doubles & strings & BOOST_SERIALIZATION_NVP(positions) & BOOST_SERIALIZATION_NVP(quaternions);
-			if(m_engine_manager!=0)
-			{
-				if(m_from==0)
-					m_from = m_engine_manager->get(m_from_type);
-				if(m_to.empty())
-				{
-					for(EngineType t : m_to_type)
-					{
-						m_to.push_back(m_engine_manager->get(t));
-					}
-				}
-			}
+            if(m_engine_manager!=0)
+            {
+                if(m_from==0)
+                    m_from = m_engine_manager->get(m_from_type);
+                if(m_to.empty())
+                {
+                    for(EngineType t : m_to_type)
+                    {
+                        m_to.push_back(m_engine_manager->get(t));
+                    }
+                }
+            }
         }
 };
 

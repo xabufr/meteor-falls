@@ -21,6 +21,7 @@ public:
     void add(WorldObjectView *view, const Ogre::ColourValue &colour = Ogre::ColourValue::White);
     void remove(WorldObjectView *view);
     void update();
+    void reset();
 
 private:
     Ogre::BillboardSet * getSet(const std::string &materialName);

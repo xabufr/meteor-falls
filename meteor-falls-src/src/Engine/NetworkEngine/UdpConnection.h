@@ -14,15 +14,13 @@ public:
     static pointer create(boost::shared_ptr<boost::asio::io_service> s);
 
     void connect(boost::asio::ip::udp::endpoint e);
-    boost::asio::ip::udp::endpoint getConnectionEndpoint();
+    const boost::asio::ip::udp::endpoint &getConnectionEndpoint();
 
     virtual void startListen();
 
-    virtual bool hasData();
-    Data getData();
-
-    virtual void send(std::string data);
-    void send(std::string data, boost::asio::ip::udp::endpoint e);
+    void send(const char *data, std::size_t size);
+    void send(const char *data, std::size_t size, const boost::asio::ip::udp::endpoint &e);
+    void send(const Packet &packet, const boost::asio::ip::udp::endpoint &e);
 
     void bind(boost::asio::ip::udp::endpoint e);
 
@@ -30,25 +28,17 @@ public:
 
     virtual ~UdpConnection();
 protected:
-    virtual void handleReadData(const boost::system::error_code&, size_t length);
-    void handleSendData(std::string, boost::asio::ip::udp::endpoint);
-    void handleSendData(std::string){}
+    virtual void handleReadData(const boost::system::error_code&);
+    void handleSendData(boost::shared_ptr<char> data, std::size_t size, boost::asio::ip::udp::endpoint endpoint);
     void handleStartReceive();
-	virtual void handleReadHeader(const boost::system::error_code&){}
-	virtual void handleReadData(const boost::system::error_code&){}
+
 private:
     UdpConnection(boost::shared_ptr<boost::asio::io_service> service);
 
     boost::asio::ip::udp::endpoint m_endpointConnection, m_endpointSender;
     boost::asio::ip::udp::socket *m_socket;
 
-    std::queue<std::pair<boost::asio::ip::udp::endpoint, std::string>> m_queue_buffers;
-
-    boost::mutex m_mutex_buffers, m_mutex_connexion_endpoint;
-
-    std::vector<char> m_buffer_receive;
-    enum { buffer_size = 2048 };
-    char m_buffer_data[buffer_size];
+    boost::mutex m_mutex_connexion_endpoint;
 };
 
 #endif // UDPCONNECTION_H

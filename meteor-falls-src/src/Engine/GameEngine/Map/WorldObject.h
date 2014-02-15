@@ -21,6 +21,7 @@ class WorldObject
         void setRotation(const Quaternion&);
         const Quaternion& rotation() const;
         const WorldObjectType* type() const;
+        int id() const;
 
         virtual void update(float time);
 
@@ -36,6 +37,7 @@ class WorldObject
         BulletRelationPtr *m_relationPtr;
         btRigidBody *m_body;
         std::list<WorldObjectListener*> m_listeners;
+        int m_id;
     private:
         WorldObjectType *m_type;
 };

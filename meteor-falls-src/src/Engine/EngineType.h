@@ -9,7 +9,10 @@ enum EngineType
     SoundEngineType = 3,
     PhysicalEngineType = 4,
     ScriptEngineType = 5,
-	NoneEngineType = 6
+    NoneEngineType = 6
 };
+class Packet;
+Packet& operator<<(Packet& packet, const EngineType &t);
+Packet& operator>>(Packet& packet, EngineType &t);
 
 #endif // ENGINETYPE_H_INCLUDED

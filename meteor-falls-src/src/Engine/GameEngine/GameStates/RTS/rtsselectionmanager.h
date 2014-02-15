@@ -28,6 +28,7 @@ private:
     void extractViews();
     void selectArea();
     void selectSingleUnit();
+    void notifyPlayers();
 
 private:
     bool m_mouseDown, m_mouseMoved;

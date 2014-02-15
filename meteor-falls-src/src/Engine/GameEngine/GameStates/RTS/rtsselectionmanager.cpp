@@ -22,6 +22,8 @@
 #include "../../Map/selectionbillboardmanager.h"
 #include "../../Unites/Unite.h"
 
+#include "../../../EngineMessage/EngineMessage.h"
+
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
     m_mouseDown = false;
@@ -120,6 +122,16 @@ void RTSSelectionManager::selectSingleUnit()
     if(object) {
         m_selection.push_back(object);
     }
+}
+
+void RTSSelectionManager::notifyPlayers()
+{
+    EngineMessage message(m_rtsState->game()->getManager());
+    message.message = RTS_SELECTION;
+    int num = 0;
+    std::for_each(m_selection.begin(), m_selection.end(), [&num, &message](WorldObject *obj) {
+        //message.ints[num] = obj->id();
+    });
 }
 
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)

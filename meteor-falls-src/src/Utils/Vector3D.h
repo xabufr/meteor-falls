@@ -6,6 +6,7 @@
 #include <OgreVector3.h>
 #include <cmath>
 #include <bullet/LinearMath/btVector3.h>
+#include "../Engine/NetworkEngine/packet.h"
 
 class Vector3D
 {
@@ -19,19 +20,19 @@ public:
     {}
     template<class T>
     Vector3D(const T &vec): x(vec.x), y(vec.y), z(vec.z) {}
-	Vector3D(const btVector3& vec): x(vec.x()), y(vec.y()), z(vec.z()) { }
-	operator sf::Vector3f() const
-	{
-		return convert<sf::Vector3f>();
-	}
-	operator Ogre::Vector3() const
-	{
-		return convert<Ogre::Vector3>();
-	}
-	operator btVector3() const
-	{
-		return convert<btVector3>();
-	}
+    Vector3D(const btVector3& vec): x(vec.x()), y(vec.y()), z(vec.z()) { }
+    operator sf::Vector3f() const
+    {
+        return convert<sf::Vector3f>();
+    }
+    operator Ogre::Vector3() const
+    {
+        return convert<Ogre::Vector3>();
+    }
+    operator btVector3() const
+    {
+        return convert<btVector3>();
+    }
 
     bool operator==(const Vector3D& vec) const;
     template<class T>
@@ -51,10 +52,10 @@ public:
     double angle(const Vector3D& vec) const;
     double distanceCarre(const Vector3D& vec) const;
     static Vector3D produit_vectoriel(const Vector3D& v1, const Vector3D& v2);
-	Vector3D operator+(const Vector3D&) const;
-	Vector3D operator-(const Vector3D&) const;
-	Vector3D operator/(double) const;
-	Vector3D operator*(double) const;
+    Vector3D operator+(const Vector3D&) const;
+    Vector3D operator-(const Vector3D&) const;
+    Vector3D operator/(double) const;
+    Vector3D operator*(double) const;
 private:
     friend class boost::serialization::access;
     template<class Archive>
@@ -63,5 +64,8 @@ private:
         ar & x & y & z;
     }
 };
+
+Packet & operator <<(Packet & packet, const Vector3D& data);
+Packet & operator >>(Packet & packet, Vector3D& data);
 
 #endif // VECTOR3D_H

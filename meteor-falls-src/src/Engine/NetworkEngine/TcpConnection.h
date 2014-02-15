@@ -11,14 +11,11 @@ public:
     typedef boost::shared_ptr<TcpConnection> pointer;
 
     static pointer create(boost::shared_ptr<boost::asio::io_service>);
-    void send(std::string data);
+    void send(const char *data, std::size_t size);
     void startListen();
     void connect(boost::asio::ip::tcp::endpoint e);
 
-    bool hasData();
-    std::string getData();
-
-	void stop();
+    void stop();
 
     boost::asio::ip::tcp::socket& socket();
 
@@ -27,7 +24,7 @@ public:
 protected:
     void handleReadHeader(const boost::system::error_code&);
     void handleReadData(const boost::system::error_code&);
-    void handleSendData(std::string);
+    void handleSendData(boost::shared_ptr<char> data, std::size_t size);
 
     void handleConnect(const boost::system::error_code&);
 
@@ -35,11 +32,8 @@ private:
     TcpConnection(boost::shared_ptr<boost::asio::io_service>);
 
     boost::asio::ip::tcp::socket *m_socket;
-    boost::mutex m_mutex_buffer;
-    std::queue<std::string> m_buffer_queue;
 
-    enum { header_size = 8 };
-    char m_header_data[header_size];
+    std::uint8_t m_currentPacketSize;
 };
 
 #endif // TCPCONNECTION_H

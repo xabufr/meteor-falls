@@ -8,6 +8,7 @@
 class Unite;
 class Avatar;
 class Joueur;
+class Packet;
 class ClientNetworkEngine : public NetworkEngine
 {
     public:
@@ -25,7 +26,11 @@ class ClientNetworkEngine : public NetworkEngine
         virtual void handleMessage(EngineMessage &);
 
         virtual void sendToAllTcp(const EngineMessage &e);
+        void sendToServerTcp(const EngineMessage &e);
         virtual void sendToAllUdp(const EngineMessage &e){};
+
+        void sendTCP(const Packet &packet);
+        void sendUDP(const Packet &packet);
 
         void connect(std::string, unsigned short);
         int getState() const;

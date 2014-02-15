@@ -48,6 +48,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
         }
     }
     EngineMessage *message;
+    Packet packet;
     for(ServerClient& client : clients)
     {
         if(!client.tcp()->isConnected()||!client.tcp()->isListening()
@@ -59,14 +60,15 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
         {
             while(client.tcp()->hasData())
             {
-                message = NetworkEngine::deserialize(client.tcp()->getData());
+                client.tcp()->fillPacket(packet);
+                message = new EngineMessage(m_manager, packet);
                 switch(message->message)
                 {
                     case EngineMessageType::NEW_PLAYER:
                         {
                             m_addNewPlayer(client.id(), message);
                             EngineMessage *messageMap = m_createMapMessage();
-                            client.tcp()->send(serialize(messageMap));
+                            client.tcp()->sendPacket(messageMap->toPacket());
                             delete messageMap;
                         }
                         break;
@@ -79,7 +81,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             {
                                 messageTeams.ints[EngineMessageKey::FACTION_ID] = e->faction()->id();
                                 messageTeams.ints[EngineMessageKey::TEAM_ID] = e->id();
-                                client.tcp()->send(serialize(&messageTeams));
+                                client.tcp()->sendPacket(messageTeams.toPacket());
                                 for(Joueur *j : e->joueurs())
                                 {
                                     EngineMessage *player = new EngineMessage(m_manager);
@@ -95,7 +97,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                     else
                                         player->ints[EngineMessageKey::GAMEPLAY_TYPE] = EngineMessageKey::NONE_GAMEPLAY;
 
-                                    client.tcp()->send(serialize(player));
+                                    client.tcp()->sendPacket(player->toPacket());
                                     delete player;
                                 }
                             }
@@ -191,22 +193,9 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
     }
     while(m_udpConnexion->hasData())
     {
-        UdpConnection::Data data(m_udpConnexion->getData());
-        boost::asio::ip::address adr = data.first.address();
-        bool isClient=false;
-        client_id cli_id;
-        for(ServerClient client : clients)
-        {
-            if(client.tcp()->socket().remote_endpoint().address()==adr)
-            {
-                isClient = true;
-                cli_id   = client.id();
-                break;
-            }
-        }
-        if(!isClient)
-            continue;
-        EngineMessage *message = deserialize(data.second);
+        ///FIXME Ajouter un filtre aux sockets Udp pour vérifier que ce soit bien un client
+        m_udpConnexion->fillPacket(packet);
+        EngineMessage *message = new EngineMessage(m_manager, packet);
         switch(message->message)
         {
             case EngineMessageType::PLAYER_POSITION:
@@ -254,7 +243,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             EngineMessage messageSalt(m_manager);
             messageSalt.message = EngineMessageType::SETSALT;
             messageSalt.strings[EngineMessageKey::SEL] = client.data->sel;
-            client.tcp()->send(serialize(&messageSalt));
+            client.tcp()->sendPacket(messageSalt.toPacket());
         }
         m_startAccept();
     }
@@ -282,7 +271,7 @@ void ServerNetworkEngine::removeClient(ServerClient& c)
 }
 void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 {
-    std::string data(NetworkEngine::serialize(message));
+    Packet data(message->toPacket());
 
     boost::recursive_mutex::scoped_lock l(m_mutex_clients);
     for(ServerClient &c : m_clients)
@@ -292,21 +281,21 @@ void ServerNetworkEngine::sendToAllTcp(EngineMessage* message)
 }
 void ServerNetworkEngine::sendToTcp(ServerClient& c, EngineMessage* message)
 {
-    c.tcp()->send(NetworkEngine::serialize(message));
+    c.tcp()->sendPacket(message->toPacket());
 }
-void ServerNetworkEngine::sendToTcp(ServerClient& c, std::string d)
+void ServerNetworkEngine::sendToTcp(ServerClient& c, const Packet &packet)
 {
-    c.tcp()->send(d);
+    c.tcp()->sendPacket(packet);
 }
 void ServerNetworkEngine::sendToAllExcluding(unsigned int id, EngineMessage* message)
 {
-    std::string data(NetworkEngine::serialize(message));
+    Packet data(message->toPacket());
 
     boost::recursive_mutex::scoped_lock l(m_mutex_clients);
     for(ServerClient &c  :m_clients)
     {
         if(c.id()!=id)
-            c.tcp()->send(data);
+            c.tcp()->sendPacket(data);
     }
 }
 void ServerNetworkEngine::setServerName(const std::string& name)

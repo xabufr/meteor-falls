@@ -2,23 +2,49 @@
 #include "../EngineManager/EngineManager.h"
 #include "../NetworkEngine/NetworkEngine.h"
 
-EngineMessage::EngineMessage(EngineManager* p_engine_manager)
+void EngineMessage::init(EngineManager *p_engine_manager)
 {
     m_engine_manager = p_engine_manager;
-	m_from = nullptr;
-	m_from_type = EngineType::NoneEngineType;
-	if(m_engine_manager != nullptr)
-	{
-		time = m_engine_manager->getNetwork()->getClock().getTime();
-	}
+    m_from = nullptr;
+    m_from_type = EngineType::NoneEngineType;
+    if(m_engine_manager != nullptr)
+    {
+        time = m_engine_manager->getNetwork()->getClock().getTime();
+    }
 }
+
+EngineMessage::EngineMessage(EngineManager* p_engine_manager)
+{
+    init(p_engine_manager);
+}
+
+void EngineMessage::fromPacket(Packet &packet)
+{
+    packet >> message;
+    packet >> time;
+    packet >> m_from_type;
+    packet >> m_to_type;
+    packet >> ints;
+    packet >> doubles;
+    packet >> strings;
+    packet >> positions;
+    packet >> quaternions;
+}
+
+EngineMessage::EngineMessage(EngineManager *p_engine_manager, Packet &packet)
+{
+    init(p_engine_manager);
+
+    fromPacket(packet);
+}
+
 void EngineMessage::setFrom(Engine* p_from)
 {
     m_from = p_from;
-	if(m_from!=nullptr)
-	   	m_from_type = p_from->getType();
-	else
-		m_from_type = EngineType::NoneEngineType;
+    if(m_from!=nullptr)
+        m_from_type = p_from->getType();
+    else
+        m_from_type = EngineType::NoneEngineType;
 }
 void EngineMessage::setFromType(EngineType p_from_type)
 {
@@ -28,9 +54,9 @@ void EngineMessage::setFromType(EngineType p_from_type)
 void EngineMessage::addTo(Engine* p_to)
 {
     for(unsigned int i=0;i<m_to.size();i++)
-	{
+    {
         if(p_to == m_to[i])
-		{
+        {
             return ;
         }
     }
@@ -66,20 +92,35 @@ std::vector<EngineType> EngineMessage::getToType()
 }
 EngineMessage* EngineMessage::clone(EngineMessage* mes)
 {
-	EngineMessage *message = new EngineMessage(mes->m_engine_manager);
-	message->ints          = mes->ints;
-	message->strings       = mes->strings;
-	message->time          = mes->time;
-	message->positions     = mes->positions;
-	message->doubles       = mes->doubles;
-	message->setFrom(mes->getFrom());
-	message->message = mes->message;
-	for(Engine* e : mes->m_to)
-		message->addTo(e);
-	return message;
+    EngineMessage *message = new EngineMessage(mes->m_engine_manager);
+    message->ints          = mes->ints;
+    message->strings       = mes->strings;
+    message->time          = mes->time;
+    message->positions     = mes->positions;
+    message->doubles       = mes->doubles;
+    message->setFrom(mes->getFrom());
+    message->message = mes->message;
+    for(Engine* e : mes->m_to)
+        message->addTo(e);
+    return message;
 }
 void EngineMessage::clearTo()
 {
-	m_to.clear();
-	m_to_type.clear();
+    m_to.clear();
+    m_to_type.clear();
+}
+
+Packet EngineMessage::toPacket() const
+{
+    Packet packet;
+    packet << message;
+    packet << time;
+    packet << m_from_type;
+    packet << m_to_type;
+    packet << ints;
+    packet << doubles;
+    packet << strings;
+    packet << positions;
+    packet << quaternions;
+    return packet;
 }

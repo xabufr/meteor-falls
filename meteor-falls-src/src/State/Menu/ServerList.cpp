@@ -119,14 +119,15 @@ ret_code ServerList::work(const TimeDuration &elapsed)
                 std::cout << std::endl << m_connection_udp->getError().message() << std::endl;
                 return CONTINUE;
             }
+            Packet packet;
             while(m_connection_udp->hasData())
             {
                 EngineMessage *message;
-                auto data = m_connection_udp->getData();
-                message = NetworkEngine::deserialize(data.second, 0);
+                m_connection_udp->fillPacket(packet);
+                message = new EngineMessage(nullptr, packet);
                 if(message->message==EngineMessageType::SERVER_INFO)
                 {
-                    Server *s =  new Server(data.first.address().to_string(),
+                    Server *s =  new Server(packet.sender.to_string(),
                             std::string(message->strings[EngineMessageKey::SERVER_NAME]),
                             std::string(""),
                             message->ints[EngineMessageKey::MAX_PLAYERS],

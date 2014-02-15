@@ -8,6 +8,7 @@
 #include <boost/thread/recursive_mutex.hpp>
 
 class Equipe;
+class Packet;
 class ServerNetworkEngine : public NetworkEngine
 {
     public:
@@ -20,12 +21,12 @@ class ServerNetworkEngine : public NetworkEngine
         void sendToAllTcp(EngineMessage*);
         void sendToAllExcluding(unsigned int id, EngineMessage*);
 
-        virtual void sendAllUdp(const std::string&)=0;
+        virtual void sendAllUdp(const Packet &packet)=0;
 
         virtual void announceServer()=0;
 
         static void sendToTcp(ServerClient&, EngineMessage*);
-        static void sendToTcp(ServerClient&, std::string);
+        static void sendToTcp(ServerClient&, const Packet &packet);
         void sendToTcp(Joueur*, EngineMessage*);
 
         void sendToTeam(Equipe*, EngineMessage*);

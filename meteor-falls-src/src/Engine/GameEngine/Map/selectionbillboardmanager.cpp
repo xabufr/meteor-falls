@@ -88,6 +88,15 @@ void SelectionBillboardManager::update()
     });
 }
 
+void SelectionBillboardManager::reset()
+{
+    std::for_each(m_sets.begin(), m_sets.end(), [this](std::pair<std::string, Ogre::BillboardSet*> entry) {
+        Ogre::BillboardSet *set = entry.second;
+        set->clear();
+        m_representation[set].clear();
+    });
+}
+
 Ogre::Vector3 SelectionBillboardManager::InternalObjectRepresentation::getPositionOnMap()
 {
     Ogre::Vector3 position = m_view->model()->position();
