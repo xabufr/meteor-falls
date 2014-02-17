@@ -38,11 +38,13 @@ bool RPGState::isVisible()
 void RPGState::enter()
 {
     m_clientGameEngine->cameraManager()->setCameraContener(m_camera);
+    OgreContextManager::get()->getInputManager()->addMouseListener(this);
 }
 
 void RPGState::exit()
 {
     m_clientGameEngine->cameraManager()->setCameraContener(nullptr);
+    OgreContextManager::get()->getInputManager()->delMouseListener(this);
 }
 
 ret_code RPGState::work(const TimeDuration &elapsed)
@@ -59,13 +61,25 @@ ret_code RPGState::work(const TimeDuration &elapsed)
     if (commandes->eventActif(CommandConfig::KeyType::RPG_KEY,
                               CommandConfig::KeyRPG::RPG_JUMP))
         m_hero->sauter();
-    m_hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel
-                                * -0.01);
 
     ClientNetworkEngine* net = static_cast<ClientNetworkEngine*>(m_clientGameEngine->getManager()->getNetwork());
     net->sendRpgPosition();
-    m_hero->tournerGaucheDroite(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().X.rel
-                                * -Config::get()->getCommandConfig()->getMouseSensibility());
-    m_hero->lookUpDown(OgreContextManager::get()->getInputManager()->getMouse()->getMouseState().Y.rel
-                       * -Config::get()->getCommandConfig()->getMouseSensibility());
+}
+
+bool RPGState::mouseMoved(const OIS::MouseEvent &arg)
+{
+    m_hero->tournerGaucheDroite(arg.state.X.rel *
+    -Config::get()->getCommandConfig()->getMouseSensibility());
+    m_hero->lookUpDown(arg.state.Y.rel
+                       * Config::get()->getCommandConfig()->getMouseSensibility());
+}
+
+bool RPGState::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+
+}
+
+bool RPGState::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+
 }

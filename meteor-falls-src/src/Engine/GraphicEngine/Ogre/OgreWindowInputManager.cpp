@@ -221,9 +221,13 @@ bool OgreWindowInputManager::mouseMoved(const OIS::MouseEvent& arg)
                 arg.state.Z.rel);
     }
 
+    OIS::MouseState state(arg.state);
+    state.X.rel -= m_x_delta;
+    state.Y.rel -= m_y_delta;
+    OIS::MouseEvent event(m_mouse, state);
     for (OIS::MouseListener *l : m_mouseListeners)
     {
-        if (!l->mouseMoved(arg))
+        if (!l->mouseMoved(event))
             return false;
     }
     return true;
