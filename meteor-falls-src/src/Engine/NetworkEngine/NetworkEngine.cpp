@@ -25,42 +25,23 @@ void NetworkEngine::m_run()
 {
     m_service->run();
 }
-std::string NetworkEngine::serialize(const EngineMessage* message)
-{
-    std::ostringstream os;
-    boost::archive::text_oarchive archive(os);
-    archive << *message;
-    return os.str();
-}
-EngineMessage* NetworkEngine::deserialize(const std::string& data)
-{
-    return deserialize(data, m_manager);
-}
-EngineMessage* NetworkEngine::deserialize(const std::string& data, EngineManager* mng)
-{
-    EngineMessage *message = new EngineMessage(mng);
-    std::istringstream iss(data);
-    boost::archive::text_iarchive archive(iss);
-    archive >> *message;
-    return message;
-}
 void NetworkEngine::setEngineManager(EngineManager *mng)
 {
     m_manager=mng;
 }
 std::string NetworkEngine::SHA1(const std::string& chaine)
 {
-	boost::uuids::detail::sha1 sha1; 
-	sha1.process_bytes(chaine.c_str(), chaine.length());
-	unsigned int hash[5];
-	sha1.get_digest(hash);
-	std::ostringstream os;
-	os << std::hex << std::setfill('0') << std::setw(sizeof(int)*2);
-	for(int i=0; i<5;++i)
-		os << hash[i];
-	return os.str();
+    boost::uuids::detail::sha1 sha1;
+    sha1.process_bytes(chaine.c_str(), chaine.length());
+    unsigned int hash[5];
+    sha1.get_digest(hash);
+    std::ostringstream os;
+    os << std::hex << std::setfill('0') << std::setw(sizeof(int)*2);
+    for(int i=0; i<5;++i)
+        os << hash[i];
+    return os.str();
 }
 const Clock& NetworkEngine::getClock() const
 {
-	return m_clock;
+    return m_clock;
 }

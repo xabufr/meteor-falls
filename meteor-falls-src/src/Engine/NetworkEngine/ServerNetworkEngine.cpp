@@ -49,30 +49,34 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
     }
     EngineMessage *message;
     Packet packet;
-    for(ServerClient& client : clients)
-    {
-        if(!client.tcp()->isConnected()||!client.tcp()->isListening()
-                ||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout)||client.tcp()->hasError())
+    std::uint8_t messageType;
+        for(ServerClient& client : clients)
         {
-            removeClient(client);
-        }
-        else
-        {
-            while(client.tcp()->hasData())
+            if(!client.tcp()->isConnected()||!client.tcp()->isListening()
+                    ||(client.data->waitingPing && client.data->timePing.getTime() >= pingTimeout)||client.tcp()->hasError())
             {
-                client.tcp()->fillPacket(packet);
-                message = new EngineMessage(m_manager, packet);
-                switch(message->message)
+                removeClient(client);
+            }
+            else
+            {
+                while(client.tcp()->hasData())
                 {
-                    case EngineMessageType::NEW_PLAYER:
+                    client.tcp()->fillPacket(packet);
+                    packet >> messageType;
+                    if(messageType == mf::MESSAGE)
+                    {
+                        message = new EngineMessage(m_manager, packet);
+                        switch(message->message)
+                        {
+                        case EngineMessageType::NEW_PLAYER:
                         {
                             m_addNewPlayer(client.id(), message);
                             EngineMessage *messageMap = m_createMapMessage();
                             client.tcp()->sendPacket(messageMap->toPacket());
                             delete messageMap;
                         }
-                        break;
-                    case EngineMessageType::GETTEAMLIST:
+                            break;
+                        case EngineMessageType::GETTEAMLIST:
                         {
                             const std::vector<Equipe*>& equipes = m_manager->getGame()->getTeams();
                             EngineMessage messageTeams(m_manager);
@@ -102,24 +106,24 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                 }
                             }
                         }
-                        break;
-                    case EngineMessageType::SYNC_TIME:
+                            break;
+                        case EngineMessageType::SYNC_TIME:
                         {
                             EngineMessage messageTime(m_manager);
                             messageTime.message = EngineMessageType::SYNC_TIME;
                             messageTime.time    = m_clock.getTime();
                             sendToTcp(client, &messageTime);
                         }
-                        break;
-                    case EngineMessageType::PING:
+                            break;
+                        case EngineMessageType::PING:
                         {
                             client.data->timeSinceLastPingRep.reset();
                             client.data->waitingPing = false;
                             client.joueur->ping = client.data->timePing.getTime()/2;
                             sendSetPing(client);
                         }
-                        break;
-                    case EngineMessageType::GETOBJECTSLIST:
+                            break;
+                        case EngineMessageType::GETOBJECTSLIST:
                         {
                             for(Equipe *e : m_manager->getGame()->getTeams())
                             {
@@ -152,8 +156,8 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                 }
                             }
                         }
-                        break;
-                    case EngineMessageType::PLAYER_POSITION:
+                            break;
+                        case EngineMessageType::PLAYER_POSITION:
                         {
                             Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
                             if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
@@ -171,21 +175,22 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                 sendToAllExcluding(client.id(), message);
                             }
                         }
-                        break;
-                    default:
-                        EngineMessage *messageCopy = EngineMessage::clone(message);
-                        messageCopy->clearTo();
-                        messageCopy->addToType(EngineType::GameEngineType);
-                        m_manager->addMessage(messageCopy);
-                        break;
+                            break;
+                        default:
+                            EngineMessage *messageCopy = EngineMessage::clone(message);
+                            messageCopy->clearTo();
+                            messageCopy->addToType(EngineType::GameEngineType);
+                            m_manager->addMessage(messageCopy);
+                            break;
+                        }
+                        delete message;
+                    }
                 }
-                delete message;
+                while(client.tcp()->hasError())
+                {
+                    std::cout << client.tcp()->getError().message() << std::endl;
+                }
             }
-            while(client.tcp()->hasError())
-            {
-                std::cout << client.tcp()->getError().message() << std::endl;
-            }
-        }
     }
     while(m_udpConnexion->hasError())
     {
@@ -194,41 +199,46 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
     while(m_udpConnexion->hasData())
     {
         m_udpConnexion->fillPacket(packet);
+        packet >> messageType;
+        if(messageType == mf::MESSAGE)
         {
-            boost::recursive_mutex::scoped_lock l(m_mutex_clients);
-            bool found = false;
-            for(ServerClient client : m_clients) {
-                if(client.tcp()->socket().remote_endpoint().address() == packet.sender) {
-                    found = true;
-                    break;
+            if(message)
+            {
+                boost::recursive_mutex::scoped_lock l(m_mutex_clients);
+                bool found = false;
+                for(ServerClient client : m_clients) {
+                    if(client.tcp()->socket().remote_endpoint().address() == packet.sender) {
+                        found = true;
+                        break;
+                    }
                 }
+                if(!found)
+                    continue;
             }
-            if(!found)
-                continue;
-        }
-        EngineMessage *message = new EngineMessage(m_manager, packet);
-        switch(message->message)
-        {
+            EngineMessage *message = new EngineMessage(m_manager, packet);
+            switch(message->message)
+            {
             case EngineMessageType::PLAYER_POSITION:
+            {
+                Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
+                if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
                 {
-                    Joueur *j = m_manager->getGame()->findJoueur(message->ints[EngineMessageKey::PLAYER_NUMBER]);
-                    if(j&&j->getTypeGameplay()==Joueur::TypeGameplay::RPG&&j->getRPG()->hero())
+                    j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
+                    Equipe *e = m_manager->getGame()->getEquipe(message->ints[EngineMessageKey::TEAM_ID]);
+                    if(e)
                     {
-                        j->getRPG()->hero()->setPosition(message->positions[EngineMessageKey::OBJECT_POSITION]);
-                        Equipe *e = m_manager->getGame()->getEquipe(message->ints[EngineMessageKey::TEAM_ID]);
-                        if(e)
+                        Hero *h = dynamic_cast<Hero*>(e->getUnite(message->ints[EngineMessageKey::OBJECT_ID]));
+                        if(h)
                         {
-                            Hero *h = dynamic_cast<Hero*>(e->getUnite(message->ints[EngineMessageKey::OBJECT_ID]));
-                            if(h)
-                            {
-                                h->deserializeComportement(message);
-                            }
+                            h->deserializeComportement(message);
                         }
                     }
                 }
+            }
                 break;
+            }
+            delete message;
         }
-        delete message;
     }
     pingClients();
 }

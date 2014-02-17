@@ -124,22 +124,27 @@ ret_code ServerList::work(const TimeDuration &elapsed)
             {
                 EngineMessage *message;
                 m_connection_udp->fillPacket(packet);
-                message = new EngineMessage(nullptr, packet);
-                if(message->message==EngineMessageType::SERVER_INFO)
+                std::uint8_t messageType;
+                packet >> messageType;
+                if(messageType == mf::MESSAGE)
                 {
-                    Server *s =  new Server(packet.sender.to_string(),
-                            std::string(message->strings[EngineMessageKey::SERVER_NAME]),
-                            std::string(""),
-                            message->ints[EngineMessageKey::MAX_PLAYERS],
-                            message->ints[EngineMessageKey::PLAYER_NUMBER],
-                            false,
-                            std::string(message->strings[EngineMessageKey::MAP_NAME]),
-                            std::string(""),
-                            0.0
-                            );
-                    addServer(s);
+                    message = new EngineMessage(nullptr, packet);
+                    if(message->message==EngineMessageType::SERVER_INFO)
+                    {
+                        Server *s =  new Server(packet.sender.to_string(),
+                                                std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+                                std::string(""),
+                                message->ints[EngineMessageKey::MAX_PLAYERS],
+                                message->ints[EngineMessageKey::PLAYER_NUMBER],
+                                false,
+                                std::string(message->strings[EngineMessageKey::MAP_NAME]),
+                                std::string(""),
+                                0.0
+                                );
+                        addServer(s);
+                    }
+                    delete message;
                 }
-                delete message;
             }
         }
         break;

@@ -19,9 +19,6 @@ public:
     virtual void work(const TimeDuration &elapsed) = 0;
     virtual EngineType getType();
 
-    static std::string serialize(const EngineMessage*);
-    static EngineMessage* deserialize(const std::string &, EngineManager*);
-    EngineMessage* deserialize(const std::string &);
     static std::string SHA1(const std::string &);
 
     const Clock& getClock() const;

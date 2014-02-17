@@ -113,6 +113,7 @@ void EngineMessage::clearTo()
 Packet EngineMessage::toPacket() const
 {
     Packet packet;
+    packet << (std::uint8_t) mf::PacketType::MESSAGE;
     packet << message;
     packet << time;
     packet << m_from_type;

@@ -7,6 +7,11 @@
 #include <map>
 #include <boost/asio/ip/address.hpp>
 
+namespace mf{
+enum PacketType {
+    MESSAGE = 0,
+};
+}
 class Packet
 {
 public:
