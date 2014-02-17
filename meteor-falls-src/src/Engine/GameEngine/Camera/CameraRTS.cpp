@@ -7,7 +7,7 @@
 #include <Utils/timeduration.h>
 #include <algorithm>
 
-CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), m_commandConfig(commandConfig)
+CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), m_commandConfig(commandConfig), m_cameraPosition(0,0,0)
 {
     m_maxAltitude = 500;
     m_minAltitude = 2;
@@ -15,6 +15,8 @@ CameraRTS::CameraRTS(const Map *map, CommandConfig *commandConfig): m_map(map), 
     m_minAltitudeAngle = 0.02;
     m_minVelocity = 5;
     m_maxVelocity = 25;
+    m_relativeAltitude = m_minAltitude;
+    m_yaw = 0;
 }
 
 CameraRTS::~CameraRTS()
