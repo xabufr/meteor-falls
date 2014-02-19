@@ -1,3 +1,0 @@
-/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/tmpbuild/source/CMakeFiles/PagedGeometry.dir
-/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/tmpbuild/CMakeFiles/doc.dir
-/home/zequiel/software/c++/meteor-falls/meteor-falls-src/libs/tmpbuild/CMakeFiles/doxygen.dir

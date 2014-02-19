@@ -1,5 +1,0 @@
-class ServerList: public State
-{
-public:
-	void updateFiltre(void);
-}

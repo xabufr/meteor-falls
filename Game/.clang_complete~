@@ -1,0 +1,3 @@
+-I/home/thomas/meteor-falls/meteor-falls-src/libs/rapidxml
+-I/usr/include/OGRE/
+--std=c++0x
