@@ -22,6 +22,9 @@
 *.swp
 *cscope.out
 
+#python
+*.pyc
+
 build/Debug/*
 build/Release/*
 build/meteor-falls
