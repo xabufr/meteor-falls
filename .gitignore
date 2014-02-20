@@ -25,16 +25,14 @@
 #python
 *.pyc
 
-build/Debug/*
-build/Release/*
-build/meteor-falls
-obj/*
-*bin/*
-meteor-falls-src/meteor-falls-src.layout
-meteor-falls-src/meteor-falls-src.depend
-meteor-falls-src/CMakeFiles*
-meteor-falls-src/build/*
-meteor-falls-src/CMakeCache.txt
+obj/
+bin/
+meteor-falls-src.layout
+meteor-falls-src.depend
+CMakeFiles/
+CMakeCache.txt
 *.log
 *.Log
 MakeFile
+.settings/
+.kdev4/
