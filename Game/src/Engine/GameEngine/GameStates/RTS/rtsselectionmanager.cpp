@@ -23,6 +23,7 @@
 #include "../../Unites/Unite.h"
 
 #include "../../../EngineMessage/EngineMessage.h"
+#include "../../../NetworkEngine/clientnetworkengine.h"
 
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
@@ -32,9 +33,9 @@ RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
     OgreContextManager::get()->getInputManager()->addMouseListener(this);
     Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
     m_overlaySelection = overlayManager.create("selection");
-    m_containerSelection = static_cast<Ogre::OverlayContainer*>(overlayManager.createOverlayElement("Panel", "PanelSelection"));
-    m_containerSelection->setPosition(0,0);
-    m_containerSelection->setDimensions(0.5,0.5);
+    m_containerSelection = static_cast<Ogre::OverlayContainer *>(overlayManager.createOverlayElement("Panel", "PanelSelection"));
+    m_containerSelection->setPosition(0, 0);
+    m_containerSelection->setDimensions(0.5, 0.5);
     m_containerSelection->setMaterialName("Selection/Overlay");
     m_overlaySelection->add2D(m_containerSelection);
 }
@@ -46,7 +47,8 @@ Vector2D<float> RTSSelectionManager::getMouseCoord()
 
 bool RTSSelectionManager::mouseMoved(const OIS::MouseEvent &arg)
 {
-    if(m_mouseDown) {
+    if (m_mouseDown)
+    {
         Vector2D<float> position = getMouseCoord();
         m_containerSelection->setPosition(std::min(position.x, m_startPosition.x), std::min(position.y, m_startPosition.y));
         m_containerSelection->setDimensions(std::abs(m_startPosition.x - position.x), std::abs(m_startPosition.y - position.y));
@@ -59,7 +61,8 @@ bool RTSSelectionManager::mouseMoved(const OIS::MouseEvent &arg)
 
 bool RTSSelectionManager::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    if(id == OIS::MouseButtonID::MB_Left) {
+    if (id == OIS::MouseButtonID::MB_Left)
+    {
         m_mouseDown = true;
         m_mouseMoved = false;
         m_startPosition = getMouseCoord();
@@ -77,7 +80,8 @@ Vector2D<float> RTSSelectionManager::getMouseCoordOnMap()
 
 void RTSSelectionManager::clearSelection()
 {
-    for(WorldObjectView *view : m_selectionViews) {
+    for (WorldObjectView * view : m_selectionViews)
+    {
         m_rtsState->game()->selectionBillboardManager()->remove(view);
     }
     m_selection.clear();
@@ -87,17 +91,23 @@ void RTSSelectionManager::clearSelection()
 void RTSSelectionManager::extractViews()
 {
     Equipe *currentTeam = m_rtsState->game()->getCurrentJoueur()->equipe();
-    for(WorldObject *object : m_selection) {
+    for (WorldObject * object : m_selection)
+    {
         WorldObjectView *view = object->view();
-        if(view) {
+        if (view)
+        {
             m_selectionViews.push_back(view);
             Ogre::ColourValue colour = Ogre::ColourValue::Green;
-            Unite *unite = dynamic_cast<Unite*>(view->model());
-            if(unite != nullptr) {
-                if(unite->equipe() != currentTeam) {
+            Unite *unite = dynamic_cast<Unite *>(view->model());
+            if (unite != nullptr)
+            {
+                if (unite->equipe() != currentTeam)
+                {
                     colour = Ogre::ColourValue::Red;
                 }
-            } else {
+            }
+            else
+            {
                 colour = Ogre::ColourValue::White;
             }
             m_rtsState->game()->selectionBillboardManager()->add(view, colour);
@@ -110,8 +120,9 @@ void RTSSelectionManager::selectArea()
     Vector2D<float> endPosition = getMouseCoord();
     Rectangle<float> selectedAera(m_startPosition, endPosition);
     std::vector<Unite *> unitesInRectangle = m_rtsState->getUnitesInRectangleUnderCamera(selectedAera);
-    for(Unite* unite : unitesInRectangle) {
-        m_selection.push_back((WorldObject*)unite);
+    for (Unite * unite : unitesInRectangle)
+    {
+        m_selection.push_back((WorldObject *)unite);
     }
 }
 
@@ -119,33 +130,42 @@ void RTSSelectionManager::selectSingleUnit()
 {
     Ogre::Ray ray = m_rtsState->getMouseRay();
     WorldObject *object = m_rtsState->getObjectUnderRay(ray);
-    if(object) {
+    if (object)
+    {
         m_selection.push_back(object);
     }
 }
 
 void RTSSelectionManager::notifyPlayers()
 {
-    EngineMessage message(m_rtsState->game()->getManager());
-    message.message = RTS_SELECTION;
-    int num = 0;
-    std::for_each(m_selection.begin(), m_selection.end(), [&num, &message](WorldObject *obj) {
-        //message.ints[num] = obj->id();
-    });
+    Packet packet;
+    packet << (std::uint8_t) mf::RAW_DATA;
+    packet << (std::uint8_t) RTS_SELECTION;
+    std::vector<std::uint32_t> ids;
+    ids.resize(m_selection.size());
+    for(std::size_t i=0; i < m_selection.size(); ++i)
+        ids[i] = m_selection[i]->id();
+    packet << ids;
+    ((ClientNetworkEngine*)m_rtsState->game()->getManager()->getNetwork())->sendTCP(packet);
 }
 
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    if(id == OIS::MouseButtonID::MB_Left) {
+    if (id == OIS::MouseButtonID::MB_Left)
+    {
         m_overlaySelection->hide();
         clearSelection();
         m_mouseDown = false;
-        if(m_mouseMoved) {
+        if (m_mouseMoved)
+        {
             selectArea();
-        } else {
+        }
+        else
+        {
             selectSingleUnit();
         }
         extractViews();
+        notifyPlayers();
     }
     return true;
 }

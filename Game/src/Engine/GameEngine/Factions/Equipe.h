@@ -19,8 +19,8 @@ class Equipe
 
         Faction* faction();
         void setFaction(Faction*);
-        void create_unit(Unite*);
-        void destroy_unite(Unite*);
+        void addUnit(Unite*);
+        void removeUnit(Unite*);
         const std::vector<Unite*>& unites() const;
 
         void setJoueurRTS(JoueurRTS*);

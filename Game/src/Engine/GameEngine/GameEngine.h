@@ -7,6 +7,8 @@
 #include <bullet/BulletCollision/btBulletCollisionCommon.h>
 #include <bullet/Bullet-C-Api.h>
 #include "../Engine.h"
+#include "Map/worldobjectidentifierprovider.h"
+#include "Objects/worldobjectcontainer.h"
 
 class ObjetTerrainTypeManager;
 class State;
@@ -15,6 +17,8 @@ class Joueur;
 class Equipe;
 class CameraManager;
 class Chat;
+class WorldObject;
+
 class GameEngine : public Engine
 {
 public:
@@ -43,6 +47,7 @@ protected:
     Map *m_map;
     std::vector<Equipe*> m_teams;
     std::vector<Joueur*> m_joueurs;
+    WorldObjectIdentifierProvider m_idProvider;
 
     //physique
     btDbvtBroadphase* m_broadphase;
@@ -51,6 +56,7 @@ protected:
     btSequentialImpulseConstraintSolver* m_solver;
     btDiscreteDynamicsWorld* m_world;
     ObjetTerrainTypeManager* m_objectTypeManager;
+    WorldObjectContainer m_objectContainer;
 };
 
 #endif // GAMEENGINE_H

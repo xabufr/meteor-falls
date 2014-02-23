@@ -1,15 +1,14 @@
 #include "Unite.h"
 #include "../Factions/Equipe.h"
 
-Unite::Unite(Equipe *equipe, TypeUnite* type, int id): WorldObject(equipe->game(), type), m_equipe(equipe)
+Unite::Unite(Equipe *equipe, TypeUnite* type, int id): WorldObject(equipe->game(), type, id), m_equipe(equipe)
 {
-    m_id = id;
     m_vie = 100;
-    m_equipe->create_unit(this);
+    m_equipe->addUnit(this);
 }
 Unite::~Unite()
 {
-    m_equipe->destroy_unite(this);
+    m_equipe->removeUnit(this);
 }
 const TypeUnite* Unite::type() const
 {

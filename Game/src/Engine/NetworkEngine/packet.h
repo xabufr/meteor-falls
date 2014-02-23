@@ -10,6 +10,7 @@
 namespace mf{
 enum PacketType {
     MESSAGE = 0,
+    RAW_DATA = 1,
 };
 }
 class Packet

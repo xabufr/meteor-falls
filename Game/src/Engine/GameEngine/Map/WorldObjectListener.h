@@ -14,6 +14,7 @@ public:
     {
         return true;
     }
+    virtual void notifyObjectDelete(WorldObject *sender) {}
     virtual ~WorldObjectListener(){}
 };
 

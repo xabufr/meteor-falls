@@ -13,7 +13,7 @@ struct BulletRelationPtr;
 class WorldObject
 {
     public:
-        WorldObject(GameEngine*, WorldObjectType*);
+        WorldObject(GameEngine*, WorldObjectType*, int id);
         virtual ~WorldObject();
 
         virtual void setPosition(const Vector3D&);

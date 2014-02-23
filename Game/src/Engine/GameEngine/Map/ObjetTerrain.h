@@ -9,12 +9,12 @@ struct ObjetTerrainType;
 class ObjetTerrain: public WorldObject
 {
     public:
-        ObjetTerrain(GameEngine*, ObjetTerrainType*);
+        ObjetTerrain(GameEngine*, ObjetTerrainType*, int id);
         virtual ~ObjetTerrain();
-		int nodeId;
-		bool paged;
-	protected:
-		ObjetTerrainType *m_type;
+        int nodeId;
+        bool paged;
+    protected:
+        ObjetTerrainType *m_type;
 };
 
 #endif // OBJETTERRAIN_H

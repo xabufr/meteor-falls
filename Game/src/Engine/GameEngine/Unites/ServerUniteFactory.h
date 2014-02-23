@@ -5,9 +5,9 @@
 class ServerUniteFactory: public UniteFactory
 {
 public:
-	ServerUniteFactory(Equipe *e): UniteFactory(e) { }
+    ServerUniteFactory(WorldObjectIdentifierProvider &idProvider, Equipe *e): UniteFactory(idProvider, e) { }
 protected:
-	virtual Unite* create_impl(UniteBuilder* builder, Joueur*, Avatar*, TypeUnite* type, UnitId id);
+    virtual Unite* create_impl(UniteBuilder* builder, Joueur*, Avatar*, TypeUnite* type, UnitId id);
 };
 
-#endif 
+#endif

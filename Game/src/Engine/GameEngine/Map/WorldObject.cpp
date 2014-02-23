@@ -5,16 +5,19 @@
 #include "../GameEngine.h"
 #include "WorldObjectView.h"
 
-WorldObject::WorldObject(GameEngine* g, WorldObjectType* type):
-    m_type(type), m_body(nullptr)
+WorldObject::WorldObject(GameEngine* g, WorldObjectType* type, int id):
+    m_type(type), m_body(nullptr), m_id(id)
 {
     m_relationPtr = nullptr;
 }
 WorldObject::~WorldObject()
 {
-    for(WorldObjectListener* l : m_listeners)
+    for(WorldObjectListener* l : m_listeners) {
         if(l->autoDelete())
             delete l;
+        else
+            l->notifyObjectDelete(this);
+    }
     delete m_relationPtr;
     if(m_body)
     {

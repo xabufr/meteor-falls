@@ -6,12 +6,12 @@
 
 Equipe::Equipe(GameEngine *g, char i): m_id(i), m_game(g)
 {
-	m_joueurRTS=nullptr;
-	m_factory = nullptr;
+    m_joueurRTS=nullptr;
+    m_factory = nullptr;
 }
 Equipe::~Equipe()
 {
-	delete m_factory;
+    delete m_factory;
 }
 Faction* Equipe::faction()
 {
@@ -21,18 +21,18 @@ void Equipe::setFaction(Faction* f)
 {
     m_faction=f;
 }
-void Equipe::create_unit(Unite* u)
+void Equipe::addUnit(Unite* u)
 {
     if (u->type()&&u->type()->type() == TypeUnite::Type::BATIMENT)
     {
-    	bool exists = false;
+        bool exists = false;
         for (int i=0;m_batiments_cache.size();i++)
         {
             if(u->type() == m_batiments_cache[i])
-			{
+            {
                 exists == true;
-				break;
-			}
+                break;
+            }
             // batiment deja dans la liste ?
         }
         if (!exists)
@@ -40,7 +40,7 @@ void Equipe::create_unit(Unite* u)
     }
     m_unites_construites.push_back(u);
 }
-void Equipe::destroy_unite(Unite* u)
+void Equipe::removeUnit(Unite* u)
 {
 
     for(auto it = m_unites_construites.begin(); it!=m_unites_construites.end() ; ++it)
@@ -48,7 +48,7 @@ void Equipe::destroy_unite(Unite* u)
         if (*it == u)
         {
             m_unites_construites.erase(it);
-			break;
+            break;
         }
     }
     if (u->type()&&u->type()->type() == TypeUnite::Type::BATIMENT)
@@ -58,106 +58,106 @@ void Equipe::destroy_unite(Unite* u)
             if(u->type() == *it)
             {
                 m_batiments_cache.erase(it);
-				break;
+                break;
             }
         }
     }
 }
 void Equipe::setJoueurRTS(JoueurRTS* joueur)
 {
-	m_joueurRTS = joueur;
+    m_joueurRTS = joueur;
 }
 const std::vector<JoueurRPG*> Equipe::getRPG() const
 {
-	return m_joueursRPS;
+    return m_joueursRPS;
 }
 JoueurRTS* Equipe::getRTS() const
 {
-	return m_joueurRTS;
+    return m_joueurRTS;
 }
 char Equipe::id() const
 {
-	return m_id;
+    return m_id;
 };
 void Equipe::removeRPG(JoueurRPG* j)
 {
-	for(auto it=m_joueursRPS.begin();it!=m_joueursRPS.end();++it)
-	{
-		if(j->joueur()==(*it)->joueur())
-		{
-			m_joueursRPS.erase(it);
-			return;
-		}
-	}
+    for(auto it=m_joueursRPS.begin();it!=m_joueursRPS.end();++it)
+    {
+        if(j->joueur()==(*it)->joueur())
+        {
+            m_joueursRPS.erase(it);
+            return;
+        }
+    }
 }
 void Equipe::addRPG(JoueurRPG* j)
 {
-	for(JoueurRPG *jt : m_joueursRPS)
-		if(jt->joueur()==j->joueur())
-			return;
-	m_joueursRPS.push_back(j);
+    for(JoueurRPG *jt : m_joueursRPS)
+        if(jt->joueur()==j->joueur())
+            return;
+    m_joueursRPS.push_back(j);
 }
 void Equipe::addJoueur(Joueur* j)
 {
-	for(Joueur* jt : m_joueurs)
-		if(jt==j)
-			return;
-	m_joueurs.push_back(j);
+    for(Joueur* jt : m_joueurs)
+        if(jt==j)
+            return;
+    m_joueurs.push_back(j);
 }
 void Equipe::removeJoueur(Joueur* j)
 {
-	for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
-	{
-		if(*it==j)
-		{
-			m_joueurs.erase(it);
-			return;
-		}
-	}
+    for(auto it=m_joueurs.begin();it!=m_joueurs.end();++it)
+    {
+        if(*it==j)
+        {
+            m_joueurs.erase(it);
+            return;
+        }
+    }
 }
 const std::vector<Joueur*> Equipe::joueurs() const
 {
-	return m_joueurs;
+    return m_joueurs;
 }
 UniteFactory* Equipe::factory() const
 {
-	return m_factory;
+    return m_factory;
 }
 void Equipe::setFactory(UniteFactory* fac)
 {
-	m_factory=fac;
+    m_factory=fac;
 }
 const std::vector<Unite*>& Equipe::unites() const
 {
-	return m_unites_construites;
+    return m_unites_construites;
 }
 Unite* Equipe::getUnite(int id) const
 {
-	for(Unite *u : m_unites_construites)
-	{
-		if(u->id() == id)
-			return u;
-	}
-	return nullptr;	
+    for(Unite *u : m_unites_construites)
+    {
+        if(u->id() == id)
+            return u;
+    }
+    return nullptr;
 }
 GameEngine* Equipe::game() const
 {
-	return m_game;
+    return m_game;
 }
 void Equipe::update(float seconds)
 {
-	for(std::vector<Unite*>::iterator it = m_unites_construites.begin();it!=m_unites_construites.end();)
-	{
-		if((*it)->destroyNeeded())
-		{
-			Unite *u = *it;
-			it = m_unites_construites.erase(it);
-			std::cout << "delete " << u->id() << std::endl;
-			delete u;
-		}
-		else 
-		{
-			(*(it++))->update(seconds);
-		}
-	}
+    for(std::vector<Unite*>::iterator it = m_unites_construites.begin();it!=m_unites_construites.end();)
+    {
+        if((*it)->destroyNeeded())
+        {
+            Unite *u = *it;
+            it = m_unites_construites.erase(it);
+            std::cout << "delete " << u->id() << std::endl;
+            delete u;
+        }
+        else
+        {
+            (*(it++))->update(seconds);
+        }
+    }
 }

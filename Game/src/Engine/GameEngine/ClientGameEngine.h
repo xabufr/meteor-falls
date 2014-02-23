@@ -25,6 +25,7 @@ public:
     const MapView* getMapView() const;
 
     SelectionBillboardManager *selectionBillboardManager();
+    void setSelectedUnits(const std::vector<std::uint32_t> &ids);
 
 private:
     void changeSousStateIfNecessary();

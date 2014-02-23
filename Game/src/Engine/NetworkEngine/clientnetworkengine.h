@@ -50,7 +50,10 @@ class ClientNetworkEngine : public NetworkEngine
         bool isWaitingSpawn() const;
         bool isWaitingSelectTeam() const;
 
-    protected:
+        void handleReceivedNetworkMessage(Packet packet);
+        void handleReceivedRawMessage(Packet &packet);
+        void handleRtsSelection(Packet &packet);
+protected:
         TcpConnection::pointer m_tcp;
         UdpConnection::pointer m_udp;
 

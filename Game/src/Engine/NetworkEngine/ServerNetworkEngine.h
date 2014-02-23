@@ -30,6 +30,7 @@ class ServerNetworkEngine : public NetworkEngine
         void sendToTcp(Joueur*, EngineMessage*);
 
         void sendToTeam(Equipe*, EngineMessage*);
+        void sendToTeam(Equipe *e, const Packet &packet);
 
         void setServerName(const std::string&);
         void setMaxClients(unsigned short);
@@ -40,7 +41,9 @@ class ServerNetworkEngine : public NetworkEngine
         void pingClients();
         void sendSetPing(ServerClient&);
 
-    protected:
+        void handleRawPacket(const ServerClient &client, Packet &packet);
+        void handleRtsSelectionChanged(const ServerClient &originalSender, Packet &packet);
+protected:
         void m_startAccept();
         void m_handleAccept(TcpConnection::pointer, const boost::system::error_code&);
         virtual void m_addNewPlayer(client_id, EngineMessage*) = 0;

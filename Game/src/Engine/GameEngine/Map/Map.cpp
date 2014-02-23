@@ -267,7 +267,6 @@ void Map::processNode(XmlDocumentManager::Document const & node)
             ObjetTerrainType *type = m_game->objetTerrainTypeManager()->get(node.get<std::string>("pagedgeometry.<xmlattr>.model"));
             if(type)
             {
-                ObjetTerrain* obj;
                 std::ifstream file;
                 file.open(mapRootPath()+"/"+node.get<std::string>("pagedgeometry.<xmlattr>.fileName"));
                 std::string line;
@@ -287,7 +286,7 @@ void Map::processNode(XmlDocumentManager::Document const & node)
                         pos.y = boost::lexical_cast<float>(positions[1]);
                         pos.z = boost::lexical_cast<float>(positions[2]);
                     }
-                    ObjetTerrain *obj = new ObjetTerrain(m_game, type);
+                    ObjetTerrain *obj = new ObjetTerrain(m_game, type, 0);
                     obj->nodeId = node.get<int>("<xmlattr>.id");
                     obj->paged  = true;
                     obj->setPosition(pos);
