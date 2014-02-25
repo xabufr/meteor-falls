@@ -36,7 +36,7 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
     ServerNetworkEngine* net = (ServerNetworkEngine*) m_manager->getNetwork();
     switch(message.message)
     {
-        case CHAT_MESSAGE:
+        case mf::EngineMessageType::CHAT_MESSAGE:
             {
                 if(message.ints[mf::EngineMessageKey::RANGE]==(int)mf::EngineMessageKey::TEAM_RANGE)
                 {
@@ -53,12 +53,12 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
                     net->sendToAllTcp(&message);
             }
             break;
-        case DEL_PLAYER:
+        case mf::EngineMessageType::DEL_PLAYER:
             {
                 deleteJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
             }
             break;
-        case ADDOBJECT:
+        case mf::EngineMessageType::ADDOBJECT:
             {
                 UnitId type       = message.ints[mf::EngineMessageKey::OBJECT_TYPE];
                 UnitId id         = message.ints[mf::EngineMessageKey::OBJECT_ID];
@@ -69,7 +69,7 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
                 unit->setPosition(position);
             }
             break;
-        case SPAWN:
+        case mf::EngineMessageType::SPAWN:
             {
                 Joueur *j = findJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                 if(j==nullptr||j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
@@ -105,7 +105,7 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
                 }
             }
             break;
-        case SELECT_TEAM:
+        case mf::EngineMessageType::SELECT_TEAM:
             {
                 char teamId  = message.ints[mf::EngineMessageKey::TEAM_ID];
                 Joueur *joueur = findJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
@@ -114,7 +114,7 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
                 bool alertOther = joueur->equipe() == nullptr;
                 bool canJoin = tryJoinTeam(teamId, joueur);
                 EngineMessage messageTeam(m_manager);
-                messageTeam.message = EngineMessageType::SELECT_TEAM;
+                messageTeam.message = mf::EngineMessageType::SELECT_TEAM;
                 messageTeam.ints[mf::EngineMessageKey::PLAYER_NUMBER] = joueur->id();
                 if(canJoin)
                 {
@@ -130,11 +130,11 @@ void ServerGameEngine::handleMessage(EngineMessage& message)
                 }
             }
             break;
-        case SELECT_GAMEPLAY:
+        case mf::EngineMessageType::SELECT_GAMEPLAY:
             {
                 Joueur *joueur = findJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                 EngineMessage messageRep(m_manager);
-                messageRep.message = EngineMessageType::SELECT_GAMEPLAY;
+                messageRep.message = mf::EngineMessageType::SELECT_GAMEPLAY;
                 messageRep.ints[mf::EngineMessageKey::PLAYER_NUMBER] = joueur->id();
                 messageRep.ints[mf::EngineMessageKey::GAMEPLAY_TYPE] = message.ints[mf::EngineMessageKey::GAMEPLAY_TYPE];
                 bool result = true;
@@ -197,7 +197,7 @@ void ServerGameEngine::uniteSubirDegats(Unite *unite, int degats)
     if(unite->estVivant())
     {
         EngineMessage mes(m_manager);
-        mes.message = EngineMessageType::SUBIR_DEGATS;
+        mes.message = mf::EngineMessageType::SUBIR_DEGATS;
         mes.ints[mf::EngineMessageKey::TEAM_ID] = unite->equipe()->id();
         mes.ints[mf::EngineMessageKey::OBJECT_ID] = unite->id();
         mes.ints[mf::EngineMessageKey::OBJECT_HEAL] = degats;
@@ -212,7 +212,7 @@ void ServerGameEngine::tuerUnite(Unite *unite)
 {
     unite->tuer();
     EngineMessage mes(m_manager);
-    mes.message         = EngineMessageType::KILL;
+    mes.message         = mf::EngineMessageType::KILL;
     mes.ints[mf::EngineMessageKey::OBJECT_ID] = unite->id();
     mes.ints[mf::EngineMessageKey::TEAM_ID] = unite->equipe()->id();
     m_net()->sendToAllTcp(&mes);

@@ -22,7 +22,7 @@ void ServerNetworkEngineLan::m_handleSendLanInfo(const boost::system::error_code
     m_timer_seed->async_wait(boost::bind(&ServerNetworkEngineLan::m_handleSendLanInfo, this, _1));
 
     EngineMessage mess(nullptr);
-    mess.message = EngineMessageType::SERVER_INFO;
+    mess.message = mf::EngineMessageType::SERVER_INFO;
     mess.strings[mf::EngineMessageKey::SERVER_NAME] = m_server_name;
     mess.strings[mf::EngineMessageKey::MAP_NAME] = m_map_name;
     mess.ints[mf::EngineMessageKey::MAX_PLAYERS] = m_max_clients;
@@ -55,7 +55,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
     if(client==nullptr)
         return;
     EngineMessage *messageClient = new EngineMessage(m_manager);
-    messageClient->message       = EngineMessageType::LOGIN_RESULT;
+    messageClient->message       = mf::EngineMessageType::LOGIN_RESULT;
     if(password != NetworkEngine::SHA1(m_password+client->data->sel))
     {
         messageClient->ints[mf::EngineMessageKey::PLAYER_NUMBER] = -1;

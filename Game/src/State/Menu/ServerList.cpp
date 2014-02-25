@@ -129,7 +129,7 @@ ret_code ServerList::work(const TimeDuration &elapsed)
                 if(messageType == mf::MESSAGE)
                 {
                     message = new EngineMessage(nullptr, packet);
-                    if(message->message==EngineMessageType::SERVER_INFO)
+                    if(message->message==mf::EngineMessageType::SERVER_INFO)
                     {
                         Server *s =  new Server(packet.sender.to_string(),
                                                 std::string(message->strings[mf::EngineMessageKey::SERVER_NAME]),

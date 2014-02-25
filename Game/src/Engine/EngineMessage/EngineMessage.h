@@ -19,7 +19,7 @@ class EngineMessage
     public:
         EngineMessage(EngineManager* p_engine_manager); //à faire
         EngineMessage(EngineManager *p_engine_manager, Packet &packet);
-        int message;
+        mf::EngineMessageType message;
         int time;
         std::map<mf::EngineMessageKey, int> ints;
         std::map<mf::EngineMessageKey, double> doubles;

@@ -20,7 +20,9 @@ EngineMessage::EngineMessage(EngineManager* p_engine_manager)
 
 void EngineMessage::fromPacket(Packet &packet)
 {
-    packet >> message;
+    std::uint8_t message_encoded;
+    packet >> message_encoded;
+    message = (mf::EngineMessageType) message_encoded;
     packet >> time;
     packet >> m_from_type;
     packet >> m_to_type;
@@ -114,7 +116,7 @@ Packet EngineMessage::toPacket() const
 {
     Packet packet;
     packet << (std::uint8_t) mf::PacketType::MESSAGE;
-    packet << message;
+    packet << (std::uint8_t) message;
     packet << time;
     packet << m_from_type;
     packet << m_to_type;

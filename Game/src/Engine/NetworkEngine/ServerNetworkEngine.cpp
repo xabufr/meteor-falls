@@ -39,11 +39,12 @@ void ServerNetworkEngine::handleRtsSelectionChanged(const ServerClient &original
 
 void ServerNetworkEngine::handleRawPacket(const ServerClient &client, Packet &packet)
 {
-    std::uint8_t message;
-    packet >> message;
+    std::uint8_t message_encoded;
+    packet >> message_encoded;
+    mf::EngineMessageType message = (mf::EngineMessageType) message_encoded;
     switch (message)
     {
-        case RTS_SELECTION:
+        case mf::EngineMessageType::RTS_SELECTION:
         {
             handleRtsSelectionChanged(client, packet);
         }
@@ -89,7 +90,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                     message = new EngineMessage(m_manager, packet);
                     switch (message->message)
                     {
-                        case EngineMessageType::NEW_PLAYER:
+                        case mf::EngineMessageType::NEW_PLAYER:
                         {
                             m_addNewPlayer(client.id(), message);
                             EngineMessage *messageMap = m_createMapMessage();
@@ -97,11 +98,11 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             delete messageMap;
                         }
                         break;
-                        case EngineMessageType::GETTEAMLIST:
+                        case mf::EngineMessageType::GETTEAMLIST:
                         {
                             const std::vector<Equipe *> &equipes = m_manager->getGame()->getTeams();
                             EngineMessage messageTeams(m_manager);
-                            messageTeams.message           = EngineMessageType::ADDTEAM;
+                            messageTeams.message           = mf::EngineMessageType::ADDTEAM;
                             for (Equipe * e : equipes)
                             {
                                 messageTeams.ints[mf::EngineMessageKey::FACTION_ID] = e->faction()->id();
@@ -110,7 +111,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                 for (Joueur * j : e->joueurs())
                                 {
                                     EngineMessage *player = new EngineMessage(m_manager);
-                                    player->message = EngineMessageType::NEW_PLAYER;
+                                    player->message = mf::EngineMessageType::NEW_PLAYER;
                                     player->ints[mf::EngineMessageKey::TEAM_ID] = e->id();
                                     player->ints[mf::EngineMessageKey::PLAYER_NUMBER] = j->id();
                                     player->strings[mf::EngineMessageKey::PSEUDO] = j->getNom();
@@ -128,15 +129,15 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             }
                         }
                         break;
-                        case EngineMessageType::SYNC_TIME:
+                        case mf::EngineMessageType::SYNC_TIME:
                         {
                             EngineMessage messageTime(m_manager);
-                            messageTime.message = EngineMessageType::SYNC_TIME;
+                            messageTime.message = mf::EngineMessageType::SYNC_TIME;
                             messageTime.time    = m_clock.getTime();
                             sendToTcp(client, &messageTime);
                         }
                         break;
-                        case EngineMessageType::PING:
+                        case mf::EngineMessageType::PING:
                         {
                             client.data->timeSinceLastPingRep.reset();
                             client.data->waitingPing = false;
@@ -144,7 +145,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             sendSetPing(client);
                         }
                         break;
-                        case EngineMessageType::GETOBJECTSLIST:
+                        case mf::EngineMessageType::GETOBJECTSLIST:
                         {
                             for (Equipe * e : m_manager->getGame()->getTeams())
                             {
@@ -153,7 +154,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                     if (!u->type()) //C'est un héro, nécessite une synchro plus poussée (avatar)
                                         continue;
                                     EngineMessage messageUnit(m_manager);
-                                    messageUnit.message = EngineMessageType::ADDOBJECT;
+                                    messageUnit.message = mf::EngineMessageType::ADDOBJECT;
                                     messageUnit.positions[mf::EngineMessageKey::OBJECT_POSITION] = u->position();
                                     messageUnit.ints[mf::EngineMessageKey::TEAM_ID] = e->id();
                                     messageUnit.ints[mf::EngineMessageKey::OBJECT_ID] = u->id();
@@ -166,7 +167,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                     if (!j->hero())
                                         continue;
                                     EngineMessage messageHero(m_manager);
-                                    messageHero.message = EngineMessageType::SPAWN;
+                                    messageHero.message = mf::EngineMessageType::SPAWN;
                                     messageHero.ints[mf::EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id();
                                     j->hero()->avatar()->serialize(&messageHero);
                                     messageHero.ints[mf::EngineMessageKey::OBJECT_ID] = j->hero()->id();
@@ -178,7 +179,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             }
                         }
                         break;
-                        case EngineMessageType::PLAYER_POSITION:
+                        case mf::EngineMessageType::PLAYER_POSITION:
                         {
                             Joueur *j = m_manager->getGame()->findJoueur(message->ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                             if (j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
@@ -245,7 +246,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
             EngineMessage *message = new EngineMessage(m_manager, packet);
             switch (message->message)
             {
-                case EngineMessageType::PLAYER_POSITION:
+                case mf::EngineMessageType::PLAYER_POSITION:
                 {
                     Joueur *j = m_manager->getGame()->findJoueur(message->ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                     if (j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
@@ -289,7 +290,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
             client.data->sel = SHA1(boost::lexical_cast<std::string>(client.id()) +
                                     client.tcp()->socket().remote_endpoint().address().to_string());
             EngineMessage messageSalt(m_manager);
-            messageSalt.message = EngineMessageType::SETSALT;
+            messageSalt.message = mf::EngineMessageType::SETSALT;
             messageSalt.strings[mf::EngineMessageKey::SEL] = client.data->sel;
             client.tcp()->sendPacket(messageSalt.toPacket());
         }
@@ -299,7 +300,7 @@ void ServerNetworkEngine::m_handleAccept(TcpConnection::pointer conn, const boos
 void ServerNetworkEngine::removeClient(ServerClient &c)
 {
     EngineMessage message(m_manager);
-    message.message = EngineMessageType::DEL_PLAYER;
+    message.message = mf::EngineMessageType::DEL_PLAYER;
     message.ints[mf::EngineMessageKey::PLAYER_NUMBER] = c.joueur->id();
     {
         boost::recursive_mutex::scoped_lock l(m_mutex_clients);
@@ -362,7 +363,7 @@ void ServerNetworkEngine::setMapName(const std::string &name)
 EngineMessage *ServerNetworkEngine::m_createMapMessage()
 {
     EngineMessage *message = new EngineMessage(m_manager);
-    message->message = EngineMessageType::LOAD_MAP;
+    message->message = mf::EngineMessageType::LOAD_MAP;
     message->strings[mf::EngineMessageKey::MAP_NAME] = m_map_name;
     message->addToType(EngineType::GameEngineType);
     return message;
@@ -400,7 +401,7 @@ ServerClient *ServerNetworkEngine::findClient(client_id id)
 void ServerNetworkEngine::announcePlayerConnectionTeam(Joueur *joueur)
 {
     EngineMessage message(m_manager);
-    message.message = EngineMessageType::NEW_PLAYER;
+    message.message = mf::EngineMessageType::NEW_PLAYER;
     message.ints[mf::EngineMessageKey::PLAYER_NUMBER] = joueur->id();
     message.strings[mf::EngineMessageKey::PSEUDO] = joueur->getNom();
     message.ints[mf::EngineMessageKey::TEAM_ID] = joueur->equipe()->id();
@@ -421,7 +422,7 @@ void ServerNetworkEngine::pingClients()
         {
             c.data->waitingPing = true;
             EngineMessage mess(m_manager);
-            mess.message = EngineMessageType::PING;
+            mess.message = mf::EngineMessageType::PING;
             sendToTcp(c, &mess);
             c.data->timePing.reset();
         }
@@ -430,7 +431,7 @@ void ServerNetworkEngine::pingClients()
 void ServerNetworkEngine::sendSetPing(ServerClient &c)
 {
     EngineMessage mess(m_manager);
-    mess.message = EngineMessageType::SET_PING;
+    mess.message = mf::EngineMessageType::SET_PING;
     mess.ints[mf::EngineMessageKey::TIME] = c.joueur->ping;
     mess.ints[mf::EngineMessageKey::PLAYER_NUMBER] = c.joueur->id();
     sendToAllTcp(&mess);

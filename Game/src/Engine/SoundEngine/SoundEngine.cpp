@@ -85,7 +85,7 @@ void SoundEngine::handleEngineEvent(EngineMessage* event)
 {
     switch(event->message)
     {
-    case PLAY_SOUND:
+    case mf::EngineMessageType::PLAY_SOUND:
         //this->PlaySound(event->GetStrings().find(IndexMessages::Chemin)->second);
         break;
     }

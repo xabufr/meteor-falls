@@ -62,7 +62,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
 {
     switch (message.message)
     {
-        case EngineMessageType::CHAT_MESSAGE:
+        case mf::EngineMessageType::CHAT_MESSAGE:
         {
             std::string nom =
                 "\\[ "
@@ -72,7 +72,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             //m_chat->addMessage(nom);
         }
         break;
-        case EngineMessageType::SELECT_GAMEPLAY:
+        case mf::EngineMessageType::SELECT_GAMEPLAY:
         {
             if (message.ints[mf::EngineMessageKey::RESULT] == 1)
             {
@@ -94,12 +94,12 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             }
         }
         break;
-        case EngineMessageType::DEL_PLAYER:
+        case mf::EngineMessageType::DEL_PLAYER:
         {
             deleteJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
         }
         break;
-        case EngineMessageType::SELECT_TEAM:
+        case mf::EngineMessageType::SELECT_TEAM:
         {
             int team_id = message.ints[mf::EngineMessageKey::TEAM_ID];
             if (team_id == -1)
@@ -115,7 +115,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             }
         }
         break;
-        case EngineMessageType::ADDOBJECT:
+        case mf::EngineMessageType::ADDOBJECT:
         {
             UnitId type = message.ints[mf::EngineMessageKey::OBJECT_TYPE];
             UnitId id = message.ints[mf::EngineMessageKey::OBJECT_ID];
@@ -128,7 +128,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             std::cout << unit->type()->meshParameters().at("normal") << std::endl;
         }
         break;
-        case EngineMessageType::SPAWN:
+        case mf::EngineMessageType::SPAWN:
         {
             Joueur *j = findJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
             if (j == nullptr || j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
@@ -160,7 +160,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             }
         }
         break;
-        case EngineMessageType::KILL:
+        case mf::EngineMessageType::KILL:
         {
             Equipe *e = getEquipe(message.ints[mf::EngineMessageKey::TEAM_ID]);
             if (e)
@@ -177,7 +177,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             }
         }
         break;
-        case EngineMessageType::SUBIR_DEGATS:
+        case mf::EngineMessageType::SUBIR_DEGATS:
         {
             Equipe *e = getEquipe(message.ints[mf::EngineMessageKey::TEAM_ID]);
             if (e)

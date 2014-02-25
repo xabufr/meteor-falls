@@ -92,7 +92,7 @@ void ServerNetworkEngineWan::work(const TimeDuration &elapsed)
                 cli->joueur = new Joueur;
                 cli->joueur->setNom(message.player.pseudo);
                 EngineMessage messageLogin(m_manager);
-                messageLogin.message = EngineMessageType::NEW_PLAYER;
+                messageLogin.message = mf::EngineMessageType::NEW_PLAYER;
                 messageLogin.ints[mf::EngineMessageKey::PLAYER_NUMBER] = cli->id();
                 messageLogin.strings[mf::EngineMessageKey::PSEUDO] = cli->joueur->getNom();
                 sendToAllTcp(&messageLogin);
@@ -100,7 +100,7 @@ void ServerNetworkEngineWan::work(const TimeDuration &elapsed)
             else //Le client n'est pas qui il prétend
             {
                 EngineMessage messageQuit(m_manager);
-                messageQuit.message = EngineMessageType::KICK;
+                messageQuit.message = mf::EngineMessageType::KICK;
                 sendToTcp(*cli, &messageQuit);
             }
         }
@@ -130,7 +130,7 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
     else
     {
         EngineMessage message(m_manager);
-        message.message = EngineMessageType::LOGIN_RESULT;
+        message.message = mf::EngineMessageType::LOGIN_RESULT;
         message.ints[mf::EngineMessageKey::PLAYER_NUMBER] = -1;
         client->tcp()->sendPacket(message.toPacket());
     }

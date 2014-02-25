@@ -1,8 +1,8 @@
 #ifndef ENGINEMESSAGETYPE_H
 #define ENGINEMESSAGETYPE_H
 
-
-enum EngineMessageType
+namespace mf {
+enum class EngineMessageType
 {
     PLAY_SOUND      = 0,
     SERVER_INFO     = 1,
@@ -29,5 +29,7 @@ enum EngineMessageType
     SUBIR_DEGATS    = 22,
     RTS_SELECTION   = 23,
 };
+}
+
 
 #endif // ENGINEMESSAGETYPE_H

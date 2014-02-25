@@ -140,7 +140,7 @@ void RTSSelectionManager::notifyPlayers()
 {
     Packet packet;
     packet << (std::uint8_t) mf::RAW_DATA;
-    packet << (std::uint8_t) RTS_SELECTION;
+    packet << (std::uint8_t) mf::EngineMessageType::RTS_SELECTION;
     std::vector<std::uint32_t> ids;
     ids.resize(m_selection.size());
     for(std::size_t i=0; i < m_selection.size(); ++i)
