@@ -23,10 +23,10 @@ void ServerNetworkEngineLan::m_handleSendLanInfo(const boost::system::error_code
 
     EngineMessage mess(nullptr);
     mess.message = EngineMessageType::SERVER_INFO;
-    mess.strings[EngineMessageKey::SERVER_NAME] = m_server_name;
-    mess.strings[EngineMessageKey::MAP_NAME] = m_map_name;
-    mess.ints[EngineMessageKey::MAX_PLAYERS] = m_max_clients;
-    mess.ints[EngineMessageKey::PLAYER_NUMBER] = m_clients.size();
+    mess.strings[mf::EngineMessageKey::SERVER_NAME] = m_server_name;
+    mess.strings[mf::EngineMessageKey::MAP_NAME] = m_map_name;
+    mess.ints[mf::EngineMessageKey::MAX_PLAYERS] = m_max_clients;
+    mess.ints[mf::EngineMessageKey::PLAYER_NUMBER] = m_clients.size();
 
     m_udpConnexion->send(mess.toPacket(), boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string("225.125.145.155"), m_port));
 }
@@ -41,8 +41,8 @@ void ServerNetworkEngineLan::sendAllUdp(const Packet &packet)
 }
 void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message)
 {
-    std::string password = message->strings[EngineMessageKey::PASSWORD];
-    std::string pseudo = message->strings[EngineMessageKey::PSEUDO];
+    std::string password = message->strings[mf::EngineMessageKey::PASSWORD];
+    std::string pseudo = message->strings[mf::EngineMessageKey::PSEUDO];
     boost::recursive_mutex::scoped_lock(m_mutex_clients);
     ServerClient* client=nullptr;
     for(ServerClient &c : m_clients)
@@ -58,7 +58,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
     messageClient->message       = EngineMessageType::LOGIN_RESULT;
     if(password != NetworkEngine::SHA1(m_password+client->data->sel))
     {
-        messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = -1;
+        messageClient->ints[mf::EngineMessageKey::PLAYER_NUMBER] = -1;
     }
     else
     {
@@ -66,7 +66,7 @@ void ServerNetworkEngineLan::m_addNewPlayer(client_id id, EngineMessage* message
         client->joueur->setNom(pseudo);
         client->joueur->setId(client->id());
         client->data->isConnected=true;
-        messageClient->ints[EngineMessageKey::PLAYER_NUMBER] = client->id();
+        messageClient->ints[mf::EngineMessageKey::PLAYER_NUMBER] = client->id();
         std::cout << "New player: " << client->id() << std::endl;
         m_manager->getGame()->addPlayer(client->joueur);
     }

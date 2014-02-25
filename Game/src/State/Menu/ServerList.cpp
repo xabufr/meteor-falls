@@ -132,12 +132,12 @@ ret_code ServerList::work(const TimeDuration &elapsed)
                     if(message->message==EngineMessageType::SERVER_INFO)
                     {
                         Server *s =  new Server(packet.sender.to_string(),
-                                                std::string(message->strings[EngineMessageKey::SERVER_NAME]),
+                                                std::string(message->strings[mf::EngineMessageKey::SERVER_NAME]),
                                 std::string(""),
-                                message->ints[EngineMessageKey::MAX_PLAYERS],
-                                message->ints[EngineMessageKey::PLAYER_NUMBER],
+                                message->ints[mf::EngineMessageKey::MAX_PLAYERS],
+                                message->ints[mf::EngineMessageKey::PLAYER_NUMBER],
                                 false,
-                                std::string(message->strings[EngineMessageKey::MAP_NAME]),
+                                std::string(message->strings[mf::EngineMessageKey::MAP_NAME]),
                                 std::string(""),
                                 0.0
                                 );

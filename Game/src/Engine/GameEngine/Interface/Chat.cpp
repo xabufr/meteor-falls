@@ -35,10 +35,10 @@ Chat::Chat(GameEngine* game):m_game_engine(game)
 
 Chat::~Chat()
 {
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_show_message);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_show_message);
-	CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_message);
-	CEGUI::WindowManager::getSingleton().destroyWindow(m_message);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_show_message);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_show_message);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->removeChild(m_message);
+    CEGUI::WindowManager::getSingleton().destroyWindow(m_message);
 }
 
 void Chat::show()
@@ -72,7 +72,7 @@ bool Chat::isVisible() const
 void Chat::m_send_message(const CEGUI::String& s)
 {
     ClientNetworkEngine *net = (ClientNetworkEngine*)m_game_engine->getManager()->getNetwork();
-    net->sendChatMessage(std::string(s.c_str()), EngineMessageKey::TEAM_RANGE);
+    net->sendChatMessage(std::string(s.c_str()), mf::EngineMessageKey::TEAM_RANGE);
     m_message->setText("");
 }
 

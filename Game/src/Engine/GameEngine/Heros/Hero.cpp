@@ -15,13 +15,13 @@
 class HeroController: public btKinematicCharacterController
 {
 public:
-	HeroController(btPairCachingGhostObject* g, btConvexShape* shape, btScalar h, int up=1): btKinematicCharacterController(g,shape,h,up)
-	{
-	}
-	btScalar verticalVelocity() const
-	{
-		return m_verticalVelocity;
-	}
+    HeroController(btPairCachingGhostObject* g, btConvexShape* shape, btScalar h, int up=1): btKinematicCharacterController(g,shape,h,up)
+    {
+    }
+    btScalar verticalVelocity() const
+    {
+        return m_verticalVelocity;
+    }
 };
 Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
@@ -30,13 +30,13 @@ m_avatar(a),
 m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
-	m_lastVerticalVelocity = 0.f;
-	m_avancer = m_reculer = m_droite = m_gauche = false;
-	j->setHero(this);
+    m_lastVerticalVelocity = 0.f;
+    m_avancer = m_reculer = m_droite = m_gauche = false;
+    j->setHero(this);
 
 
     m_ghost_object = new btPairCachingGhostObject();
-	m_relationPtr = new BulletRelationPtr(m_ghost_object, this, BulletRelationPtr::Type::UNITE);
+    m_relationPtr = new BulletRelationPtr(m_ghost_object, this, BulletRelationPtr::Type::UNITE);
 
     btScalar characterHeight=1;
 
@@ -51,7 +51,7 @@ m_isModified(true)
 
     m_character_controller = new HeroController(m_ghost_object, m_capsule, stepHeight);
     m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
-	m_character_controller->setFallSpeed(50000);
+    m_character_controller->setFallSpeed(50000);
 
     m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
     m_world->addAction(m_character_controller);
@@ -59,99 +59,99 @@ m_isModified(true)
 }
 Hero::~Hero()
 {
-	m_joueur->setHero(nullptr);
-	m_world->removeCollisionObject(m_ghost_object);
-	m_world->removeAction(m_character_controller);
-	delete m_ghost_object;
-	delete m_character_controller;
-	delete m_capsule;
+    m_joueur->setHero(nullptr);
+    m_world->removeCollisionObject(m_ghost_object);
+    m_world->removeAction(m_character_controller);
+    delete m_ghost_object;
+    delete m_character_controller;
+    delete m_capsule;
 }
 JoueurRPG* Hero::joueur() const
 {
-	return m_joueur;
+    return m_joueur;
 }
 Avatar* Hero::avatar() const
 {
-	return m_avatar;
+    return m_avatar;
 }
 void Hero::update(float time)
 {
-	Vector3D dep;
-	m_lastVerticalVelocity = m_character_controller->verticalVelocity();
-	if(m_avancer||m_reculer||m_droite||m_gauche)
-	{
-		if(m_reculer)
-			dep.z = 1;
-		else if(m_avancer)
-			dep.z = -1;
-		if(m_droite)
-			dep.x = 1;
-		else if(m_gauche)
-			dep.x       = -1;
-		dep = m_rotation * dep;
-		dep *= time*50;
-	}
-	m_character_controller->setWalkDirection(dep);
-	if(m_isModified)
-	{
-		m_comportementModifie();
-		m_isModified=false;
-	}
-	setPosition(m_ghost_object->getWorldTransform().getOrigin());
-	Unite::update(time);
+    Vector3D dep;
+    m_lastVerticalVelocity = m_character_controller->verticalVelocity();
+    if(m_avancer||m_reculer||m_droite||m_gauche)
+    {
+        if(m_reculer)
+            dep.z = 1;
+        else if(m_avancer)
+            dep.z = -1;
+        if(m_droite)
+            dep.x = 1;
+        else if(m_gauche)
+            dep.x       = -1;
+        dep = m_rotation * dep;
+        dep *= time*50;
+    }
+    m_character_controller->setWalkDirection(dep);
+    if(m_isModified)
+    {
+        m_comportementModifie();
+        m_isModified=false;
+    }
+    setPosition(m_ghost_object->getWorldTransform().getOrigin());
+    Unite::update(time);
 }
 void Hero::setAvancer(bool a)
 {
-	if(m_avancer!=a)
-		m_isModified=true;
-	m_avancer=a;
-	for(WorldObjectListener* l : m_listeners)
-	{
-		HeroListener *hl = dynamic_cast<HeroListener*>(l);
-		if(hl)
-			hl->avancer(a);
-	}
+    if(m_avancer!=a)
+        m_isModified=true;
+    m_avancer=a;
+    for(WorldObjectListener* l : m_listeners)
+    {
+        HeroListener *hl = dynamic_cast<HeroListener*>(l);
+        if(hl)
+            hl->avancer(a);
+    }
 }
 void Hero::setReculer(bool r)
 {
-	if(m_reculer!=r)
-		m_isModified=true;
-	m_reculer = r;
-	for(WorldObjectListener* l : m_listeners)
-	{
-		HeroListener *hl = dynamic_cast<HeroListener*>(l);
-		if(hl)
-			hl->reculer(r);
-	}
+    if(m_reculer!=r)
+        m_isModified=true;
+    m_reculer = r;
+    for(WorldObjectListener* l : m_listeners)
+    {
+        HeroListener *hl = dynamic_cast<HeroListener*>(l);
+        if(hl)
+            hl->reculer(r);
+    }
 }
 void Hero::setGauche(bool g)
 {
-	if(m_gauche!=g)
-		m_isModified=true;
-	m_gauche = g;
-	for(WorldObjectListener* l : m_listeners)
-	{
-		HeroListener *hl = dynamic_cast<HeroListener*>(l);
-		if(hl)
-			hl->gauche(g);
-	}
+    if(m_gauche!=g)
+        m_isModified=true;
+    m_gauche = g;
+    for(WorldObjectListener* l : m_listeners)
+    {
+        HeroListener *hl = dynamic_cast<HeroListener*>(l);
+        if(hl)
+            hl->gauche(g);
+    }
 }
 void Hero::setDroite(bool d)
 {
-	if(m_droite!=d)
-		m_isModified=true;
-	m_droite = d;
-	for(WorldObjectListener* l : m_listeners)
-	{
-		HeroListener *hl = dynamic_cast<HeroListener*>(l);
-		if(hl)
-			hl->droite(d);
-	}
+    if(m_droite!=d)
+        m_isModified=true;
+    m_droite = d;
+    for(WorldObjectListener* l : m_listeners)
+    {
+        HeroListener *hl = dynamic_cast<HeroListener*>(l);
+        if(hl)
+            hl->droite(d);
+    }
 }
 void Hero::m_comportementModifie()
 {
-	//if(m_sceneNode) // CLIENT
-	//{
+    //if(m_sceneNode) // CLIENT
+    //{
 //		if(m_equipe->game()->getCurrentJoueur() == this->joueur()->joueur())
 //		{
 //			((ClientNetworkEngine*)m_equipe->game()->getManager()->getNetwork())->sendRpgModification(!m_isModified);
@@ -160,27 +160,27 @@ void Hero::m_comportementModifie()
 }
 void Hero::serializeComportement(EngineMessage* mess)
 {
-	mess->ints[EngineMessageKey::OBJECT_ID] = this->id();
-	mess->ints[EngineMessageKey::TEAM_ID] = m_equipe->id();
-	mess->positions[EngineMessageKey::OBJECT_POSITION] = Hero::position();
-	mess->quaternions[EngineMessageKey::OBJECT_ROTATION] = Hero::rotation();
-	mess->ints[EngineMessageKey::HERO_AVANCE] = static_cast<int>(m_avancer);
-	mess->ints[EngineMessageKey::HERO_RECULE] = static_cast<int>(m_reculer);
-	mess->ints[EngineMessageKey::HERO_GAUCHE] = static_cast<int>(m_gauche);
-	mess->ints[EngineMessageKey::HERO_DROITE] = static_cast<int>(m_droite);
+    mess->ints[mf::EngineMessageKey::OBJECT_ID] = this->id();
+    mess->ints[mf::EngineMessageKey::TEAM_ID] = m_equipe->id();
+    mess->positions[mf::EngineMessageKey::OBJECT_POSITION] = Hero::position();
+    mess->quaternions[mf::EngineMessageKey::OBJECT_ROTATION] = Hero::rotation();
+    mess->ints[mf::EngineMessageKey::HERO_AVANCE] = static_cast<int>(m_avancer);
+    mess->ints[mf::EngineMessageKey::HERO_RECULE] = static_cast<int>(m_reculer);
+    mess->ints[mf::EngineMessageKey::HERO_GAUCHE] = static_cast<int>(m_gauche);
+    mess->ints[mf::EngineMessageKey::HERO_DROITE] = static_cast<int>(m_droite);
 }
 void Hero::deserializeComportement(EngineMessage* mess)
 {
-	setPosition(mess->positions[EngineMessageKey::OBJECT_POSITION]);
-	setRotation(mess->quaternions[EngineMessageKey::OBJECT_ROTATION]);
-	m_reculer = static_cast<bool>(mess->ints[EngineMessageKey::HERO_RECULE]);
-	m_avancer= static_cast<bool>(mess->ints[EngineMessageKey::HERO_AVANCE]);
-	m_droite = static_cast<bool>(mess->ints[EngineMessageKey::HERO_DROITE]);
-	m_gauche = static_cast<bool>(mess->ints[EngineMessageKey::HERO_GAUCHE]);
+    setPosition(mess->positions[mf::EngineMessageKey::OBJECT_POSITION]);
+    setRotation(mess->quaternions[mf::EngineMessageKey::OBJECT_ROTATION]);
+    m_reculer = static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_RECULE]);
+    m_avancer= static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_AVANCE]);
+    m_droite = static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_DROITE]);
+    m_gauche = static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_GAUCHE]);
 }
 void Hero::tournerGaucheDroite(float angle)
 {
-	setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
+    setRotation(m_rotation * Quaternion::fromAngleAxis(0,1,0,angle));
 }
 void Hero::lookUpDown(float angle)
 {
@@ -199,31 +199,31 @@ void Hero::m_move(const btVector3& vect)
 }
 void Hero::setPosition(const Vector3D& pos)
 {
-	m_character_controller->warp(pos);
-	WorldObject::setPosition(pos);
+    m_character_controller->warp(pos);
+    WorldObject::setPosition(pos);
 }
 void Hero::sauter()
 {
-	if(m_character_controller->canJump())
-	{
-		m_character_controller->jump();
-		for(WorldObjectListener* l : m_listeners)
-		{
-			HeroListener *hl = dynamic_cast<HeroListener*>(l);
-			if(hl)
-				hl->sauter();
-		}
-	}
+    if(m_character_controller->canJump())
+    {
+        m_character_controller->jump();
+        for(WorldObjectListener* l : m_listeners)
+        {
+            HeroListener *hl = dynamic_cast<HeroListener*>(l);
+            if(hl)
+                hl->sauter();
+        }
+    }
 }
 float Hero::verticalVelocity() const
 {
-	m_character_controller->verticalVelocity();
+    m_character_controller->verticalVelocity();
 }
-bool Hero::isOnGround() const 
+bool Hero::isOnGround() const
 {
-	return m_character_controller->onGround();
+    return m_character_controller->onGround();
 }
-float Hero::lastVerticalVelocity() const 
+float Hero::lastVerticalVelocity() const
 {
-	return m_lastVerticalVelocity;
+    return m_lastVerticalVelocity;
 }

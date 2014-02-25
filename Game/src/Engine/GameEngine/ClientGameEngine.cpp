@@ -67,20 +67,20 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             std::string nom =
                 "\\[ "
                 + findJoueur(
-                    message.ints[EngineMessageKey::PLAYER_NUMBER])->getNom()
-                + " ]:" + message.strings[EngineMessageKey::MESSAGE];
+                    message.ints[mf::EngineMessageKey::PLAYER_NUMBER])->getNom()
+                + " ]:" + message.strings[mf::EngineMessageKey::MESSAGE];
             //m_chat->addMessage(nom);
         }
         break;
         case EngineMessageType::SELECT_GAMEPLAY:
         {
-            if (message.ints[EngineMessageKey::RESULT] == 1)
+            if (message.ints[mf::EngineMessageKey::RESULT] == 1)
             {
                 Joueur *joueur = findJoueur(
-                                     message.ints[EngineMessageKey::PLAYER_NUMBER]);
+                                     message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                 if (joueur == nullptr)
                     return;
-                joueur->setTypeGamplay(message.ints[EngineMessageKey::GAMEPLAY_TYPE] == EngineMessageKey::RTS_GAMEPLAY ?
+                joueur->setTypeGamplay(message.ints[mf::EngineMessageKey::GAMEPLAY_TYPE] == (int) mf::EngineMessageKey::RTS_GAMEPLAY ?
                                        Joueur::RTS :
                                        Joueur::RPG);
                 if (joueur == m_current_joueur)
@@ -96,16 +96,16 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
         break;
         case EngineMessageType::DEL_PLAYER:
         {
-            deleteJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+            deleteJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
         }
         break;
         case EngineMessageType::SELECT_TEAM:
         {
-            int team_id = message.ints[EngineMessageKey::TEAM_ID];
+            int team_id = message.ints[mf::EngineMessageKey::TEAM_ID];
             if (team_id == -1)
                 return;
             Joueur *joueur = findJoueur(
-                                 message.ints[EngineMessageKey::PLAYER_NUMBER]);
+                                 message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
             Equipe *equ = getEquipe(team_id);
             if (joueur == nullptr || equ == nullptr)
                 return;
@@ -117,10 +117,10 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
         break;
         case EngineMessageType::ADDOBJECT:
         {
-            UnitId type = message.ints[EngineMessageKey::OBJECT_TYPE];
-            UnitId id = message.ints[EngineMessageKey::OBJECT_ID];
-            Vector3D position = message.positions[EngineMessageKey::OBJECT_POSITION];
-            char teamId = message.ints[EngineMessageKey::TEAM_ID];
+            UnitId type = message.ints[mf::EngineMessageKey::OBJECT_TYPE];
+            UnitId id = message.ints[mf::EngineMessageKey::OBJECT_ID];
+            Vector3D position = message.positions[mf::EngineMessageKey::OBJECT_POSITION];
+            char teamId = message.ints[mf::EngineMessageKey::TEAM_ID];
             Equipe *e = getEquipe(teamId);
             Unite *unit = e->factory()->create(type, id);
             unit->setPosition(position);
@@ -130,19 +130,19 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
         break;
         case EngineMessageType::SPAWN:
         {
-            Joueur *j = findJoueur(message.ints[EngineMessageKey::PLAYER_NUMBER]);
+            Joueur *j = findJoueur(message.ints[mf::EngineMessageKey::PLAYER_NUMBER]);
             if (j == nullptr || j->getTypeGameplay() != Joueur::TypeGameplay::RPG)
                 return;
-            if (message.ints[EngineMessageKey::RESULT] == 1)
+            if (message.ints[mf::EngineMessageKey::RESULT] == 1)
             {
-                if (!j->avatar(message.ints[EngineMessageKey::AVATAR_ID]))
+                if (!j->avatar(message.ints[mf::EngineMessageKey::AVATAR_ID]))
                 {
                 }
-                Avatar *avatar = j->avatar(message.ints[EngineMessageKey::AVATAR_ID]);
+                Avatar *avatar = j->avatar(message.ints[mf::EngineMessageKey::AVATAR_ID]);
                 Unite *hero = j->equipe()->factory()->create(j, avatar,
                               avatar->classe(),
-                              message.ints[EngineMessageKey::OBJECT_ID]);
-                hero->setPosition(message.positions[EngineMessageKey::OBJECT_POSITION] + Vector3D(0, 100, 0));
+                              message.ints[mf::EngineMessageKey::OBJECT_ID]);
+                hero->setPosition(message.positions[mf::EngineMessageKey::OBJECT_POSITION] + Vector3D(0, 100, 0));
                 m_objectContainer.addObject(hero);
                 if (m_current_joueur == j)
                 {
@@ -155,17 +155,17 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
                 if (sous_state)
                 {
                     sous_state->notifySpawnError(
-                        (SpawnState::ErrorMessages) message.ints[EngineMessageKey::ERROR_CODE]);
+                        (SpawnState::ErrorMessages) message.ints[mf::EngineMessageKey::ERROR_CODE]);
                 }
             }
         }
         break;
         case EngineMessageType::KILL:
         {
-            Equipe *e = getEquipe(message.ints[TEAM_ID]);
+            Equipe *e = getEquipe(message.ints[mf::EngineMessageKey::TEAM_ID]);
             if (e)
             {
-                Unite *u = e->getUnite(message.ints[OBJECT_ID]);
+                Unite *u = e->getUnite(message.ints[mf::EngineMessageKey::OBJECT_ID]);
                 if (u)
                 {
                     u->tuer();
@@ -179,13 +179,13 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
         break;
         case EngineMessageType::SUBIR_DEGATS:
         {
-            Equipe *e = getEquipe(message.ints[TEAM_ID]);
+            Equipe *e = getEquipe(message.ints[mf::EngineMessageKey::TEAM_ID]);
             if (e)
             {
-                Unite *u = e->getUnite(message.ints[OBJECT_ID]);
+                Unite *u = e->getUnite(message.ints[mf::EngineMessageKey::OBJECT_ID]);
                 if (u)
                 {
-                    u->subirDegats(message.ints[OBJECT_HEAL]);
+                    u->subirDegats(message.ints[mf::EngineMessageKey::OBJECT_HEAL]);
                 }
             }
         }

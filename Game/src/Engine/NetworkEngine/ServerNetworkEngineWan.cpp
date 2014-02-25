@@ -93,8 +93,8 @@ void ServerNetworkEngineWan::work(const TimeDuration &elapsed)
                 cli->joueur->setNom(message.player.pseudo);
                 EngineMessage messageLogin(m_manager);
                 messageLogin.message = EngineMessageType::NEW_PLAYER;
-                messageLogin.ints[EngineMessageKey::PLAYER_NUMBER] = cli->id();
-                messageLogin.strings[EngineMessageKey::PSEUDO] = cli->joueur->getNom();
+                messageLogin.ints[mf::EngineMessageKey::PLAYER_NUMBER] = cli->id();
+                messageLogin.strings[mf::EngineMessageKey::PSEUDO] = cli->joueur->getNom();
                 sendToAllTcp(&messageLogin);
             }
             else //Le client n'est pas qui il prétend
@@ -109,8 +109,8 @@ void ServerNetworkEngineWan::work(const TimeDuration &elapsed)
 }
 void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message)
 {
-    std::string password = message->strings[EngineMessageKey::PASSWORD];
-    std::string session = message->strings[EngineMessageKey::SESSION];
+    std::string password = message->strings[mf::EngineMessageKey::PASSWORD];
+    std::string session = message->strings[mf::EngineMessageKey::SESSION];
     boost::mutex::scoped_lock(m_mutex_clients);
     ServerClient* client=nullptr;
     for(ServerClient &c : m_clients)
@@ -131,7 +131,7 @@ void ServerNetworkEngineWan::m_addNewPlayer(client_id id, EngineMessage* message
     {
         EngineMessage message(m_manager);
         message.message = EngineMessageType::LOGIN_RESULT;
-        message.ints[EngineMessageKey::PLAYER_NUMBER] = -1;
+        message.ints[mf::EngineMessageKey::PLAYER_NUMBER] = -1;
         client->tcp()->sendPacket(message.toPacket());
     }
 }

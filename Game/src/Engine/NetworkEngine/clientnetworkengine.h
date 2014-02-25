@@ -4,6 +4,7 @@
 #include "NetworkEngine.h"
 #include "TcpConnection.h"
 #include "UdpConnection.h"
+#include "../EngineMessage/EngineMessageKey.h"
 
 class Unite;
 class Avatar;
@@ -36,10 +37,10 @@ class ClientNetworkEngine : public NetworkEngine
         int getState() const;
         virtual void logingIn();
 
-        void sendChatMessage(std::string message, int porte);
+        void sendChatMessage(std::string message, mf::EngineMessageKey porte);
 
         void trySelectTeam(char);
-        void trySelectGameplay(int);
+        void trySelectGameplay(mf::EngineMessageKey);
         void trySpawn(Unite*, Avatar*);
 
         char teamId() const;

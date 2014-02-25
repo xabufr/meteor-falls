@@ -21,11 +21,11 @@ class EngineMessage
         EngineMessage(EngineManager *p_engine_manager, Packet &packet);
         int message;
         int time;
-        std::map<EngineMessageKey, int> ints;
-        std::map<EngineMessageKey, double> doubles;
-        std::map<EngineMessageKey, std::string> strings;
-        std::map<EngineMessageKey, Vector3D> positions;
-        std::map<EngineMessageKey, Quaternion> quaternions;
+        std::map<mf::EngineMessageKey, int> ints;
+        std::map<mf::EngineMessageKey, double> doubles;
+        std::map<mf::EngineMessageKey, std::string> strings;
+        std::map<mf::EngineMessageKey, Vector3D> positions;
+        std::map<mf::EngineMessageKey, Quaternion> quaternions;
         void setFrom(Engine* p_from);
         void setFromType(EngineType p_from_type); //à faire
         void addTo(Engine* p_to);

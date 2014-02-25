@@ -19,7 +19,7 @@ void ClientNetworkEngineLan::logingIn()
 {
     EngineMessage mess(m_manager);
     mess.message = EngineMessageType::NEW_PLAYER;
-    mess.strings[EngineMessageKey::PSEUDO] = m_joueur->getNom();
-    mess.strings[EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
+    mess.strings[mf::EngineMessageKey::PSEUDO] = m_joueur->getNom();
+    mess.strings[mf::EngineMessageKey::PASSWORD] = SHA1(m_password+m_salt);
     m_tcp->sendPacket(mess.toPacket());
 }
