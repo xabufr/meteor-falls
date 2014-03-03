@@ -53,10 +53,10 @@ void WorldObject::setPosition(const Vector3D& vec)
         l->positionChanged(vec, this);
 
 }
-void WorldObject::update(float time)
+void WorldObject::update(const TimeDuration &duration)
 {
     for(WorldObjectListener *listener : m_listeners)
-        listener->update(time, this);
+        listener->update(duration, this);
 }
 const Vector3D& WorldObject::position() const
 {

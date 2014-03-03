@@ -11,6 +11,7 @@ class JoueurRTS;
 class Joueur;
 class UniteFactory;
 class GameEngine;
+class TimeDuration;
 class Equipe
 {
     public:
@@ -41,7 +42,7 @@ class Equipe
         Unite* getUnite(int) const;
         GameEngine* game() const;
 
-        void update(float seconds);
+        void update(const TimeDuration &duration);
 
     protected:
     private:

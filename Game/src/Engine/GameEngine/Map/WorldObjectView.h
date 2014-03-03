@@ -16,7 +16,7 @@ public:
     ~WorldObjectView();
     WorldObject* model() const;
     const Ogre::AxisAlignedBox& getBoundingBox() const;
-    virtual void update(float time, WorldObject *sender);
+    virtual void update(const TimeDuration &time, WorldObject *sender);
 protected:
     Ogre::SceneNode *m_node;
     WorldObject *m_model;

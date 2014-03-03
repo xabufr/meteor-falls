@@ -22,6 +22,8 @@
 #include "../ScriptEngine/MeshManager.h"
 #include "Map/ObjetTerrainTypeManager.h"
 
+#include <Utils/timeduration.h>
+
 
 GameEngine::GameEngine(EngineManager* mng):
     Engine(mng)
@@ -48,15 +50,13 @@ GameEngine::~GameEngine()
 }
 void GameEngine::work(const TimeDuration &elapsed)
 {
-    static sf::Clock clock;
-    m_world->stepSimulation(clock.getElapsedTime().asSeconds(), 5);
+    m_world->stepSimulation(elapsed.seconds(), 5);
     if(m_map->getLoaded() == true)
     {
         m_map->update();
     }
     for(Equipe* e : m_teams)
-        e->update(clock.getElapsedTime().asSeconds());
-    clock.restart();
+        e->update(elapsed);
 }
 EngineType GameEngine::getType()
 {

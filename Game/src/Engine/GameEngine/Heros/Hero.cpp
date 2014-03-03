@@ -12,6 +12,8 @@
 #include "../../PhysicalEngine/BulletRelationPtr.h"
 #include "HeroListener.h"
 
+#include <Utils/timeduration.h>
+
 class HeroController: public btKinematicCharacterController
 {
 public:
@@ -74,7 +76,7 @@ Avatar* Hero::avatar() const
 {
     return m_avatar;
 }
-void Hero::update(float time)
+void Hero::update(const TimeDuration &duration)
 {
     Vector3D dep;
     m_lastVerticalVelocity = m_character_controller->verticalVelocity();
@@ -89,7 +91,7 @@ void Hero::update(float time)
         else if(m_gauche)
             dep.x       = -1;
         dep = m_rotation * dep;
-        dep *= time*50;
+        dep *= duration.seconds()*50;
     }
     m_character_controller->setWalkDirection(dep);
     if(m_isModified)
@@ -98,7 +100,7 @@ void Hero::update(float time)
         m_isModified=false;
     }
     setPosition(m_ghost_object->getWorldTransform().getOrigin());
-    Unite::update(time);
+    Unite::update(duration);
 }
 void Hero::setAvancer(bool a)
 {

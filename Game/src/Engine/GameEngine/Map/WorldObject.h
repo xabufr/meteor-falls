@@ -9,6 +9,7 @@ class GameEngine;
 class WorldObjectListener;
 class WorldObjectView;
 class WorldObjectType;
+class TimeDuration;
 struct BulletRelationPtr;
 class WorldObject
 {
@@ -23,7 +24,7 @@ class WorldObject
         const WorldObjectType* type() const;
         int id() const;
 
-        virtual void update(float time);
+        virtual void update(const TimeDuration &duration);
 
         void addListener(WorldObjectListener*);
         void removeListener(const WorldObjectListener *listener);

@@ -13,7 +13,7 @@ class HeroView: virtual public HeroListener, virtual public UniteView
 {
 public:
     HeroView(Hero*, Ogre::SceneNode*);
-    virtual void update(float time, WorldObject *sender);
+    virtual void update(const TimeDuration &time, WorldObject *sender);
     virtual void positionChanged(const Vector3D& p, WorldObject *sender);
     virtual void rotationChanged(const Quaternion& q, WorldObject *sender);
     virtual void avancer(bool);

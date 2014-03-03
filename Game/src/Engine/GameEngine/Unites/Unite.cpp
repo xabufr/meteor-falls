@@ -14,7 +14,7 @@ const TypeUnite* Unite::type() const
 {
     return static_cast<const TypeUnite*>(WorldObject::type());
 }
-void Unite::update(float time)
+void Unite::update(const TimeDuration &time)
 {
     WorldObject::update(time);
 }

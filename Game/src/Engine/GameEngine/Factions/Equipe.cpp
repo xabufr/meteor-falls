@@ -3,6 +3,7 @@
 #include "../Unites/Unite.h"
 #include "../Joueur/JoueurRPG.h"
 #include "../Unites/UniteFactory.h"
+#include <Utils/timeduration.h>
 
 Equipe::Equipe(GameEngine *g, char i): m_id(i), m_game(g)
 {
@@ -144,7 +145,7 @@ GameEngine* Equipe::game() const
 {
     return m_game;
 }
-void Equipe::update(float seconds)
+void Equipe::update(const TimeDuration &duration)
 {
     for(std::vector<Unite*>::iterator it = m_unites_construites.begin();it!=m_unites_construites.end();)
     {
@@ -157,7 +158,7 @@ void Equipe::update(float seconds)
         }
         else
         {
-            (*(it++))->update(seconds);
+            (*(it++))->update(duration);
         }
     }
 }

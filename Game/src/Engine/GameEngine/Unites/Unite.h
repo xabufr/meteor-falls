@@ -11,7 +11,7 @@ public:
     Unite(Equipe* ,TypeUnite* type, int id);
     virtual ~Unite();
     const TypeUnite *type() const;
-    virtual void update(float time);
+    virtual void update(const TimeDuration &time);
     void subirDegats(int);
     int vie() const;
     void tuer();

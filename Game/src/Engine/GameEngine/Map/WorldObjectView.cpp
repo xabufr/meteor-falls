@@ -22,6 +22,6 @@ const Ogre::AxisAlignedBox &WorldObjectView::getBoundingBox() const
     return m_node->_getWorldAABB();
 }
 
-void WorldObjectView::update(float time, WorldObject *sender)
+void WorldObjectView::update(const TimeDuration &time, WorldObject *sender)
 {
 }

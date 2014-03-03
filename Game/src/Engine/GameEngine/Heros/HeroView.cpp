@@ -7,6 +7,8 @@
 #include <OgreEntity.h>
 #include "../../../Utils/Quaternion.h"
 
+#include <Utils/timeduration.h>
+
 HeroView::HeroView(Hero* hero, Ogre::SceneNode* node): UniteView(hero, node), m_hero(hero)
 {
     m_avancer = m_reculer = m_droite = m_gauche = false;
@@ -30,7 +32,7 @@ HeroView::HeroView(Hero* hero, Ogre::SceneNode* node): UniteView(hero, node), m_
         ++it;
     }*/
 }
-void HeroView::update(float time, WorldObject *sender)
+void HeroView::update(const TimeDuration &time, WorldObject *sender)
 {
     if(!m_saute || m_tombe)
     {
@@ -45,13 +47,13 @@ void HeroView::update(float time, WorldObject *sender)
         }
         else if(m_avancer)
         {
-            m_animAvancer->addTime(time);
+            m_animAvancer->addTime(time.seconds());
         }
     }
     if(m_saute)
     {
         m_animAvancer->setEnabled(true);
-        m_animJump->addTime(time);
+        m_animJump->addTime(time.seconds());
         if(m_animJump->getTimePosition() >= m_animJump->getLength() && !m_hero->isOnGround())
         {
             m_tombe = true;
@@ -80,7 +82,7 @@ void HeroView::update(float time, WorldObject *sender)
         }
         else
         {
-            m_animTombe->addTime(time);
+            m_animTombe->addTime(time.seconds());
         }
     }
 }
