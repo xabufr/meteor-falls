@@ -28,6 +28,7 @@ enum class EngineMessageType
     KILL            = 21,
     SUBIR_DEGATS    = 22,
     RTS_SELECTION   = 23,
+    BUILD			= 24,
 };
 }
 

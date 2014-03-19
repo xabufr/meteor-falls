@@ -25,6 +25,9 @@
 #include "../../../EngineMessage/EngineMessage.h"
 #include "../../../NetworkEngine/clientnetworkengine.h"
 
+
+#include "../../Unites/Batiment.h"
+
 RTSSelectionManager::RTSSelectionManager(RTSState *rtsState)
 {
     m_mouseDown = false;
@@ -143,10 +146,10 @@ void RTSSelectionManager::notifyPlayers()
     packet << (std::uint8_t) mf::EngineMessageType::RTS_SELECTION;
     std::vector<std::uint32_t> ids;
     ids.resize(m_selection.size());
-    for(std::size_t i=0; i < m_selection.size(); ++i)
+    for (std::size_t i = 0; i < m_selection.size(); ++i)
         ids[i] = m_selection[i]->id();
     packet << ids;
-    ((ClientNetworkEngine*)m_rtsState->game()->getManager()->getNetwork())->sendTCP(packet);
+    ((ClientNetworkEngine *)m_rtsState->game()->getManager()->getNetwork())->sendTCP(packet);
 }
 
 bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
@@ -166,6 +169,7 @@ bool RTSSelectionManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseBu
         }
         extractViews();
         notifyPlayers();
+        m_rtsState->selectedUnitsChanged(m_selection);
     }
     return true;
 }

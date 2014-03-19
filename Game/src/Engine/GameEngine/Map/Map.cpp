@@ -255,7 +255,7 @@ void Map::processNode(XmlDocumentManager::Document const & node)
                 if(equipe != nullptr)
                 {
                     Unite *u = equipe->factory()->create(UnitId(0));
-                    u->setPosition(Vector3D(position.x, getHeightAt(position.x, position.z), position.z));
+                    u->teleport(Vector3D(position.x, getHeightAt(position.x, position.z), position.z));
                 }
             }
         }
@@ -289,7 +289,7 @@ void Map::processNode(XmlDocumentManager::Document const & node)
                     ObjetTerrain *obj = new ObjetTerrain(m_game, type, 0);
                     obj->nodeId = node.get<int>("<xmlattr>.id");
                     obj->paged  = true;
-                    obj->setPosition(pos);
+                    obj->teleport(pos);
                     obj->setRotation(Quaternion::fromAngleAxis(0,1,0,yaw));
                     m_objectsTerrain.push_back(obj);
                 }

@@ -77,7 +77,7 @@ void SelectionBillboardManager::remove(WorldObjectView *view)
                                  return true;
                              }
                              return false;
-                         }));
+                         }), it->second.end());
     }
 }
 

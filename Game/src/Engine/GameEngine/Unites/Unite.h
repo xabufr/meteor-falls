@@ -5,6 +5,7 @@
 
 class GameEngine;
 class Equipe;
+class btDynamicsWorld;
 class Unite : public WorldObject
 {
 public:
@@ -18,9 +19,14 @@ public:
     bool estVivant() const;
     Equipe *equipe() const;
     virtual bool destroyNeeded() const;
+    bool isConstructed() const;
+    virtual void constructionFinished();
+
 protected:
     int m_vie;
+    bool m_constructed;
     Equipe *m_equipe;
+    btDynamicsWorld *m_physicalWorld;
 };
 
 #endif // UNITE_H

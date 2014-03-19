@@ -73,6 +73,7 @@ const std::vector<Equipe*>& GameEngine::getTeams() const
 void GameEngine::addTeam(Equipe* e)
 {
     e->factory()->addBuilder<BatimentBuilder>();
+    e->factory()->addBuilder<TerrestreBuilder>();
     e->factory()->addBuilder<HeroBuilder>();
     m_teams.push_back(e);
 }

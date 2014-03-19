@@ -7,6 +7,7 @@
 class MapView;
 class WorldObjectView;
 class SelectionBillboardManager;
+class ClientNetworkEngine;
 class ClientGameEngine : public GameEngine
 {
 public:
@@ -26,6 +27,7 @@ public:
 
     SelectionBillboardManager *selectionBillboardManager();
     void setSelectedUnits(const std::vector<std::uint32_t> &ids);
+    ClientNetworkEngine *clientNetwork() const;
 
 private:
     void changeSousStateIfNecessary();

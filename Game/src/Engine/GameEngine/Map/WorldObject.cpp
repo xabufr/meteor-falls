@@ -44,14 +44,18 @@ WorldObjectView *WorldObject::view() const
     }
     return nullptr;
 }
-void WorldObject::setPosition(const Vector3D& vec)
+void WorldObject::teleport(const Vector3D& vec)
 {
-    m_position=vec;
+    setPosition(vec);
     if (m_body!=nullptr)
-        m_body->translate(btVector3(vec.x, vec.y, vec.z));
-    for(WorldObjectListener *l : m_listeners)
-        l->positionChanged(vec, this);
+        m_body->translate(vec);
+}
 
+void WorldObject::setPosition(const Vector3D &position)
+{
+    m_position=position;
+    for(WorldObjectListener *l : m_listeners)
+        l->positionChanged(position, this);
 }
 void WorldObject::update(const TimeDuration &duration)
 {
@@ -84,4 +88,14 @@ const Quaternion& WorldObject::rotation() const
 bool WorldObject::destroyNeeded() const
 {
     return false;
+}
+
+void WorldObject::getWorldTransform(btTransform &worldTrans) const
+{
+    worldTrans.setOrigin(m_position);
+}
+
+void WorldObject::setWorldTransform(const btTransform &worldTrans)
+{
+    setPosition(worldTrans.getOrigin());
 }

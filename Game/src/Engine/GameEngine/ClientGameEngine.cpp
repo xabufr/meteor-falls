@@ -25,6 +25,7 @@
 #include "../GraphicEngine/Ogre/ogrecontextmanager.h"
 #include "../GraphicEngine/Ogre/OgreWindowInputManager.h"
 #include "Unites/ClientUniteFactory.h"
+#include "Unites/Batiment.h"
 
 ClientGameEngine::ClientGameEngine(EngineManager *mng, Joueur *j) :
     GameEngine(mng), m_change_sous_state(true)
@@ -123,9 +124,8 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             char teamId = message.ints[mf::EngineMessageKey::TEAM_ID];
             Equipe *e = getEquipe(teamId);
             Unite *unit = e->factory()->create(type, id);
-            unit->setPosition(position);
+            unit->teleport(position);
             m_objectContainer.addObject(unit);
-            std::cout << unit->type()->meshParameters().at("normal") << std::endl;
         }
         break;
         case mf::EngineMessageType::SPAWN:
@@ -142,7 +142,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
                 Unite *hero = j->equipe()->factory()->create(j, avatar,
                               avatar->classe(),
                               message.ints[mf::EngineMessageKey::OBJECT_ID]);
-                hero->setPosition(message.positions[mf::EngineMessageKey::OBJECT_POSITION] + Vector3D(0, 100, 0));
+                hero->teleport(message.positions[mf::EngineMessageKey::OBJECT_POSITION] + Vector3D(0, 100, 0));
                 m_objectContainer.addObject(hero);
                 if (m_current_joueur == j)
                 {
@@ -187,6 +187,20 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
                 {
                     u->subirDegats(message.ints[mf::EngineMessageKey::OBJECT_HEAL]);
                 }
+            }
+        }
+        break;
+        case mf::EngineMessageType::BUILD:
+        {
+            Equipe *equipe = getEquipe(message.ints[mf::EngineMessageKey::TEAM_ID]);
+            Unite *builder = equipe->getUnite(message.ints[mf::EngineMessageKey::BUILDER]);
+            TypeUnite *type = equipe->faction()->getType(message.ints[mf::EngineMessageKey::OBJECT_TYPE]);
+            Unite *newUnit = equipe->factory()->create(type, message.ints[mf::EngineMessageKey::OBJECT_ID]);
+            newUnit->teleport(message.positions[mf::EngineMessageKey::OBJECT_POSITION]);
+            Batiment *batBuilder = dynamic_cast<Batiment*>(builder);
+            if(batBuilder)
+            {
+                batBuilder->addBuildTask(newUnit);
             }
         }
         break;
@@ -274,4 +288,9 @@ void ClientGameEngine::setSelectedUnits(const std::vector<std::uint32_t> &ids)
             }
         }
     }
+}
+
+ClientNetworkEngine *ClientGameEngine::clientNetwork() const
+{
+    return static_cast<ClientNetworkEngine *>(m_manager->getNetwork());
 }

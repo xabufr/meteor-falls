@@ -4,6 +4,8 @@
 #include "Unite.h"
 #include <string>
 #include <iostream>
+#include <queue>
+#include <Utils/timeduration.h>
 
 class GameEngine;
 class Equipe;
@@ -12,15 +14,11 @@ class Batiment: public Unite
     public:
         Batiment(Equipe*, TypeUnite* type, int id);
 
-        bool isConstructed();
-        bool canBeConstructed();
+        void update(const TimeDuration &time);
+        void addBuildTask(Unite *builded);
 
     private:
-        bool m_isconstructed;
-		/*
-		 * TODO: Utiliser un timer perso
-		 * */
-//        Ogre::Timer m_timer;
+        std::queue<std::pair<TimeDuration, Unite*>> m_buildTasks;
 };
 
 #endif // BATIMENT_H

@@ -42,6 +42,8 @@ enum class EngineMessageKey
     HERO_RECULE     = 35,
     HERO_GAUCHE     = 36,
     HERO_DROITE     = 37,
+    BUILDER			= 38,
+    COUNT			= 39,
 };
 }
 class Packet;

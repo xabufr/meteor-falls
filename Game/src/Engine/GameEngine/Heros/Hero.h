@@ -19,7 +19,7 @@ public:
     JoueurRPG* joueur() const;
     Avatar *avatar() const;
     virtual void update(const TimeDuration &duration);
-    virtual void setPosition(const Vector3D& pos);
+    virtual void teleport(const Vector3D& pos);
     const Quaternion& look() const;
     void setAvancer(bool);
     void setReculer(bool);
@@ -36,7 +36,6 @@ public:
 
 private:
     JoueurRPG *m_joueur;
-    btDynamicsWorld* m_world;
     Avatar *m_avatar;
     btPairCachingGhostObject *m_ghost_object;
     HeroController *m_character_controller;

@@ -4,6 +4,7 @@
 #include "State/State.h"
 #include <Utils/Vector3D.h>
 #include <Utils/rectangle.h>
+#include "RTS/rtsselectedunitscommand.h"
 
 class ClientGameEngine;
 class Camera;
@@ -27,6 +28,7 @@ public:
     WorldObject* getObjectUnderRay(const Ogre::Ray &ray) const;
     Ogre::Ray getMouseRay() const;
     ClientGameEngine *game();
+    void selectedUnitsChanged(const std::vector<WorldObject*> &newSelection);
 
 private:
     void injectCameraEvents();
@@ -37,6 +39,7 @@ private:
     CameraRTS *m_camera;
     CommandConfig *m_commandConfig;
     RTSSelectionManager *m_selectionManager;
+    RTSSelectedUnitsCommand m_selectedUnitsCommands;
 };
 
 #endif /* RTSSTATE_H_ */

@@ -34,3 +34,10 @@ TimeDuration TimeDuration::fromSeconds(float seconds)
     duration.totalSeconds = seconds;
     return duration;
 }
+
+
+TimeDuration &TimeDuration::operator+=(const TimeDuration &other)
+{
+    totalMilliseconds += other.totalMilliseconds;
+    totalSeconds += other.totalSeconds;
+}

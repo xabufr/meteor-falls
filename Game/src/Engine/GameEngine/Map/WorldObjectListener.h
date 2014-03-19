@@ -15,6 +15,7 @@ public:
     {
         return true;
     }
+    virtual void constructionFinished(WorldObject *sender) {}
     virtual void notifyObjectDelete(WorldObject *sender) {}
     virtual ~WorldObjectListener(){}
 };

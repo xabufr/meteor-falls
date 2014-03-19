@@ -10,7 +10,6 @@
 Batiment::Batiment(Equipe *equipe, TypeUnite* type, int id)
     : Unite(equipe, type, id)
 {
-    m_isconstructed = false;
     btCollisionShape *shape = MeshManager::get()->fromOgre(type->meshParameters().at("normal"))->shape;
     btRigidBody::btRigidBodyConstructionInfo BodyCI(0, nullptr, shape);
     m_body = new btRigidBody(BodyCI);
@@ -19,7 +18,24 @@ Batiment::Batiment(Equipe *equipe, TypeUnite* type, int id)
     m_body->setCenterOfMassTransform(tr);
     equipe->game()->bulletWorld()->addCollisionObject(m_body);
 }
-bool Batiment::isConstructed()
+
+void Batiment::update(const TimeDuration &time)
 {
-    return m_isconstructed;
+    if(!m_buildTasks.empty())
+    {
+        TimeDuration &constructionDuration = m_buildTasks.front().first;
+        constructionDuration+= time;
+        Unite *unite = m_buildTasks.front().second;
+        const TypeUnite *type = unite->type();
+        if(type->temps_construction() <= constructionDuration.seconds())
+        {
+            unite->constructionFinished();
+            m_buildTasks.pop();
+        }
+    }
+}
+
+void Batiment::addBuildTask(Unite *builded)
+{
+    m_buildTasks.push(std::pair<TimeDuration, Unite*>(TimeDuration(), builded));
 }

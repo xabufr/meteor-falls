@@ -184,7 +184,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             Joueur *j = m_manager->getGame()->findJoueur(message->ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                             if (j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
                             {
-                                j->getRPG()->hero()->setPosition(message->positions[mf::EngineMessageKey::OBJECT_POSITION]);
+                                j->getRPG()->hero()->teleport(message->positions[mf::EngineMessageKey::OBJECT_POSITION]);
                                 Equipe *e = m_manager->getGame()->getEquipe(message->ints[mf::EngineMessageKey::TEAM_ID]);
                                 if (e)
                                 {
@@ -251,7 +251,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                     Joueur *j = m_manager->getGame()->findJoueur(message->ints[mf::EngineMessageKey::PLAYER_NUMBER]);
                     if (j && j->getTypeGameplay() == Joueur::TypeGameplay::RPG && j->getRPG()->hero())
                     {
-                        j->getRPG()->hero()->setPosition(message->positions[mf::EngineMessageKey::OBJECT_POSITION]);
+                        j->getRPG()->hero()->teleport(message->positions[mf::EngineMessageKey::OBJECT_POSITION]);
                         Equipe *e = m_manager->getGame()->getEquipe(message->ints[mf::EngineMessageKey::TEAM_ID]);
                         if (e)
                         {

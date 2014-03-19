@@ -3,7 +3,7 @@
 #include <list>
 #include "../../../Utils/Vector3D.h"
 #include "../../../Utils/Quaternion.h"
-#include <bullet/btBulletCollisionCommon.h>
+#include <bullet/LinearMath/btMotionState.h>
 
 class GameEngine;
 class WorldObjectListener;
@@ -11,13 +11,14 @@ class WorldObjectView;
 class WorldObjectType;
 class TimeDuration;
 struct BulletRelationPtr;
-class WorldObject
+class WorldObject: public btMotionState
 {
     public:
         WorldObject(GameEngine*, WorldObjectType*, int id);
         virtual ~WorldObject();
 
-        virtual void setPosition(const Vector3D&);
+        virtual void teleport(const Vector3D&);
+        void setPosition(const Vector3D &position);
         const Vector3D& position() const;
         void setRotation(const Quaternion&);
         const Quaternion& rotation() const;
@@ -39,8 +40,14 @@ class WorldObject
         btRigidBody *m_body;
         std::list<WorldObjectListener*> m_listeners;
         int m_id;
+
     private:
         WorldObjectType *m_type;
+
+        // btMotionState interface
+public:
+        virtual void getWorldTransform(btTransform &worldTrans) const override;
+        virtual void setWorldTransform(const btTransform &worldTrans) override;
 };
 
 #endif // WORLDOBJECT_H

@@ -16,9 +16,12 @@
 
 #include <Engine/EngineManager/EngineManager.h>
 #include <Engine/GraphicEngine/GraphicEngine.h>
+#include <Engine/GraphicEngine/Ogre/ogrecontextmanager.h>
+#include <Engine/GraphicEngine/Ogre/OgreWindowInputManager.h>
+
 
 RTSState::RTSState(StateManager *manager, ClientGameEngine *gameEngine) :
-    State(manager), m_gameEngine(gameEngine), m_selectionManager(new RTSSelectionManager(this))
+    State(manager), m_gameEngine(gameEngine), m_selectionManager(new RTSSelectionManager(this)), m_selectedUnitsCommands(this)
 {
     m_commandConfig = Config::get()->getCommandConfig();
     m_camera = new CameraRTS(gameEngine->getMap(), m_commandConfig);
@@ -36,7 +39,7 @@ bool RTSState::isVisible()
 
 void RTSState::enter()
 {
-    CameraManager* cameraManager = m_gameEngine->cameraManager();
+    CameraManager *cameraManager = m_gameEngine->cameraManager();
     cameraManager->setCameraContener(m_camera);
 }
 
@@ -47,6 +50,17 @@ void RTSState::exit()
 ret_code RTSState::work(const TimeDuration &elapsed)
 {
     injectCameraEvents();
+    OIS::Keyboard *keys = OgreContextManager::get()->getInputManager()->getKeyboard();
+    if (keys->isKeyDown(OIS::KeyCode::KC_F))
+    {
+        const TypeUnite *type = nullptr;
+        if (m_selectedUnitsCommands.availableBuilds().size() > 0)
+        {
+            type = *m_selectedUnitsCommands.availableBuilds().begin();
+            if(type != nullptr)
+            m_selectedUnitsCommands.addBuild(type, 1);
+        }
+    }
     return ret_code::CONTINUE;
 }
 
@@ -59,7 +73,7 @@ Ogre::Ray RTSState::getMouseRay() const
 {
     const Ogre::Camera *camera = m_gameEngine->cameraManager()->camera();
     CEGUI::Vector2f mousePosition = CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getDisplayIndependantPosition();
-    Ogre::Ray requestRay = camera->getCameraToViewportRay(mousePosition.d_x,mousePosition.d_y);
+    Ogre::Ray requestRay = camera->getCameraToViewportRay(mousePosition.d_x, mousePosition.d_y);
 
     return requestRay;
 }
@@ -69,14 +83,15 @@ Vector3D RTSState::getMouseProjectedPosition() const
     const MapView *mapView = m_gameEngine->getMapView();
     Ogre::Ray requestRay = getMouseRay();
     boost::optional<Vector3D> mapPosition = mapView->getIntersection(requestRay);
-    if(mapPosition.is_initialized()) {
+    if (mapPosition.is_initialized())
+    {
         return *mapPosition;
     }
     //TODO: projeter sur le plan de la mer, voire passer ça dans la méthode de la map pour plus de cohérence
-    return Vector3D(0,0,0);
+    return Vector3D(0, 0, 0);
 }
 
-std::vector<Unite*> RTSState::getUnitesInRectangleUnderCamera(const Rectangle<float> &rectangle) const
+std::vector<Unite *> RTSState::getUnitesInRectangleUnderCamera(const Rectangle<float> &rectangle) const
 {
     Ogre::PlaneBoundedVolume vol;
     Ogre::Camera *camera = m_gameEngine->cameraManager()->camera();
@@ -99,33 +114,41 @@ std::vector<Unite*> RTSState::getUnitesInRectangleUnderCamera(const Rectangle<fl
     Ogre::PlaneBoundedVolumeListSceneQuery *query = mng->getGraphic()->getSceneManager()->createPlaneBoundedVolumeQuery(volList);
     Ogre::SceneQueryResult result = query->execute();
 
-    std::vector<Unite*> foundUnits;
-    std::for_each(result.movables.begin(), result.movables.end(), [&foundUnits](Ogre::MovableObject *obj) {
-        try {
-            WorldObject *worldObj = Ogre::any_cast<WorldObject*>(obj->getUserObjectBindings().getUserAny());
-            Unite *unite = dynamic_cast<Unite*>(worldObj);
+    std::vector<Unite *> foundUnits;
+    std::for_each(result.movables.begin(), result.movables.end(), [&foundUnits](Ogre::MovableObject * obj)
+    {
+        try
+        {
+            WorldObject *worldObj = Ogre::any_cast<WorldObject *>(obj->getUserObjectBindings().getUserAny());
+            Unite *unite = dynamic_cast<Unite *>(worldObj);
             foundUnits.push_back(unite);
-        } catch(...) {
+        }
+        catch (...)
+        {
         }
     });
 
     return foundUnits;
 }
 
-WorldObject *RTSState::getObjectUnderRay(const Ogre::Ray & ray) const
+WorldObject *RTSState::getObjectUnderRay(const Ogre::Ray &ray) const
 {
     EngineManager *mng = m_gameEngine->getManager();
     Ogre::RaySceneQuery *query = mng->getGraphic()->getSceneManager()->createRayQuery(ray);
-    Ogre::RaySceneQueryResult& queryResult = query->execute();
+    Ogre::RaySceneQueryResult &queryResult = query->execute();
 
-    for(Ogre::RaySceneQueryResultEntry &entry : queryResult) {
-        if(entry.movable) {
+    for (Ogre::RaySceneQueryResultEntry & entry : queryResult)
+    {
+        if (entry.movable)
+        {
             WorldObject *worldObject;
-            try {
-            worldObject = Ogre::any_cast<WorldObject*>(entry.movable->getUserObjectBindings().getUserAny());
-            if(worldObject)
-                return worldObject;
-            } catch (...) {}
+            try
+            {
+                worldObject = Ogre::any_cast<WorldObject *>(entry.movable->getUserObjectBindings().getUserAny());
+                if (worldObject)
+                    return worldObject;
+            }
+            catch (...) {}
         }
     }
     mng->getGraphic()->getSceneManager()->destroyQuery(query);
@@ -137,4 +160,9 @@ WorldObject *RTSState::getObjectUnderRay(const Ogre::Ray & ray) const
 ClientGameEngine *RTSState::game()
 {
     return m_gameEngine;
+}
+
+void RTSState::selectedUnitsChanged(const std::vector<WorldObject *> &newSelection)
+{
+    m_selectedUnitsCommands.changeSelection(newSelection);
 }

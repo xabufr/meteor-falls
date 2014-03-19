@@ -15,6 +15,8 @@ public:
     static TimeDuration fromMilliseconds(int millisec);
     static TimeDuration fromSeconds(float seconds);
 
+    TimeDuration &operator+=(const TimeDuration &other);
+
 private:
     int totalMilliseconds;
     float totalSeconds;

@@ -29,7 +29,6 @@ Hero::Hero(JoueurRPG *j, Avatar *a,  int id):
 Unite(j->joueur()->equipe(), nullptr, id),
 m_joueur(j),
 m_avatar(a),
-m_world(j->joueur()->equipe()->game()->bulletWorld()),
 m_isModified(true)
 {
     m_lastVerticalVelocity = 0.f;
@@ -47,7 +46,7 @@ m_isModified(true)
     m_capsule = new btCapsuleShape(characterWidth, characterHeight);
     m_ghost_object->setCollisionShape (m_capsule);
     m_ghost_object->setCollisionFlags (btCollisionObject::CF_CHARACTER_OBJECT|btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    m_world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+    m_physicalWorld->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 
     btScalar stepHeight = btScalar(1);
 
@@ -55,15 +54,15 @@ m_isModified(true)
     m_character_controller->setMaxSlope(btScalar(0.872664626));  // 50°
     m_character_controller->setFallSpeed(50000);
 
-    m_world->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
-    m_world->addAction(m_character_controller);
-    m_world->getDispatchInfo().m_allowedCcdPenetration=0.0001f;
+    m_physicalWorld->addCollisionObject(m_ghost_object, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::StaticFilter|btBroadphaseProxy::DefaultFilter);
+    m_physicalWorld->addAction(m_character_controller);
+    m_physicalWorld->getDispatchInfo().m_allowedCcdPenetration=0.0001f;
 }
 Hero::~Hero()
 {
     m_joueur->setHero(nullptr);
-    m_world->removeCollisionObject(m_ghost_object);
-    m_world->removeAction(m_character_controller);
+    m_physicalWorld->removeCollisionObject(m_ghost_object);
+    m_physicalWorld->removeAction(m_character_controller);
     delete m_ghost_object;
     delete m_character_controller;
     delete m_capsule;
@@ -99,7 +98,7 @@ void Hero::update(const TimeDuration &duration)
         m_comportementModifie();
         m_isModified=false;
     }
-    setPosition(m_ghost_object->getWorldTransform().getOrigin());
+    teleport(m_ghost_object->getWorldTransform().getOrigin());
     Unite::update(duration);
 }
 void Hero::setAvancer(bool a)
@@ -173,7 +172,7 @@ void Hero::serializeComportement(EngineMessage* mess)
 }
 void Hero::deserializeComportement(EngineMessage* mess)
 {
-    setPosition(mess->positions[mf::EngineMessageKey::OBJECT_POSITION]);
+    teleport(mess->positions[mf::EngineMessageKey::OBJECT_POSITION]);
     setRotation(mess->quaternions[mf::EngineMessageKey::OBJECT_ROTATION]);
     m_reculer = static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_RECULE]);
     m_avancer= static_cast<bool>(mess->ints[mf::EngineMessageKey::HERO_AVANCE]);
@@ -199,10 +198,10 @@ void Hero::m_move(const btVector3& vect)
     Vector3D ogre_vect;
     ogre_vect = m_ghost_object->getWorldTransform().getOrigin();
 }
-void Hero::setPosition(const Vector3D& pos)
+void Hero::teleport(const Vector3D& pos)
 {
     m_character_controller->warp(pos);
-    WorldObject::setPosition(pos);
+    WorldObject::teleport(pos);
 }
 void Hero::sauter()
 {
