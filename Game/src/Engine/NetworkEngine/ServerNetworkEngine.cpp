@@ -9,6 +9,7 @@
 #include "../GameEngine/Joueur/Joueur.h"
 #include "../GameEngine/Factions/Equipe.h"
 #include "../GameEngine/Unites/Unite.h"
+#include "../GameEngine/Unites/Batiment.h"
 #include "../GameEngine/Heros/Hero.h"
 #include "../GameEngine/Heros/Avatar.h"
 
@@ -147,31 +148,52 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                         break;
                         case mf::EngineMessageType::GETOBJECTSLIST:
                         {
-                            for (Equipe * e : m_manager->getGame()->getTeams())
+                            for (Equipe * equipe : m_manager->getGame()->getTeams())
                             {
-                                for (Unite * u : e->unites())
+                                for (Unite * unite : equipe->unites())
                                 {
-                                    if (!u->type()) //C'est un héro, nécessite une synchro plus poussée (avatar)
-                                        continue;
+                                    if (dynamic_cast<Hero*>(unite)) continue;
+                                    if (!unite->isConstructed()) continue;
+
                                     EngineMessage messageUnit(m_manager);
                                     messageUnit.message = mf::EngineMessageType::ADDOBJECT;
-                                    messageUnit.positions[mf::EngineMessageKey::OBJECT_POSITION] = u->position();
-                                    messageUnit.ints[mf::EngineMessageKey::TEAM_ID] = e->id();
-                                    messageUnit.ints[mf::EngineMessageKey::OBJECT_ID] = u->id();
-                                    messageUnit.ints[mf::EngineMessageKey::OBJECT_TYPE] = u->type()->id();
+                                    messageUnit.positions[mf::EngineMessageKey::OBJECT_POSITION] = unite->position();
+                                    messageUnit.ints[mf::EngineMessageKey::TEAM_ID] = equipe->id();
+                                    messageUnit.ints[mf::EngineMessageKey::OBJECT_ID] = unite->id();
+                                    messageUnit.ints[mf::EngineMessageKey::OBJECT_TYPE] = unite->type()->id();
                                     sendToTcp(client, &messageUnit);
+
+                                    Batiment *batiment = dynamic_cast<Batiment*>(unite);
+                                    if (batiment)
+                                    {
+                                        auto buildStack = batiment->buildStack();
+                                        while(!buildStack.empty())
+                                        {
+                                            auto task = buildStack.front();
+                                            EngineMessage messageBuild(nullptr);
+                                            messageBuild.message = mf::EngineMessageType::BUILD;
+                                            messageBuild.ints[mf::EngineMessageKey::BUILDER] = batiment->id();
+                                            messageBuild.ints[mf::EngineMessageKey::TEAM_ID] = batiment->equipe()->id();
+                                            messageBuild.ints[mf::EngineMessageKey::OBJECT_ID] = task.second->id();
+                                            messageBuild.ints[mf::EngineMessageKey::OBJECT_TYPE] = task.second->type()->id();
+                                            messageBuild.positions[mf::EngineMessageKey::OBJECT_POSITION] = task.second->position();
+                                            messageBuild.ints[mf::EngineMessageKey::TIME] = task.first.milliseconds();
+                                            sendToTcp(client, &messageBuild);
+                                            buildStack.pop();
+                                        }
+                                    }
                                 }
                                 //Synchro des héros
-                                for (JoueurRPG * j : e->getRPG())
+                                for (JoueurRPG * joueur : equipe->getRPG())
                                 {
-                                    if (!j->hero())
+                                    if (!joueur->hero())
                                         continue;
                                     EngineMessage messageHero(m_manager);
                                     messageHero.message = mf::EngineMessageType::SPAWN;
-                                    messageHero.ints[mf::EngineMessageKey::PLAYER_NUMBER] = j->joueur()->id();
-                                    j->hero()->avatar()->serialize(&messageHero);
-                                    messageHero.ints[mf::EngineMessageKey::OBJECT_ID] = j->hero()->id();
-                                    messageHero.positions[mf::EngineMessageKey::OBJECT_POSITION] = j->hero()->position();
+                                    messageHero.ints[mf::EngineMessageKey::PLAYER_NUMBER] = joueur->joueur()->id();
+                                    joueur->hero()->avatar()->serialize(&messageHero);
+                                    messageHero.ints[mf::EngineMessageKey::OBJECT_ID] = joueur->hero()->id();
+                                    messageHero.positions[mf::EngineMessageKey::OBJECT_POSITION] = joueur->hero()->position();
                                     messageHero.addToType(EngineType::GameEngineType);
                                     messageHero.ints[mf::EngineMessageKey::RESULT] = 1;
                                     sendToTcp(client, &messageHero);

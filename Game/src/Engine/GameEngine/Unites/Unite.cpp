@@ -4,7 +4,7 @@
 #include "../GameEngine.h"
 
 Unite::Unite(Equipe *equipe, TypeUnite *type, int id):
-    WorldObject(equipe->game(), type, id), m_equipe(equipe), m_constructed(false), m_physicalWorld(equipe->game()->bulletWorld())
+    WorldObject(equipe->game(), type, id), m_equipe(equipe), m_constructed(true), m_physicalWorld(equipe->game()->bulletWorld())
 {
     m_vie = 100;
     m_equipe->addUnit(this);

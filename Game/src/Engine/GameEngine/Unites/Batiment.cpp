@@ -35,7 +35,12 @@ void Batiment::update(const TimeDuration &time)
     }
 }
 
-void Batiment::addBuildTask(Unite *builded)
+void Batiment::addBuildTask(Unite *builded, const TimeDuration& elapsed)
 {
-    m_buildTasks.push(std::pair<TimeDuration, Unite*>(TimeDuration(), builded));
+    m_buildTasks.push(std::pair<TimeDuration, Unite*>(elapsed, builded));
+}
+
+std::queue<std::pair<TimeDuration, Unite *> > Batiment::buildStack() const
+{
+    return m_buildTasks;
 }

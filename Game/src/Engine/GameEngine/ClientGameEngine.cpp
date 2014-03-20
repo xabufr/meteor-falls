@@ -125,6 +125,7 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             Equipe *e = getEquipe(teamId);
             Unite *unit = e->factory()->create(type, id);
             unit->teleport(position);
+            unit->constructionFinished();
             m_objectContainer.addObject(unit);
         }
         break;
@@ -197,10 +198,16 @@ void ClientGameEngine::handleMessage(EngineMessage &message)
             TypeUnite *type = equipe->faction()->getType(message.ints[mf::EngineMessageKey::OBJECT_TYPE]);
             Unite *newUnit = equipe->factory()->create(type, message.ints[mf::EngineMessageKey::OBJECT_ID]);
             newUnit->teleport(message.positions[mf::EngineMessageKey::OBJECT_POSITION]);
+            auto itTime = message.ints.find(mf::EngineMessageKey::TIME);
+            TimeDuration elapsed;
+            if(itTime != message.ints.end())
+            {
+                elapsed = TimeDuration::fromMilliseconds(itTime->second);
+            }
             Batiment *batBuilder = dynamic_cast<Batiment*>(builder);
             if(batBuilder)
             {
-                batBuilder->addBuildTask(newUnit);
+                batBuilder->addBuildTask(newUnit, elapsed);
             }
         }
         break;
