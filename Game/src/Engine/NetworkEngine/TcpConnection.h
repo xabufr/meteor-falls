@@ -33,7 +33,7 @@ private:
 
     boost::asio::ip::tcp::socket *m_socket;
 
-    std::uint8_t m_currentPacketSize;
+    std::uint32_t m_currentPacketSize;
 };
 
 #endif // TCPCONNECTION_H

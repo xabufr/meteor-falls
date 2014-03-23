@@ -23,6 +23,7 @@ void TcpConnection::handleReadHeader(const boost::system::error_code& e)
         return;
     }
     else{
+        m_currentPacketSize = ntohl(m_currentPacketSize);
         m_data_buffer.resize(m_currentPacketSize);
         boost::asio::async_read(*m_socket,
                                 boost::asio::buffer(m_data_buffer),
@@ -57,7 +58,7 @@ void TcpConnection::handleSendData(boost::shared_ptr<char> data, std::size_t siz
 {
     if(isConnected())
     {
-        std::uint8_t contentSize = size;
+        std::uint32_t contentSize = htonl(size);
         std::vector<boost::asio::const_buffer> buffers;
         buffers.push_back(boost::asio::buffer(&contentSize, sizeof(contentSize)));
         buffers.push_back(boost::asio::buffer(data.get(), size));

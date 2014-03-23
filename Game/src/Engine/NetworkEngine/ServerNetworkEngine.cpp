@@ -152,7 +152,7 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                             {
                                 for (Unite * unite : equipe->unites())
                                 {
-                                    if (dynamic_cast<Hero*>(unite)) continue;
+                                    if (dynamic_cast<Hero *>(unite)) continue;
                                     if (!unite->isConstructed()) continue;
 
                                     EngineMessage messageUnit(m_manager);
@@ -163,11 +163,11 @@ void ServerNetworkEngine::work(const TimeDuration &elapsed)
                                     messageUnit.ints[mf::EngineMessageKey::OBJECT_TYPE] = unite->type()->id();
                                     sendToTcp(client, &messageUnit);
 
-                                    Batiment *batiment = dynamic_cast<Batiment*>(unite);
+                                    Batiment *batiment = dynamic_cast<Batiment *>(unite);
                                     if (batiment)
                                     {
                                         auto buildStack = batiment->buildStack();
-                                        while(!buildStack.empty())
+                                        while (!buildStack.empty())
                                         {
                                             auto task = buildStack.front();
                                             EngineMessage messageBuild(nullptr);
