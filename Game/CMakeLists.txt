@@ -2,16 +2,16 @@ project(MeteorFalls)
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 set(EXECUTABLE_OUTPUT_PATH build/)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++0x -ggdb ")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -ggdb ")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
+find_package(Boost REQUIRED REQUIRED COMPONENTS system filesystem serialization thread regex unit_test_framework )
 find_package(OGRE REQUIRED COMPONENTS Terrain)
 find_package(OIS REQUIRED)
 find_package(CEGUI REQUIRED)
-find_package(Boost REQUIRED REQUIRED COMPONENTS system filesystem serialization thread regex unit_test_framework )
 find_package(Bullet REQUIRED)
 find_package(Threads REQUIRED)
 find_package(Tolua++ REQUIRED)
@@ -29,10 +29,10 @@ file(
         source_files
         src/*
         )
+include_directories(${Boost_INCLUDE_DIR})
 include_directories(${OGRE_INCLUDE_DIR} "${OGRE_INCLUDE_DIR}/..")
 include_directories(${OIS_INCLUDE_DIR})
 include_directories(${CEGUI_INCLUDE_DIR}/..)
-include_directories(${Boost_INCLUDE_DIR})
 include_directories(${BULLET_INCLUDE_DIR})
 include_directories(${TOLUA++_INCLUDE_DIR})
 include_directories(${LUA_INCLUDE_DIR})
@@ -74,12 +74,12 @@ target_link_libraries(meteor-falls
     ${CEGUI_LIBRARIES}
     ${CEGUI_OgreRenderer_LIBRARIES}
     ${CEGUI_LuaScriptModule_LIBRARIES}
-    ${Boost_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${OPENSSL_LIBRARIES}
     ${PAGED_GEOMETRY_LIBRARIES}
     ${BULLET_LIBRARIES}
     ${LUA_LIBRARIES}
     ${TOLUA++_LIBRARY}
+    ${Boost_LIBRARIES}
     )
 
