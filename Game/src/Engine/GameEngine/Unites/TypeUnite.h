@@ -37,7 +37,7 @@ class TypeUnite: public WorldObjectType
         const std::string& nom() const;
         const Ressources& cout() const;
         const Ressources& apports() const;
-        int temps_construction() const;
+        float temps_construction() const;
         int attaque() const;
         float vision() const;
         float portee() const;
@@ -61,7 +61,7 @@ class TypeUnite: public WorldObjectType
         int m_vie;
         std::string m_nom;
         Ressources m_cout, m_apports;
-        int m_temps_construction;
+        float m_temps_construction;
         int m_attaque;
         float m_vision, m_portee;
         bool m_spawn;

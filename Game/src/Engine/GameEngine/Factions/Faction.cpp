@@ -193,7 +193,7 @@ void Faction::processUnit(const XmlDocumentManager::Document& nodeUnit)
     unite->m_attaque = nodeUnit.get<int>("attaque");
     unite->m_vision = nodeUnit.get<float>("vision");
     unite->m_portee = nodeUnit.get<float>("portee");
-    unite->m_temps_construction = nodeUnit.get<int>("temps");
+    unite->m_temps_construction = nodeUnit.get<float>("temps");
     unite->m_vie = nodeUnit.get<int>("vie");
 
     unite->m_typeDegats = DegatManager::get()->getDegat(nodeUnit.get<DegatId>("type-degat"));

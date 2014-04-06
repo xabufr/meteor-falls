@@ -50,7 +50,7 @@ const Ressources& TypeUnite::apports() const
 {
     return m_apports;
 }
-int TypeUnite::temps_construction() const
+float TypeUnite::temps_construction() const
 {
     return m_temps_construction;
 }
