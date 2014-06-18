@@ -91,3 +91,4 @@ class: center, middle
 Si nous devions refaire ce projet en recommençant tout, avec pour objectif un jeu fonctionnel nous utiliserions un moteur de jeu.
 
 En concervant les mêmes objectifs, mais avec plus de temps, nous obterions pour des technologies similaires.
+
