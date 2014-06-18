@@ -50,7 +50,15 @@ class: center, middle
 
 ---
 
-# Schémas général de l'architecture
+# Schémas général simplifié de l'architecture
+
+![image](architecture.png)
+
+---
+
+# Schéma général simplifié de la logique de jeu
+
+![image](gameLogic.png)
 
 ---
 
@@ -66,5 +74,20 @@ class: center, middle
 
 ---
 
-# Pour conclure
-Le but de ce projet n'étant pas d'avoir un jeu complet et fonctionnel, mais de comprendre et mettre en œuvre quelques technologies du domaine, nous avons atteint notre objectif.
+# Objectifs
+* Objectifs principaux
+ * Organisation générale d'un jeu
+ * Utilisation de technologies 3D
+ * Meilleur compréhension des problématiques liées au jeux vidéo 
+ * Apprendre à utiliser les shaders plus en profondeur
+ * Travailler sur l'IA des unités, voire une IA de commandant
+* Objetcifs secondaires
+ * Obtenir un Proof Of Concept présentable (concours par exemples)
+ * Travailler sur la génération aléatoire de terrains jouables
+
+---
+
+# Conclusion
+Si nous devions refaire ce projet en recommençant tout, avec pour objectif un jeu fonctionnel nous utiliserions un moteur de jeu.
+
+En concervant les mêmes objectifs, mais avec plus de temps, nous obterions pour des technologies similaires.
