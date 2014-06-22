@@ -1,6 +1,17 @@
 class: center, middle
 # MeteorFalls
 ---
+#Sommaire
+
+* Présentation générale du projet
+* L'équipe
+* Objectifs
+* Choix Techniques
+* Schémas général simplifié de l'architecture
+* Schéma général simplifié de la logique de jeu
+* Conclusion
+
+
 # Présentation générale du projet
 
 * Jeu multijoueurs
