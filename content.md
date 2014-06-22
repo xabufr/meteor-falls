@@ -11,6 +11,7 @@ class: center, middle
 * Schéma général simplifié de la logique de jeu
 * Conclusion
 
+---
 
 # Présentation générale du projet
 
