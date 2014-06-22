@@ -25,6 +25,19 @@ class: center, middle
 
 ---
 
+# Objectifs
+* Objectifs principaux
+ * Organisation générale d'un jeu
+ * Utilisation de technologies 3D
+ * Meilleur compréhension des problématiques liées au jeux vidéo 
+ * Apprendre à utiliser les shaders plus en profondeur
+ * Travailler sur l'IA des unités, voire une IA de commandant
+* Objetcifs secondaires
+ * Obtenir un Proof Of Concept présentable (concours par exemples)
+ * Travailler sur la génération aléatoire de terrains jouables
+
+---
+
 # Choix Techniques
 
 --
@@ -71,19 +84,6 @@ class: center, middle
 * Comment bien gérer le réseau, afin de pouvoir fonctionner dans des conditions variées
 * Comment gérer les différents états de jeu ?
 * Comment gérer différentes architectures machines sur le réseau ?
-
----
-
-# Objectifs
-* Objectifs principaux
- * Organisation générale d'un jeu
- * Utilisation de technologies 3D
- * Meilleur compréhension des problématiques liées au jeux vidéo 
- * Apprendre à utiliser les shaders plus en profondeur
- * Travailler sur l'IA des unités, voire une IA de commandant
-* Objetcifs secondaires
- * Obtenir un Proof Of Concept présentable (concours par exemples)
- * Travailler sur la génération aléatoire de terrains jouables
 
 ---
 
