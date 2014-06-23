@@ -70,7 +70,7 @@ class: center, middle
 * Modèle orienté objet
 * Architecture Modèle/Vue
 * Architecture réseau gouvernée par le serveur…
-* Soutenue par le client pour fluidifier l'expérience du joueur
+* … Soutenue par le client pour fluidifier l'expérience du joueur
 
 
 ---
