@@ -68,7 +68,7 @@ class: center, middle
 
 * Utilisation d'un serveur global
 * Modèle orienté objet
-* Architecture Modéle/Vue
+* Architecture Modèle/Vue
 * Architecture réseau gouvernée par le serveur…
 * Soutenue par le client pour fluidifier l'expérience du joueur
 
